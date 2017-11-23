@@ -1,0 +1,38 @@
+[{
+	    "name":"inBox",
+	    "isDefault":true,
+	    "messageFolderFather": null,
+	    "messages": [ 
+	     {
+			"priority":"NEUTRAL",
+			"subject":"Buenas tardes",
+			"body":"Duda DP",
+			"receptionDate":"2017-10-10"                
+	      },
+	      {
+			"priority":"HIGH",
+			"subject":"Buenas noches",
+			"body":"Duda PSM",
+			"receptionDate":"2017-07-07"                
+	      }    
+		]     
+	 },
+	 {
+	    "name":"outBox",
+	    "isDefault":true,
+	    "messageFolderFather": null,
+	    "messages": [ 
+	     {
+			"priority":"LOW",
+			"subject":"Encantado",
+			"body":"Respuesta profesor",
+			"receptionDate":"2017-10-15"                
+	      },
+	      {
+			"priority":"NEUTRAL",
+			"subject":"Querido profesor",
+			"body":"Respuesta profesora",
+			"receptionDate":"2017-07-17"                
+	      }    
+		]     
+	 }]
