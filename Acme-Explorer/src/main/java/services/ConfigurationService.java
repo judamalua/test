@@ -48,7 +48,6 @@ public class ConfigurationService {
 	//	}
 
 	public Configuration findConfiguration() {
-		this.actorService.checkUserLogin();
 		Configuration result;
 
 		if (this.configurationRepository.findAll().isEmpty())

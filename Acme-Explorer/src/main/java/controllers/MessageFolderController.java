@@ -16,7 +16,7 @@ import domain.Actor;
 import domain.MessageFolder;
 
 @Controller
-@RequestMapping("/MessageFolder")
+@RequestMapping("/messageFolder")
 public class MessageFolderController extends AbstractController {
 
 	@Autowired
@@ -46,21 +46,21 @@ public class MessageFolderController extends AbstractController {
 
 		return result;
 	}
-	//	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	//	public ModelAndView list(@RequestParam final int messageFolderId) {
-	//		ModelAndView result;
-	//		MessageFolder messageFolder;
-	//		Collection<MessageFolder> messageFolders;
-	//
-	//		result = new ModelAndView("messageFolder/list");
-	//
-	//		messageFolder = this.messageFolderService.findOne(messageFolderId);
-	//
-	//		messageFolders = messageFolder.getMessageFolderChildren();
-	//		result.addObject("messageFolders", messageFolders);
-	//
-	//		return result;
-	//	}
+	@RequestMapping(value = "/list", method = RequestMethod.GET, params = "messageFolderId")
+	public ModelAndView list(@RequestParam final int messageFolderId) {
+		ModelAndView result;
+		MessageFolder messageFolder;
+		Collection<MessageFolder> messageFolders;
+
+		result = new ModelAndView("messageFolder/list");
+
+		messageFolder = this.messageFolderService.findOne(messageFolderId);
+
+		messageFolders = messageFolder.getMessageFolderChildren();
+		result.addObject("messageFolders", messageFolders);
+
+		return result;
+	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int messageFolderId) {
@@ -80,12 +80,15 @@ public class MessageFolderController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		MessageFolder messageFolder;
+		Actor actor;
 
 		result = new ModelAndView("messageFolder/edit");
+		actor = this.actorService.findActorByPrincipal();
 
 		messageFolder = this.messageFolderService.create();
 
 		result.addObject("messageFolder", messageFolder);
+		result.addObject("messageFolders", actor.getMessageFolders());
 
 		return result;
 	}

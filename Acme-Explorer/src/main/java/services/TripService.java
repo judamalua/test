@@ -403,14 +403,14 @@ public class TripService {
 
 	//Paginated queries
 
-	public Collection<Trip> findTrips(final String keyword, final Pageable pageable) {
+	public Page<Trip> findTrips(final String keyword, final Pageable pageable) {
 
-		Collection<Trip> result;
+		Page<Trip> result;
 
 		if (keyword != null && keyword != "")
-			result = this.tripRepository.findTrips(keyword);
+			result = this.tripRepository.findTrips(keyword, pageable);
 		else
-			result = this.findAll();
+			result = this.findAll(pageable);
 		return result;
 	}
 

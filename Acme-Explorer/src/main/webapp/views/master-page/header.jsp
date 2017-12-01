@@ -82,7 +82,7 @@
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 			<li><a class="fNiv" href="actor/register-explorer.do"><spring:message code="master.page.register.explorer" /></a></li>
 			<li><a class="fNiv" href="actor/register-ranger.do"><spring:message code="master.page.register.ranger" /></a></li>
-			<li><a class="fNiv" href="trip/list.do"><spring:message code="master.page.trips" /></a></li>
+			<li><a class="fNiv" href="trip/list.do"><spring:message code="master.page.tripList" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
@@ -91,9 +91,10 @@
 					<spring:message code="master.page.profile" /> 
 			        (<security:authentication property="principal.username" />)
 				</a>
+				<li><a href="actor/edit.do"><spring:message code="master.page.actorEdit" /></a></li>					
+					<li><a href="messageFolder/list.do"><spring:message code="master.page.actorMessageFolder" /></a></li>
 				<ul>
-					<li class="arrow"></li>
-					<li><a href="actor/edit.do"><spring:message code="master.page.actorEdit" /></a></li>					
+					<li class="arrow"></li>					
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

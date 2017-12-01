@@ -48,13 +48,13 @@
 		type="submit"
 		name="save"
 		value="<spring:message code="messageFolder.save" />" />
-		
+	<jstl:if test="${messageFolder.id!=0}">
 	<input 
 		type="submit"
 		name="delete"
 		value="<spring:message code="messageFolder.delete" />"
 		onclick="return confirm('<spring:message code='messageFolder.confirm.delete' />') "/>
-	
+	</jstl:if>
 	<input 
 		type="submit"
 		name="cancel"

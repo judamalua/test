@@ -31,14 +31,14 @@
 	<display:column title="${messages}">
 		<a href="message/list.do?messageFolderId=${messageFolder.id}">
 			<button>
-				<spring:message code="messageFolder.messageLink" />
+				<spring:message code="messageFolder.messagesLink" />
 			</button>
 		</a>
 	</display:column>
 	
-	<jstl:if test="${!messageFolder.isFinalMode}">
+	<jstl:if test="${!messageFolder.isDefault}">
 		<display:column >
-			<a href="message/edit.do?messageFolderId=${messageFolder.id}">
+			<a href="messageFolder/edit.do?messageFolderId=${messageFolder.id}">
 				<button>
 					<spring:message code="messageFolder.edit" />
 				</button>
@@ -48,7 +48,7 @@
 
 </display:table>
 
-<a href="message/create.do">
+<a href="messageFolder/create.do">
 	<button>
 		<spring:message code="messageFolder.create" />
 	</button>

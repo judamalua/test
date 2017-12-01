@@ -10,6 +10,15 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
+Errores:
+
+Añadir formato a fechas
+Añadir formato a numeros
+Arreglar iframe de maps
+
+
+<br/>
 <a href="${sponsorship.additionalInfoLink}"><img
 	src="${sponsorship.bannerUrl}" alt="trip.sponsorship" /></a>
 <h1>
@@ -36,7 +45,7 @@
 <p>
 	<spring:message code="trip.category" />
 	:
-	<jstl:out value="${trip.category}" />
+	<jstl:out value="${trip.category.name}" />
 </p>
 <p>
 	<spring:message code="trip.description" />
@@ -75,14 +84,16 @@
 	<spring:message code="trip.tags" />
 	:
 	<jstl:forEach var="tag" items="${trip.tags}" varStatus="index">
-		<jstl:out value="${tag.title}" />
-		<jstl:if test="${trip.tags.size - 1 != index}">, </jstl:if>
+		<jstl:out value="${tag.name}" />
+
+		<%-- 		<jstl:if test="${trip.tags.length != index}">, </jstl:if> --%>
 	</jstl:forEach>
 </p>
 <p>
 	<spring:message code="trip.ranger" />
 	:
-	<jstl:out value="${trip.ranger}" />
+	<jstl:out value="${trip.ranger.name}" />
+	<jstl:out value="${trip.ranger.surname}" />
 </p>
 
 <security:authorize access="hasRole('EXPLORER')">
@@ -126,29 +137,7 @@
 	<spring:message code="detailedTrip.stage.price" var="priceHeader" />
 	<display:column property="price" title="${priceHeader}" sortable="true" />
 </display:table>
-<display:table name="${trip.stories}" id="row2"
-	requestURI="story/list.do?tripId=${trip.id}" pagesize="10"
-	class="displaytag">
 
-	<spring:message code="detailedTrip.story.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" sortable="true" />
-
-	<spring:message code="detailedTrip.story.text" var="textHeader" />
-	<display:column property="text" title="${textHeader}" sortable="false" />
-
-	<spring:message code="detailedTrip.story.attachments"
-		var="attachmentsHeader" />
-	<display:column property="attachments" title="${attachmentsHeader}"
-		sortable="false">
-		<ul>
-			<jstl:forEach var="attachment" items="${row2.attachments}">
-
-				<li>${attachment}</li>
-
-			</jstl:forEach>
-		</ul>
-	</display:column>
-</display:table>
 <display:table name="${trip.survivalClasses}" id="row3"
 	requestURI="survivalClass/list.do?tripId=${trip.id}" pagesize="10"
 	class="displaytag">
@@ -162,14 +151,14 @@
 	<display:column property="description" title="${descriptionHeader}"
 		sortable="false" />
 
-	<spring:message code="detailedTrip.survivalClass.organizationMoment"
-		var="organizationMomentHeader" />
-	<display:column property="organizationMoment"
-		title="${organizationMomentHeader}" sortable="true" />
+	<spring:message code="detailedTrip.survivalClass.organisationMoment"
+		var="organisationMomentHeader" />
+	<display:column property="organisationMoment"
+		title="${organisationMomentHeader}" sortable="true" />
 
 	<spring:message code="detailedTrip.survivalClass.location"
 		var="locationHeader" />
-	<display:column property="location" title="${locationHeader}"
+	<display:column title="${locationHeader}"
 		sortable="false">
 		<p>${row.location.name}</p>
 		<iframe class="mapa"
@@ -199,122 +188,137 @@
 
 			</display:column>
 		</jstl:if>
-		
-		<jstl:if test = "${!joined}">
-		<display:column>
-			<a href = "survivalClass/auditor/leave.do?survivalClassId=${row.id}">
-				<spring:message code = "survivalclass.leave"/>
-			</a>
-		</display:column>
-	</jstl:if>
+
+		<%-- 		<display:column> --%>
+		<%-- 			<a href = "survivalClass/auditor/leave.do?survivalClassId=${row.id}"> --%>
+		<%-- 				<spring:message code = "survivalclass.leave"/> --%>
+		<!-- 			</a> -->
+		<%-- 		</display:column> --%>
 
 	</security:authorize>
 
 </display:table>
 
-<security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${hasManager}">
-		<display:table name="${trip.auditRecords}" id="row4"
-			requestURI="auditRecord/list.do?tripId=${trip.id}" pagesize="10"
-			class="displaytag">
-
-			<spring:message code="detailedTrip.auditRecord.moment" var="momentHeader" />
-			<display:column property="moment" title="${momentHeader}"
-				sortable="true" />
-
-			<spring:message code="detailedTrip.auditRecord.title" var="titleHeader" />
-			<display:column property="title" title="${titleHeader}"
-				sortable="true" />
-
-			<spring:message code="detailedTrip.auditRecord.description"
-				var="descriptionHeader" />
-			<display:column property="description" title="${descriptionHeader}"
-				sortable="false" />
-			<spring:message code="detailedTrip.auditRecord.attachments"
-				var="attachmentsHeader" />
-			<display:column property="attachments" title="${attachmentsHeader}"
-				sortable="false">
-				<ul>
-					<jstl:forEach var="attachment" items="${row4.attachments}">
-
-						<li>${attachment}</li>
-
-					</jstl:forEach>
-				</ul>
-			</display:column>
-			<spring:message code="detailedTrip.auditRecord.auditor" var="auditorHeader" />
-			<display:column property="auditor" title="${auditorHeader}"
-				sortable="false" />
-		</display:table>
-	</jstl:if>
-	
-	
-</security:authorize>
-
-<p>
-	<spring:message code="detailedTrip.legalText" />
-	:
-	<jstl:out value="${trip.legalText}" />
-</p>
-
-<display:table name="${trip.notes}" id="row4"
-	requestURI="notes/list.do?tripId=${trip.id}" pagesize="10"
-	class="displaytag">
-
-	<spring:message code="detailedTrip.notes.moment" var="noteHeader" />
-	<display:column property="moment" title="${noteHeader}" sortable="true" />
-
-	<spring:message code="detailedTrip.notes.remark"
-		var="remarkHeader" />
-	<display:column property="remark" title="${remarkHeader}"/>
-	
-	<jstl:if test="${row.reply!=null}">
-		<spring:message code="detailedTrip.notes.reply" var="replyHeader" />
-		<display:column property="reply" title="${replyHeader}"/>
-		
-		<spring:message code="detailedTrip.notes.momentReply" var="momentReplyHeader" />
-		<display:column property="momentOfReply" title="${momentReplyHeader}"/>
-	</jstl:if>
-	
+<jstl:if test="${trip.auditRecords!=null}">
 	<security:authorize access="hasRole('MANAGER')">
 		<jstl:if test="${hasManager}">
-			<display:column>
-				<a href="note/manager/edit.do?noteId=${row.id}" >
-					<spring:message code="detailedTrip.notes.manager.reply"/>
-				</a>
-			</display:column>
+			<display:table name="${trip.auditRecords}" id="row4"
+				requestURI="auditRecord/list.do?tripId=${trip.id}" pagesize="10"
+				class="displaytag">
+
+				<spring:message code="detailedTrip.auditRecord.moment"
+					var="momentHeader" />
+				<display:column property="moment" title="${momentHeader}"
+					sortable="true" />
+
+				<spring:message code="detailedTrip.auditRecord.title"
+					var="titleHeader" />
+				<display:column property="title" title="${titleHeader}"
+					sortable="true" />
+
+				<spring:message code="detailedTrip.auditRecord.description"
+					var="descriptionHeader" />
+				<display:column property="description" title="${descriptionHeader}"
+					sortable="false" />
+				<spring:message code="detailedTrip.auditRecord.attachments"
+					var="attachmentsHeader" />
+				<display:column property="attachments" title="${attachmentsHeader}"
+					sortable="false">
+					<ul>
+						<jstl:forEach var="attachment" items="${row4.attachments}">
+
+							<li>${attachment}</li>
+
+						</jstl:forEach>
+					</ul>
+				</display:column>
+				<spring:message code="detailedTrip.auditRecord.auditor"
+					var="auditorHeader" />
+				<display:column property="auditor" title="${auditorHeader}"
+					sortable="false" />
+			</display:table>
 		</jstl:if>
 	</security:authorize>
-</display:table>
+</jstl:if>
 
-<security:authorize access="hasRole('AUDITOR')">
-	<a href="note/auditor/edit.do" >
-		<button>
-			<spring:message code="detailedTrip.notes.create"/>
-		</button>
-	</a>
-</security:authorize>
+<jstl:if test="${trip.legalText!=null}">
 
-<display:table name="${trip.stories}" id="row2"
-	requestURI="story/list.do?tripId=${trip.id}" pagesize="10"
-	class="displaytag">
+	<spring:message code="trip.legalText" />
+		:
+		<h2>
+		<jstl:out value="${trip.legalText.title}" />
+	</h2>
+	<br />
+	<jstl:out value="${trip.legalText.body}" />
+	<br />
+	<jstl:out value="${trip.legalText.registrationDate}" />
 
-	<spring:message code="detailedTrip.story.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" sortable="true" />
+</jstl:if>
 
-	<spring:message code="detailedTrip.story.text" var="textHeader" />
-	<display:column property="text" title="${textHeader}" sortable="false" />
+<jstl:if test="${trip.notes!=null}">
+	<display:table name="${trip.notes}" id="row4"
+		requestURI="notes/list.do?tripId=${trip.id}" pagesize="10"
+		class="displaytag">
 
-	<spring:message code="detailedTrip.story.attachments"
-		var="attachmentsHeader" />
-	<display:column property="attachments" title="${attachmentsHeader}"
-		sortable="false">
-		<ul>
-			<jstl:forEach var="attachment" items="${row2.attachments}">
+		<spring:message code="detailedTrip.notes.moment" var="noteHeader" />
+		<display:column property="moment" title="${noteHeader}"
+			sortable="true" />
 
-				<li>${attachment}</li>
+		<spring:message code="detailedTrip.notes.remark" var="remarkHeader" />
+		<display:column property="remark" title="${remarkHeader}" />
 
-			</jstl:forEach>
-		</ul>
-	</display:column>
-</display:table>
+		<jstl:if test="${row.reply!=null}">
+			<spring:message code="detailedTrip.notes.reply" var="replyHeader" />
+			<display:column property="reply" title="${replyHeader}" />
+
+			<spring:message code="detailedTrip.notes.momentReply"
+				var="momentReplyHeader" />
+			<display:column property="momentOfReply" title="${momentReplyHeader}" />
+		</jstl:if>
+
+		<security:authorize access="hasRole('MANAGER')">
+			<jstl:if test="${hasManager}">
+				<display:column>
+					<a href="note/manager/edit.do?noteId=${row.id}"> <spring:message
+							code="detailedTrip.notes.manager.reply" />
+					</a>
+				</display:column>
+			</jstl:if>
+		</security:authorize>
+	</display:table>
+
+	<security:authorize access="hasRole('AUDITOR')">
+		<a href="note/auditor/edit.do">
+			<button>
+				<spring:message code="detailedTrip.notes.create" />
+			</button>
+		</a>
+	</security:authorize>
+</jstl:if>
+
+<jstl:if test="${trip.stories!=null}">
+	<display:table name="${trip.stories}" id="row2"
+		requestURI="story/list.do?tripId=${trip.id}" pagesize="10"
+		class="displaytag">
+
+		<spring:message code="detailedTrip.story.title" var="titleHeader" />
+		<display:column property="title" title="${titleHeader}"
+			sortable="true" />
+
+		<spring:message code="detailedTrip.story.text" var="textHeader" />
+		<display:column property="pieceOfText" title="${textHeader}" sortable="false" />
+
+		<spring:message code="detailedTrip.story.attachments"
+			var="attachmentsHeader" />
+		<display:column property="attachments" title="${attachmentsHeader}"
+			sortable="false">
+			<ul>
+				<jstl:forEach var="attachment" items="${row2.attachments}">
+
+					<li>${attachment}</li>
+
+				</jstl:forEach>
+			</ul>
+		</display:column>
+	</display:table>
+</jstl:if>

@@ -1,5 +1,5 @@
 
-package manager;
+package controllers.manager;
 
 import java.util.Collection;
 

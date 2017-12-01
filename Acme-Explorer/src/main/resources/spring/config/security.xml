@@ -64,8 +64,14 @@
 		<security:intercept-url pattern="/survivalClass/explorer/list-joined.do" access="hasRole('EXPLORER')" />
 		
 		<security:intercept-url pattern="/trip/list.do" access="permitAll" /> 
+		<security:intercept-url pattern="/trip/detailed-trip.do" access="permitAll" /> 
+		<security:intercept-url pattern="/trip/search.do" access="permitAll" /> 
 		<security:intercept-url pattern="/trip/manager/**" access="hasRole('MANAGER')" />
-
+		
+		<security:intercept-url pattern="/messageFolder/list.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/messageFolder/create.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/messageFolder/edit.do" access="isAuthenticated()" /> 
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 
