@@ -152,4 +152,23 @@ public class CategoryService {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @return children categories from root category.
+	 */
+	public Collection<Category> getChildrenFromRoot() {
+
+		Collection<Category> categories;
+		Category category;
+
+		category = this.categoryRepository.findRootCategory();
+		Assert.notNull(category);
+
+		categories = category.getCategories();
+		Assert.notNull(categories);
+
+		return categories;
+
+	}
+
 }
