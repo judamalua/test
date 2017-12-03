@@ -59,6 +59,6 @@
 		type="submit"
 		name="cancel"
 		value="<spring:message code="messageFolder.cancel" />"
-		onclick="javascript: window.location.replace('welcome/index.jsp')" />
+		onclick="javascript: relativeRedir('messageFolder/list.do');" />
 
 </form:form>

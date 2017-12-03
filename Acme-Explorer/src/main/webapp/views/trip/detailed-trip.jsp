@@ -11,14 +11,11 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-Errores:
-
-Añadir formato a fechas
-Añadir formato a numeros
-Arreglar iframe de maps
+Errores: Añadir formato a fechas Añadir formato a numeros Arreglar
+iframe de maps
 
 
-<br/>
+<br />
 <a href="${sponsorship.additionalInfoLink}"><img
 	src="${sponsorship.bannerUrl}" alt="trip.sponsorship" /></a>
 <h1>
@@ -80,15 +77,19 @@ Arreglar iframe de maps
 	:
 	<jstl:out value="${trip.endDate}" />
 </p>
-<p>
-	<spring:message code="trip.tags" />
-	:
-	<jstl:forEach var="tag" items="${trip.tags}" varStatus="index">
-		<jstl:out value="${tag.name}" />
 
-		<%-- 		<jstl:if test="${trip.tags.length != index}">, </jstl:if> --%>
-	</jstl:forEach>
-</p>
+<jstl:if test="${not empty trip.tags}">
+	<p>
+		<spring:message code="trip.tags" />
+		:
+		<jstl:forEach var="tag" items="${trip.tags}" varStatus="index">
+			<jstl:out value="${tag.name}" />
+
+			<%-- 		<jstl:if test="${trip.tags.length != index}">, </jstl:if> --%>
+		</jstl:forEach>
+	</p>
+</jstl:if>
+
 <p>
 	<spring:message code="trip.ranger" />
 	:
@@ -122,84 +123,90 @@ Arreglar iframe de maps
 	</jstl:if>
 </security:authorize>
 
-<display:table name="${trip.stages}" id="row1"
-	requestURI="stage/list.do?tripId=${trip.id}" pagesize="10"
-	class="displaytag">
+<jstl:if test="${not empty trip.stages}">
+	<display:table name="${trip.stages}" id="row1"
+		requestURI="stage/list.do?tripId=${trip.id}" pagesize="10"
+		class="displaytag">
 
-	<spring:message code="detailedTrip.stage.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" sortable="true" />
+		<spring:message code="detailedTrip.stage.title" var="titleHeader" />
+		<display:column property="title" title="${titleHeader}"
+			sortable="true" />
 
-	<spring:message code="detailedTrip.stage.description"
-		var="descriptionHeader" />
-	<display:column property="description" title="${descriptionHeader}"
-		sortable="false" />
+		<spring:message code="detailedTrip.stage.description"
+			var="descriptionHeader" />
+		<display:column property="description" title="${descriptionHeader}"
+			sortable="false" />
 
-	<spring:message code="detailedTrip.stage.price" var="priceHeader" />
-	<display:column property="price" title="${priceHeader}" sortable="true" />
-</display:table>
+		<spring:message code="detailedTrip.stage.price" var="priceHeader" />
+		<display:column property="price" title="${priceHeader}"
+			sortable="true" />
+	</display:table>
+</jstl:if>
 
-<display:table name="${trip.survivalClasses}" id="row3"
-	requestURI="survivalClass/list.do?tripId=${trip.id}" pagesize="10"
-	class="displaytag">
+<jstl:if test="${not empty trip.survivalClasses}">
+	<display:table name="${trip.survivalClasses}" id="row3"
+		requestURI="survivalClass/list.do?tripId=${trip.id}" pagesize="10"
+		class="displaytag">
 
-	<spring:message code="detailedTrip.survivalClass.title"
-		var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" sortable="true" />
+		<spring:message code="detailedTrip.survivalClass.title"
+			var="titleHeader" />
+		<display:column property="title" title="${titleHeader}"
+			sortable="true" />
 
-	<spring:message code="detailedTrip.survivalClass.description"
-		var="descriptionHeader" />
-	<display:column property="description" title="${descriptionHeader}"
-		sortable="false" />
+		<spring:message code="detailedTrip.survivalClass.description"
+			var="descriptionHeader" />
+		<display:column property="description" title="${descriptionHeader}"
+			sortable="false" />
 
-	<spring:message code="detailedTrip.survivalClass.organisationMoment"
-		var="organisationMomentHeader" />
-	<display:column property="organisationMoment"
-		title="${organisationMomentHeader}" sortable="true" />
+		<spring:message code="detailedTrip.survivalClass.organisationMoment"
+			var="organisationMomentHeader" />
+		<display:column property="organisationMoment"
+			title="${organisationMomentHeader}" sortable="true" />
 
-	<spring:message code="detailedTrip.survivalClass.location"
-		var="locationHeader" />
-	<display:column title="${locationHeader}"
-		sortable="false">
-		<p>${row.location.name}</p>
-		<iframe class="mapa"
-			src="https://www.google.com/maps/embed/v1/search?q=${row3.location.gpsCoordinates}&key=AIzaSyBe0wmulZvK1IM3-3jIUgbxt2Ax_QOVW6c"></iframe>
-	</display:column>
+		<spring:message code="detailedTrip.survivalClass.location"
+			var="locationHeader" />
+		<display:column title="${locationHeader}" sortable="false">
+			<p>${row.location.name}</p>
+			<iframe class="mapa"
+				src="https://www.google.com/maps/embed/v1/search?q=${row3.location.gpsCoordinates}&key=AIzaSyBe0wmulZvK1IM3-3jIUgbxt2Ax_QOVW6c"></iframe>
+		</display:column>
 
 
-	<security:authorize access="hasRole('MANAGER')">
-		<jstl:if test="${hasManager}">
-			<display:column>
+		<security:authorize access="hasRole('MANAGER')">
+			<jstl:if test="${hasManager}">
+				<display:column>
 
-				<a href="survivalClass/manager/edit.do?survivalClassId=${row3.id}">
-					<spring:message code="detailed.trip.edit" />
-				</a>
+					<a href="survivalClass/manager/edit.do?survivalClassId=${row3.id}">
+						<spring:message code="detailed.trip.edit" />
+					</a>
 
-			</display:column>
-		</jstl:if>
-	</security:authorize>
+				</display:column>
+			</jstl:if>
+		</security:authorize>
 
-	<security:authorize access="hasRole('EXPLORER')">
-		<jstl:if test="${hasExplorer}">
-			<display:column>
+		<security:authorize access="hasRole('EXPLORER')">
+			<jstl:if test="${hasExplorer}">
+				<display:column>
 
-				<a href="survivalClass/explorer/join.do?survivalClassId=${row3.id}">
-					<spring:message code="detailed.trip.join" />
-				</a>
+					<a href="survivalClass/explorer/join.do?survivalClassId=${row3.id}">
+						<spring:message code="detailed.trip.join" />
+					</a>
 
-			</display:column>
-		</jstl:if>
+				</display:column>
+			</jstl:if>
 
-		<%-- 		<display:column> --%>
-		<%-- 			<a href = "survivalClass/auditor/leave.do?survivalClassId=${row.id}"> --%>
-		<%-- 				<spring:message code = "survivalclass.leave"/> --%>
-		<!-- 			</a> -->
-		<%-- 		</display:column> --%>
+			<%-- 		<display:column> --%>
+			<%-- 			<a href = "survivalClass/auditor/leave.do?survivalClassId=${row.id}"> --%>
+			<%-- 				<spring:message code = "survivalclass.leave"/> --%>
+			<!-- 			</a> -->
+			<%-- 		</display:column> --%>
 
-	</security:authorize>
+		</security:authorize>
 
-</display:table>
+	</display:table>
+</jstl:if>
 
-<jstl:if test="${trip.auditRecords!=null}">
+<jstl:if test="${not empty trip.auditRecords}">
 	<security:authorize access="hasRole('MANAGER')">
 		<jstl:if test="${hasManager}">
 			<display:table name="${trip.auditRecords}" id="row4"
@@ -255,7 +262,7 @@ Arreglar iframe de maps
 
 </jstl:if>
 
-<jstl:if test="${trip.notes!=null}">
+<jstl:if test="${not empty trip.notes}">
 	<display:table name="${trip.notes}" id="row4"
 		requestURI="notes/list.do?tripId=${trip.id}" pagesize="10"
 		class="displaytag">
@@ -296,7 +303,7 @@ Arreglar iframe de maps
 	</security:authorize>
 </jstl:if>
 
-<jstl:if test="${trip.stories!=null}">
+<jstl:if test="${not empty trip.stories}">
 	<display:table name="${trip.stories}" id="row2"
 		requestURI="story/list.do?tripId=${trip.id}" pagesize="10"
 		class="displaytag">
@@ -306,7 +313,8 @@ Arreglar iframe de maps
 			sortable="true" />
 
 		<spring:message code="detailedTrip.story.text" var="textHeader" />
-		<display:column property="pieceOfText" title="${textHeader}" sortable="false" />
+		<display:column property="pieceOfText" title="${textHeader}"
+			sortable="false" />
 
 		<spring:message code="detailedTrip.story.attachments"
 			var="attachmentsHeader" />
