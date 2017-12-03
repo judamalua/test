@@ -58,18 +58,18 @@
 	<form:errors cssClass="error" path="phoneNumber"/>
 	<br/>
 	
-	<form:label path="username">
+	<form:label path="actor.userAccount.username">
 		<spring:message code="actor.username"/>
 	</form:label>
-	<form:input path="username"/>
-	<form:errors cssClass="error" path="username"/>
+	<form:input path="actor.userAccount.username"/>
+	<form:errors cssClass="error" path="actor.userAccount.username"/>
 	<br/>
 	
-	<form:label path="password">
+	<form:label path="actor.userAccount.password">
 		<spring:message code="actor.password"/>
 	</form:label>
-	<form:input path="password"/>
-	<form:errors cssClass="error" path="password"/>
+	<form:input path="actor.userAccount.password"/>
+	<form:errors cssClass="error" path="actor.userAccount.password"/>
 	<br/>
 	
 	<input 

@@ -43,14 +43,14 @@ public class RangerService {
 
 	public Ranger create() {
 
-		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
+		//final UserAccount userAccount = LoginService.getPrincipal();
+		//Assert.notNull(userAccount);
 		//Assert.isTrue(userAccount.getAuthorities().contains(Authority.ADMIN));
 
 		//		final UserAccount userAccount = LoginService.getPrincipal();
 		//		Assert.notNull(userAccount);
 		//		Assert.isTrue(userAccount.getAuthorities().contains(Authority.ADMIN));
-		this.actorService.checkUserLogin();
+		//this.actorService.checkUserLogin();
 
 		Ranger result;
 		final Collection<Trip> trips = new HashSet<Trip>();

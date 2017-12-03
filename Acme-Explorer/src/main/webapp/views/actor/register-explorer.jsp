@@ -16,7 +16,7 @@
 	<form:hidden path="version"/>
 	<form:hidden path="isBanned"/>
 	<form:hidden path="suspicious"/>
-	<form:hidden path="userAccount"/>
+	<form:hidden path="userAccount.authorities" value="${authority}" />
 	<form:hidden path="messageFolders"/>
 	<form:hidden path="socialIdentities"/>
 	
@@ -62,18 +62,18 @@
 	<form:errors cssClass="error" path="phoneNumber"/>
 	<br/>
 	
-	<form:label path="actor.userAccount.username">
+	<form:label path="userAccount.username">
 		<spring:message code="actor.username"/>
 	</form:label>
-	<form:input path="actor.userAccount.username"/>
-	<form:errors cssClass="error" path="actor.userAccount.username"/>
+	<form:input path="userAccount.username"/>
+	<form:errors cssClass="error" path="userAccount.username"/>
 	<br/>
 	
-	<form:label path="actor.userAccount.password">
+	<form:label path="userAccount.password">
 		<spring:message code="actor.password"/>
 	</form:label>
-	<form:input path="actor.userAccount.password"/>
-	<form:errors cssClass="error" path="actor.userAccount.password"/>
+	<form:password path="userAccount.password"/>
+	<form:errors cssClass="error" path="userAccount.password"/>
 	<br/>
 	
 	<input 
@@ -82,7 +82,7 @@
 		value="<spring:message code="actor.save" />">
 	
 	<input 
-		type="submit"
+		type="button"
 		name="cancel"
 		value="<spring:message code="actor.cancel" />"
 		onclick ="javascript: window.location.replace('welcome/index.jsp')">

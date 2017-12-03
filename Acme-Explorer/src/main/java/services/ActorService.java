@@ -136,8 +136,6 @@ public class ActorService {
 		Assert.isTrue(!this.userAccountService.findAll().contains(e.getUserAccount()));
 		Assert.isTrue(!this.actorRepository.exists((e.getId())));
 
-		this.userAccountService.save(e.getUserAccount());
-
 		result = this.actorRepository.save(e);
 
 		return result;

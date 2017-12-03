@@ -33,10 +33,10 @@ public class MessageFolderService {
 	public MessageFolder create() {
 
 		MessageFolder result;
-		UserAccount userAccount;
-
-		userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
+		//		UserAccount userAccount;
+		//
+		//		userAccount = LoginService.getPrincipal();
+		//		Assert.notNull(userAccount);
 
 		result = new MessageFolder();
 		result.setMessageFolderChildren(new ArrayList<MessageFolder>());

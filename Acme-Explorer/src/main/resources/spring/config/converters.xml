@@ -123,6 +123,9 @@
 				
 		<bean class="converters.AuthorityToStringConverter" />
 		<bean class="converters.StringToAuthorityConverter" />
+		
+		<bean class="converters.UserAccountToStringConverter" />
+		<bean class="converters.StringToUserAccountConverter" />
 	</util:list>
 	
 </beans>

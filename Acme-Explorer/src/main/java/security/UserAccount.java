@@ -125,4 +125,9 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "UserAccount [username=" + this.username + ", password=" + this.password + ", authorities=" + this.authorities + "]";
+	}
+
 }

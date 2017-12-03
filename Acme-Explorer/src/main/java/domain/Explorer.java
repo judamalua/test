@@ -84,4 +84,9 @@ public class Explorer extends Actor {
 		this.survivalClasses = survivalClasses;
 	}
 
+	@Override
+	public String toString() {
+		return "Explorer [stories=" + this.stories + ", applications=" + this.applications + ", contacts=" + this.contacts + ", searches=" + this.searches + ", survivalClasses=" + this.survivalClasses + "]" + super.toString();
+	}
+
 }
