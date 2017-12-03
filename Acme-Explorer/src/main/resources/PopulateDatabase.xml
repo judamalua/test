@@ -3115,12 +3115,12 @@
 	<!-- Location -->
 	<bean id="location1" class="domain.Location">
 		<property name="name" value="Amazonas" />
-		<property name="gpsCoordinates" value="121.021 201.210" />
+		<property name="gpsCoordinates" value="22.98,-56.03" />
 	</bean>
 
 	<bean id="location2" class="domain.Location">
 		<property name="name" value="Sahara" />
-		<property name="gpsCoordinates" value="121.222 555.240" />
+		<property name="gpsCoordinates" value="-126.53,27.82" />
 	</bean>
 
 	<!-- Manager -->
