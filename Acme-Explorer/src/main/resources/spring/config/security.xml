@@ -56,6 +56,8 @@
 		
 		<security:intercept-url pattern="/messageFolder/**" access="isAuthenticated()" /> 
 		
+		<security:intercept-url pattern="/message/**" access="isAuthenticated()" />
+		
 		<security:intercept-url pattern="/note/auditor/**" access="hasRole('AUDITOR')" /> 
 		<security:intercept-url pattern="/note/manager/**" access="hasRole('MANAGER')" />
 		

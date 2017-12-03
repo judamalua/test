@@ -12,15 +12,15 @@
 
 <jstl:if test="${father!=null}">
 	<jstl:if test="${ father.messageFolderFather==null}">
-	<a href="messageFolder/list.do">
-		<h2><jstl:out value="${father.name}" /></h2>
-	</a>
+	<h2><a href="messageFolder/list.do">
+		<jstl:out value="${father.name}" />
+	</a></h2>
 	</jstl:if>
 	
 	<jstl:if test="${ father.messageFolderFather!=null}">
-	<a href="messageFolder/list.do?messageFolderId=${father.messageFolderFather.id}">
-		<h2><jstl:out value="${father.name}" /></h2>
-	</a>
+	<h2><a href="messageFolder/list.do?messageFolderId=${father.messageFolderFather.id}">
+		<jstl:out value="${father.name}" />
+	</a></h2>
 	</jstl:if>
 </jstl:if>
 

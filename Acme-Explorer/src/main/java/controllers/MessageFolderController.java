@@ -34,6 +34,8 @@ public class MessageFolderController extends AbstractController {
 		super();
 	}
 
+	// Listing ----------------------------------------------------------------
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
@@ -47,6 +49,7 @@ public class MessageFolderController extends AbstractController {
 
 		return result;
 	}
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET, params = "messageFolderId")
 	public ModelAndView list(@RequestParam final int messageFolderId) {
 		ModelAndView result;
@@ -63,6 +66,8 @@ public class MessageFolderController extends AbstractController {
 
 		return result;
 	}
+
+	// Editing -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int messageFolderId) {
@@ -82,6 +87,9 @@ public class MessageFolderController extends AbstractController {
 
 		return result;
 	}
+
+	// Saving -------------------------------------------------------------------
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final MessageFolder messageFolder, final BindingResult binding) {
 		ModelAndView result;
@@ -100,6 +108,8 @@ public class MessageFolderController extends AbstractController {
 		return result;
 	}
 
+	// Deleting ------------------------------------------------------------------------
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final MessageFolder messageFolder, final BindingResult binding) {
 		ModelAndView result;
@@ -114,6 +124,9 @@ public class MessageFolderController extends AbstractController {
 
 		return result;
 	}
+
+	// Creating -----------------------------------------------------------------------------
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		final ModelAndView result;
@@ -125,6 +138,8 @@ public class MessageFolderController extends AbstractController {
 
 		return result;
 	}
+
+	// Ancillary methods ---------------------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final MessageFolder messageFolder) {
 		ModelAndView result;
@@ -143,6 +158,8 @@ public class MessageFolderController extends AbstractController {
 
 		result.addObject("messageFolder", messageFolder);
 		result.addObject("messageFolders", actor.getMessageFolders());
+
+		result.addObject("message", messageCode);
 
 		return result;
 	}

@@ -32,6 +32,7 @@
 		<value>/views/sponsorship/messages</value>
 		<value>/views/survivalClass/messages</value>
 		<value>/views/category/messages</value>
+		<value>/views/message/messages</value>
 		
 	</util:list>
 
