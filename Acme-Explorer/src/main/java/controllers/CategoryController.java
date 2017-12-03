@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,11 +47,11 @@ public class CategoryController extends AbstractController {
 	public ModelAndView list(@RequestParam final int categoryId) {
 		final ModelAndView result;
 		final Collection<Category> categories;
-		Category category, fatherCategory;
+		Category fatherCategory;
 
-		categories = this.categoryService.getChildrenFromRoot();
-		category = this.categoryService.findOne(categoryId);
-		fatherCategory = category.getFatherCategory();
+		fatherCategory = this.categoryService.findOne(categoryId);
+		Assert.notNull(fatherCategory);
+		categories = fatherCategory.getCategories();
 
 		result = new ModelAndView("category/list");
 		result.addObject("categories", categories);

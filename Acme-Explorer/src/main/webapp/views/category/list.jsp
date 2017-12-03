@@ -8,6 +8,13 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
+<jstl:if test="${fatherCategory != null && fatherCategory.name != \"CATEGORY\"}">
+	<h1><a href="category/list.do?categoryId=${fatherCategory.fatherCategory.id}" ><jstl:out value="${fatherCategory.name}"/></a></h1>
+</jstl:if>
+
+<jstl:set var = "fatherCategoryName" value = "${fatherCategory.name}"/>
+
 <display:table 
 	name="categories"
 	id="category"
@@ -15,26 +22,24 @@
 	pagesize="10"
 	class="displayTag">
 	
-	<jstl:if test="${categoryFather!=null}">
-		<h1><a href="category/list.do?categoryId=${categoryFather.categoryFather.id}" ><jstl:out value="${categoryFather.name}"/></a></h1>
-	</jstl:if>
-	
 	<spring:message code="category.name" var="name"/>
 	<display:column property="name" title="${name}" sortable="true"/>
 
 	<spring:message code="category.fatherCategory" var="fatherCategory"/>
-	<display:column property="fatherCategory" title="${category.fatherCategory}" sortable="true"/>
+	<jstl:if test="${fatherCategoryName != \"CATEGORY\"}">
+	<display:column property="fatherCategory.name" title="${fatherCategory}" sortable="false"/>
+	</jstl:if>
 
 	<spring:message code="category.childrenCategories" var="childrenCategories"/>
 	<display:column title="${childrenCategories}">
-		<a href="category/list.do?categoryId?=${category.id}">
+		<a href="category/list.do?categoryId=${category.id}">
 			<spring:message code="category.childrenCategories.link"/>
 		</a>
 	</display:column>
 
 	<spring:message code="category.trips" var="trips"/>
 	<display:column title="${trips}">
-		<a href="trip/list.do?categoryId?=${category.id}">
+		<a href="trip/list.do?categoryId=${category.id}">
 			<spring:message code="category.trips.link"/>
 		</a>
 	</display:column>
