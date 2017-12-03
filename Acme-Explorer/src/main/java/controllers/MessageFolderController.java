@@ -38,14 +38,12 @@ public class MessageFolderController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<MessageFolder> messageFolders;
-		Actor actor;
 
 		result = new ModelAndView("messageFolder/list");
 
-		actor = this.actorService.findActorByPrincipal();
-
-		messageFolders = actor.getMessageFolders();
+		messageFolders = this.messageFolderService.findRootMessageFolders();
 		result.addObject("messageFolders", messageFolders);
+		result.addObject("father", null);
 
 		return result;
 	}
@@ -61,6 +59,7 @@ public class MessageFolderController extends AbstractController {
 
 		messageFolders = messageFolder.getMessageFolderChildren();
 		result.addObject("messageFolders", messageFolders);
+		result.addObject("father", messageFolder);
 
 		return result;
 	}
@@ -69,16 +68,20 @@ public class MessageFolderController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int messageFolderId) {
 		ModelAndView result;
 		MessageFolder messageFolder;
+		Collection<MessageFolder> messageFolders;
+		Actor actor;
 
 		result = new ModelAndView("messageFolder/edit");
-
+		actor = this.actorService.findActorByPrincipal();
 		messageFolder = this.messageFolderService.findOne(messageFolderId);
+		messageFolders = actor.getMessageFolders();
+		actor.getMessageFolders().removeAll(messageFolder.getMessageFolderChildren());
 
 		result.addObject("messageFolder", messageFolder);
+		result.addObject("messageFolders", messageFolders);
 
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final MessageFolder messageFolder, final BindingResult binding) {
 		ModelAndView result;

@@ -48,15 +48,17 @@
 		type="submit"
 		name="save"
 		value="<spring:message code="messageFolder.save" />" />
+		
 	<jstl:if test="${messageFolder.id!=0}">
-	<input 
-		type="submit"
-		name="delete"
-		value="<spring:message code="messageFolder.delete" />"
-		onclick="return confirm('<spring:message code='messageFolder.confirm.delete' />') "/>
+		<input 
+			type="submit"
+			name="delete"
+			value="<spring:message code="messageFolder.delete" />"
+			onclick="return confirm('<spring:message code='messageFolder.confirm.delete' />') "/>
 	</jstl:if>
+	
 	<input 
-		type="submit"
+		type="button"
 		name="cancel"
 		value="<spring:message code="messageFolder.cancel" />"
 		onclick="javascript: relativeRedir('messageFolder/list.do');" />

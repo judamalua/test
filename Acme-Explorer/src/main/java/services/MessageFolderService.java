@@ -112,6 +112,8 @@ public class MessageFolderService {
 		UserAccount userAccount;
 		Actor actor;
 		Collection<Message> messages;
+		MessageFolder messageFolderFather;
+		final Collection<MessageFolder> messageFolderChildren;
 
 		messages = messageFolder.getMessages();
 		if (this.actorService.findActorByMessageFolder(messageFolder.getId()) != null) {
@@ -125,10 +127,24 @@ public class MessageFolderService {
 
 			actor.getMessageFolders().remove(messageFolder);
 			this.actorService.save(actor);
-		} else
-			for (final Message m : messages)
-				this.messageService.delete(m);
+		}
+
+		messageFolderFather = messageFolder.getMessageFolderFather();
+		if (messageFolderFather != null) {
+			messageFolderFather.getMessageFolderChildren().remove(messageFolder);
+			this.messageFolderRepository.save(messageFolderFather);
+		}
+
+		messageFolderChildren = messageFolder.getMessageFolderChildren();
+
+		for (final MessageFolder messageFolderChild : messageFolderChildren)
+			this.messageFolderRepository.delete(messageFolderChild);
+
+		for (final Message m : messages)
+			this.messageService.delete(m);
+
 		this.messageFolderRepository.delete(messageFolder);
+
 	}
 	private void checkMessageFolder(final MessageFolder messageFolder) {
 
@@ -150,7 +166,7 @@ public class MessageFolderService {
 
 		if (messageFolder.getMessageFolderFather() == null)
 			result = true;
-		else if (!mem.contains(messageFolder.getMessageFolderFather()))
+		else if (mem.contains(messageFolder.getMessageFolderFather()))
 			result = false;
 		else
 			result = this.getRootFather(messageFolder.getMessageFolderFather(), mem);
@@ -197,5 +213,25 @@ public class MessageFolderService {
 		result = actor.getMessageFolders();
 
 		return result;
+	}
+
+	public Collection<MessageFolder> findRootMessageFolders() {
+		this.actorService.checkUserLogin();
+
+		final UserAccount userAccount;
+		final Actor actor;
+		Collection<MessageFolder> result;
+
+		userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+		actor = this.actorService.findActorByUserAccountId(userAccount.getId());
+		Assert.notNull(actor);
+
+		result = this.messageFolderRepository.findRootMessageFolders(actor.getId());
+
+		Assert.notNull(result);
+
+		return result;
+
 	}
 }
