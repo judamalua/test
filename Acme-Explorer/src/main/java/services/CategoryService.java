@@ -171,4 +171,17 @@ public class CategoryService {
 
 	}
 
+	/**
+	 * 
+	 * @return category with name "CATEGORY"
+	 */
+	public Category getRootCategory() {
+		Category category;
+
+		category = this.categoryRepository.findRootCategory();
+		Assert.notNull(category);
+
+		return category;
+	}
+
 }

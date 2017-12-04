@@ -53,6 +53,7 @@
 		<security:intercept-url pattern="/auditRecord/auditor/**" access="hasRole('AUDITOR')" /> 
 		
 		<security:intercept-url pattern="/category/list.do" access="permitAll" />
+		<security:intercept-url pattern="/category/admin/**" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/messageFolder/**" access="isAuthenticated()" /> 
 		
@@ -63,8 +64,8 @@
 		
 		<security:intercept-url pattern="/sponsorship/sponsor/**" access="hasRole('SPONSOR')" /> 
 		
-		<security:intercept-url pattern="/survivalClass/manager/edit.do" access="hasRole('AUDITOR')" /> 
-		<security:intercept-url pattern="/survivalClass/manager/create.do" access="hasRole('AUDITOR')" /> 
+		<security:intercept-url pattern="/survivalClass/manager/edit.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/survivalClass/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/survivalClass/explorer/list-joined.do" access="hasRole('EXPLORER')" />
 		
 		<security:intercept-url pattern="/trip/list.do" access="permitAll" /> 

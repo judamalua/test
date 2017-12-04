@@ -44,4 +44,21 @@
 		</a>
 	</display:column>
 	
+	<security:authorize access="hasRole('ADMIN')">
+	
+	<display:column>
+		<a href="category/admin/edit.do?categoryId=${category.id}">
+			<spring:message code="category.edit"/>
+		</a>
+	</display:column>
+	</security:authorize>
+	
 </display:table>
+
+<security:authorize access = "hasRole('ADMIN')">
+
+	<a href = "category/admin/create.do">
+		<spring:message code = "category.create"/>
+	</a>
+
+</security:authorize>
