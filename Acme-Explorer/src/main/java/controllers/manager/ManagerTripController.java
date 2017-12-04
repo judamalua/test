@@ -66,7 +66,7 @@ public class ManagerTripController extends AbstractController {
 		Collection<Trip> trips;
 		final Manager manager;
 
-		result = new ModelAndView("messageFolder/list");
+		result = new ModelAndView("trip/list");
 		manager = (Manager) this.actorService.findActorByPrincipal();
 
 		trips = this.managerService.findTripsByManager(manager.getId());
