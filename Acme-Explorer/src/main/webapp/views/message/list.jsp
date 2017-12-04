@@ -9,4 +9,44 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<h1>ola jeje</h1>
+<jstl:if test="${messageFolder.messageFolderFather != null}">
+<h1><a href="messageFolder/list.do?messageFolderId=${messageFolder.messageFolderFather.id}" ><jstl:out value="${messageFolder.name}"/></a></h1>
+</jstl:if>
+
+<jstl:if test="${messageFolder.messageFolderFather == null}">
+<h1><a href="messageFolder/list.do" ><jstl:out value="${messageFolder.name}"/></a></h1>
+</jstl:if>
+
+<jstl:set var = "messageFolderName" value = "${messageFolder.name}"/>
+
+<display:table 
+	name="messages"
+	id="message"
+	requestURI="message/list.do"
+	pagesize="10"
+	class="displayTag">
+	
+	<spring:message code="message.priority" var="priority"/>
+	<display:column property="priority" title="${priority}" sortable="false"/>
+
+	<spring:message code="message.subject" var="subject"/>
+	<display:column property="subject" title="${subject}" sortable="false"/>
+	
+
+	<spring:message code="message.body" var="body"/>
+	<display:column property="body" title="${body}" sortable="false"/>
+
+	<spring:message code="message.receptionDate" var="receptionDate"/>
+	<display:column property="receptionDate" title="${receptionDate}" sortable="true"/>
+	
+	<spring:message code="message.sender" var="sender"/>
+	<display:column property="sender.email" title="${sender}" sortable="false"/>
+	
+	<jstl:if test="${messageFolder.name == \"out box\" && messageFolder.isDefault == true}">
+	
+		<spring:message code="message.receiver" var="receiver"/>
+		<display:column property="receiver.email" title="${receiver}" sortable="false"/>
+	
+	</jstl:if>
+	
+</display:table>
