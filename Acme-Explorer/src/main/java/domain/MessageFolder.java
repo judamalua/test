@@ -81,9 +81,5 @@ public class MessageFolder extends DomainEntity {
 	public void setMessages(final Collection<Message> messages) {
 		this.messages = messages;
 	}
-	@Override
-	public String toString() {
-		return "MessageFolder [name=" + this.name + ", isDefault=" + this.isDefault + ", messageFolderFather=" + this.messageFolderFather + ", messages=" + this.messages + "]";
-	}
 
 }

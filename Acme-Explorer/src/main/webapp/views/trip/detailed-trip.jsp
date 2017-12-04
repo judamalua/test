@@ -215,7 +215,7 @@ iframe de maps
 
 				<spring:message code="detailedTrip.auditRecord.moment"
 					var="momentHeader" />
-				<display:column property="moment" title="${momentHeader}"
+				<display:column property="momentWhenCarriedOut" title="${momentHeader}"
 					sortable="true" />
 
 				<spring:message code="detailedTrip.auditRecord.title"

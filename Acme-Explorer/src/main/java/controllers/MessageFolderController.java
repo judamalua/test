@@ -73,17 +73,9 @@ public class MessageFolderController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int messageFolderId) {
 		ModelAndView result;
 		MessageFolder messageFolder;
-		Collection<MessageFolder> messageFolders;
-		Actor actor;
 
-		result = new ModelAndView("messageFolder/edit");
-		actor = this.actorService.findActorByPrincipal();
 		messageFolder = this.messageFolderService.findOne(messageFolderId);
-		messageFolders = actor.getMessageFolders();
-		actor.getMessageFolders().removeAll(messageFolder.getMessageFolderChildren());
-
-		result.addObject("messageFolder", messageFolder);
-		result.addObject("messageFolders", messageFolders);
+		result = this.createEditModelAndView(messageFolder);
 
 		return result;
 	}
@@ -152,12 +144,15 @@ public class MessageFolderController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final MessageFolder messageFolder, final String messageCode) {
 		ModelAndView result;
 		Actor actor;
+		Collection<MessageFolder> messageFolders;
 
 		actor = this.actorService.findActorByPrincipal();
 		result = new ModelAndView("messageFolder/edit");
+		messageFolders = actor.getMessageFolders();
+		messageFolders.removeAll(messageFolder.getMessageFolderChildren());
 
 		result.addObject("messageFolder", messageFolder);
-		result.addObject("messageFolders", actor.getMessageFolders());
+		result.addObject("messageFolders", messageFolders);
 
 		result.addObject("message", messageCode);
 

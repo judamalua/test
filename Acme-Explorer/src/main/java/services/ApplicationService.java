@@ -19,6 +19,7 @@ import domain.Explorer;
 import domain.Manager;
 import domain.Message;
 import domain.MessageFolder;
+import domain.Rejection;
 import domain.Trip;
 
 @Service
@@ -43,6 +44,8 @@ public class ApplicationService {
 	private AdministratorService	administratorService;
 	@Autowired
 	private ExplorerService			explorerService;
+	@Autowired
+	private RejectionService		rejectionService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -89,8 +92,8 @@ public class ApplicationService {
 
 		UserAccount userAccount;
 		Actor actor;
-		// Authority authority;
 		Explorer explorer;
+		Manager manager;
 		Application result;
 
 		userAccount = LoginService.getPrincipal();
@@ -105,11 +108,15 @@ public class ApplicationService {
 		//		authority.setAuthority(Authority.EXPLORER);
 		//		Assert.isTrue(userAccount.getAuthorities().contains(authority));
 
-		explorer = (Explorer) actor;
-
 		result = this.applicationRepository.findOne(applicationId);
 
-		Assert.isTrue(explorer.getApplications().contains(result));
+		if (actor instanceof Explorer) {
+			explorer = (Explorer) actor;
+			Assert.isTrue(explorer.getApplications().contains(result));
+		} else {
+			manager = (Manager) actor;
+			Assert.isTrue(this.managerService.findManagedApplicationsByManager(manager).contains(result));
+		}
 
 		return result;
 
@@ -136,6 +143,7 @@ public class ApplicationService {
 		Message message, messageCopy;
 		Collection<Manager> managers;
 		MessageFolder messageFolderSystem;
+		final Rejection rejection;
 
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);

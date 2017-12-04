@@ -28,14 +28,30 @@
 	<display:column property="rejection.reason" title="${rejection}" sortable="true"/>
 	
 	<spring:message code="application.trip" var="trip"/>
-	<display:column property="trip.title" title="${row.trip.title}" sortable="true"/>
+	<display:column property="trip.title" title="${trip}" sortable="true"/>
 	
 	<security:authorize access="hasRole('MANAGER')">
 	
+	<jstl:set value="${row.status}" var="status"/>
+	<jstl:set value="PENDING" var="pending"/>
 	<display:column>
-		<a href="application/manager/edit.do">
-			<spring:message code="application.edit"/>
-		</a>
+		<jstl:if test="${status == pending}">
+			<a href="application/manager/edit.do?applicationId=${row.id}">
+				<button>
+					<spring:message code="application.edit"/>
+				</button>
+			</a>
+		</jstl:if>
+	</display:column>
+	
+	<display:column>
+		<jstl:if test="${status == pending}">
+			<a href="application/manager/change-status.do?applicationId=${row.id}">
+				<button>
+					<spring:message code="application.change"/>
+				</button>
+			</a>
+		</jstl:if>
 	</display:column>
 	</security:authorize>
 	
