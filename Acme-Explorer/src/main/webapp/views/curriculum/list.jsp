@@ -264,7 +264,7 @@
 	<jstl:if test="${not empty curriculum.endorserRecords}">
 	<security:authorize access="hasRole('RANGER')">
 		
-			<display:table name="${curriculum.endorserRecords}" id="row4"
+			<display:table name="${curriculum.endorserRecords}" id="row5"
 				requestURI="endorserRecord/list.do?curriculumId=${curriculum.id}" pagesize="10"
 				class="displaytag">
 
@@ -299,7 +299,7 @@
 				<security:authorize access="hasRole('RANGER')">
 					
 						<display:column>
-					<a href="endorserRecord/ranger/edit.do?endorserRecordId=${row4.id}"> <spring:message
+					<a href="endorserRecord/ranger/edit.do?endorserRecordId=${row5.id}"> <spring:message
 							code="curriculum.edit" />
 					</a>
 						</display:column>
