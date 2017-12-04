@@ -4,6 +4,7 @@ package services;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -118,12 +119,23 @@ public class ActorService {
 	public Ranger registerRanger(final Ranger r) {
 
 		Ranger result;
+		UserAccount savedUserAccount;
+		String password;
+		Md5PasswordEncoder encoder;
 
 		Assert.notNull(r.getUserAccount());
 		Assert.isTrue(!this.userAccountService.findAll().contains(r.getUserAccount()));
 		Assert.isTrue(!this.actorRepository.exists((r.getId())));
 
-		this.userAccountService.save(r.getUserAccount());
+		encoder = new Md5PasswordEncoder();
+
+		password = r.getUserAccount().getPassword();
+		password = encoder.encodePassword(password, null);
+		r.getUserAccount().setPassword(password);
+
+		savedUserAccount = this.userAccountService.save(r.getUserAccount());
+
+		r.setUserAccount(savedUserAccount);
 		result = this.actorRepository.save(r);
 
 		return result;
@@ -135,6 +147,20 @@ public class ActorService {
 		Explorer result;
 		Assert.isTrue(!this.userAccountService.findAll().contains(e.getUserAccount()));
 		Assert.isTrue(!this.actorRepository.exists((e.getId())));
+
+		final UserAccount savedUserAccount;
+		String password;
+		Md5PasswordEncoder encoder;
+
+		encoder = new Md5PasswordEncoder();
+
+		password = e.getUserAccount().getPassword();
+		password = encoder.encodePassword(password, null);
+		e.getUserAccount().setPassword(password);
+
+		savedUserAccount = this.userAccountService.save(e.getUserAccount());
+
+		e.setUserAccount(savedUserAccount);
 
 		result = this.actorRepository.save(e);
 

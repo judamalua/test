@@ -85,7 +85,7 @@
 		type="button"
 		name="cancel"
 		value="<spring:message code="actor.cancel" />"
-		onclick ="javascript: window.location.replace('welcome/index.jsp')">
+		onclick ="javascript: relativeRedir('welcome/index.do');">
 	
 </form:form>
 

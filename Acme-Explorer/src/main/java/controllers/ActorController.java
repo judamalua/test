@@ -13,7 +13,6 @@ package controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
-import security.UserAccount;
 import services.ActorService;
 import services.ExplorerService;
 import services.RangerService;
@@ -50,24 +48,14 @@ public class ActorController extends AbstractController {
 		super();
 	}
 
-	// Action-1 ---------------------------------------------------------------		
+	// Register-Explorer ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/register-explorer", method = RequestMethod.GET)
 	public ModelAndView registerExplorer() {
 		ModelAndView result;
 		Actor actor;
-		UserAccount userAccount, savedUserAccount;
-		Authority authority;
-
-		userAccount = new UserAccount();
-		authority = new Authority();
-
-		authority.setAuthority(Authority.EXPLORER);
-		userAccount.addAuthority(authority);
-		savedUserAccount = this.userAccountService.save(userAccount);
 
 		actor = this.explorerService.create();
-		actor.setUserAccount(savedUserAccount);
 
 		result = this.createEditModelAndView(actor);
 
@@ -77,26 +65,16 @@ public class ActorController extends AbstractController {
 	@RequestMapping(value = "/register-explorer", method = RequestMethod.POST, params = "save")
 	public ModelAndView registerExplorer(@Valid final Explorer explorer, final BindingResult binding) {
 		ModelAndView result;
-		String password;
-		Md5PasswordEncoder encoder;
-
-		encoder = new Md5PasswordEncoder();
-
-		password = explorer.getUserAccount().getPassword();
-		password = encoder.encodePassword(password, null);
-		explorer.getUserAccount().setPassword(password);
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(explorer, "actor.params.error");
 		else
 			try {
-
 				this.actorService.registerExplorer(explorer);
-				result = new ModelAndView("redirect: /");
+				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(explorer, "actor.commit.error");
 			}
-		result = this.createEditModelAndView(explorer);
 
 		return result;
 	}
@@ -104,46 +82,29 @@ public class ActorController extends AbstractController {
 	public ModelAndView registerRanger() {
 		ModelAndView result;
 		Actor actor;
-		UserAccount userAccount;
-		Authority authority;
-
-		userAccount = new UserAccount();
-		authority = new Authority();
-		authority.setAuthority(Authority.RANGER);
-		userAccount.addAuthority(authority);
 
 		actor = this.rangerService.create();
-		actor.setUserAccount(userAccount);
 
 		result = this.createEditModelAndView(actor);
 
 		return result;
 	}
 
+	// Register-ranger -----------------------------------------------
+
 	@RequestMapping(value = "/register-ranger", method = RequestMethod.POST, params = "save")
 	public ModelAndView registerExplorer(@Valid final Ranger ranger, final BindingResult binding) {
 		ModelAndView result;
-		String password;
-		Md5PasswordEncoder encoder;
-
-		encoder = new Md5PasswordEncoder();
-
-		password = ranger.getUserAccount().getPassword();
-		password = encoder.encodePassword(password, null);
-
-		ranger.getUserAccount().setPassword(password);
-		this.userAccountService.save(ranger.getUserAccount());
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(ranger, "actor.params.error");
 		else
 			try {
 				this.actorService.registerRanger(ranger);
-				result = new ModelAndView("redirect: /");
+				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(ranger, "actor.commit.error");
 			}
-		result = this.createEditModelAndView(ranger);
 
 		return result;
 	}
