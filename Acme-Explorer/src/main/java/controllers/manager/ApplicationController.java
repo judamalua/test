@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  */
 
-package controllers;
+package controllers.manager;
 
 import java.util.Collection;
 
@@ -22,11 +22,12 @@ import security.UserAccount;
 import services.ActorService;
 import services.ApplicationService;
 import services.ManagerService;
+import controllers.AbstractController;
 import domain.Application;
 import domain.Manager;
 
 @Controller
-@RequestMapping("/manager")
+@RequestMapping("application/manager")
 public class ApplicationController extends AbstractController {
 
 	@Autowired
@@ -56,17 +57,10 @@ public class ApplicationController extends AbstractController {
 
 		final Collection<Application> applications = this.managerService.findManagedApplicationsByManager(actor);
 		result.addObject("applications", applications);
+		result.addObject("requestUri", "application/manager/list.do");
 
 		return result;
 	}
 	// Action-2 ---------------------------------------------------------------		
 
-	@RequestMapping("/action-2")
-	public ModelAndView action2() {
-		ModelAndView result;
-
-		result = new ModelAndView("customer/action-2");
-
-		return result;
-	}
 }

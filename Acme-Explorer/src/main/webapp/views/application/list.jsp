@@ -10,7 +10,7 @@
 
 <display:table 
 	name="applications"
-	id="application"
+	id="row"
 	requestURI="${requestUri}"
 	pagesize="10"
 	class="displayTag">
@@ -28,7 +28,7 @@
 	<display:column property="rejection.reason" title="${rejection}" sortable="true"/>
 	
 	<spring:message code="application.trip" var="trip"/>
-	<display:column property="trip.title" title="${application.trip.title}" sortable="true"/>
+	<display:column property="trip.title" title="${row.trip.title}" sortable="true"/>
 	
 	<security:authorize access="hasRole('MANAGER')">
 	
