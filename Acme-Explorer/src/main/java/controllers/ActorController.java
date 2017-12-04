@@ -50,6 +50,41 @@ public class ActorController extends AbstractController {
 
 	// Register-Explorer ---------------------------------------------------------------		
 
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		ModelAndView result;
+		Actor actor;
+
+		actor = this.actorService.findActorByPrincipal();
+
+		result = new ModelAndView("actor/edit");
+		result.addObject("actor", actor);
+
+		return result;
+	}
+
+	//Arreglar
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Actor actor, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			result = new ModelAndView("actor/edit");
+			result.addObject("actor", actor);
+			result.addObject("message", "actor.params.error");
+		} else
+			try {
+				this.actorService.save(actor);
+				result = new ModelAndView("redirect:/welcome/index.do");
+			} catch (final Throwable oops) {
+				result = new ModelAndView("actor/edit");
+				result.addObject("actor", actor);
+				result.addObject("message", "actor.params.error");
+			}
+
+		return result;
+	}
+
 	@RequestMapping(value = "/register-explorer", method = RequestMethod.GET)
 	public ModelAndView registerExplorer() {
 		ModelAndView result;

@@ -19,7 +19,6 @@ import domain.Explorer;
 import domain.Manager;
 import domain.Message;
 import domain.MessageFolder;
-import domain.Rejection;
 import domain.Trip;
 
 @Service
@@ -44,8 +43,6 @@ public class ApplicationService {
 	private AdministratorService	administratorService;
 	@Autowired
 	private ExplorerService			explorerService;
-	@Autowired
-	private RejectionService		rejectionService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -143,7 +140,6 @@ public class ApplicationService {
 		Message message, messageCopy;
 		Collection<Manager> managers;
 		MessageFolder messageFolderSystem;
-		final Rejection rejection;
 
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
