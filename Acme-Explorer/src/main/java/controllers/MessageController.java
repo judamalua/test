@@ -59,7 +59,7 @@ public class MessageController extends AbstractController {
 			result = this.createEditModelAndView(message, "message.params.error");
 		else
 			try {
-				this.messageService.save(message);
+				this.actorService.sendMessage(message, message.getSender(), message.getReceiver());
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(message, "message.commit.error");
