@@ -21,6 +21,8 @@
 <form:form action = "personalRecord/ranger/edit.do" modelAttribute = "personalRecord">
 	
 	<form:hidden path = "curriculum" />
+	<form:hidden path = "id" />
+	<form:hidden path = "version" />
 	
 	<form:label path = "nameOfCandidate">
 		<spring:message code = "personalRecord.nameOfCandidate" />:

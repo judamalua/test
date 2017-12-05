@@ -21,6 +21,8 @@
 <form:form action = "professionalRecord/ranger/edit.do" modelAttribute = "professionalRecord">
 	
 	<form:hidden path = "curriculum" />
+	<form:hidden path = "id" />
+	<form:hidden path = "version" />
 	
 	<form:label path = "companyName">
 		<spring:message code = "professionalRecord.companyName" />:
@@ -73,7 +75,7 @@
 		value="<spring:message code="professionalRecord.save" />" />
 		
 
-	<jstl:if test="${auditRecord.id!=0}">
+	<jstl:if test="${profesionalRecord.id!=0}">
 		<input 
 			type="submit"
 			name="delete"
