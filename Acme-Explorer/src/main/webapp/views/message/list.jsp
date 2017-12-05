@@ -50,3 +50,9 @@
 	</jstl:if>
 	
 </display:table>
+
+<a href="message/create.do">
+	<button>
+		<spring:message code="message.create"/>
+	</button>
+</a>

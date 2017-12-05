@@ -78,47 +78,47 @@
 			<spring:message code="application.creditCard.info" />
 		</h2>
 
-		<form:label path="holderName">
+		<form:label path="creditCard.holderName">
 			<spring:message code="application.holderName" />
 		</form:label>
-		<form:input path="holderName" />
-		<form:errors cssClass="error" path="holderName" />
+		<form:input path="creditCard.holderName" />
+		<form:errors cssClass="error" path="creditCard.holderName" />
 		<br />
 
 
-		<form:label path="brandName">
+		<form:label path="creditCard.brandName">
 			<spring:message code="application.brandName" />
 		</form:label>
-		<form:input path="brandName" />
-		<form:errors cssClass="error" path="brandName" />
+		<form:input path="creditCard.brandName" />
+		<form:errors cssClass="error" path="creditCard.brandName" />
 		<br />
 
-		<form:label path="number">
+		<form:label path="creditCard.number">
 			<spring:message code="application.number" />
 		</form:label>
-		<form:input path="number" placeholder="xxxxxxxxxxxxxxxx" />
-		<form:errors cssClass="error" path="number" />
+		<form:input path="creditCard.number" placeholder="xxxxxxxxxxxxxxxx" />
+		<form:errors cssClass="error" path="creditCard.number" />
 		<br />
 
-		<form:label path="expirationMonth">
+		<form:label path="creditCard.expirationMonth">
 			<spring:message code="application.expirationMonth" />
 		</form:label>
-		<form:input path="expirationMonth" />
-		<form:errors cssClass="error" path="expirationMonth" placeholder="xx" />
+		<form:input path="creditCard.expirationMonth" />
+		<form:errors cssClass="error" path="creditCard.expirationMonth" placeholder="xx" />
 		<br />
 
-		<form:label path="expirationYear">
+		<form:label path="creditCard.expirationYear">
 			<spring:message code="application.expirationYear" />
 		</form:label>
-		<form:input path="expirationYear" placeholder="xx" />
-		<form:errors cssClass="error" path="expirationYear" />
+		<form:input path="creditCard.expirationYear" placeholder="xx" />
+		<form:errors cssClass="error" path="creditCard.expirationYear" />
 		<br />
 
-		<form:label path="cvv">
+		<form:label path="creditCard.cvv">
 			<spring:message code="application.cvv" />
 		</form:label>
-		<form:input path="cvv" placeholder="xxx" />
-		<form:errors cssClass="error" path="cvv" />
+		<form:input path="creditCard.cvv" placeholder="xxx" />
+		<form:errors cssClass="error" path="creditCard.cvv" />
 		<br />
 
 	</security:authorize>

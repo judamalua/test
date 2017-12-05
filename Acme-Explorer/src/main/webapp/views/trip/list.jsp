@@ -81,7 +81,7 @@
 </display:table>
 
 <security:authorize access="hasRole('MANAGER')">
-	<a href="trip/manager/edit.do">
+	<a href="trip/manager/create.do">
 		<button>
 			<spring:message code="trip.create" />
 		</button>

@@ -130,7 +130,7 @@ public class TripService {
 		Assert.notNull(trip);
 		final Authority auth = new Authority();
 		auth.setAuthority(Authority.MANAGER);
-		if (LoginService.getPrincipal().getAuthorities().contains(auth))
+		if (LoginService.getPrincipal().getAuthorities().contains(auth) && trip.getId() != 0)
 			Assert.isTrue(trip.getPublicationDate().before(new Date()));
 		Assert.isTrue(trip.getStartDate().before(trip.getEndDate()));
 
@@ -144,7 +144,7 @@ public class TripService {
 		if (trip.getPublicationDate().before(new Date()))
 			Assert.isTrue(trip.getCancelReason() == null || trip.getCancelReason() == "");
 
-		if (trip.getCancelReason() != null)
+		if (trip.getCancelReason() != null && trip.getCancelReason() != "")
 			Assert.isTrue(trip.getPublicationDate().after(new Date()) && trip.getStartDate().after(new Date()));
 
 		Trip result;
@@ -170,6 +170,9 @@ public class TripService {
 		price = price * configuration.getVat();
 		trip.setPrice(price);
 
+		if (trip.getTags().contains(null))
+			trip.getTags().remove(null);
+
 		result = this.tripRepository.save(trip);
 
 		if (trip.getId() != 0) {
@@ -185,16 +188,16 @@ public class TripService {
 				}
 
 			//managers = this.managerService.findManagerByTrip(trip.getId());
-			managers = result.getManagers();
 
-			for (final Manager m : managers)
-				if (!m.getTrips().contains(result)) {
-					if (m.getTrips().contains(trip))
-						m.getTrips().remove(trip);
-					m.getTrips().add(result);
-					this.managerService.save(m);
-				}
 		}
+		managers = result.getManagers();
+		for (final Manager m : managers)
+			if (!m.getTrips().contains(result)) {
+				if (m.getTrips().contains(trip))
+					m.getTrips().remove(trip);
+				m.getTrips().add(result);
+				this.managerService.save(m);
+			}
 
 		return result;
 	}
@@ -334,7 +337,7 @@ public class TripService {
 
 		alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-		res = year + "" + month + "" + day + "-";
+		res = (year < 10 ? "0" + year : year) + "" + (month < 10 ? "0" + month : month) + "" + (day < 10 ? "0" + day : day) + "-";
 
 		for (int i = 0; i < 4; i++)
 			res += alphabet.charAt(random.nextInt(alphabet.length()));

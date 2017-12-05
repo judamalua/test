@@ -229,7 +229,7 @@ public class Trip extends DomainEntity {
 		sponsorship.setTrip(null);
 	}
 
-	@NotEmpty
+	@NotNull
 	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<Stage> getStages() {
 		return this.stages;

@@ -3,9 +3,12 @@ package controllers.manager;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,7 +69,7 @@ public class TripManagerController extends AbstractController {
 		Collection<Trip> trips;
 		final Manager manager;
 
-		result = new ModelAndView("messageFolder/list");
+		result = new ModelAndView("trip/list");
 		manager = (Manager) this.actorService.findActorByPrincipal();
 
 		trips = this.managerService.findTripsByManager(manager.getId());
@@ -89,14 +92,49 @@ public class TripManagerController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Trip trip, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(trip, "trip.params.error");
+		else
+			try {
+				this.tripService.save(trip);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(trip, "trip.commit.error");
+			}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@Valid final Trip trip, final BindingResult binding) {
+		ModelAndView result;
+
+		try {
+			this.tripService.delete(trip);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(trip, "trip.commit.error");
+		}
+
+		return result;
+	}
+
 	// Creating ---------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
 		Trip trip;
+		Manager manager;
 
 		trip = this.tripService.create();
+		manager = (Manager) this.actorService.findActorByPrincipal();
+		trip.getManagers().add(manager);
+
 		result = this.createEditModelAndView(trip);
 
 		return result;
@@ -129,6 +167,7 @@ public class TripManagerController extends AbstractController {
 		result.addObject("legalTexts", legalTexts);
 		result.addObject("tags", tags);
 		result.addObject("categories", categories);
+		result.addObject("trip", trip);
 
 		result.addObject("message", messageCode);
 

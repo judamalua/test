@@ -98,7 +98,7 @@ iframe de maps
 </p>
 
 <security:authorize access="hasRole('EXPLORER')">
-	<jstl:if test="${hasExplorer}">
+	<jstl:if test="${!hasExplorer}">
 		<jsp:useBean id="now" class="java.util.Date" />
 		<fmt:formatDate var="currentDate" value="${now}"
 			pattern="dd/MM/yyyy HH:mm" />

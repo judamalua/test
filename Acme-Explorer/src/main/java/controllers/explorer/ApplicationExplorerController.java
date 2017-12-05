@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  */
 
-package controllers.manager;
+package controllers.explorer;
 
 import java.util.Collection;
 
@@ -22,34 +22,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import security.UserAccount;
 import services.ActorService;
 import services.ApplicationService;
-import services.ManagerService;
-import services.RejectionService;
+import services.ExplorerService;
+import services.TripService;
 import controllers.AbstractController;
 import domain.Application;
-import domain.Manager;
-import domain.Rejection;
+import domain.Explorer;
+import domain.Trip;
 
 @Controller
-@RequestMapping("/application/manager")
-public class ApplicationManagerController extends AbstractController {
+@RequestMapping("/application/explorer")
+public class ApplicationExplorerController extends AbstractController {
 
 	@Autowired
-	ManagerService		managerService;
+	ExplorerService		explorerService;
 	@Autowired
 	ActorService		actorService;
 	@Autowired
 	ApplicationService	applicationService;
 	@Autowired
-	RejectionService	rejectionService;
+	TripService			tripService;
 
 
 	// Constructors -----------------------------------------------------------
 
-	public ApplicationManagerController() {
+	public ApplicationExplorerController() {
 		super();
 	}
 
@@ -58,15 +56,15 @@ public class ApplicationManagerController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView result;
+		Explorer actor;
 
 		result = new ModelAndView("application/list");
 
-		final UserAccount userAccount = LoginService.getPrincipal();
-		final Manager actor = (Manager) this.actorService.findActorByUserAccountId(userAccount.getId());
+		actor = (Explorer) this.actorService.findActorByPrincipal();
 
-		final Collection<Application> applications = this.managerService.findManagedApplicationsByManager(actor);
+		final Collection<Application> applications = this.applicationService.findApplicationsGroupByStatus(actor);
 		result.addObject("applications", applications);
-		result.addObject("requestUri", "application/manager/list.do");
+		result.addObject("requestUri", "application/explorer/list.do");
 
 		return result;
 	}
@@ -87,15 +85,12 @@ public class ApplicationManagerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView reject(@Valid final Application application, final BindingResult binding) {
 		ModelAndView result;
-		Rejection rejection;
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(application, "application.params.error");
 		else
 			try {
-				rejection = application.getRejection();
-				rejection.setApplication(application);
-				this.rejectionService.save(rejection);
+				this.applicationService.save(application);
 				result = new ModelAndView("redirect:list.do");
 
 			} catch (final Throwable oops) {
@@ -105,44 +100,34 @@ public class ApplicationManagerController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/change-status", method = RequestMethod.GET)
-	public ModelAndView save(@RequestParam final int applicationId) {
-		ModelAndView result;
-		Application application;
-
-		application = this.applicationService.findOne(applicationId);
-		application.setStatus("DUE");
-		this.applicationService.save(application);
-		result = new ModelAndView("redirect:list.do");
-
-		return result;
-	}
-
-	// Deleting ------------------------------------------------------------------------
-
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Application application, final BindingResult binding) {
-		ModelAndView result;
-
-		try {
-			this.applicationService.delete(application);
-			result = new ModelAndView("redirect:list.do");
-
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(application, "messageFolder.commit.error");
-		}
-
-		return result;
-	}
+	//	// Deleting ------------------------------------------------------------------------
+	//
+	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	//	public ModelAndView delete(final Application application, final BindingResult binding) {
+	//		ModelAndView result;
+	//
+	//		try {
+	//			this.applicationService.delete(application);
+	//			result = new ModelAndView("redirect:list.do");
+	//
+	//		} catch (final Throwable oops) {
+	//			result = this.createEditModelAndView(application, "messageFolder.commit.error");
+	//		}
+	//
+	//		return result;
+	//	}
 
 	// Creating -----------------------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam final int tripId) {
 		final ModelAndView result;
 		Application application;
+		Trip trip;
 
 		application = this.applicationService.create();
+		trip = this.tripService.findOne(tripId);
+		application.setTrip(trip);
 
 		result = this.createEditModelAndView(application);
 

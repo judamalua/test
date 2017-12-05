@@ -93,7 +93,7 @@ public class ApplicationServiceTest extends AbstractTest {
 
 		final Application application = this.applicationService.create();
 		application.setTrip(trip);
-		application.setCreditCard(c);
+		application.setCreditCard(null);
 
 		final Application savedApplication = this.applicationService.save(application);
 		Assert.isTrue(this.applicationService.findAll().contains(savedApplication));

@@ -16,12 +16,15 @@
 	<form:hidden path="version"/>
 	<form:hidden path="sponsorships"/>
 	<form:hidden path="stories"/>
+	<form:hidden path="stages"/>
 	<form:hidden path="survivalClasses"/>
 	<form:hidden path="cancelReason"/>
-	<form:hidden path="auditRecors"/>
+	<form:hidden path="auditRecords"/>
 	<form:hidden path="notes"/>
 	<form:hidden path="applications"/>
 	<form:hidden path="managers"/>
+	<form:hidden path="price" value="0."/>
+	<form:hidden path="ticker" value="${trip.ticker}"/>
 	
 	<form:label path="title">
 		<spring:message code="trip.title"/>
@@ -37,12 +40,12 @@
 	<form:errors cssClass = "error" path = "description" />
 	<br />
 	
-	<form:label path="price">
-		<spring:message code="trip.price"/>
-	</form:label>
-	<form:input path="price"/>
-	<form:errors cssClass = "error" path = "price" />
-	<br />
+<%-- 	<form:label path="price"> --%>
+<%-- 		<spring:message code="trip.price"/> --%>
+<%-- 	</form:label> --%>
+<%-- 	<form:input path="price"/> --%>
+<%-- 	<form:errors cssClass = "error" path = "price" /> --%>
+<!-- 	<br /> -->
 	
 	<form:label path="requirements">
 		<spring:message code="trip.requirements"/>
@@ -153,7 +156,7 @@
 		type="button"
 		name="cancel"
 		value="<spring:message code="trip.cancel" />"
-		onclick="javascript: window.location.replace('trip/list.do')">
+		onclick="javascript: relativeRedir('trip/manager/list.do')">
 	
 	
 </form:form>
