@@ -361,8 +361,19 @@ public class TripService {
 
 	}
 
+	/**
+	 * 
+	 * @param stageId
+	 * @return the trip associated to the stage sent by parameters
+	 * @author Juanmi
+	 */
 	public Trip getTripFromStageId(final int stageId) {
-		return this.tripRepository.getTripFromStageId(stageId);
+		Trip trip;
+
+		trip = this.tripRepository.getTripFromStageId(stageId);
+		Assert.notNull(trip);
+
+		return trip;
 	}
 
 	private double getPriceStages(final Trip trip) {

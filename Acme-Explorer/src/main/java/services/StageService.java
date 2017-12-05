@@ -61,10 +61,26 @@ public class StageService {
 	public Stage save(final Stage stage) {
 
 		assert stage != null;
-
 		Stage result;
+		//		Trip trip;
+		//		Collection<Stage> stages;
+		//
+		//		trip = this.tripService.getTripFromStageId(stage.getId());
+		//		stages = trip.getStages();
+		//
+		//		Assert.notNull(trip);
+		//		Assert.notNull(stages);
+		//		Assert.isTrue(stages.contains(stage));
 
 		result = this.stageRepository.save(stage);
+
+		//		stages.remove(stage);
+		//		stages.add(result);
+		//
+		//		trip.setStages(stages);
+		//		this.tripService.save(trip);
+		//
+		//		Assert.isTrue(trip.getStages().equals(stages));
 
 		return result;
 
