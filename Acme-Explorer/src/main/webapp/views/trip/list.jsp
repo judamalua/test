@@ -10,10 +10,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form action="trip/search.do" method="get">
+<form action="trip/search.do" method="post">
 	<label> <spring:message code="trip.search" />
 	</label> <input type="text" name="keyword" id="keyword"
-		placeholder="Title, ticker or description">
+		placeholder="<spring:message code="search.keyword.placeholder"/>">
 
 	<security:authorize access="isAuthenticated()">
 

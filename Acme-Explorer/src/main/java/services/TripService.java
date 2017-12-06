@@ -144,6 +144,12 @@ public class TripService {
 			Assert.isTrue(trip.getPublicationDate().after(new Date()));
 		Assert.isTrue(trip.getStartDate().before(trip.getEndDate()));
 
+		if (trip.getId() == 0) {
+			Assert.isTrue(trip.getPublicationDate().after(new Date()));
+			Assert.isTrue(trip.getStartDate().after(trip.getPublicationDate()));
+			Assert.isTrue(trip.getEndDate().after(trip.getStartDate()));
+		}
+
 		Collection<Stage> stages, savedStages;
 		Stage savedStage;
 		double price = 0.;
