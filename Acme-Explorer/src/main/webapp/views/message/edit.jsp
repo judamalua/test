@@ -5,8 +5,7 @@
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <form:form action="message/edit.do"
@@ -15,6 +14,7 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="receptionDate"/>
+	<form:hidden path="sender"/>
 	<form:hidden path="messageFolder"/>
 	
 	<spring:message code="message.priority.low" var="low"/>
@@ -26,29 +26,41 @@
 	</form:label>
 	<form:select path="priority">
 		<form:option title="${low}" value="LOW"/>
-		<form:option value="${neutral}" value="NEUTRAL"/>
-		<form:option value="${high}" value="HIGH"/>
+		<form:option title="${neutral}" value="NEUTRAL"/>
+		<form:option title="${high}" value="HIGH"/>
 	</form:select>
 	<form:errors cssClass="error" path="priority"/>
+	<br/>
+	<br/>
+	<br/>
 	
 	<form:label path="subject">
 		<spring:message code="message.subject"/>
 	</form:label>
 	<form:input path="subject"/>
 	<form:errors cssClass="error" path="subject"/>
+	<br/>
+	<br/>
+	<br/>
 	
 	<form:label path="body">
 		<spring:message code="message.body"/>
 	</form:label>
-	<form:input path="body"/>
+	<form:textarea path="body"/>
 	<form:errors cssClass="error" path="body"/>
+	<br/>
+	<br/>
+	<br/>
+	
 	
 	<form:label path="receiver">
 		<spring:message code="message.receiver"/>
 	</form:label>
 	<form:select path="receiver">
 		<jstl:forEach items="${actors}" var="actor">
-			<form:option title="${actor.name}" value="${actor.id}"/>
+			<jstl:if test="${actor.name!=\"SYSTEM\"}">
+				<form:option label="${actor.email}" value="${actor.id}"/>
+			</jstl:if>
 		</jstl:forEach>
 	</form:select>
 	<form:errors cssClass="error" path="priority"/>

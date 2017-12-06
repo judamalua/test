@@ -66,3 +66,9 @@
 		<spring:message code="messageFolder.create" />
 	</button>
 </a>
+
+<a href="message/create.do">
+	<button>
+		<spring:message code="messageFolder.message.create"/>
+	</button>
+</a>

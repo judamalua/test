@@ -15,6 +15,7 @@ import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
 import domain.Application;
+import domain.CreditCard;
 import domain.Explorer;
 import domain.Manager;
 import domain.Message;
@@ -40,6 +41,8 @@ public class ApplicationService {
 	@Autowired
 	private MessageService			messageService;
 	@Autowired
+	private MessageFolderService	messageFolderService;
+	@Autowired
 	private AdministratorService	administratorService;
 	@Autowired
 	private ExplorerService			explorerService;
@@ -52,15 +55,26 @@ public class ApplicationService {
 		UserAccount userAccount;
 		Actor actor;
 		Application result;
+		CreditCard creditCard;
 
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		actor = this.actorService.findActorByUserAccountId(userAccount.getId());
 		Assert.notNull(actor);
+
+		creditCard = new CreditCard();
+		creditCard.setHolderName("NONE");
+		creditCard.setBrandName("NONE");
+		creditCard.setNumber("1111111111111117");
+		creditCard.setExpirationMonth(1);
+		creditCard.setExpirationYear(99);
+		creditCard.setCvv(999);
+
 		result = new Application();
 
 		result.setDate(new Date(System.currentTimeMillis() - 1));
 		result.setStatus("PENDING");
+		result.setCreditCard(creditCard);
 
 		return result;
 	}
@@ -118,16 +132,62 @@ public class ApplicationService {
 		return result;
 
 	}
+
+	public void changeStatus(final Application application, final String status) {
+
+		Administrator system;
+		Message message, messageCopy;
+		Collection<Manager> managers;
+		MessageFolder messageFolderSystem;
+		Explorer explorer;
+
+		if (!application.getStatus().equals(status)) {
+
+			system = this.administratorService.findSystemAdministrator();
+			explorer = this.explorerService.findExplorerByApplication(application);
+
+			managers = this.managerService.findManagersManage(application);
+			messageFolderSystem = this.messageFolderService.findMessageFolder("out box", system);
+
+			system = this.administratorService.findSystemAdministrator();
+			message = this.messageService.create();
+			message.setMessageFolder(messageFolderSystem);
+			message.setPriority("HIGH");
+			message.setReceiver(explorer);
+			message.setSender(system);
+			message.setSubject("Status changed");
+			message.setBody("The new status of application with id:" + application.getId() + ", is" + application.getStatus() + ".");
+
+			this.actorService.sendMessage(message, system, explorer);
+
+			for (final Manager m : managers) {
+				messageCopy = this.messageService.copyMessage(message);
+				this.actorService.sendMessage(messageCopy, system, m);
+			}
+		}
+		Assert.isTrue(!status.equals("PENDING"));
+		if (status.equals("DUE") || status.equals("REJECTED"))
+			Assert.isTrue(application.getStatus().equals("PENDING"));
+		else if (status.equals("ACCEPTED")) {
+			Assert.isTrue(application.getStatus().equals("DUE"));
+			Assert.isTrue(!application.getCreditCard().getBrandName().equals("NONE"));
+			Assert.isTrue(!application.getCreditCard().getHolderName().equals("NONE"));
+			Assert.isTrue(!application.getCreditCard().getNumber().equals("1111111111111117"));
+		} else if (status.equals("CANCELLED"))
+			Assert.isTrue(application.getStatus().equals("ACCEPTED"));
+
+		application.setStatus(status);
+	}
 	public Application save(final Application application) {
 
 		Assert.notNull(application);
 
 		if (application.getStatus().equals("REJECTED"))
 			Assert.notNull(application.getRejection());
-		if (application.getStatus().equals("DUE"))
-			Assert.notNull(application.getCreditCard() == null);
+		//		if (application.getStatus().equals("DUE"))
+		//			Assert.notNull(application.getCreditCard() == null);
 		if (application.getStatus().equals("ACCEPTED"))
-			Assert.notNull(application.getCreditCard() != null);
+			Assert.isTrue(application.getCreditCard() != null);
 
 		UserAccount userAccount;
 		Actor actor;
@@ -135,11 +195,6 @@ public class ApplicationService {
 		Manager manager;
 		Application result;
 		Trip trip;
-		Application storedApplication;
-		Administrator system;
-		Message message, messageCopy;
-		Collection<Manager> managers;
-		MessageFolder messageFolderSystem;
 
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
@@ -149,11 +204,11 @@ public class ApplicationService {
 
 		application.setDate(new Date(System.currentTimeMillis() - 1));
 
-		storedApplication = this.applicationRepository.findOne(application.getId());
-
 		result = this.applicationRepository.save(application);
 
 		trip = result.getTrip();
+		if (trip.getApplications().contains(application))
+			trip.getApplications().remove(application);
 		trip.getApplications().add(result);
 		this.tripService.save(trip);
 
@@ -167,31 +222,10 @@ public class ApplicationService {
 			if (application.getId() != 0)
 				Assert.isTrue(this.explorerService.findExplorerByApplication(application).equals(explorer));
 
+			if (explorer.getApplications().contains(application))
+				explorer.getApplications().remove(application);
 			explorer.getApplications().add(result);
 			this.explorerService.save(explorer);
-			if (storedApplication != null && !storedApplication.getStatus().equals(result.getStatus())) {
-
-				system = this.administratorService.findSystemAdministrator();
-
-				managers = this.managerService.findManagersManage(result);
-				messageFolderSystem = (MessageFolder) system.getMessageFolders().toArray()[1];
-
-				system = this.administratorService.findSystemAdministrator();
-				message = this.messageService.create();
-				message.setMessageFolder(messageFolderSystem);
-				message.setPriority("HIGH");
-				message.setReceiver(explorer);
-				message.setSender(system);
-				message.setSubject("Status changed");
-				message.setBody("The new status is" + result.getStatus() + ".");
-
-				this.actorService.sendMessage(message, system, explorer);
-
-				for (final Manager m : managers) {
-					messageCopy = this.messageService.copyMessage(message);
-					this.actorService.sendMessage(messageCopy, system, m);
-				}
-			}
 
 		}
 
@@ -315,6 +349,18 @@ public class ApplicationService {
 		Collection<Application> result;
 
 		result = this.applicationRepository.findApplicationsGroupByStatus(e.getId());
+
+		return result;
+	}
+
+	public Collection<Application> findApplications(final Explorer e) {
+
+		Assert.notNull(e);
+		this.actorService.checkUserLogin();
+
+		Collection<Application> result;
+
+		result = this.applicationRepository.findApplications(e.getId());
 
 		return result;
 	}

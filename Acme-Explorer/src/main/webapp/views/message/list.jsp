@@ -19,6 +19,8 @@
 
 <jstl:set var = "messageFolderName" value = "${messageFolder.name}"/>
 
+<jstl:if test="${not empty messages}">
+
 <display:table 
 	name="messages"
 	id="message"
@@ -50,6 +52,7 @@
 	</jstl:if>
 	
 </display:table>
+</jstl:if>
 
 <a href="message/create.do">
 	<button>

@@ -33,8 +33,18 @@ public class MessageService {
 
 	public Message create() {
 		Message result;
+		Actor actor;
+		MessageFolder messageFolder;
 
 		result = new Message();
+		actor = this.actorService.findActorByPrincipal();
+		messageFolder = this.messageFolderService.findMessageFolder("out box", actor);
+
+		actor = this.actorService.findActorByPrincipal();
+		result.setSender(actor);
+		messageFolder = this.messageFolderService.findMessageFolder("out box", actor);
+		result.setMessageFolder(messageFolder);
+		result.setReceptionDate(new Date());
 
 		return result;
 	}

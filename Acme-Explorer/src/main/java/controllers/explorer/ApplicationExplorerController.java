@@ -56,13 +56,13 @@ public class ApplicationExplorerController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView result;
-		Explorer actor;
+		Explorer explorer;
 
 		result = new ModelAndView("application/list");
 
-		actor = (Explorer) this.actorService.findActorByPrincipal();
+		explorer = (Explorer) this.actorService.findActorByPrincipal();
 
-		final Collection<Application> applications = this.applicationService.findApplicationsGroupByStatus(actor);
+		final Collection<Application> applications = this.applicationService.findApplications(explorer);
 		result.addObject("applications", applications);
 		result.addObject("requestUri", "application/explorer/list.do");
 
@@ -90,6 +90,8 @@ public class ApplicationExplorerController extends AbstractController {
 			result = this.createEditModelAndView(application, "application.params.error");
 		else
 			try {
+				if (!application.getCreditCard().getHolderName().equals("NONE") || !application.getCreditCard().getBrandName().equals("NONE") || !application.getCreditCard().getNumber().equals("1111111111111117"))
+					this.applicationService.changeStatus(application, "ACCEPTED");
 				this.applicationService.save(application);
 				result = new ModelAndView("redirect:list.do");
 

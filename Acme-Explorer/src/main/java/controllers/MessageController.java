@@ -60,7 +60,7 @@ public class MessageController extends AbstractController {
 		else
 			try {
 				this.actorService.sendMessage(message, message.getSender(), message.getReceiver());
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:list.do?messageFolderId=" + message.getMessageFolder().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(message, "message.commit.error");
 			}
@@ -72,11 +72,9 @@ public class MessageController extends AbstractController {
 	public ModelAndView create() {
 		final ModelAndView result;
 		Message message;
-		Actor actor;
 
 		message = this.messageService.create();
-		actor = this.actorService.findActorByPrincipal();
-		message.setSender(actor);
+
 		result = this.createEditModelAndView(message);
 
 		return result;
@@ -97,7 +95,7 @@ public class MessageController extends AbstractController {
 
 		actors = this.actorService.findAll();
 
-		result = new ModelAndView("trip/edit");
+		result = new ModelAndView("message/edit");
 		result.addObject("row", message);
 		result.addObject("actors", actors);
 		result.addObject("message", messageCode);

@@ -111,7 +111,7 @@ public class ApplicationManagerController extends AbstractController {
 		Application application;
 
 		application = this.applicationService.findOne(applicationId);
-		application.setStatus("DUE");
+		this.applicationService.changeStatus(application, "DUE");
 		this.applicationService.save(application);
 		result = new ModelAndView("redirect:list.do");
 

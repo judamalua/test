@@ -113,6 +113,16 @@ public class TripService {
 		return result;
 	}
 
+	public Page<Trip> findPublicatedTrips(final Pageable pageable) {
+
+		Page<Trip> result;
+
+		result = this.tripRepository.findPublicatedTrips(pageable);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public Trip findOne(final int tripId) {
 
 		Assert.isTrue(tripId != 0);

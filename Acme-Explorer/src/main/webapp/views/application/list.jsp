@@ -30,10 +30,11 @@
 	<spring:message code="application.trip" var="trip"/>
 	<display:column property="trip.title" title="${trip}" sortable="true"/>
 	
-	<security:authorize access="hasRole('MANAGER')">
-	
 	<jstl:set value="${row.status}" var="status"/>
 	<jstl:set value="PENDING" var="pending"/>
+	<jstl:set value="ACCEPTED" var="accepted"/>
+	<jstl:set value="DUE" var="due"/>
+	<security:authorize access="hasRole('MANAGER')">
 	<display:column>
 		<jstl:if test="${status == pending}">
 			<a href="application/manager/edit.do?applicationId=${row.id}">
@@ -54,5 +55,31 @@
 		</jstl:if>
 	</display:column>
 	</security:authorize>
+	
+	<security:authorize access="hasRole('EXPLORER')">
+	
+	<display:column>
+		<jstl:if test="${status == due}">
+			<a href="application/explorer/edit.do?applicationId=${row.id}">
+				<button>
+					<spring:message code="application.edit.creditCard"/>
+				</button>
+			</a>
+		</jstl:if>
+	</display:column>
+	
+	<jsp:useBean id="currDate" class="java.util.Date" />
+	<fmt:formatDate value="${currDate}" var="currentDate" pattern="yyyy-MM-dd hh:mm:ss"/>
+	<display:column>
+		<jstl:if test="${status == accepted and row.trip.endDate > currentDate}">
+			<a href="application/explorer/cancel.do?applicationId=${row.id}">
+				<button>
+					<spring:message code="application.status.cancel"/>
+				</button>
+			</a>
+		</jstl:if>
+	</display:column>
+	</security:authorize>
+	
 	
 </display:table>

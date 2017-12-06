@@ -58,7 +58,7 @@ public class TripController extends AbstractController {
 		configuration = this.configurationService.findConfiguration();
 		pageable = new PageRequest(page, configuration.getMaxResults());
 
-		tripsPage = this.tripService.findAll(pageable);
+		tripsPage = this.tripService.findPublicatedTrips(pageable);
 		trips = tripsPage.getContent();
 
 		result.addObject("trips", trips);

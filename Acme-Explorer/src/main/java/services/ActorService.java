@@ -214,9 +214,9 @@ public class ActorService {
 		this.checkUserLogin();
 
 		UserAccount userAccount;
-		Message savedMessage, savedMessageCopy;
+		Message savedMessage, savedMessageCopy, messageCopy;
 		MessageFolder messageFolderReceiver;
-		final MessageFolder messageFolderSender;
+		MessageFolder messageFolderSender;
 
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
@@ -229,8 +229,7 @@ public class ActorService {
 			message.getSender().setSuspicious(true);
 			this.actorRepository.save(message.getSender());
 		}
-
-		final Message messageCopy = this.messageService.copyMessage(message);
+		messageCopy = this.messageService.copyMessage(message);
 
 		if (messageCopy.getBody() != null && !this.checkSpamWords(messageCopy))
 			messageFolderReceiver = this.messageFolderService.findMessageFolder("in box", receiver);
