@@ -77,6 +77,8 @@
 		<security:intercept-url pattern="/messageFolder/create.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/messageFolder/edit.do" access="isAuthenticated()" /> 
 		
+		<security:intercept-url pattern="/stage/manager/**" access="hasRole('MANAGER')" />
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

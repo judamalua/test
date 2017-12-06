@@ -68,7 +68,7 @@ public class CategoryAdminController extends AbstractController {
 				result = new ModelAndView("redirect:/category/list.do");
 
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(category, "messageFolder.commit.error");
+				result = this.createEditModelAndView(category, "category.commit.error");
 			}
 
 		return result;

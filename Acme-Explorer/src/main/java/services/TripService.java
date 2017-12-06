@@ -167,7 +167,7 @@ public class TripService {
 		configuration = this.configurationService.findConfiguration();
 
 		price = this.getPriceStages(trip);
-		price = price * configuration.getVat();
+		price *= configuration.getVat();
 		trip.setPrice(price);
 
 		if (trip.getTags().contains(null))

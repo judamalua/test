@@ -39,6 +39,7 @@
 		<value>/views/miscellaneousRecord/messages</value>
 		<value>/views/educationRecord/messages</value>
 		<value>/views/curriculum/messages</value>
+		<value>/views/stage/messages</value>
 		
 	</util:list>
 

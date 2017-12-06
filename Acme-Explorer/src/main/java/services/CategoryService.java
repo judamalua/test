@@ -103,21 +103,32 @@ public class CategoryService {
 
 		assert category != null;
 		assert category.getId() != 0;
+		final Category fatherCategory = category.getFatherCategory();
+		final Collection<Category> categories = category.getCategories();
+		final Collection<Category> fatherCategoryCategories = category.getFatherCategory().getCategories();
 		final Collection<Trip> trips = category.getTrips();
 
 		Assert.isTrue(this.categoryRepository.exists(category.getId()));
 
-		// TODO: Preguntar lunes.
 		// Al eliminar una categoría, referenciamos los viajes a su categoría padre.
 		for (final Trip t : trips) {
 			t.setCategory(category.getFatherCategory());
 			this.tripService.save(t);
 		}
 
+		// Al eliminar una categoría, referenciamos sus categorías hijas a su categoría padre.
+		for (final Category c : categories) {
+			c.setFatherCategory(category.getFatherCategory());
+			this.save(c);
+		}
+
+		fatherCategoryCategories.remove(category);
+		fatherCategory.setCategories(fatherCategoryCategories);
+		this.save(fatherCategory);
+
 		this.categoryRepository.delete(category);
 
 	}
-
 	// Other methods --------------------------------------------------
 
 	private void checkCategory(final Category category) {
