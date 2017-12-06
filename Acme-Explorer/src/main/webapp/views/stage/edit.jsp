@@ -14,7 +14,7 @@
 	
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	
+	<input type="hidden" name="trip" id="trip" value="${trip}"/>
 	
 	
 	<form:label path="title">

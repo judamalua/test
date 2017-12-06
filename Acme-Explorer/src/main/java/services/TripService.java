@@ -141,7 +141,7 @@ public class TripService {
 		final Authority auth = new Authority();
 		auth.setAuthority(Authority.MANAGER);
 		if (LoginService.getPrincipal().getAuthorities().contains(auth) && trip.getId() != 0)
-			Assert.isTrue(trip.getPublicationDate().before(new Date()));
+			Assert.isTrue(trip.getPublicationDate().after(new Date()));
 		Assert.isTrue(trip.getStartDate().before(trip.getEndDate()));
 
 		Collection<Stage> stages, savedStages;
@@ -166,13 +166,11 @@ public class TripService {
 		stages = trip.getStages();
 		savedStages = new HashSet<>();
 
-		if (trip.getId() == 0) {
-			for (final Stage stage : stages) {
-				savedStage = this.stageService.save(stage);
-				savedStages.add(savedStage);
-			}
-			trip.setStages(savedStages);
+		for (final Stage stage : stages) {
+			savedStage = this.stageService.save(stage);
+			savedStages.add(savedStage);
 		}
+		trip.setStages(savedStages);
 
 		configuration = this.configurationService.findConfiguration();
 

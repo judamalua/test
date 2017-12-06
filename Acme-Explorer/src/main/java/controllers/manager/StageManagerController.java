@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.StageService;
+import services.TripService;
 import controllers.AbstractController;
 import domain.Stage;
+import domain.Trip;
 
 @Controller
 @RequestMapping("/stage/manager")
@@ -22,6 +24,8 @@ public class StageManagerController extends AbstractController {
 
 	@Autowired
 	StageService	stageService;
+	@Autowired
+	TripService		tripService;
 
 
 	// Editing ---------------------------------------------------------
@@ -30,10 +34,13 @@ public class StageManagerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int stageId) {
 		ModelAndView result;
 		Stage stage;
+		Trip trip;
 
 		stage = this.stageService.findOne(stageId);
 		Assert.notNull(stage);
-		result = this.createEditModelAndView(stage);
+		trip = this.tripService.getTripFromStageId(stageId);
+
+		result = this.createEditModelAndView(stage, trip.getId());
 
 		return result;
 	}
@@ -41,12 +48,13 @@ public class StageManagerController extends AbstractController {
 	// Creating ---------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam final int tripId) {
 		ModelAndView result;
 		Stage stage;
 
 		stage = this.stageService.create();
-		result = this.createEditModelAndView(stage);
+
+		result = this.createEditModelAndView(stage, tripId);
 
 		return result;
 	}
@@ -54,18 +62,21 @@ public class StageManagerController extends AbstractController {
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Stage stage, final BindingResult binding) {
+	public ModelAndView save(@Valid final Stage stage, @RequestParam("trip") final int tripId, final BindingResult binding) {
 		ModelAndView result;
+		Trip trip;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(stage, "stage.params.error");
+			result = this.createEditModelAndView(stage, tripId, "stage.params.error");
 		else
 			try {
-				this.stageService.save(stage);
-				result = new ModelAndView("redirect:/category/list.do");
+				trip = this.tripService.findOne(tripId);
+				trip.getStages().add(stage);
+				this.tripService.save(trip);
+				result = new ModelAndView("redirect:/trip/manager/list.do");
 
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(stage, "stage.commit.error");
+				result = this.createEditModelAndView(stage, tripId, "stage.commit.error");
 			}
 
 		return result;
@@ -76,13 +87,16 @@ public class StageManagerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Stage stage, final BindingResult binding) {
 		ModelAndView result;
+		Trip trip;
+		trip = this.tripService.getTripFromStageId(stage.getId());
 
 		try {
-			this.stageService.delete(stage);
+			trip.getStages().remove(stage);
+			this.tripService.save(trip);
 			result = new ModelAndView("redirect:/trip/manager/list.do");
 
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(stage, "category.commit.error");
+			result = this.createEditModelAndView(stage, trip.getId(), "category.commit.error");
 		}
 
 		return result;
@@ -90,24 +104,24 @@ public class StageManagerController extends AbstractController {
 
 	// Ancillary methods --------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final Stage stage) {
+	protected ModelAndView createEditModelAndView(final Stage stage, final int tripId) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(stage, null);
+		result = this.createEditModelAndView(stage, tripId, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Stage stage, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Stage stage, final int tripId, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("stage/edit");
 		result.addObject("stage", stage);
+		result.addObject("trip", tripId);
 
 		result.addObject("message", messageCode);
 
 		return result;
 
 	}
-
 }

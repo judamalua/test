@@ -36,7 +36,7 @@
 	<form:label path="description">
 		<spring:message code="trip.description"/>
 	</form:label>
-	<form:input path="description"/>
+	<form:textarea path="description"/>
 	<form:errors cssClass = "error" path = "description" />
 	<br />
 	
@@ -50,7 +50,7 @@
 	<form:label path="requirements">
 		<spring:message code="trip.requirements"/>
 	</form:label>
-	<form:input path="requirements"/>
+	<form:textarea path="requirements"/>
 	<form:errors cssClass = "error" path = "requirements" />
 	<br />
 	
@@ -110,8 +110,8 @@
 	<form:label path="tags">
 		<spring:message code="trip.tags"/>
 	</form:label>
-	<form:select multiple="true" path="tags">
-		<form:option value="0">
+	<form:select multiple="true"  path="tags">
+		<form:option selected="true" value="0">
 			----------
 		</form:option>
 		<jstl:forEach var="tag" items="${tags}"> <!-- Variable del controlador -->
@@ -149,14 +149,14 @@
 			type="submit"
 			name="delete"
 			value="<spring:message code="trip.delete" />"
-			onclick="return confirm('<spring:message code='trip.confirm.delete' />') " />
+			onclick="return confirm('<spring:message code='stage.confirm.delete' />') " />
 	</jstl:if>
 	
 	<input 
 		type="button"
 		name="cancel"
 		value="<spring:message code="trip.cancel" />"
-		onclick="javascript: relativeRedir('trip/manager/list.do')">
+		onclick="javascript: relativeRedir('stage/manager/list.do')">
 	
 	
 </form:form>

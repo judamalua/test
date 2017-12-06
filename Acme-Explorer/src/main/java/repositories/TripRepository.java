@@ -97,7 +97,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	//	@Query("select t from Trip t where (select count(a) from Trip t join t.applications a where a.explorer.id = ?1)>0  and t.publicationDate < CURRENT_DATE")
 	//	Collection<Trip> findTripsApplicationExplorer(int explorerID);
 
-	@Query("select t from Trip t where t.publicationDate < CURRENT_DATE")
+	@Query("select t from Trip t where t.publicationDate < CURRENT_DATE and t.stages.size > 0")
 	Page<Trip> findPublicatedTrips(Pageable pageable);
 
 	@Query("select t from Trip t where t.startDate between '?1' and '?2'")

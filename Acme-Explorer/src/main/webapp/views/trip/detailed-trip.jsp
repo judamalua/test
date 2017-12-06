@@ -123,6 +123,9 @@ iframe de maps
 	</jstl:if>
 </security:authorize>
 
+<jsp:useBean id="currDate" class="java.util.Date" />
+<fmt:formatDate value="${currDate}" var="currentDate" pattern="yyyy-MM-dd hh:mm:ss"/>
+	
 <jstl:if test="${not empty trip.stages}">
 	<display:table name="${trip.stages}" id="row1"
 		requestURI="stage/list.do?tripId=${trip.id}" pagesize="10"
@@ -140,8 +143,26 @@ iframe de maps
 		<spring:message code="detailedTrip.stage.price" var="priceHeader" />
 		<display:column property="price" title="${priceHeader}"
 			sortable="true" />
+		<display:column>
+			<jstl:if test="${trip.publicationDate > currentDate}">
+			<a href="stage/manager/edit.do?stageId=${row1.id}">
+				<button>
+					<spring:message code="stage.edit" />
+				</button>
+			</a>
+			</jstl:if>
+		</display:column>
 	</display:table>
+
+	<jstl:if test="${trip.publicationDate > currentDate}">
+			<a href="stage/manager/create.do?tripId=${trip.id}">
+				<button>
+					<spring:message code="stage.create" />
+				</button>
+			</a>
+	</jstl:if>
 </jstl:if>
+<br/>
 
 <jstl:if test="${not empty trip.survivalClasses}">
 	<display:table name="${trip.survivalClasses}" id="row3"
@@ -248,11 +269,11 @@ iframe de maps
 	</security:authorize>
 </jstl:if>
 
-<jstl:if test="${trip.legalText!=null}">
+<jstl:if test="${trip.legalText!=null and trip.legalText.title!=null}">
 
-	<spring:message code="trip.legalText" />
-		:
-		<h2>
+<%-- 	<spring:message code="trip.legalText" /> --%>
+<!-- 		: -->
+	<h2>
 		<jstl:out value="${trip.legalText.title}" />
 	</h2>
 	<br />

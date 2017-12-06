@@ -2521,7 +2521,7 @@
 
 	<bean id="configuration" class="domain.Configuration">
 
-		<property name="vat" value="21.00" />
+		<property name="vat" value="0.21" />
 		<property name="searchTimeout" value="1" />
 		<property name="spamWords">
 			<list>

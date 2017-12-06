@@ -57,12 +57,13 @@ public class ApplicationExplorerController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Explorer explorer;
+		Collection<Application> applications;
 
 		result = new ModelAndView("application/list");
 
 		explorer = (Explorer) this.actorService.findActorByPrincipal();
 
-		final Collection<Application> applications = this.applicationService.findApplications(explorer);
+		applications = this.applicationService.findApplications(explorer);
 		result.addObject("applications", applications);
 		result.addObject("requestUri", "application/explorer/list.do");
 
@@ -103,22 +104,20 @@ public class ApplicationExplorerController extends AbstractController {
 	}
 
 	//	// Deleting ------------------------------------------------------------------------
-	//
-	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	//	public ModelAndView delete(final Application application, final BindingResult binding) {
-	//		ModelAndView result;
-	//
-	//		try {
-	//			this.applicationService.delete(application);
-	//			result = new ModelAndView("redirect:list.do");
-	//
-	//		} catch (final Throwable oops) {
-	//			result = this.createEditModelAndView(application, "messageFolder.commit.error");
-	//		}
-	//
-	//		return result;
-	//	}
 
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(@RequestParam final int applicationId) {
+		ModelAndView result;
+		Application application;
+
+		application = this.applicationService.findOne(applicationId);
+
+		this.applicationService.changeStatus(application, "CANCELLED");
+		this.applicationService.save(application);
+		result = new ModelAndView("redirect:list.do");
+
+		return result;
+	}
 	// Creating -----------------------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)

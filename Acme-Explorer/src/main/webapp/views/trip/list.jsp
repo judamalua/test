@@ -61,22 +61,39 @@
 	<display:column property="price" title="${price}" sortable="true" />
 
 	<spring:message code="trip.startDate" var="startDate" />
-	<display:column property="startDate" title="${startDate}" sortable="true" />
+	<display:column property="startDate" title="${startDate}"
+		sortable="true" />
 
 	<spring:message code="trip.endDate" var="endDate" />
 	<display:column property="endDate" title="${endDate}" sortable="true" />
-	
-	<jstl:set value="false" var="anonymous"/>
+
+	<jstl:set value="false" var="anonymous" />
 	<security:authorize access="isAnonymous()">
-		<jstl:set value="true" var="anonymous"/>
+		<jstl:set value="true" var="anonymous" />
 	</security:authorize>
 	<spring:message code="trip.moreDetails" var="moreDetails" />
 	<display:column>
-		<a href="trip/detailed-trip.do?tripId=${trip.id}&anonymous=${anonymous}">
-				<spring:message code="trip.moreDetails" />
+		<a
+			href="trip/detailed-trip.do?tripId=${trip.id}&anonymous=${anonymous}">
+			<spring:message code="trip.moreDetails" />
 		</a>
 	</display:column>
 
+	
+	<security:authorize access="hasRole('MANAGER')">
+	<jsp:useBean id="currDate" class="java.util.Date" />
+	<fmt:formatDate value="${currDate}" var="currentDate" pattern="yyyy-MM-dd hh:mm:ss"/>
+		<display:column>
+		<jstl:if test="${trip.publicationDate > currentDate}">
+			<a href="stage/manager/create.do?tripId=${trip.id}">
+				<button>
+					<spring:message code="stage.create" />
+				</button>
+			</a>
+		</jstl:if>
+		</display:column>
+	</security:authorize>
+	
 
 </display:table>
 

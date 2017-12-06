@@ -141,6 +141,19 @@ public class ApplicationService {
 		MessageFolder messageFolderSystem;
 		Explorer explorer;
 
+		Assert.isTrue(!status.equals("PENDING"));
+		if (status.equals("DUE") || status.equals("REJECTED"))
+			Assert.isTrue(application.getStatus().equals("PENDING"));
+		else if (status.equals("ACCEPTED")) {
+			Assert.isTrue(application.getStatus().equals("DUE"));
+			Assert.isTrue(!application.getCreditCard().getBrandName().equals("NONE"));
+			Assert.isTrue(!application.getCreditCard().getHolderName().equals("NONE"));
+			Assert.isTrue(!application.getCreditCard().getNumber().equals("1111111111111117"));
+		} else if (status.equals("CANCELLED"))
+			Assert.isTrue(application.getStatus().equals("ACCEPTED"));
+
+		application.setStatus(status);
+
 		if (!application.getStatus().equals(status)) {
 
 			system = this.administratorService.findSystemAdministrator();
@@ -156,7 +169,7 @@ public class ApplicationService {
 			message.setReceiver(explorer);
 			message.setSender(system);
 			message.setSubject("Status changed");
-			message.setBody("The new status of application with id:" + application.getId() + ", is" + application.getStatus() + ".");
+			message.setBody("The new status of application with trip: " + application.getTrip().getTitle() + ", is " + status + ".");
 
 			this.actorService.sendMessage(message, system, explorer);
 
@@ -165,18 +178,6 @@ public class ApplicationService {
 				this.actorService.sendMessage(messageCopy, system, m);
 			}
 		}
-		Assert.isTrue(!status.equals("PENDING"));
-		if (status.equals("DUE") || status.equals("REJECTED"))
-			Assert.isTrue(application.getStatus().equals("PENDING"));
-		else if (status.equals("ACCEPTED")) {
-			Assert.isTrue(application.getStatus().equals("DUE"));
-			Assert.isTrue(!application.getCreditCard().getBrandName().equals("NONE"));
-			Assert.isTrue(!application.getCreditCard().getHolderName().equals("NONE"));
-			Assert.isTrue(!application.getCreditCard().getNumber().equals("1111111111111117"));
-		} else if (status.equals("CANCELLED"))
-			Assert.isTrue(application.getStatus().equals("ACCEPTED"));
-
-		application.setStatus(status);
 	}
 	public Application save(final Application application) {
 
