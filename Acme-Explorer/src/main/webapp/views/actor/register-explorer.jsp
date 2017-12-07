@@ -8,7 +8,28 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<!-- <script type="text/javascript">
+
+
+$(document).ready(){
+	$("save").onclick(function(){
+
+		if (!($("phoneNumber").match("/^\+\d{1,3} \(\d{1,3}\) \d{4}\d*$/"))){
+			confirm(<spring:message code="actor.confirm.phone"/>);
+		}
+		
+		/* if (!($("phoneNumber").match("/^\+\d{1,3} \(\d{1,3}\) \d{4}\d*$/") && !($("phoneNumber").match("/^\+\d{1,3} \d{4}\d*$/") && !($("phoneNumber").match("/^\d{4}\d*$/"))))){
+			confirm(<spring:message code="actor.confirm.phone"/>);
+		} */
+
+	});
+
+};	
+</script> -->
+
+
 <form:form
+	id = "form"
 	action="actor/register-explorer.do"
 	modelAttribute="actor">
 	
@@ -79,7 +100,8 @@
 	<input 
 		type="submit"
 		name="save"
-		value="<spring:message code="actor.save" />">
+		value="<spring:message code="actor.save" />"
+		onclick = "return validate('<spring:message code = "actor.confirm.phone"/>')">
 	
 	<input 
 		type="button"

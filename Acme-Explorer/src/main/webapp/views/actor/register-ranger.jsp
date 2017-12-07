@@ -9,6 +9,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <form:form
+	id = "form"
 	action="actor/register-ranger.do"
 	modelAttribute="actor">
 	
@@ -72,13 +73,12 @@
 	<form:errors cssClass="error" path="userAccount.password"/>
 	<br/>
 	
-	<input 
-		type="submit"
+	<input type="submit"
 		name="save"
-		value="<spring:message code="actor.save" />">
+		value="<spring:message code="actor.save" />"
+		onclick = "return validate('<spring:message code = "actor.confirm.phone"/>')">
 	
-	<input 
-		type="button"
+	<input type="button"
 		name="cancel"
 		value="<spring:message code="actor.cancel" />"
 		onclick ="javascript: relativeRedir('welcome/index.do');">

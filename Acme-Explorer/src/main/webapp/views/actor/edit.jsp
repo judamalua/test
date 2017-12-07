@@ -24,6 +24,7 @@ $(document).ready(){
 </script>
 
 <form:form
+	id = "form"
 	action="actor/edit.do"
 	modelAttribute ="actor">
 	
@@ -73,7 +74,8 @@ $(document).ready(){
 	<input 
 		type="submit"
 		name="save"
-		value="<spring:message code="actor.save" />">
+		value="<spring:message code="actor.save" />"
+		onclick = "return validate('<spring:message code = "actor.confirm.phone"/>')">
 	
 	<input 
 		type="submit"
