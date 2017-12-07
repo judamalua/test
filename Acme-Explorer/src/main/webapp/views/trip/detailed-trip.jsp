@@ -99,9 +99,11 @@ iframe de maps
 
 <security:authorize access="hasRole('EXPLORER')">
 	<jstl:if test="${!hasExplorer}">
+	
 		<jsp:useBean id="now" class="java.util.Date" />
 		<fmt:formatDate var="currentDate" value="${now}"
 			pattern="dd/MM/yyyy HH:mm" />
+			
 		<jstl:if test="${trip.publicationDate>=currentDate}">
 
 			<a href="application/explorer/create.do?tripId=${trip.id}">
@@ -226,6 +228,15 @@ iframe de maps
 
 	</display:table>
 </jstl:if>
+<security:authorize access="hasRole('MANAGER')">
+	<jstl:if test="${hasManager}">
+		<a href="survivalClass/manager/create.do">
+			<button>
+				<spring:message code="detailed.trip.edit" />
+			</button>
+		</a>
+	</jstl:if>
+</security:authorize>
 
 <jstl:if test="${not empty trip.auditRecords}">
 	<security:authorize access="hasRole('MANAGER')">
@@ -351,3 +362,18 @@ iframe de maps
 		</display:column>
 	</display:table>
 </jstl:if>
+
+<security:authorize access="hasRole('EXPLORER')">
+
+		<jsp:useBean id="now" class="java.util.Date" />
+		<fmt:formatDate var="currentDate" value="${now}" pattern="dd/MM/yyyy HH:mm" />
+		
+	<jstl:if test="${hasExplorer and trip.endDate<currentDate}">
+		
+		<a href="story/explorer/edit.do">
+			<button>
+				<spring:message code="detailedTrip.story.create" />
+			</button>
+		</a>
+	</jstl:if>
+</security:authorize>

@@ -33,6 +33,8 @@ import domain.Trip;
 @RequestMapping("/trip/manager")
 public class TripManagerController extends AbstractController {
 
+	// Services -------------------------------------------------------
+
 	@Autowired
 	TripService			tripService;
 
@@ -91,7 +93,24 @@ public class TripManagerController extends AbstractController {
 
 		return result;
 	}
+	// joining ---------------------------------------------------------------------------
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public ModelAndView join(@RequestParam final int tripId) {
+		ModelAndView result;
+		Trip trip;
+		Manager manager;
 
+		trip = this.tripService.findOne(tripId);
+		Assert.notNull(trip);
+		manager = (Manager) this.actorService.findActorByPrincipal();
+		trip.getManagers().add(manager);
+		this.tripService.save(trip);
+		result = new ModelAndView("trip/list");
+
+		return result;
+	}
+
+	// Saving -----------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Trip trip, final BindingResult binding) {
 		ModelAndView result;
@@ -109,6 +128,7 @@ public class TripManagerController extends AbstractController {
 		return result;
 	}
 
+	// Deleting -------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Trip trip, final BindingResult binding) {
 		ModelAndView result;

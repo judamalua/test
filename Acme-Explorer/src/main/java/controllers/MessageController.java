@@ -24,6 +24,7 @@ import domain.MessageFolder;
 @RequestMapping("/message")
 public class MessageController extends AbstractController {
 
+	// Services -------------------------------------------------------
 	@Autowired
 	MessageService			messageService;
 	@Autowired

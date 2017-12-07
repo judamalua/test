@@ -32,6 +32,7 @@ import domain.Ranger;
 @RequestMapping("/actor")
 public class ActorController extends AbstractController {
 
+	// Services -------------------------------------------------------
 	@Autowired
 	ActorService		actorService;
 	@Autowired
@@ -48,7 +49,7 @@ public class ActorController extends AbstractController {
 		super();
 	}
 
-	// Register-Explorer ---------------------------------------------------------------		
+	// Editing ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
@@ -63,7 +64,7 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
-	//Arreglar
+	//Arreglar Saving --------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Actor actor, final BindingResult binding) {
 		ModelAndView result;
@@ -85,6 +86,7 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
+	// Registering explorer ------------------------------------------------------------
 	@RequestMapping(value = "/register-explorer", method = RequestMethod.GET)
 	public ModelAndView registerExplorer() {
 		ModelAndView result;
@@ -97,6 +99,7 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
+	//Saving explorer ---------------------------------------------------------------------
 	@RequestMapping(value = "/register-explorer", method = RequestMethod.POST, params = "save")
 	public ModelAndView registerExplorer(@Valid final Explorer explorer, final BindingResult binding) {
 		ModelAndView result;
@@ -113,6 +116,8 @@ public class ActorController extends AbstractController {
 
 		return result;
 	}
+
+	// Registering ranger ----------------------------------------------------------------
 	@RequestMapping(value = "/register-ranger", method = RequestMethod.GET)
 	public ModelAndView registerRanger() {
 		ModelAndView result;
@@ -125,7 +130,7 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
-	// Register-ranger -----------------------------------------------
+	// Saving ranger -----------------------------------------------
 
 	@RequestMapping(value = "/register-ranger", method = RequestMethod.POST, params = "save")
 	public ModelAndView registerExplorer(@Valid final Ranger ranger, final BindingResult binding) {
@@ -143,6 +148,8 @@ public class ActorController extends AbstractController {
 
 		return result;
 	}
+
+	//Ancillary methods ----------------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Actor actor) {
 		ModelAndView result;

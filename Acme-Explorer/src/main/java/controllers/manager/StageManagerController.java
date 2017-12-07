@@ -22,6 +22,8 @@ import domain.Trip;
 @RequestMapping("/stage/manager")
 public class StageManagerController extends AbstractController {
 
+	// Services -------------------------------------------------------
+
 	@Autowired
 	StageService	stageService;
 	@Autowired

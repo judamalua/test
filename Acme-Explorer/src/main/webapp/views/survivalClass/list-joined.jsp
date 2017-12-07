@@ -36,7 +36,7 @@
 	</display:column>
 	
 		<display:column>
-			<a href = "survivalClass/auditor/leave.do?survivalClassId=${row.id}">
+			<a href = "survivalClass/explorer/leave.do?survivalClassId=${row.id}">
 				<spring:message code = "survivalclass.leave"/>
 			</a>
 		</display:column>

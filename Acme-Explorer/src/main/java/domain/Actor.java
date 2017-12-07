@@ -137,10 +137,4 @@ public abstract class Actor extends DomainEntity {
 		this.socialIdentities = socialIdentities;
 	}
 
-	@Override
-	public String toString() {
-		return "Actor [name=" + this.name + ", surname=" + this.surname + ", email=" + this.email + ", address=" + this.address + ", phoneNumber=" + this.phoneNumber + ", isBanned=" + this.isBanned + ", suspicious=" + this.suspicious + ", userAccount="
-			+ this.userAccount + ", messageFolders=" + this.messageFolders + ", socialIdentities=" + this.socialIdentities + "]";
-	}
-
 }

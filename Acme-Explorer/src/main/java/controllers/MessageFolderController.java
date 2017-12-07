@@ -22,6 +22,7 @@ import domain.MessageFolder;
 @RequestMapping("/messageFolder")
 public class MessageFolderController extends AbstractController {
 
+	// Services -------------------------------------------------------
 	@Autowired
 	MessageFolderService	messageFolderService;
 	@Autowired
@@ -50,6 +51,7 @@ public class MessageFolderController extends AbstractController {
 		return result;
 	}
 
+	// listing children ---------------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET, params = "messageFolderId")
 	public ModelAndView list(@RequestParam final int messageFolderId) {
 		ModelAndView result;

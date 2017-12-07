@@ -82,6 +82,7 @@
 	
 	<security:authorize access="hasRole('MANAGER')">
 	<jsp:useBean id="currDate" class="java.util.Date" />
+	<jstl:if test="${requestUri==\"trip/manager/list.do\"}"></jstl:if>
 	<fmt:formatDate value="${currDate}" var="currentDate" pattern="yyyy-MM-dd hh:mm:ss"/>
 		<display:column>
 		<jstl:if test="${trip.publicationDate > currentDate}">

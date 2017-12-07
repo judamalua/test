@@ -20,12 +20,15 @@ import services.SurvivalClassService;
 import services.TripService;
 import domain.Actor;
 import domain.Configuration;
+import domain.Explorer;
+import domain.Manager;
 import domain.Trip;
 
 @Controller
 @RequestMapping("/trip")
 public class TripController extends AbstractController {
 
+	// Services -------------------------------------------------------
 	@Autowired
 	TripService				tripService;
 	@Autowired
@@ -35,10 +38,6 @@ public class TripController extends AbstractController {
 	@Autowired
 	SurvivalClassService	survivalClassService;
 
-	String[]				searchKeywordParams	= new String[] {
-		"keyword", "page"
-												};
-
 
 	// Constructors -----------------------------------------------------------
 
@@ -46,6 +45,7 @@ public class TripController extends AbstractController {
 		super();
 	}
 
+	// Paging list -------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET, params = "page")
 	public ModelAndView list(@RequestParam final int page) {
 		ModelAndView result;
@@ -68,6 +68,7 @@ public class TripController extends AbstractController {
 		return result;
 	}
 
+	// listing -------------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
@@ -90,6 +91,7 @@ public class TripController extends AbstractController {
 		return result;
 	}
 
+	// Searching --------------------------------------------------------------
 	@RequestMapping(value = "/search", method = RequestMethod.GET, params = {
 		"keyword", "search"
 	})
@@ -114,6 +116,7 @@ public class TripController extends AbstractController {
 		return result;
 	}
 
+	// Detailing -----------------------------------------------------------------
 	@RequestMapping(value = "/detailed-trip", method = RequestMethod.GET, params = {
 		"tripId", "anonymous"
 	})
@@ -134,10 +137,10 @@ public class TripController extends AbstractController {
 		if (anonymous == false) {
 			actor = this.actorService.findActorByPrincipal();
 
-			if (trip.getManagers().contains(actor))
+			if (actor instanceof Manager && trip.getManagers().contains(actor))
 				hasManager = true;
 
-			if (this.tripService.getAcceptedTripsFromExplorerId(actor.getId()).contains(trip))
+			if (actor instanceof Explorer && this.tripService.getAcceptedTripsFromExplorerId(actor.getId()).contains(trip))
 				hasExplorer = true;
 		}
 

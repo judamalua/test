@@ -35,6 +35,8 @@ import domain.Trip;
 @RequestMapping("/application/explorer")
 public class ApplicationExplorerController extends AbstractController {
 
+	// Services -------------------------------------------------------
+
 	@Autowired
 	ExplorerService		explorerService;
 	@Autowired
@@ -103,7 +105,7 @@ public class ApplicationExplorerController extends AbstractController {
 		return result;
 	}
 
-	//	// Deleting ------------------------------------------------------------------------
+	//	Cancelling ------------------------------------------------------------------------
 
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
 	public ModelAndView cancel(@RequestParam final int applicationId) {

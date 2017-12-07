@@ -65,7 +65,7 @@ public class ApplicationService {
 		creditCard = new CreditCard();
 		creditCard.setHolderName("NONE");
 		creditCard.setBrandName("NONE");
-		creditCard.setNumber("1111111111111117");
+		creditCard.setNumber("0000000000000000");
 		creditCard.setExpirationMonth(1);
 		creditCard.setExpirationYear(99);
 		creditCard.setCvv(999);
@@ -148,7 +148,7 @@ public class ApplicationService {
 			Assert.isTrue(application.getStatus().equals("DUE"));
 			Assert.isTrue(!application.getCreditCard().getBrandName().equals("NONE"));
 			Assert.isTrue(!application.getCreditCard().getHolderName().equals("NONE"));
-			Assert.isTrue(!application.getCreditCard().getNumber().equals("1111111111111117"));
+			Assert.isTrue(!application.getCreditCard().getNumber().equals("0000000000000000"));
 		} else if (status.equals("CANCELLED"))
 			Assert.isTrue(application.getStatus().equals("ACCEPTED"));
 

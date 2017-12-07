@@ -37,6 +37,8 @@ import domain.Rejection;
 @RequestMapping("/application/manager")
 public class ApplicationManagerController extends AbstractController {
 
+	// Services -------------------------------------------------------
+
 	@Autowired
 	ManagerService		managerService;
 	@Autowired
@@ -104,7 +106,7 @@ public class ApplicationManagerController extends AbstractController {
 
 		return result;
 	}
-
+	// Changing status -------------------------------------------------------------------
 	@RequestMapping(value = "/change-status", method = RequestMethod.GET)
 	public ModelAndView save(@RequestParam final int applicationId) {
 		ModelAndView result;
@@ -129,7 +131,7 @@ public class ApplicationManagerController extends AbstractController {
 			result = new ModelAndView("redirect:list.do");
 
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(application, "messageFolder.commit.error");
+			result = this.createEditModelAndView(application, "application.commit.error");
 		}
 
 		return result;

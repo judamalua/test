@@ -23,6 +23,8 @@ import domain.Trip;
 @RequestMapping("/category/admin")
 public class CategoryAdminController extends AbstractController {
 
+	// Services -------------------------------------------------------
+
 	@Autowired
 	CategoryService	categoryService;
 

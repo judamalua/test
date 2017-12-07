@@ -43,6 +43,8 @@ public class CategoryController extends AbstractController {
 		return result;
 	}
 
+	// listing children ----------------------------------------------------------------
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET, params = "categoryId")
 	public ModelAndView list(@RequestParam final int categoryId) {
 		final ModelAndView result;
@@ -59,15 +61,5 @@ public class CategoryController extends AbstractController {
 
 		return result;
 	}
-
-	// Ancillary methods ------------------------------------------
-
-	//	protected ModelAndView createEditModelAndView(final Category category) {
-	//
-	//	}
-	//
-	//	protected ModelAndView createEditModelAndView(final Category category, final String messageCode) {
-	//
-	//	}
 
 }
