@@ -94,6 +94,8 @@
 								code="master.page.categoryList" /></a></li>
 					<li><a href="auditRecord/auditor/list.do"><spring:message
 								code="master.page.auditRecordList" /></a></li>
+					<li><a href="note/auditor/list.do"><spring:message
+								code="master.page.noteList" /></a></li>
 				</ul></li>
 		</security:authorize>
 
