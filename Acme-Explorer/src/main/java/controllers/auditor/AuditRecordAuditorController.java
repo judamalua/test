@@ -113,7 +113,7 @@ public class AuditRecordAuditorController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveFinal")
 	public ModelAndView saveFinal(@Valid final AuditRecord auditRecord, final BindingResult binding) {
 		ModelAndView result;
-
+		auditRecord.setIsFinalMode(true);
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(auditRecord);
 		else

@@ -14,10 +14,7 @@ import services.ActorService;
 import services.AuditorService;
 import services.NoteService;
 import controllers.AbstractController;
-import domain.Auditor;
-import domain.Manager;
 import domain.Note;
-import domain.Trip;
 
 @Controller
 @RequestMapping("note/auditor")
@@ -51,6 +48,20 @@ public class NoteAuditorController extends AbstractController {
 
 		return result;
 	}
+
+	// Creating -------------------------------------
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Note note;
+
+		note = this.noteService.create();
+		result = this.createEditModelAndView(note);
+
+		return result;
+	}
+
 	// Editing ---------------------------------------------------------------	
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int noteId) {
@@ -76,21 +87,10 @@ public class NoteAuditorController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Note note, final String messageCode) {
 		ModelAndView result;
-		Manager manager;
-		Auditor auditor;
-		Trip trip;
-
-		manager = note.getReplierManager();
-		auditor = note.getAuditor();
-		trip = note.getTrip();
 
 		result = new ModelAndView("note/edit");
 
 		result.addObject("note", note);
-		result.addObject("manager", manager);
-		result.addObject("auditor", auditor);
-		result.addObject("trip", trip);
-
 		result.addObject("message", messageCode);
 
 		return result;
