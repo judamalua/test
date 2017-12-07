@@ -8,7 +8,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 
 $(document).ready(){
@@ -21,7 +21,7 @@ $(document).ready(){
 	});
 
 };	
-</script>
+</script> -->
 
 <form:form
 	id = "form"
@@ -35,6 +35,35 @@ $(document).ready(){
 	<form:hidden path="userAccount"/>
 	<form:hidden path="messageFolders"/>
 	<form:hidden path="socialIdentities"/>
+	
+	<security:authorize access="hasRole('RANGER')">
+		<form:hidden path="curriculum"/>
+		<form:hidden path="trips"/>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('SPONSOR')">
+		<form:hidden path="sponsorships"/>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('AUDITOR')">
+		<form:hidden path="auditRecords"/>
+		<form:hidden path="notes"/>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('MANAGER')">
+		<form:hidden path="repliedNotes"/>
+		<form:hidden path="trips"/>
+		<form:hidden path="survivalClasses"/>
+		<form:hidden path="rejections"/>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('EXPLORER')">
+		<form:hidden path="applications"/>
+		<form:hidden path="stories"/>
+		<form:hidden path="survivalClasses"/>
+		<form:hidden path="contacts"/>
+		<form:hidden path="searches"/>
+	</security:authorize>
 	
 	<form:label path="name">
 		<spring:message code="actor.name"/>
