@@ -28,7 +28,7 @@
 	<display:column property = "description" title = "${descriptionHeader}" sortable = "false"/>
 	
 	<spring:message code = "auditRecord.moment" var = "momentHeader"/>
-	<display:column property = "moment" title = "${momentHeader}" sortable = "true"/>
+	<display:column property = "momentWhenCarriedOut" title = "${momentHeader}" sortable = "true"/>
 
 	<spring:message code = "auditRecord.attachments" var = "attachmentsHeader"/>
 	<display:column property = "attachments" title = "${attachmentsHeader}" sortable = "false">
@@ -41,15 +41,16 @@
 		</ul>
 	</display:column>
 
-	<jstl:if test = "${!row.isFinalMode}">
-		<display:column>
+	<display:column>
+		<jstl:if test = "${!row.isFinalMode}">
+		
 			<a href = "auditRecord/auditor/edit.do?auditRecordId=${row.id}">
 				<button>
 					<spring:message code = "auditRecord.edit"/>
 				</button>
 			</a>
-		</display:column>
-	</jstl:if>
+		</jstl:if>
+	</display:column>
 
 </display:table>
 
@@ -60,5 +61,5 @@
 			<spring:message code = "auditRecord.create"/>
 		</button>
 	</a>
-		
+	
 </security:authorize>

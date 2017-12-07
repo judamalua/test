@@ -46,8 +46,14 @@
 	<form:errors cssClass = "error" path = "description" />
 	<br />
 
+	<form:label path = "attachments">
+		<spring:message code="auditRecord.attachments"/>
+	</form:label>
+		<form:textarea path = "attachments" />
+	<form:errors cssClass = "error" path = "attachments" />
+	<br />
 
-	<table class="displayTag">
+	<%-- <table class="displayTag">
 		<tr><spring:message code="auditRecord.attachments"/></tr>
 		
 		<jstl:forEach var="attachment" varStatus="loop" items="${auditRecord.attachments}">
@@ -68,7 +74,8 @@
 	</a>
 	<form:input path="attachment" />
 	<form:errors cssClass = "error" path = "attachment" />
-	<br />
+	<br /> --%>
+	
 	
 	<input 
 		type="submit"
@@ -88,7 +95,7 @@
 			onclick="return confirm('<spring:message code='auditRecord.confirm.delete' />') " />
 	</jstl:if>
 
-	<a href = "auditRecord/aditor/list.do">
+	<a href = "auditRecord/auditor/list.do">
 		<input type = "button" name = "cancel" value = "<spring:message code = "auditRecord.cancel" />" >
 	</a>
 

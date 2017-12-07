@@ -79,7 +79,9 @@ public class AuditRecordService {
 
 		assert audit != null;
 		//Requirement 33
-		Assert.isTrue(!audit.getIsFinalMode());
+		if (audit.getVersion() != 0)
+			if (audit.getIsFinalMode())
+				Assert.isTrue(!this.auditRecordRepository.findOne(audit.getId()).getIsFinalMode());
 
 		//Requirement 33
 		AuditRecord result;

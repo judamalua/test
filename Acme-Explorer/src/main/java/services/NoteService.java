@@ -81,6 +81,8 @@ public class NoteService {
 
 		result = this.noteRepository.findOne(noteId);
 
+		Assert.notNull(result);
+
 		return result;
 
 	}
