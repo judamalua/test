@@ -334,7 +334,15 @@ iframe de maps
 		</a>
 	</security:authorize>
 </jstl:if>
-
+<security:authorize access = "hasRole('AUDITOR')">
+		
+	<a href = "auditRecord/auditor/create.do?tripId=${trip.id} }">
+		<button>
+			<spring:message code = "auditRecord.create"/>
+		</button>
+	</a>
+	
+</security:authorize>
 <jstl:if test="${not empty trip.stories}">
 	<display:table name="${trip.stories}" id="row2"
 		requestURI="story/list.do?tripId=${trip.id}" pagesize="10"

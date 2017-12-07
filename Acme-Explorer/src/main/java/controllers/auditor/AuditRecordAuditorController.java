@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
 import services.ActorService;
 import services.AuditRecordService;
 import services.AuditorService;
+import services.TripService;
 import controllers.AbstractController;
 import domain.AuditRecord;
+import domain.Auditor;
+import domain.Trip;
 
 @Controller
 @RequestMapping("/auditRecord/auditor")
@@ -30,6 +34,8 @@ public class AuditRecordAuditorController extends AbstractController {
 	ActorService		actorService;
 	@Autowired
 	AuditRecordService	auditRecordService;
+	@Autowired
+	TripService			tripService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -55,11 +61,15 @@ public class AuditRecordAuditorController extends AbstractController {
 	// Creating -------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam final int tripId) {
 		ModelAndView result;
 		AuditRecord auditRecord;
 
 		auditRecord = this.auditRecordService.create();
+		final Auditor auditor = (Auditor) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
+		auditRecord.setAuditor(auditor);
+		final Trip trip = this.tripService.findOne(tripId);
+		auditRecord.setTrip(trip);
 		result = this.createEditModelAndView(auditRecord);
 
 		return result;
@@ -100,10 +110,8 @@ public class AuditRecordAuditorController extends AbstractController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveFinal")
 	public ModelAndView saveFinal(@Valid final AuditRecord auditRecord, final BindingResult binding) {
-		auditRecord.setIsFinalMode(true);
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -119,7 +127,6 @@ public class AuditRecordAuditorController extends AbstractController {
 
 		return result;
 	}
-
 	// Deleting --------------------------------------------
 
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
