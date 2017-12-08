@@ -3236,7 +3236,7 @@
 	<!-- Locations -->
 	<bean id="location1" class="domain.Location">
 		<property name="name" value="Amazonas" />
-		<property name="gpsCoordinates" value="37.3808806,-5.9923354" />
+		<property name="gpsCoordinates" value="37.357692,-5.988110" />
 	</bean>
 
 	<bean id="location2" class="domain.Location">
