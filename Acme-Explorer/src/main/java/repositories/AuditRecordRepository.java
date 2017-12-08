@@ -18,4 +18,7 @@ public interface AuditRecordRepository extends JpaRepository<AuditRecord, Intege
 	@Query("select a from AuditRecord a join a.trip.managers m where m.id=?1")
 	Collection<AuditRecord> findAuditRecordsByManagerId(int id);
 
+	@Query("select a from AuditRecord a join a.trip.managers m where m.id=?1 and a.isFinalMode=true")
+	Collection<AuditRecord> findAuditRecordsByManagerIdWithNoFinalMode(int id);
+
 }

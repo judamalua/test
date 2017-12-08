@@ -42,7 +42,7 @@ public class AuditRecordManagerController extends AbstractController {
 
 		result = new ModelAndView("auditRecord/list");
 
-		final Collection<AuditRecord> auditRecords = this.auditRecordService.findAuditsByManagerID();
+		final Collection<AuditRecord> auditRecords = this.auditRecordService.findAllAuditsByManagerID();
 		result.addObject("auditRecords", auditRecords);
 		result.addObject("requestUri", "auditRecord/manager/list.do");
 

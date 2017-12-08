@@ -161,4 +161,11 @@ public class AuditRecordService {
 		Assert.notNull(actor);
 
 	}
+
+	public Collection<AuditRecord> findAllAuditsByManagerID() {
+		this.checkUserLogin();
+
+		final int id = this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId()).getId();
+		return this.auditRecordRepository.findAuditRecordsByManagerIdWithNoFinalMode(id);
+	}
 }
