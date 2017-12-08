@@ -14,7 +14,9 @@
 Errores: Añadir formato a fechas Añadir formato a numeros Arreglar
 iframe de maps
 
-
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate var="currentDate" value="${now}"
+	pattern="dd/MM/yyyy HH:mm" />
 <br />
 <a href="${sponsorship.additionalInfoLink}"><img
 	src="${sponsorship.bannerUrl}" alt="trip.sponsorship" /></a>
@@ -100,9 +102,7 @@ iframe de maps
 <security:authorize access="hasRole('EXPLORER')">
 	<jstl:if test="${!hasExplorer}">
 	
-		<jsp:useBean id="now" class="java.util.Date" />
-		<fmt:formatDate var="currentDate" value="${now}"
-			pattern="dd/MM/yyyy HH:mm" />
+
 			
 		<jstl:if test="${trip.publicationDate>=currentDate}">
 
@@ -413,15 +413,23 @@ iframe de maps
 </jstl:if>
 
 <security:authorize access="hasRole('EXPLORER')">
-
-		<jsp:useBean id="now2" class="java.util.Date" />
-		<fmt:formatDate var="currentDate" value="${now}" pattern="dd/MM/yyyy HH:mm" />
 		
 	<jstl:if test="${hasExplorer and trip.endDate<currentDate}">
 		
 		<a href="story/explorer/edit.do">
 			<button>
 				<spring:message code="detailedTrip.story.create" />
+			</button>
+		</a>
+	</jstl:if>
+</security:authorize>
+
+<security:authorize access="hasRole('MANAGER')">
+	<jstl:if test="${trip.publicationDate>currentDate}">
+		
+		<a href="trip/manager/cancel.do?tripId=${trip.id}">
+			<button>
+				<spring:message code="detailedTrip.cancel" />
 			</button>
 		</a>
 	</jstl:if>
