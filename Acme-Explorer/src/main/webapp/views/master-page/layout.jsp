@@ -42,6 +42,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#jMenu").jMenu();
+		$("#datetimepicker").datetimepicker();
 	});
 
 	function askSubmission(msg, form) {
