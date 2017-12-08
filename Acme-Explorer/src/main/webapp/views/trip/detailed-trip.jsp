@@ -27,7 +27,7 @@ iframe de maps
 </h1>
 
 <security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${hasManager}">
+	<jstl:if test="${hasManager and trip.publicationDate > currentDate}">
 		<a href="trip/manager/edit.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="trip.edit" />
