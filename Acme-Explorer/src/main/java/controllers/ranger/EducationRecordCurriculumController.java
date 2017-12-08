@@ -16,29 +16,30 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.CurriculumService;
-import services.MiscellaneousRecordService;
+import services.EducationRecordService;
 import services.RangerService;
 import controllers.AbstractController;
 import domain.Curriculum;
+import domain.EducationRecord;
 import domain.MiscellaneousRecord;
 
 @Controller
-@RequestMapping("/miscellaneousRecord/ranger")
-public class MiscellaneousRecordCurriculumController extends AbstractController {
+@RequestMapping("/educationRecord/ranger")
+public class EducationRecordCurriculumController extends AbstractController {
 
 	@Autowired
-	CurriculumService			curriculumService;
+	CurriculumService		curriculumService;
 	@Autowired
-	ActorService				actorService;
+	ActorService			actorService;
 	@Autowired
-	RangerService				rangerService;
+	RangerService			rangerService;
 	@Autowired
-	MiscellaneousRecordService	miscellaneousRecordService;
+	EducationRecordService	educationRecordService;
 
 
 	// Constructors -----------------------------------------------------------
 
-	public MiscellaneousRecordCurriculumController() {
+	public EducationRecordCurriculumController() {
 		super();
 	}
 	// Listing ---------------------------------------------------------------		
@@ -47,12 +48,12 @@ public class MiscellaneousRecordCurriculumController extends AbstractController 
 	public ModelAndView list(@RequestParam("curriculumId") final int cID) {
 		ModelAndView result;
 
-		result = new ModelAndView("miscellaneousRecord/list");
+		result = new ModelAndView("educationRecord/list");
 		final Curriculum c = this.curriculumService.findOne(cID);
 
-		final Collection<MiscellaneousRecord> professionalRecords = c.getMiscellaneousRecords();
-		result.addObject("requestUri", "professionalRecord/list.do");
-		result.addObject("curriculum.professionalRecord", professionalRecords);
+		final Collection<MiscellaneousRecord> educationRecords = c.getMiscellaneousRecords();
+		result.addObject("requestUri", "educationRecord/list.do");
+		result.addObject("curriculum.educationRecord", educationRecords);
 
 		return result;
 	}
@@ -62,42 +63,42 @@ public class MiscellaneousRecordCurriculumController extends AbstractController 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		MiscellaneousRecord pr;
+		EducationRecord educationRecord;
 
-		pr = this.miscellaneousRecordService.create();
-		result = this.createEditModelAndView(pr);
+		educationRecord = this.educationRecordService.create();
+		result = this.createEditModelAndView(educationRecord);
 
 		return result;
 	}
 
 	// Editing ---------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int miscellaneousRecordId) {
+	public ModelAndView edit(@RequestParam final int educationRecordId) {
 		ModelAndView result;
-		MiscellaneousRecord miscellaneousRecord;
+		EducationRecord educationRecord;
 
-		miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
-		Assert.notNull(miscellaneousRecord);
+		educationRecord = this.educationRecordService.findOne(educationRecordId);
+		Assert.notNull(educationRecord);
 
-		result = this.createEditModelAndView(miscellaneousRecord);
+		result = this.createEditModelAndView(educationRecord);
 
 		return result;
 	}
 	// Saving ----------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView reject(@Valid final MiscellaneousRecord miscellaneousRecord, final BindingResult binding) {
+	public ModelAndView reject(@Valid final EducationRecord educationRecord, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.params.error");
+			result = this.createEditModelAndView(educationRecord, "educationRecord.params.error");
 		else
 			try {
-				this.miscellaneousRecordService.save(miscellaneousRecord);
+				this.educationRecordService.save(educationRecord);
 				result = new ModelAndView("redirect:/curriculum/ranger/list.do");
 
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
+				result = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
 			}
 
 		return result;
@@ -106,14 +107,14 @@ public class MiscellaneousRecordCurriculumController extends AbstractController 
 	// Deleting --------------------------------------------
 
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final MiscellaneousRecord miscellaneousRecord, final BindingResult binding) {
+	public ModelAndView delete(final EducationRecord educationRecord, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
-			this.miscellaneousRecordService.delete(miscellaneousRecord);
+			this.educationRecordService.delete(educationRecord);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
+			result = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
 		}
 
 		return result;
@@ -121,20 +122,20 @@ public class MiscellaneousRecordCurriculumController extends AbstractController 
 
 	// Ancillary methods -------------------------------------
 
-	protected ModelAndView createEditModelAndView(final MiscellaneousRecord miscellaneousRecord) {
+	protected ModelAndView createEditModelAndView(final EducationRecord educationRecord) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(miscellaneousRecord, null);
+		result = this.createEditModelAndView(educationRecord, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final MiscellaneousRecord miscellaneousRecord, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final EducationRecord educationRecord, final String messageCode) {
 
 		final ModelAndView result;
 
-		result = new ModelAndView("miscellaneousRecord/edit");
-		result.addObject("miscellaneousRecord", miscellaneousRecord);
+		result = new ModelAndView("educationRecord/edit");
+		result.addObject("educationRecord", educationRecord);
 
 		return result;
 	}

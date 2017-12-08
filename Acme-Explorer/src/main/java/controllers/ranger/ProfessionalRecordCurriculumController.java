@@ -90,7 +90,7 @@ public class ProfessionalRecordCurriculumController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(professionalRecord, "survivalClass.params.error");
+			result = this.createEditModelAndView(professionalRecord, "professionalRecord.params.error");
 		else
 			try {
 				this.professionalRecordService.save(professionalRecord);
