@@ -24,13 +24,14 @@
 	<form:hidden path = "version" />
 	<form:hidden path = "auditor" />
 	<form:hidden path = "trip" />
+	<form:hidden path = "momentWhenCarriedOut" />
 	
-	<form:label path = "momentWhenCarriedOut">
+<%-- 	<form:label path = "momentWhenCarriedOut">
 		<spring:message code = "auditRecord.moment" />:
 	</form:label>
 	<form:input path = "momentWhenCarriedOut" disabled = "true" placeholder = "dd/MM/yyyy hh:mm" />
 	<form:errors cssClass = "error" path = "momentWhenCarriedOut" />
-	<br />
+	<br /> --%>
 	
 	<form:label path = "title">
 		<spring:message code = "auditRecord.title" />:

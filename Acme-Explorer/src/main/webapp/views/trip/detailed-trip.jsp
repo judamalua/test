@@ -294,6 +294,8 @@ iframe de maps
 
 </jstl:if>
 
+	<security:authorize access="hasRole('AUDITOR')">
+
 <jstl:if test="${not empty trip.notes}">
 	<display:table name="${trip.notes}" id="row4"
 		requestURI="notes/list.do?tripId=${trip.id}" pagesize="10"
@@ -325,15 +327,54 @@ iframe de maps
 			</jstl:if>
 		</security:authorize>
 	</display:table>
+</jstl:if>
+</security:authorize>
+
+	<security:authorize access="hasRole('MANAGER')">
+
+<jstl:if test="${not empty trip.notes}">
+	<display:table name="${trip.notes}" id="row4"
+		requestURI="notes/list.do?tripId=${trip.id}" pagesize="10"
+		class="displaytag">
+
+		<spring:message code="detailedTrip.notes.moment" var="noteHeader" />
+		<display:column property="moment" title="${noteHeader}"
+			sortable="true" />
+
+		<spring:message code="detailedTrip.notes.remark" var="remarkHeader" />
+		<display:column property="remark" title="${remarkHeader}" />
+
+		<jstl:if test="${row.reply!=null}">
+			<spring:message code="detailedTrip.notes.reply" var="replyHeader" />
+			<display:column property="reply" title="${replyHeader}" />
+
+			<spring:message code="detailedTrip.notes.momentReply"
+				var="momentReplyHeader" />
+			<display:column property="momentOfReply" title="${momentReplyHeader}" />
+		</jstl:if>
+
+		<security:authorize access="hasRole('MANAGER')">
+			<jstl:if test="${hasManager}">
+				<display:column>
+					<a href="note/manager/edit.do?noteId=${row.id}"> <spring:message
+							code="detailedTrip.notes.manager.reply" />
+					</a>
+				</display:column>
+			</jstl:if>
+		</security:authorize>
+	</display:table>
+</jstl:if>
+</security:authorize>
+
 
 	<security:authorize access="hasRole('AUDITOR')">
-		<a href="note/auditor/edit.do">
+		<a href="note/auditor/create.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="detailedTrip.notes.create" />
 			</button>
 		</a>
 	</security:authorize>
-</jstl:if>
+
 <security:authorize access = "hasRole('AUDITOR')">
 		
 	<a href = "auditRecord/auditor/create.do?tripId=${trip.id}">
