@@ -22,6 +22,10 @@ public class MiscellaneousRecord extends DomainEntity {
 	private String	commentaries;
 
 
+	@Override
+	public String toString() {
+		return "MiscellaneousRecord [title=" + this.title + ", attachment=" + this.attachment + ", commentaries=" + this.commentaries + "]";
+	}
 	@NotBlank
 	public String getTitle() {
 		return this.title;

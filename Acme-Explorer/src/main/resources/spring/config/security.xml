@@ -71,7 +71,7 @@
 		<security:intercept-url pattern="/note/manager/**" access="hasRole('MANAGER')" />
 		
 		<security:intercept-url pattern="/curriculum/ranger/**" access="hasRole('RANGER')" /> 
-		<security:intercept-url pattern="/professionalRecord/ranger/**" access="hasRole('RANGER')" />
+		<security:intercept-url pattern="/professionalRecord/ranger/edit.do" access="hasRole('RANGER')" />
 		<security:intercept-url pattern="/personalRecord/ranger/**" access="hasRole('RANGER')" />
 		<security:intercept-url pattern="/endorserRecord/ranger/**" access="hasRole('RANGER')" />
 		<security:intercept-url pattern="/miscellaneousRecord/ranger/**" access="hasRole('RANGER')" />

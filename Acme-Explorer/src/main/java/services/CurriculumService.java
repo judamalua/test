@@ -61,10 +61,10 @@ public class CurriculumService {
 
 		result = new Curriculum();
 
-		final Collection<ProfessionalRecord> pr = new HashSet<>();
-		final Collection<EducationRecord> edr = new HashSet<>();
-		final Collection<EndorserRecord> enr = new HashSet<>();
-		final Collection<MiscellaneousRecord> mr = new HashSet<>();
+		final Collection<ProfessionalRecord> pr = new HashSet<ProfessionalRecord>();
+		final Collection<EducationRecord> edr = new HashSet<EducationRecord>();
+		final Collection<EndorserRecord> enr = new HashSet<EndorserRecord>();
+		final Collection<MiscellaneousRecord> mr = new HashSet<MiscellaneousRecord>();
 
 		result.setEducationRecords(edr);
 		result.setEndorserRecords(enr);

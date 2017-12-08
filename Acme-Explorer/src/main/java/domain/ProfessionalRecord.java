@@ -25,6 +25,13 @@ public class ProfessionalRecord extends DomainEntity {
 	//		super();
 	//	}
 
+	@Override
+	public String toString() {
+		return "ProfessionalRecord [companyName=" + this.companyName + ", workingPeriodStart=" + this.workingPeriodStart + ", workingPeriodEnd=" + this.workingPeriodEnd + ", role=" + this.role + ", attachment=" + this.attachment + ", commentaries="
+			+ this.commentaries + "]";
+	}
+
+
 	// Attributes -------------------------------------------------------------
 	private String	companyName;
 	private Date	workingPeriodStart;
