@@ -103,4 +103,13 @@ public class ConfigurationService {
 	//
 	//	}
 
+	public String getBannerUrl() {
+		String result;
+
+		result = this.findConfiguration().getBannerUrl();
+		Assert.notNull(result);
+
+		return result;
+	}
+
 }

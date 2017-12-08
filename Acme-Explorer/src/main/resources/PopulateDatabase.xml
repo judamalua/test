@@ -3241,7 +3241,7 @@
 
 	<bean id="location2" class="domain.Location">
 		<property name="name" value="Sahara" />
-		<property name="gpsCoordinates" value="-126.53,27.82" />
+		<property name="gpsCoordinates" value="-29.53,27.82" />
 	</bean>
 
 	<!-- Manager -->

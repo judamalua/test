@@ -11,16 +11,38 @@
 package controllers;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
+
+import services.ConfigurationService;
 
 @Controller
 public class AbstractController {
 
-	// Panic handler ----------------------------------------------------------
+	@Autowired
+	private ConfigurationService	configurationService;
 
+
+	/**
+	 * 
+	 * @return banner URL of the system as a model attribute to be used in any other view
+	 * 
+	 * @author Juanmi
+	 */
+	@ModelAttribute(value = "banner")
+	public String banner() {
+		String result;
+
+		result = this.configurationService.getBannerUrl();
+
+		return result;
+	}
+
+	// Panic handler ----------------------------------------------------------
 	@ExceptionHandler(Throwable.class)
 	public ModelAndView panic(final Throwable oops) {
 		ModelAndView result;
