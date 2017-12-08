@@ -195,7 +195,17 @@ public class CurriculumService {
 	public Curriculum getCurriculumWithEndorser(final EndorserRecord record) {
 		return this.curriculumRepository.getCurriculumWithEndorser(record.getId());
 	}
+	//NEW
+	public Curriculum findCurriculumByRangerID() {
 
+		final int id = this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId()).getId();
+		Curriculum result;
+
+		result = this.curriculumRepository.getCurriculumByRangerID(id);
+
+		return result;
+
+	}
 	public Curriculum getCurriculumWithEducation(final EducationRecord record) {
 		return this.curriculumRepository.getCurriculumWithEducation(record.getId());
 	}

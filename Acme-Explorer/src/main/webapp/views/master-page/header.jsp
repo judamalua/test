@@ -48,6 +48,8 @@
 								code="master.page.tripList" /></a></li>
 					<li><a href="category/list.do"><spring:message
 								code="master.page.categoryList" /></a></li>
+					<li><a href="curriculum/ranger/list.do"><spring:message
+					code="master.page.curriculumList" /></a></li>
 				</ul></li>
 		</security:authorize>
 
