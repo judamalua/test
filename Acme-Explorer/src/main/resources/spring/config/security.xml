@@ -55,6 +55,7 @@
 		<security:intercept-url pattern="/application/explorer/**" access="hasRole('EXPLORER')" /> 
 		<security:intercept-url pattern="/application/manager/**" access="hasRole('MANAGER')" />
 		
+		
 		<security:intercept-url pattern="/auditRecord/auditor/**" access="hasRole('AUDITOR')" /> 
 		
 		<security:intercept-url pattern="/category/list.do" access="permitAll" />
