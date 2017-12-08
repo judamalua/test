@@ -29,26 +29,22 @@
 	<form:hidden path = "version" />
 	<form:hidden path = "auditor" />
 	<form:hidden path = "trip" />
-	<form:hidden path = "replierManager" />
-	<security:authorize access="hasRole('AUDITOR')">
-		<form:hidden path = "reply" />
+	<form:hidden path = "moment" />
+	
+	<security:authorize access="hasRole('MANAGER')">
 		<form:hidden path = "momentOfReply" />
+		<form:hidden path = "replierManager" />
+		<form:hidden path = "remark" />
 	</security:authorize>
-	
-	
-	<form:label path = "moment">
-		<spring:message code = "note.moment" />:
-	</form:label>
-	<form:input  disabled="${enabled}" path = "moment" placeholder = "yyyy/MM/dd" />
-	<form:errors cssClass = "error" path = "moment" />
-	<br />
-	
-	<form:label path = "remark">
-		<spring:message code = "note.remark" />:
-	</form:label>
-	<form:input disabled="${enabled}"  path = "remark" />
-	<form:errors cssClass = "error" path = "remark" />
-	<br />
+
+	<security:authorize access="hasRole('AUDITOR')">
+		<form:label path = "remark">
+			<spring:message code = "note.remark" />:
+		</form:label>
+		<form:input disabled="${enabled}"  path = "remark" />
+		<form:errors cssClass = "error" path = "remark" />
+		<br />
+	</security:authorize>
 	
 	<security:authorize access="hasRole('MANAGER')">
 	
@@ -57,13 +53,6 @@
 		</form:label>
 		<form:input path = "reply" />
 		<form:errors cssClass = "error" path = "reply" />
-		<br />
-		
-		<form:label path = "momentOfReply">
-			<spring:message code = "note.momentOfReply" />:
-		</form:label>
-		<form:input path = "momentOfReply" />
-		<form:errors cssClass = "error" path = "momentOfReply" />
 		<br />
 		
 	</security:authorize>

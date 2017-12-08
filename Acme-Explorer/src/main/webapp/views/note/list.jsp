@@ -52,13 +52,3 @@
 	</security:authorize>
 
 </display:table>
-
-
-<security:authorize access = "hasRole('AUDITOR')">
-	
-	<a href = "note/auditor/create.do">
-		<input type = "button" name = "create" value = "<spring:message code = "note.create" />" >
-	</a>
-	
-		
-</security:authorize>

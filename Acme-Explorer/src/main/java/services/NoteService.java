@@ -14,7 +14,6 @@ import repositories.NoteRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
-import domain.Administrator;
 import domain.Auditor;
 import domain.Note;
 import domain.Trip;
@@ -101,18 +100,18 @@ public class NoteService {
 		if (id != 0) {
 			storedNote = this.noteRepository.findOne(id);
 			Assert.isTrue(storedNote.getRemark().equals(note.getRemark()));
-			Assert.isTrue(storedNote.getMomentOfReply().equals(note.getMomentOfReply()));
+			//Assert.isTrue(storedNote.getMoment().equals(note.getMoment()));
 			Assert.isTrue(storedNote.getTrip().equals(note.getTrip()));
 			Assert.isTrue(storedNote.getAuditor().equals(note.getAuditor()));
 		}
 
-		note.setMoment(new Date(System.currentTimeMillis() - 1));
+		//note.setMoment(new Date(System.currentTimeMillis() - 1));
 
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		actor = this.actorService.findActorByUserAccountId(userAccount.getId());
 		Assert.notNull(actor);
-		Assert.isTrue(actor instanceof Auditor || actor instanceof Administrator);
+		//Assert.isTrue(actor instanceof Auditor || actor instanceof Administrator);
 
 		if (actor instanceof Auditor) {
 			auditor = (Auditor) actor;

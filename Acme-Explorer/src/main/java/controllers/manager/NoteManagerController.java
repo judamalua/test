@@ -1,7 +1,7 @@
 
-package controllers.auditor;
+package controllers.manager;
 
-import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -13,19 +13,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
 import services.ActorService;
-import services.AuditorService;
+import services.ManagerService;
 import services.NoteService;
 import services.TripService;
-import controllers.AbstractController;
+import domain.Manager;
 import domain.Note;
 
 @Controller
-@RequestMapping("note/auditor")
-public class NoteAuditorController extends AbstractController {
+@RequestMapping("note/manager")
+public class NoteManagerController {
 
 	@Autowired
-	AuditorService	auditorService;
+	ManagerService	managerService;
 	@Autowired
 	ActorService	actorService;
 	@Autowired
@@ -36,37 +37,10 @@ public class NoteAuditorController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public NoteAuditorController() {
+	public NoteManagerController() {
 		super();
 	}
 
-	// Listing ---------------------------------------------------------------		
-
-	@RequestMapping("/list")
-	public ModelAndView list() {
-		ModelAndView result;
-
-		result = new ModelAndView("note/list");
-
-		final Collection<Note> notes = this.noteService.findNotesByAuditorID();
-		result.addObject("notes", notes);
-		result.addObject("requestUri", "note/auditor/list.do");
-
-		return result;
-	}
-
-	// Creating -------------------------------------
-
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int tripId) {
-		ModelAndView result;
-		Note note;
-		note = this.noteService.create();
-		note.setTrip(this.tripService.findOne(tripId));
-		result = this.createEditModelAndView(note);
-
-		return result;
-	}
 	// Editing ---------------------------------------------------------------	
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int noteId) {
@@ -74,6 +48,11 @@ public class NoteAuditorController extends AbstractController {
 		Note note;
 
 		note = this.noteService.findOne(noteId);
+
+		final Manager replierManager = (Manager) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
+
+		note.setMomentOfReply(new Date(System.currentTimeMillis() - 1000));
+		note.setReplierManager(replierManager);
 
 		result = this.createEditModelAndView(note);
 
@@ -90,7 +69,7 @@ public class NoteAuditorController extends AbstractController {
 		else
 			try {
 				this.noteService.save(note);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:trip/manager/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(note, "note.commit.error");
 
@@ -118,4 +97,5 @@ public class NoteAuditorController extends AbstractController {
 
 		return result;
 	}
+
 }
