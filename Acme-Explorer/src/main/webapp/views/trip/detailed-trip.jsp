@@ -278,7 +278,7 @@ iframe de maps
 				</display:column>
 				<spring:message code="detailedTrip.auditRecord.auditor"
 					var="auditorHeader" />
-				<display:column property="auditor" title="${auditorHeader}"
+				<display:column property="auditor.name" title="${auditorHeader}"
 					sortable="false" />
 			</display:table>
 		</jstl:if>
@@ -352,7 +352,7 @@ iframe de maps
 		<security:authorize access="hasRole('MANAGER')">
 			<jstl:if test="${hasManager}">
 				<display:column>
-				<jstl:if test="${row4.reply==null} }">
+				<jstl:if test="${row4.reply == null or row4.reply == \"\"}">
 					<a href="note/manager/edit.do?noteId=${row4.id}"> <spring:message
 							code="detailedTrip.notes.manager.reply" />
 					</a>

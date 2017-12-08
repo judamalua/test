@@ -125,6 +125,9 @@ public class NoteService {
 		trip = note.getTrip();
 		auditor = note.getAuditor();
 
+		trip.getNotes().remove(note);
+		auditor.getNotes().remove(note);
+
 		trip.getNotes().add(note);
 		auditor.getNotes().add(note);
 
