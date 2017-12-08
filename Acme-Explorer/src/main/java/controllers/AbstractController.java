@@ -42,6 +42,36 @@ public class AbstractController {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @return english version of the welcome message stored in configuration entity
+	 * 
+	 * @author Juanmi
+	 */
+	@ModelAttribute(value = "welcomeMessageEng")
+	public String welcomeMessageEng() {
+		String result;
+
+		result = this.configurationService.getWelcomeMessageEng();
+
+		return result;
+	}
+
+	/**
+	 * 
+	 * @return spanish version of the welcome message stored in configuration entity
+	 * 
+	 * @author Juanmi
+	 */
+	@ModelAttribute(value = "welcomeMessageEsp")
+	public String welcomeMessageEsp() {
+		String result;
+
+		result = this.configurationService.getWelcomeMessageEsp();
+
+		return result;
+	}
+
 	// Panic handler ----------------------------------------------------------
 	@ExceptionHandler(Throwable.class)
 	public ModelAndView panic(final Throwable oops) {

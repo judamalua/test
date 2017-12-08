@@ -103,10 +103,46 @@ public class ConfigurationService {
 	//
 	//	}
 
+	/**
+	 * 
+	 * @return banner URL stored in configuration entity
+	 * 
+	 * @author Juanmi
+	 */
 	public String getBannerUrl() {
 		String result;
 
 		result = this.findConfiguration().getBannerUrl();
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	/**
+	 * 
+	 * @return english version of the welcome message stored in configuration entity
+	 * 
+	 * @author Juanmi
+	 */
+	public String getWelcomeMessageEng() {
+		String result;
+
+		result = this.findConfiguration().getWelcomeMessageEng();
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	/**
+	 * 
+	 * @return spanish version of the welcome message stored in configuration entity
+	 * 
+	 * @author Juanmi
+	 */
+	public String getWelcomeMessageEsp() {
+		String result;
+
+		result = this.findConfiguration().getWelcomeMessageEsp();
 		Assert.notNull(result);
 
 		return result;

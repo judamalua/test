@@ -2543,7 +2543,8 @@
 		</property>
 		<property name="bannerUrl"
 			value="http://creek-tours.com/wp-content/uploads/Kenya-Tanzania-Family-Safari-banner.jpg" />
-		<property name="welcomeMessage" value="welcome.message" />
+		<property name="welcomeMessageEng" value="Tanzanika is an adventure company that makes your explorer's dreams true" />
+		<property name="welcomeMessageEsp" value="Tanzanika es la empresa de aventuras que hará tus sueños de explorador realidad" />
 		<property name="defaultPhoneCountryCode" value="+34" />
 		<property name="maxResults" value="10"/>
 

@@ -29,7 +29,8 @@ public class Configuration extends DomainEntity {
 	private int					searchTimeout;
 	private Collection<String>	spamWords;
 	private String				bannerUrl;
-	private String				welcomeMessage;
+	private String				welcomeMessageEng;
+	private String				welcomeMessageEsp;
 	private String				defaultPhoneCountryCode;
 	private int					maxResults;
 
@@ -73,12 +74,21 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getWelcomeMessage() {
-		return this.welcomeMessage;
+	public String getWelcomeMessageEng() {
+		return this.welcomeMessageEng;
 	}
 
-	public void setWelcomeMessage(final String welcomeMessage) {
-		this.welcomeMessage = welcomeMessage;
+	public void setWelcomeMessageEng(final String welcomeMessageEng) {
+		this.welcomeMessageEng = welcomeMessageEng;
+	}
+
+	@NotBlank
+	public String getWelcomeMessageEsp() {
+		return this.welcomeMessageEsp;
+	}
+
+	public void setWelcomeMessageEsp(final String welcomeMessageEsp) {
+		this.welcomeMessageEsp = welcomeMessageEsp;
 	}
 
 	@NotBlank
