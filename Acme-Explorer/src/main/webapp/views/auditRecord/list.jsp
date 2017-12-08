@@ -40,6 +40,7 @@
 		</jstl:forEach>
 		</ul>
 	</display:column>
+<security:authorize access="hasRole('AUDITOR')">
 
 	<display:column>
 		<jstl:if test = "${!row.isFinalMode}">
@@ -51,7 +52,7 @@
 			</a>
 		</jstl:if>
 	</display:column>
-
+</security:authorize>
 </display:table>
 
 
