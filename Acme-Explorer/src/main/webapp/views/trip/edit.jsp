@@ -166,7 +166,7 @@
 		type="button"
 		name="cancel"
 		value="<spring:message code="trip.cancel" />"
-		onclick="javascript: relativeRedir('stage/manager/list.do')">
+		onclick="javascript: relativeRedir('trip/manager/list.do')">
 	
 	
 </form:form>

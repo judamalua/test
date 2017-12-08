@@ -16,8 +16,13 @@ iframe de maps
 
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate var="currentDate" value="${now}"
-	pattern="dd/MM/yyyy HH:mm" />
+	pattern="yyyy-MM-dd HH:mm" />
 <br />
+
+<fmt:formatDate var="publicationDate" value="${trip.publicationDate}"
+	pattern="yyyy-MM-dd HH:mm" />
+<br />
+
 <a href="${sponsorship.additionalInfoLink}"><img
 	src="${sponsorship.bannerUrl}" alt="trip.sponsorship" /></a>
 <h1>
@@ -27,7 +32,7 @@ iframe de maps
 </h1>
 
 <security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${hasManager and trip.publicationDate > currentDate}">
+	<jstl:if test="${hasManager and publicationDate > currentDate}">
 		<a href="trip/manager/edit.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="trip.edit" />
