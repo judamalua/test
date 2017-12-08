@@ -428,10 +428,11 @@ iframe de maps
 		</a>
 	</jstl:if>
 </security:authorize>
+<br/>
+<br/>
 
 <security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${trip.publicationDate>currentDate}">
-		
+	<jstl:if test="${trip.publicationDate>currentDate and hasManager and trip.cancelReason!=null}">
 		<a href="trip/manager/cancel.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="detailedTrip.cancel" />

@@ -110,6 +110,36 @@ public class TripManagerController extends AbstractController {
 		return result;
 	}
 
+	// Canceling ----------------------------------------------------------------
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(@RequestParam("tripId") final int tripId) {
+		ModelAndView result;
+		Trip trip;
+
+		trip = this.tripService.findOne(tripId);
+		Assert.notNull(trip);
+		result = new ModelAndView("trip/cancel-trip");
+		result.addObject("trip", tripId);
+
+		return result;
+	}
+
+	// Saving Canceling ----------------------------------------------------------------
+	@RequestMapping(value = "/cancel", method = RequestMethod.POST, params = {
+		"save", "reason", "tripId"
+	})
+	public ModelAndView SaveCancel(final int tripId, final String reason) {
+		ModelAndView result;
+		Trip trip;
+
+		trip = this.tripService.findOne(tripId);
+		Assert.notNull(trip);
+		trip.setCancelReason(reason);
+		this.tripService.save(trip);
+		result = new ModelAndView("redirect:list.do");
+
+		return result;
+	}
 	// Saving -----------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Trip trip, final BindingResult binding) {
