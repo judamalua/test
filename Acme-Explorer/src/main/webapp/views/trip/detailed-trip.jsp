@@ -322,15 +322,6 @@ iframe de maps
 			<display:column property="momentOfReply" title="${momentReplyHeader}" />
 		</jstl:if>
 
-		<security:authorize access="hasRole('MANAGER')">
-			<jstl:if test="${hasManager}">
-				<display:column>
-					<a href="note/manager/edit.do?noteId=${row.id}"> <spring:message
-							code="detailedTrip.notes.manager.reply" />
-					</a>
-				</display:column>
-			</jstl:if>
-		</security:authorize>
 	</display:table>
 </jstl:if>
 </security:authorize>
@@ -361,9 +352,11 @@ iframe de maps
 		<security:authorize access="hasRole('MANAGER')">
 			<jstl:if test="${hasManager}">
 				<display:column>
-					<a href="note/manager/edit.do?noteId=${row.id}"> <spring:message
+				<jstl:if test="${row4.reply==null} }">
+					<a href="note/manager/edit.do?noteId=${row4.id}"> <spring:message
 							code="detailedTrip.notes.manager.reply" />
 					</a>
+					</jstl:if>
 				</display:column>
 			</jstl:if>
 		</security:authorize>
