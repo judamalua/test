@@ -2491,7 +2491,7 @@
 
 	<bean id="tag1" class="domain.Tag">
 
-		<property name="name" value="Name 1" />
+		<property name="name" value="Country" />
 		<property name="trips">
 			<list>
 				<ref bean="trip1" />
@@ -2504,13 +2504,23 @@
 
 	<bean id="tag2" class="domain.Tag">
 
-		<property name="name" value="Name 2" />
+		<property name="name" value="Expertise" />
 		<property name="trips">
 			<list>
 				<ref bean="trip1" />
 				<ref bean="trip2" />
 				<ref bean="trip3" />
 				<ref bean="trip4" />
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="tag3" class="domain.Tag">
+
+		<property name="name" value="Dangerousness" />
+		<property name="trips">
+			<list>
 			</list>
 		</property>
 
@@ -2815,12 +2825,11 @@
 
 	<bean id="category1" class="domain.Category">
 
-		<property name="name" value="Category 1" />
+		<property name="name" value="Safari" />
 		<property name="fatherCategory" ref = "category4" />
 		<property name="categories">
 			<list>
 				<ref bean="category2" />
-				<ref bean="category3" />
 			</list>
 		</property>
 		<property name="trips">
@@ -2834,10 +2843,12 @@
 
 	<bean id="category2" class="domain.Category">
 
-		<property name="name" value="Category 2" />
+		<property name="name" value="Ground" />
 		<property name="fatherCategory" ref="category1" />
 		<property name="categories">
 			<list>
+				<ref bean="category3" />
+				<ref bean="category7" />
 			</list>
 		</property>
 		<property name="trips">
@@ -2851,8 +2862,8 @@
 
 	<bean id="category3" class="domain.Category">
 
-		<property name="name" value="Category 3" />
-		<property name="fatherCategory" ref="category1" />
+		<property name="name" value="Savana" />
+		<property name="fatherCategory" ref="category2" />
 		<property name="categories">
 			<list>
 			</list>
@@ -2875,7 +2886,117 @@
 		<property name="categories">
 			<list>
 				<ref bean="category1" />
-				
+				<ref bean="category5" />
+				<ref bean="category6" />
+			</list>
+		</property>
+		<property name="trips">
+			<list>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="category5" class="domain.Category">
+
+		<property name="name" value="Water" />
+		<property name="fatherCategory" ref = "category4"/>
+		<property name="categories">
+			<list>
+				<ref bean="category8" />
+				<ref bean="category9" />
+			</list>
+		</property>
+		<property name="trips">
+			<list>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="category6" class="domain.Category">
+
+		<property name="name" value="Climbing" />
+		<property name="fatherCategory" ref = "category4"/>
+		<property name="categories">
+			<list>
+				<ref bean="category10" />
+				<ref bean="category11" />
+			</list>
+		</property>
+		<property name="trips">
+			<list>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="category7" class="domain.Category">
+
+		<property name="name" value="Mountain" />
+		<property name="fatherCategory" ref = "category2"/>
+		<property name="categories">
+			<list>
+			</list>
+		</property>
+		<property name="trips">
+			<list>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="category8" class="domain.Category">
+
+		<property name="name" value="Lake" />
+		<property name="fatherCategory" ref = "category5"/>
+		<property name="categories">
+			<list>
+			</list>
+		</property>
+		<property name="trips">
+			<list>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="category9" class="domain.Category">
+
+		<property name="name" value="River" />
+		<property name="fatherCategory" ref = "category5"/>
+		<property name="categories">
+			<list>
+			</list>
+		</property>
+		<property name="trips">
+			<list>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="category10" class="domain.Category">
+
+		<property name="name" value="Mountain" />
+		<property name="fatherCategory" ref = "category6"/>
+		<property name="categories">
+			<list>
+			</list>
+		</property>
+		<property name="trips">
+			<list>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="category11" class="domain.Category">
+
+		<property name="name" value="River" />
+		<property name="fatherCategory" ref = "category6"/>
+		<property name="categories">
+			<list>
 			</list>
 		</property>
 		<property name="trips">
@@ -3112,10 +3233,10 @@
 		<property name="finalMode" value="FALSE" />
 	</bean>
 
-	<!-- Location -->
+	<!-- Locations -->
 	<bean id="location1" class="domain.Location">
 		<property name="name" value="Amazonas" />
-		<property name="gpsCoordinates" value="22.98,-56.03" />
+		<property name="gpsCoordinates" value="37.3808806,-5.9923354" />
 	</bean>
 
 	<bean id="location2" class="domain.Location">

@@ -66,6 +66,7 @@
 		<security:intercept-url pattern="/professionalRecord/ranger/**" access="hasRole('RANGER')" />
 		
 		<security:intercept-url pattern="/sponsorship/sponsor/**" access="hasRole('SPONSOR')" /> 
+		<security:intercept-url pattern="/sponsorship/manager/**" access="hasRole('MANAGER')" /> 
 		
 		<security:intercept-url pattern="/survivalClass/manager/edit.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/survivalClass/manager/create.do" access="hasRole('MANAGER')" /> 

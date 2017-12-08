@@ -28,7 +28,7 @@
 	<form:label path = "momentWhenCarriedOut">
 		<spring:message code = "auditRecord.moment" />:
 	</form:label>
-	<form:input path = "momentWhenCarriedOut" placeholder = "dd/MM/yyyy hh:mm" />
+	<form:input path = "momentWhenCarriedOut" disabled = "true" placeholder = "dd/MM/yyyy hh:mm" />
 	<form:errors cssClass = "error" path = "momentWhenCarriedOut" />
 	<br />
 	
