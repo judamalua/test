@@ -373,7 +373,7 @@ iframe de maps
 
 <security:authorize access="hasRole('EXPLORER')">
 
-		<jsp:useBean id="now" class="java.util.Date" />
+		<jsp:useBean id="now2" class="java.util.Date" />
 		<fmt:formatDate var="currentDate" value="${now}" pattern="dd/MM/yyyy HH:mm" />
 		
 	<jstl:if test="${hasExplorer and trip.endDate<currentDate}">

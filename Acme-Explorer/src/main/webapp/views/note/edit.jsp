@@ -29,7 +29,7 @@
 	<form:hidden path = "version" />
 	<form:hidden path = "auditor" />
 	<form:hidden path = "trip" />
-	<form:hidden path = "manager" />
+	<form:hidden path = "replierManager" />
 	<security:authorize access="hasRole('AUDITOR')">
 		<form:hidden path = "reply" />
 		<form:hidden path = "momentOfReply" />
