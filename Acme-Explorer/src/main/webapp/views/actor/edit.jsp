@@ -8,24 +8,9 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<!-- <script type="text/javascript">
-
-
-$(document).ready(){
-	$("save").click(function(){
-
-		if (!($("phoneNumber").match("/^\+\d{1,3} \(\d{1,3}\) \d{4}\d*$/") && !($("phoneNumber").match("/^\+\d{1,3} \d{4}\d*$/") && !($("phoneNumber").match("/^\d{4}\d*$/"))))){
-			confirm(<spring:message code="actor.confirm.phone"/>);
-		}
-
-	});
-
-};	
-</script> -->
-
 <form:form
 	id = "form"
-	action="actor/edit.do"
+	action="${requestUri}"
 	modelAttribute ="actor">
 	
 	<form:hidden path="id"/>
@@ -103,7 +88,7 @@ $(document).ready(){
 	<input 
 		type="submit"
 		name="save"
-		value="<spring:message code="actor.save" />"
+		value="<spring:message code="actor.save.edit" />"
 		onclick = "return validate('<spring:message code = "actor.confirm.phone"/>')">
 	
 	<input 

@@ -165,9 +165,11 @@ public class ActorController extends AbstractController {
 		if (actor instanceof Ranger) {
 			result = new ModelAndView("actor/register-ranger");
 			result.addObject("authority", Authority.RANGER);
+			result.addObject("requestUri", "actor/register-ranger.do");
 		} else {
 			result = new ModelAndView("actor/register-explorer");
 			result.addObject("authority", Authority.EXPLORER);
+			result.addObject("requestUri", "actor/register-explorer.do");
 		}
 
 		result.addObject("actor", actor);

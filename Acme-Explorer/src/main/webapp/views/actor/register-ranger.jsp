@@ -75,7 +75,7 @@
 	
 	<input type="submit"
 		name="save"
-		value="<spring:message code="actor.save" />"
+		value="<spring:message code="actor.save.register" />"
 		onclick = "return validate('<spring:message code = "actor.confirm.phone"/>')">
 	
 	<input type="button"

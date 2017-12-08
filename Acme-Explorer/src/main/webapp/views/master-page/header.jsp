@@ -36,6 +36,8 @@
 								code="master.page.categoryList" /></a></li>
 					<li><a href="survivalClass/explorer/list-joined.do"><spring:message
 								code="master.page.survivalClassList" /></a></li>
+					<li><a href="actor/explorer/edit.do"><spring:message
+						code="master.page.actorEdit" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -50,6 +52,8 @@
 								code="master.page.categoryList" /></a></li>
 					<li><a href="curriculum/ranger/list.do"><spring:message
 					code="master.page.curriculumList" /></a></li>
+					<li><a href="actor/ranger/edit.do"><spring:message
+						code="master.page.actorEdit" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -64,6 +68,8 @@
 								code="master.page.categoryList" /></a></li>
 					<li><a href="sponsorship/sponsor/list.do"><spring:message
 								code="master.page.sponsorshipList" /></a></li>
+					<li><a href="actor/sponsor/edit.do"><spring:message
+						code="master.page.actorEdit" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -82,6 +88,8 @@
 								code="master.page.categoryList" /></a></li>
 					<li><a href="sponsorship/manager/list.do"><spring:message
 								code="master.page.sponsorshipList" /></a></li>
+					<li><a href="actor/manager/edit.do"><spring:message
+						code="master.page.actorEdit" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -98,6 +106,8 @@
 								code="master.page.auditRecordList" /></a></li>
 					<li><a href="note/auditor/list.do"><spring:message
 								code="master.page.noteList" /></a></li>
+					<li><a href="actor/auditor/edit.do"><spring:message
+						code="master.page.actorEdit" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -123,8 +133,6 @@
 								code="master.page.logout" /> </a></li>
 				</ul></li>
 
-			<li><a href="actor/edit.do"><spring:message
-						code="master.page.actorEdit" /></a></li>
 			<li><a href="messageFolder/list.do"><spring:message
 						code="master.page.actorMessageFolder" /></a></li>
 

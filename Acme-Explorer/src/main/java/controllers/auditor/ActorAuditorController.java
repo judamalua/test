@@ -1,5 +1,5 @@
 
-package controllers.admin;
+package controllers.auditor;
 
 import javax.validation.Valid;
 
@@ -13,11 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import controllers.AbstractController;
-import domain.Administrator;
+import domain.Auditor;
 
 @Controller
-@RequestMapping("/actor/admin")
-public class ActorAdminController extends AbstractController {
+@RequestMapping("/actor/auditor")
+public class ActorAuditorController extends AbstractController {
 
 	// Services -------------------------------------------------------
 
@@ -30,11 +30,11 @@ public class ActorAdminController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 		ModelAndView result;
-		Administrator administrator;
+		Auditor auditor;
 
-		administrator = (Administrator) this.actorService.findActorByPrincipal();
-		Assert.notNull(administrator);
-		result = this.createEditModelAndView(administrator);
+		auditor = (Auditor) this.actorService.findActorByPrincipal();
+		Assert.notNull(auditor);
+		result = this.createEditModelAndView(auditor);
 
 		return result;
 	}
@@ -42,18 +42,18 @@ public class ActorAdminController extends AbstractController {
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Administrator administrator, final BindingResult binding) {
+	public ModelAndView save(@Valid final Auditor auditor, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(administrator, "actor.params.error");
+			result = this.createEditModelAndView(auditor, "actor.params.error");
 		else
 			try {
-				this.actorService.save(administrator);
+				this.actorService.save(auditor);
 				result = new ModelAndView("redirect:/welcome/index.do");
 
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(administrator, "actor.commit.error");
+				result = this.createEditModelAndView(auditor, "actor.commit.error");
 			}
 
 		return result;
@@ -61,24 +61,25 @@ public class ActorAdminController extends AbstractController {
 
 	// Ancillary methods --------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final Administrator administrator) {
+	protected ModelAndView createEditModelAndView(final Auditor auditor) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(administrator, null);
+		result = this.createEditModelAndView(auditor, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Administrator administrator, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Auditor auditor, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("actor/edit");
 
-		result.addObject("actor", administrator);
+		result.addObject("actor", auditor);
 		result.addObject("message", messageCode);
-		result.addObject("requestUri", "actor/admin/edit.do");
+		result.addObject("requestUri", "actor/auditor/edit.do");
 
 		return result;
 
 	}
+
 }
