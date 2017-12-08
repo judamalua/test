@@ -8,6 +8,10 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<script type="text/javascript">
+	
+</script>
+
 <form:form
 	action="trip/manager/edit.do"
 	modelAttribute="trip">
@@ -57,7 +61,13 @@
 	<form:label path="startDate">
 		<spring:message code="trip.startDate"/>
 	</form:label>
-	<form:input path="startDate" placeholder="dd/MM/yyyy hh:mm" />
+		<jsp:useBean id="now" class="java.util.Date" />
+		<fmt:formatDate var="currentDate" value="${now}"
+			pattern="dd/MM/yyyy HH:mm" />
+	<div class="input-append date" id="datetimepicker" data-date="12/02/2017" data-date-format="dd/MM/yyyy">
+		<form:input path="startDate" id="datetimepicker" value="${currentDate}" class="datetimepicker" placeholder="dd/MM/yyyy hh:mm" />
+    	<span class="add-on"><i class="icon-th"></i></span>
+	</div>
 	<form:errors cssClass = "error" path = "startDate" />
 	<br />
 	
