@@ -20,7 +20,7 @@
 
 <form:form action = "professionalRecord/ranger/edit.do" modelAttribute = "professionalRecord">
 	
-	<form:hidden path = "curriculum" />
+	
 	<form:hidden path = "id" />
 	<form:hidden path = "version" />
 	

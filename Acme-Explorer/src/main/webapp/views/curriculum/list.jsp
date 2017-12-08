@@ -118,7 +118,7 @@
 
 					<display:column>
 						<a
-							href="professionalRecord/edit.do?professionalRecordId=${professionalRecord.id}">
+							href="professionalRecord/ranger/edit.do?professionalRecordId=${professionalRecord.id}">
 							<spring:message code="curriculum.edit" />
 						</a>
 					</display:column>
@@ -147,14 +147,14 @@
 		<security:authorize access="hasRole('RANGER')">
 		<jstl:set value="${miscellaneousRecords}" var="miscellaneousRecords"></jstl:set>
 
-			<display:table name="${miscellaneousRecords}" id="miscellaneousRecord"
+			<display:table name="miscellaneousRecords" id="miscellaneousRecord"
 				requestURI="miscellaneousRecord/list.do?curriculumId=${curriculum.id}"
 				pagesize="10" class="displaytag">
 
-			<%-- 	<spring:message code="curriculum.miscellaneousRecord.title"
+			<spring:message code="curriculum.miscellaneousRecord.title"
 					var="title1Header" />
 				<display:column property="title" title="${title1Header}"
-					sortable="false" /> --%>
+					sortable="false" /> 
 
 				<spring:message code="curriculum.miscellaneousRecord.attachment"
 					var="attachment1Header" />
