@@ -54,7 +54,7 @@
 			onclick="return confirm('<spring:message code='survivalClass.confirm.delete' />') " />
 	</jstl:if>
 
-	<a href = "survivalClass/list.do">
+	<a href = "trip/manager/list.do">
 	<input type = "button" name = "cancel" value = "<spring:message code = "survivalclass.cancel" />" >
 	</a>
 

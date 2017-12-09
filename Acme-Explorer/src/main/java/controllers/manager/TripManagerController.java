@@ -19,6 +19,7 @@ import services.CategoryService;
 import services.LegalTextService;
 import services.ManagerService;
 import services.RangerService;
+import services.SurvivalClassService;
 import services.TagService;
 import services.TripService;
 import controllers.AbstractController;
@@ -26,6 +27,7 @@ import domain.Category;
 import domain.LegalText;
 import domain.Manager;
 import domain.Ranger;
+import domain.SurvivalClass;
 import domain.Tag;
 import domain.Trip;
 
@@ -36,25 +38,28 @@ public class TripManagerController extends AbstractController {
 	// Services -------------------------------------------------------
 
 	@Autowired
-	TripService			tripService;
+	TripService				tripService;
 
 	@Autowired
-	ActorService		actorService;
+	ActorService			actorService;
 
 	@Autowired
-	ManagerService		managerService;
+	ManagerService			managerService;
 
 	@Autowired
-	RangerService		rangerService;
+	RangerService			rangerService;
 
 	@Autowired
-	LegalTextService	legalTextService;
+	LegalTextService		legalTextService;
 
 	@Autowired
-	TagService			tagService;
+	TagService				tagService;
 
 	@Autowired
-	CategoryService		categoryService;
+	CategoryService			categoryService;
+
+	@Autowired
+	SurvivalClassService	survivalClassService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -206,11 +211,14 @@ public class TripManagerController extends AbstractController {
 		final Collection<LegalText> legalTexts;
 		final Collection<Tag> tags;
 		final Collection<Category> categories;
+		final Collection<SurvivalClass> notAddedSurvivalClasses;
 
 		rangers = this.rangerService.findAll();
 		legalTexts = this.legalTextService.findAll();
 		tags = this.tagService.findAll();
 		categories = this.categoryService.findAll();
+		notAddedSurvivalClasses = this.survivalClassService.findAll();
+		notAddedSurvivalClasses.removeAll(trip.getSurvivalClasses());
 
 		result = new ModelAndView("trip/edit");
 		result.addObject("rangers", rangers);
@@ -218,6 +226,7 @@ public class TripManagerController extends AbstractController {
 		result.addObject("tags", tags);
 		result.addObject("categories", categories);
 		result.addObject("trip", trip);
+		result.addObject("survivalClasses", notAddedSurvivalClasses);
 
 		result.addObject("message", messageCode);
 

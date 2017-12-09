@@ -132,6 +132,28 @@
 	</form:select>
 	<form:errors cssClass = "error" path = "tags" />
 	<br />
+	
+
+	
+		<form:label path="survivalClasses">
+		<spring:message code="trip.survivalClasses"/>
+	</form:label>
+		<jstl:forEach var="survivalClass" items="${trip.survivalClasses}"> <!-- Variable del controlador -->
+			<p> - <jstl:out value="${survivalClass.title}" />
+		</p>
+		</jstl:forEach>
+		<form:label path="survivalClasses">
+		<spring:message code="trip.addSurvivalClasses"/>
+		</form:label>
+	<form:select multiple="true"  path="survivalClasses">
+		<jstl:forEach var="survivalClass" items="${survivalClasses}"> <!-- Variable del controlador -->
+			<form:option value="${survivalClass.id}">
+				<jstl:out value="${survivalClass.title}"/> 
+			</form:option>
+		</jstl:forEach>
+	</form:select>	
+	<form:errors cssClass = "error" path = "survivalClasses" />
+	<br />
 
 	<form:label path="category">
 		<spring:message code="trip.category"/>
