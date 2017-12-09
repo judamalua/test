@@ -69,8 +69,12 @@ public class ProfessionalRecordService {
 		assert professionalRecord != null;
 
 		ProfessionalRecord result;
+		final Curriculum c = this.curriculumService.getCurriculumWithProfessional(professionalRecord);
 
 		result = this.professionalRecordRepository.save(professionalRecord);
+		c.getProfessionalRecords().remove(professionalRecord);
+		c.getProfessionalRecords().add(result);
+		this.curriculumService.save(c);
 
 		return result;
 

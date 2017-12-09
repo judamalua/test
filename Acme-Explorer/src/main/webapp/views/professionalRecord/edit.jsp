@@ -31,18 +31,18 @@
 	<form:errors cssClass = "error" path = "companyName" />
 	<br />
 	
-	<form:label path = "workingPerdiodStart">
-		<spring:message code = "professionalRecord.workingPerdiodStart" />:
+	<form:label path = "workingPeriodStart">
+		<spring:message code = "professionalRecord.workingPeriodStart" />:
 	</form:label>
-	<form:input path = "workingPerdiodStart" placeholder = "dd/MM/yyyy hh:mm" />
-	<form:errors cssClass = "error" path = "workingPerdiodStart" />
+	<form:input path = "workingPeriodStart" placeholder = "dd/MM/yyyy hh:mm" />
+	<form:errors cssClass = "error" path = "workingPeriodStart" />
 	<br />
 	
-	<form:label path = "workingPerdiodEnd">
-		<spring:message code = "professionalRecord.workingPerdiodEnd" />:
+	<form:label path = "workingPeriodEnd">
+		<spring:message code = "professionalRecord.workingPeriodEnd" />:
 	</form:label>
-	<form:input path = "workingPerdiodEnd" placeholder = "dd/MM/yyyy hh:mm" />
-	<form:errors cssClass = "error" path = "workingPerdiodEnd" />
+	<form:input path = "workingPeriodEnd" placeholder = "dd/MM/yyyy hh:mm" />
+	<form:errors cssClass = "error" path = "workingPeriodEnd" />
 	<br />
 	
 	
@@ -53,19 +53,19 @@
 	<form:errors cssClass = "error" path = "role" />
 	<br />
 	
-	<form:label path = "phoneNumber">
-		<spring:message code = "professionalRecord.phoneNumber" />:
+	<form:label path = "attachment">
+		<spring:message code = "professionalRecord.attachment" />:
 	</form:label>
-	<form:input path = "phoneNumber" />
-	<form:errors cssClass = "error" path = "phoneNumber" />
+	<form:input path = "attachment" />
+	<form:errors cssClass = "error" path = "attachment" />
 	<br />
 	
 	
-	<form:label path = "linkedInProfileURL">
-		<spring:message code = "professionalRecord.linkedInProfileURL" />:
+	<form:label path = "commentaries">
+		<spring:message code = "professionalRecord.commentaries" />:
 	</form:label>
-	<form:input path = "linkedInProfileURL" />
-	<form:errors cssClass = "error" path = "linkedInProfileURL" />
+	<form:input path = "commentaries" />
+	<form:errors cssClass = "error" path = "commentaries" />
 	<br />
 
 	

@@ -20,7 +20,7 @@
 
 <form:form action = "miscellaneousRecord/ranger/edit.do" modelAttribute = "miscellaneousRecord">
 	
-	<form:hidden path = "curriculum" />
+	
 	<form:hidden path = "id" />
 	<form:hidden path = "version" />
 	
@@ -32,7 +32,7 @@
 	<br />
 	
 	<form:label path = "attachment">
-		<spring:message code = "miscellaneousRecord.atachment" />:
+		<spring:message code = "miscellaneousRecord.attachment" />:
 	</form:label>
 	<form:input path = "attachment"  />
 	<form:errors cssClass = "error" path = "attachment" />

@@ -105,19 +105,14 @@ public class CurriculumService {
 
 		//Assert.isTrue(userAccount.getAuthorities().contains(Authority.RANGER));
 		Assert.isTrue(this.actorService.findActorByUserAccountId(userAccount.getId()).getId() == curriculum.getRanger().getId());
+		final Ranger ranger = (Ranger) this.actorService.findActorByUserAccountId(userAccount.getId());
 
-		assert curriculum != null;
-		if (curriculum.getVersion() != 0)
-			if (!this.curriculumRepository.findOne(curriculum.getId()).getRanger().equals(curriculum.getRanger()))
-				if (curriculum.getRanger() != null) {
-					final Ranger ranger = curriculum.getRanger();
-					ranger.setCurriculum(curriculum);
-					this.rangerService.save(ranger);
-				}
-
+		Assert.isTrue(curriculum != null);
 		Curriculum result;
 
 		result = this.curriculumRepository.save(curriculum);
+		ranger.setCurriculum(result);
+		this.rangerService.save(ranger);
 		Assert.isTrue(!result.getPersonalRecord().equals(null));
 
 		return result;

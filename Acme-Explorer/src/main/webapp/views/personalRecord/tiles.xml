@@ -16,14 +16,11 @@
        
 <tiles-definitions>
 
-	<definition name="auditRecord/list" extends="master.page">	
-		<put-attribute name="title" value="Audit record list" />
-		<put-attribute name="body" value="/views/auditRecord/list.jsp" />
-	</definition>
 	
-	<definition name="auditRecord/edit" extends="master.page">	
-		<put-attribute name="title" value="Edit audit record" />
-		<put-attribute name="body" value="/views/auditRecord/edit.jsp" />
+	
+	<definition name="personalRecord/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit personal record" />
+		<put-attribute name="body" value="/views/personalRecord/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>

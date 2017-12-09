@@ -59,7 +59,7 @@
 		<security:authorize access="hasRole('RANGER')">
 
 
-			<a href="auditRecord/ranger/edit.do?auditorRecordId=${row1.id}">
+			<a href="personalRecord/ranger/edit.do?personalRecordId=${personalRecord.id}">
 				<spring:message code="curriculum.edit" />
 			</a>
 
@@ -140,12 +140,12 @@
 
 </security:authorize>
 
-<jstl:out value="${miscellaneousRecords}"></jstl:out>
+
 
 <jstl:if test="${curriculum!=null}">
 	<jstl:if test="${not empty miscellaneousRecords}">
 		<security:authorize access="hasRole('RANGER')">
-		<jstl:set value="${miscellaneousRecords}" var="miscellaneousRecords"></jstl:set>
+		
 
 			<display:table name="miscellaneousRecords" id="miscellaneousRecord"
 				requestURI="miscellaneousRecord/list.do?curriculumId=${curriculum.id}"
@@ -193,5 +193,151 @@
 	</a>
 
 </security:authorize> 
+
+
+<jstl:if test="${curriculum!=null}">
+	<jstl:if test="${not empty curriculum.educationRecords}">
+		<security:authorize access="hasRole('RANGER')">
+		
+
+			<display:table name="educationRecords" id="educationRecord"
+				requestURI="educationRecord/list.do?curriculumId=${curriculum.id}"
+				pagesize="10" class="displaytag">
+
+				<spring:message code="curriculum.educationRecord.diplomaTitle"
+					var="diplomaTitleHeader" />
+				<display:column property="diplomaTitle"
+					title="${diplomaTitleHeader}" sortable="false" />
+
+				<spring:message
+					code="curriculum.educationRecord.studyingPeriodStart"
+					var="studyingPeriodStartHeader" />
+				<display:column property="studyingPeriodStart"
+					title="${studyingPeriodStartHeader}" sortable="false" />
+
+				<spring:message code="curriculum.educationRecord.studyingPeriodEnd"
+					var="studyingPeriodEndHeader" />
+				<display:column property="studyingPeriodEnd"
+					title="${studyingPeriodEndHeader}" sortable="false" />
+
+				<spring:message code="curriculum.educationRecord.institution"
+					var="institutionHeader" />
+				<display:column property="institution"
+					title="${institutionHeader}" sortable="true" />
+
+				<spring:message code="curriculum.educationRecord.attachment"
+					var="attachment2Header" />
+				<display:column property="attachment" title="${attachment2Header}"
+					sortable="false" />
+
+				<spring:message code="curriculum.educationRecord.commentaries"
+					var="commentaries2Header" />
+				<display:column property="commentaries"
+					title="${commentaries2Header}" sortable="false" />
+
+
+				<security:authorize access="hasRole('RANGER')">
+
+					<display:column>
+						<a
+							href="educationRecord/ranger/edit.do?educationRecordId=${educationRecord.id}">
+							<spring:message code="curriculum.edit" />
+						</a>
+					</display:column>
+
+				</security:authorize>
+
+			</display:table>
+		</security:authorize>
+	</jstl:if>
+</jstl:if>
+
+<security:authorize access="hasRole('RANGER')">
+
+	<a href="educationRecord/ranger/create.do">
+		<button>
+			<spring:message code="curriculum.educationRecord.create" />
+		</button>
+	</a>
+
+</security:authorize>
+
+
+
+<jstl:if test="${curriculum!=null}">
+	<jstl:if test="${not empty curriculum.endorserRecords}">
+		<security:authorize access="hasRole('RANGER')">
+	
+			<display:table name="$endorserRecords" id="endorserRecord"
+				requestURI="endorserRecord/list.do?curriculumId=${curriculum.id}"
+				pagesize="10" class="displaytag">
+
+				<spring:message code="curriculum.endorserRecord.fullName"
+					var="fullNameHeader" />
+				<display:column property="fullName" title="${fullNameHeader}"
+					sortable="true" />
+
+				<spring:message code="curriculum.endorserRecord.email"
+					var="email1Header" />
+				<display:column property="email" title="${email1Header}"
+					sortable="true" />
+
+				<spring:message code="curriculum.endorserRecord.phoneNumber"
+					var="phoneNumber1Header" />
+				<display:column property="phoneNumber" title="${phoneNumber1Header}"
+					sortable="true" />
+
+
+
+				<spring:message code="curriculum.endorserRecord.attachment"
+					var="attachment3Header" />
+				<display:column property="attachment" title="${attachment3Header}"
+					sortable="true" />
+
+				<spring:message code="curriculum.endorserRecord.commentaries"
+					var="commentaries3Header" />
+				<display:column property="commentaries"
+					title="${commentaries3Header}" sortable="true" />
+
+
+				<security:authorize access="hasRole('RANGER')">
+
+					<display:column>
+						<a
+							href="endorserRecord/ranger/edit.do?endorserRecordId=${endorserRecord.id}">
+							<spring:message code="curriculum.edit" />
+						</a>
+					</display:column>
+
+				</security:authorize>
+
+			</display:table>
+		</security:authorize>
+	</jstl:if>
+</jstl:if>
+
+<security:authorize access="hasRole('RANGER')">
+
+	<a href="endorserRecord/ranger/create.do">
+		<button>
+			<spring:message code="curriculum.endorserRecord.create" />
+		</button>
+	</a>
+
+</security:authorize>
+
+
+
+
+<security:authorize access="hasRole('RANGER')">
+
+	<a href="curriculum/ranger/create.do">
+		<button>
+			<spring:message code="curriculum.create" />
+		</button>
+	</a>
+
+</security:authorize>
+
 
 

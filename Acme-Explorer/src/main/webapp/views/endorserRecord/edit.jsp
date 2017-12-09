@@ -20,7 +20,7 @@
 
 <form:form action = "endorserRecord/ranger/edit.do" modelAttribute = "endorserRecord">
 	
-	<form:hidden path = "curriculum" />
+	
 	<form:hidden path = "id" />
 	<form:hidden path = "version" />
 	

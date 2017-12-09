@@ -111,7 +111,7 @@ public class ProfessionalRecordCurriculumController extends AbstractController {
 
 		try {
 			this.professionalRecordService.delete(professionalRecord);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:/curriculum/ranger/list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(professionalRecord, "professionalRecord.commit.error");
 		}
