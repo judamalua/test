@@ -25,7 +25,7 @@
 	<form:hidden path = "version" />
 	
 	<form:label path = "diplomaTitle">
-		<spring:message code = "educationRecord.diplomaTitle" />:
+	<spring:message code = "educationRecord.diplomaTitle" />:
 	</form:label>
 	<form:input path = "diplomaTitle"  />
 	<form:errors cssClass = "error" path = "diplomaTitle" />
@@ -74,7 +74,7 @@
 		value="<spring:message code="educationRecord.save" />" />
 		
 
-	<jstl:if test="${miscellaneousRecord.id!=0}">
+	<jstl:if test="${educationRecord.id!=0}">
 		<input 
 			type="submit"
 			name="delete"

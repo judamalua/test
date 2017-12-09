@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.PersonalRecordRepository;
+import domain.Curriculum;
 import domain.PersonalRecord;
 
 @Service
@@ -24,6 +25,9 @@ public class PersonalRecordService {
 	// Supporting services --------------------------------------------------
 	@Autowired
 	private ActorService				actorService;
+
+	@Autowired
+	private CurriculumService			curriculumService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -67,8 +71,12 @@ public class PersonalRecordService {
 		assert personalRecord != null;
 
 		PersonalRecord result;
+		Curriculum c;
 
+		c = this.curriculumService.findCurriculumByRangerID();
 		result = this.personalRecordRepository.save(personalRecord);
+
+		c.setPersonalRecord(result);
 
 		return result;
 

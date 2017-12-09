@@ -18,12 +18,16 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action = "curriculum/ranger/create.do" modelAttribute = "curriculum">
+<form:form action = "curriculum/ranger/edit.do" modelAttribute = "curriculum">
 	
 	<form:hidden path = "ticker" />
 	<form:hidden path = "ranger" />
-	
-	
+	<form:hidden path = "id" />
+	<form:hidden path = "version" />
+	<form:hidden path = "educationRecords" />
+	<form:hidden path = "endorserRecords" />
+	<form:hidden path = "miscellaneousRecords" />
+	<form:hidden path = "professionalRecords" />
 
 	<form:label path = "personalRecord.nameOfCandidate">
 		<spring:message code = "curriculum.personalRecord.nameOfCandidate" />:
@@ -64,7 +68,7 @@
 	
 	<input 
 		type="submit"
-		name="saveCurriculum"
+		name="save"
 		value="<spring:message code="curriculum.save" />" />
 		
 

@@ -104,8 +104,9 @@ public class CurriculumService {
 		Assert.notNull(userAccount);
 
 		//Assert.isTrue(userAccount.getAuthorities().contains(Authority.RANGER));
-		Assert.isTrue(this.actorService.findActorByUserAccountId(userAccount.getId()).getId() == curriculum.getRanger().getId());
 		final Ranger ranger = (Ranger) this.actorService.findActorByUserAccountId(userAccount.getId());
+		if (curriculum.getRanger() == null)
+			curriculum.setRanger(ranger);
 
 		Assert.isTrue(curriculum != null);
 		Curriculum result;
@@ -123,19 +124,13 @@ public class CurriculumService {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
-		//		Assert.isTrue(userAccount.getAuthorities().contains(Authority.RANGER));
-		//		Assert.isTrue(this.actorService.findActorByUserAccountId(userAccount.getId()).getId() == curriculum.getRanger().getId());
-
-		if (curriculum.getRanger() != null) {
-			curriculum.getRanger().setCurriculum(null);
-			this.rangerService.save(curriculum.getRanger());
-		}
-		Assert.notNull(curriculum);
-		Assert.isTrue(curriculum.getId() != 0);
-
-		//Assert.isNull(this.curriculumRepository.findOne(curriculum.getId()));
+		//		final Ranger ranger = (Ranger) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
 
 		this.curriculumRepository.delete(curriculum);
+		//		if (ranger.getCurriculum() != null) {
+		//			ranger.setCurriculum(null);
+		//			this.rangerService.save(ranger);
+		//		}
 
 	}
 
@@ -156,7 +151,7 @@ public class CurriculumService {
 
 		alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-		res = year + "" + month + "" + day + "-";
+		res = (year < 10 ? "0" + year : year) + "" + (month < 10 ? "0" + month : month) + "" + (day < 10 ? "0" + day : day) + "-";
 
 		for (int i = 0; i < 4; i++)
 			res += alphabet.charAt(random.nextInt(alphabet.length()));

@@ -75,7 +75,7 @@
 		value="<spring:message code="professionalRecord.save" />" />
 		
 
-	<jstl:if test="${profesionalRecord.id!=0}">
+	<jstl:if test="${professionalRecord.id!=0}">
 		<input 
 			type="submit"
 			name="delete"

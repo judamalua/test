@@ -65,8 +65,14 @@ public class EndorserRecordService {
 		assert endorserRecord != null;
 
 		EndorserRecord result;
+		final Curriculum c = this.curriculumService.findCurriculumByRangerID();
 
 		result = this.endorserRecordRepository.save(endorserRecord);
+		if (c.getEndorserRecords().contains(endorserRecord))
+			c.getEndorserRecords().remove(endorserRecord);
+
+		c.getEndorserRecords().add(result);
+		this.curriculumService.save(c);
 
 		return result;
 

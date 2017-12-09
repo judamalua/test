@@ -65,8 +65,14 @@ public class MiscellaneousRecordService {
 		assert miscellaneousRecord != null;
 
 		MiscellaneousRecord result;
+		final Curriculum c = this.curriculumService.findCurriculumByRangerID();
 
 		result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
+		if (c.getMiscellaneousRecords().contains(miscellaneousRecord))
+			c.getMiscellaneousRecords().remove(miscellaneousRecord);
+
+		c.getMiscellaneousRecords().add(result);
+		this.curriculumService.save(c);
 
 		return result;
 

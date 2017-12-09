@@ -266,38 +266,33 @@
 
 <jstl:if test="${curriculum!=null}">
 	<jstl:if test="${not empty curriculum.endorserRecords}">
+
 		<security:authorize access="hasRole('RANGER')">
 	
-			<display:table name="$endorserRecords" id="endorserRecord"
+			<display:table name="endorserRecords" id="endorserRecord"
 				requestURI="endorserRecord/list.do?curriculumId=${curriculum.id}"
 				pagesize="10" class="displaytag">
 
 				<spring:message code="curriculum.endorserRecord.fullName"
 					var="fullNameHeader" />
 				<display:column property="fullName" title="${fullNameHeader}"
-					sortable="true" />
+					sortable="false" />
 
 				<spring:message code="curriculum.endorserRecord.email"
 					var="email1Header" />
 				<display:column property="email" title="${email1Header}"
-					sortable="true" />
+					sortable="false" />
 
 				<spring:message code="curriculum.endorserRecord.phoneNumber"
 					var="phoneNumber1Header" />
 				<display:column property="phoneNumber" title="${phoneNumber1Header}"
-					sortable="true" />
+					sortable="false" />
 
-
-
-				<spring:message code="curriculum.endorserRecord.attachment"
-					var="attachment3Header" />
-				<display:column property="attachment" title="${attachment3Header}"
-					sortable="true" />
 
 				<spring:message code="curriculum.endorserRecord.commentaries"
 					var="commentaries3Header" />
 				<display:column property="commentaries"
-					title="${commentaries3Header}" sortable="true" />
+					title="${commentaries3Header}" sortable="false" />
 
 
 				<security:authorize access="hasRole('RANGER')">
@@ -330,13 +325,26 @@
 
 
 <security:authorize access="hasRole('RANGER')">
+<jstl:if test="${curriculum==null}">
 
 	<a href="curriculum/ranger/create.do">
 		<button>
 			<spring:message code="curriculum.create" />
 		</button>
 	</a>
+</jstl:if>
+</security:authorize>
 
+<security:authorize access="hasRole('RANGER')">
+<jstl:if test="${curriculum!=null}">
+	<a href="curriculum/ranger/delete.do?curriculumId=${curriculum.id}">
+		<button>
+			<spring:message code="curriculum.delete" />
+		</button>
+	</a>
+			
+
+</jstl:if>
 </security:authorize>
 
 

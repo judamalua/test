@@ -64,8 +64,14 @@ public class EducationRecordService {
 		assert educationRecord != null;
 
 		EducationRecord result;
+		final Curriculum c = this.curriculumService.findCurriculumByRangerID();
 
 		result = this.educationRecordRepository.save(educationRecord);
+		if (c.getEducationRecords().contains(educationRecord))
+			c.getEducationRecords().remove(educationRecord);
+
+		c.getEducationRecords().add(result);
+		this.curriculumService.save(c);
 
 		return result;
 

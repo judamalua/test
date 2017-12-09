@@ -69,7 +69,7 @@
 		value="<spring:message code="endorserRecord.save" />" />
 		
 
-	<jstl:if test="${miscellaneousRecord.id!=0}">
+	<jstl:if test="${endorserRecord.id!=0}">
 		<input 
 			type="submit"
 			name="delete"

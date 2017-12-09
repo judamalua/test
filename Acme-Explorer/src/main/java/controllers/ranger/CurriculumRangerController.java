@@ -3,11 +3,14 @@ package controllers.ranger;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
@@ -49,21 +52,23 @@ public class CurriculumRangerController extends AbstractController {
 		final Collection<MiscellaneousRecord> miscellaneous;
 		final Collection<EducationRecord> education;
 
-		result = new ModelAndView("curriculum/ranger/list");
+		result = new ModelAndView("curriculum/list");
 
 		final Curriculum curriculum = this.curriculumService.findCurriculumByRangerID();
-		professional = curriculum.getProfessionalRecords();
-		endorser = curriculum.getEndorserRecords();
-		personal = curriculum.getPersonalRecord();
-		education = curriculum.getEducationRecords();
-		miscellaneous = curriculum.getMiscellaneousRecords();
+		if (curriculum != (null)) {
+			professional = curriculum.getProfessionalRecords();
+			endorser = curriculum.getEndorserRecords();
+			personal = curriculum.getPersonalRecord();
+			education = curriculum.getEducationRecords();
+			miscellaneous = curriculum.getMiscellaneousRecords();
 
-		result.addObject("curriculum", curriculum);
-		result.addObject("professionalRecords", professional);
-		result.addObject("endorserRecords", endorser);
-		result.addObject("educationRecords", education);
-		result.addObject("personalRecord", personal);
-		result.addObject("miscellaneousRecords", miscellaneous);
+			result.addObject("curriculum", curriculum);
+			result.addObject("professionalRecords", professional);
+			result.addObject("endorserRecords", endorser);
+			result.addObject("educationRecords", education);
+			result.addObject("personalRecord", personal);
+			result.addObject("miscellaneousRecords", miscellaneous);
+		}
 
 		result.addObject("requestUri", "curriculum/ranger/list.do");
 
@@ -86,18 +91,37 @@ public class CurriculumRangerController extends AbstractController {
 	// Editing ---------------------------------------------
 
 	// Saving ----------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Curriculum c, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(c, "curriculum.params.error");
+		else
+			try {
+				this.curriculumService.save(c);
+				result = new ModelAndView("redirect:list.do");
+
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(c, "curriculum.commit.error");
+			}
+
+		return result;
+	}
 
 	// Deleting --------------------------------------------
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Curriculum curriculum, final BindingResult binding) {
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int curriculumId) {
 		ModelAndView result;
+		Curriculum c;
 
+		c = this.curriculumService.findOne(curriculumId);
 		try {
-			this.curriculumService.delete(curriculum);
+			this.curriculumService.delete(c);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(curriculum, "curriculum.commit.error");
+			result = new ModelAndView("redirect:list.do");
 		}
 
 		return result;
@@ -117,7 +141,7 @@ public class CurriculumRangerController extends AbstractController {
 
 		final ModelAndView result;
 
-		result = new ModelAndView("curriculum/ranger/edit");
+		result = new ModelAndView("curriculum/edit");
 		result.addObject("curriculum", curriculum);
 
 		return result;
