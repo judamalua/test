@@ -8,7 +8,8 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -24,40 +25,83 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<link rel="shortcut icon" href="favicon.ico"/> 
+<link rel="shortcut icon" href="favicon.ico" />
 
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/jquery-ui.js"></script>
 <script type="text/javascript" src="scripts/jmenu.js"></script>
 <script type="text/javascript" src="scripts/checkphone.js"></script>
 <script type="text/javascript" src="scripts/bootstrap-datetimepicker.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/2.0.4/css/bootstrap.min.css">
+<script type="text/javascript" src="scripts/curry-0.8.3.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/2.0.4/css/bootstrap.min.css">
+<script type="text/javascript"
+	src="scripts/locales/bootstrap-datetimepicker.es.js" charset="UTF-8"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/2.0.4/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/2.0.4/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="styles/common.css" type="text/css">
-<link rel="stylesheet" href="styles/jmenu.css" media="screen" type="text/css" />
+<link rel="stylesheet" href="styles/jmenu.css" media="screen"
+	type="text/css" />
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css">
-<link rel="stylesheet" href="styles/bootstrap-datetimepicker.css" type="text/css">
+<link rel="stylesheet" href="styles/style.css" type="text/css">
+<link rel="stylesheet" href="styles/bootstrap-datetimepicker.css"
+	type="text/css">
+
 
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
-
+<jstl:set var="espanol" value="true" />
+<jstl:if test="${espanol}">
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#jMenu").jMenu();
+			$(".datetimepicker").datetimepicker({
+				format : "dd/MM/yyyy hh:ii",
+				autoclose : true,
+				todayBtn : true,
+				pickerPosition : "bottom-left",
+				language : "es"
+			});
+		});
+	</script>
+</jstl:if>
+<jstl:if test="${!espanol}">
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#jMenu").jMenu();
+			$(".datetimepicker").datetimepicker({
+				format : "dd/MM/yyyy hh:ii",
+				autoclose : true,
+				todayBtn : true,
+				pickerPosition : "bottom-left",
+			});
+		});
+	</script>
+</jstl:if>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#jMenu").jMenu();
-		$("#datetimepicker").datetimepicker();
+$(document).ready(function() {
+	$('#pricepicker').curry({
+		target: '.price',
+	    change: true,
+	    base:   'EUR',
+	    customCurrency: {
+	        'USD': 1,
+	        'GBP': 0.67,
+	        'EUR': 0.42
+	    }
 	});
-
+});
 	function askSubmission(msg, form) {
 		if (confirm(msg))
 			form.submit();
 	}
-	
-	function relativeRedir(loc) {	
+
+	function relativeRedir(loc) {
 		var b = document.getElementsByTagName('base');
 		if (b && b[0] && b[0].href) {
-  			if (b[0].href.substr(b[0].href.length - 1) == '/' && loc.charAt(0) == '/')
-    		loc = loc.substr(1);
-  			loc = b[0].href + loc;
+			if (b[0].href.substr(b[0].href.length - 1) == '/' && loc.charAt(0) == '/')
+				loc = loc.substr(1);
+			loc = b[0].href + loc;
 		}
 		window.location.replace(loc);
 	}
@@ -74,11 +118,11 @@
 		<h1>
 			<tiles:insertAttribute name="title" />
 		</h1>
-		<tiles:insertAttribute name="body" />	
+		<tiles:insertAttribute name="body" />
 		<jstl:if test="${message != null}">
 			<br />
 			<span class="message"><spring:message code="${message}" /></span>
-		</jstl:if>	
+		</jstl:if>
 	</div>
 	<div>
 		<tiles:insertAttribute name="footer" />

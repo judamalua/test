@@ -94,7 +94,7 @@ public class NoteService {
 		Auditor auditor;
 
 		assert note != null;
-		Note storedNote;
+		final Note storedNote;
 		//Requirement 33: A note can´t be update once it has been created;
 		final int id = note.getId();
 		if (id != 0) {
@@ -121,20 +121,22 @@ public class NoteService {
 		Note result;
 		Trip trip;
 
+		result = this.noteRepository.save(note);
+
 		//Requirement 33: An Auditor can write notes in his trips;
 		trip = note.getTrip();
 		auditor = note.getAuditor();
 
-		trip.getNotes().remove(note);
-		auditor.getNotes().remove(note);
+		if (trip.getNotes().contains(note))
+			trip.getNotes().remove(note);
+		if (auditor.getNotes().contains(note))
+			auditor.getNotes().remove(note);
 
-		trip.getNotes().add(note);
-		auditor.getNotes().add(note);
+		trip.getNotes().add(result);
+		auditor.getNotes().add(result);
 
 		this.tripService.save(trip);
 		this.auditorService.save(auditor);
-
-		result = this.noteRepository.save(note);
 
 		return result;
 

@@ -64,24 +64,31 @@
 		<jsp:useBean id="now" class="java.util.Date" />
 		<fmt:formatDate var="currentDate" value="${now}"
 			pattern="dd/MM/yyyy HH:mm" />
-	<div class="input-append date" id="datetimepicker" data-date="12/02/2017" data-date-format="dd/MM/yyyy">
-		<form:input path="startDate" id="datetimepicker" value="${currentDate}" class="datetimepicker" placeholder="dd/MM/yyyy hh:mm" />
-    	<span class="add-on"><i class="icon-th"></i></span>
-	</div>
+			
+<!-- 	<div class="input-append date" id="datetimepicker" data-date="12/02/2017 hh:mm" data-date-format="dd/MM/yyyy hh:mm"> -->
+		<form:input path="startDate" id="startDate" class="datetimepicker" placeholder="dd/MM/yyyy hh:mm" />
+<!--     	<span class="add-on"><i class="icon-th"></i></span> -->
+<!-- 	</div> -->
 	<form:errors cssClass = "error" path = "startDate" />
 	<br />
 	
 	<form:label path="endDate">
 		<spring:message code="trip.endDate"/>
 	</form:label>
-	<form:input path="endDate" placeholder="dd/MM/yyyy hh:mm" />
+<!-- 	<div class="input-append date" id="datetimepicker" data-date="12/02/2017 hh:mm" data-date-format="dd/MM/yyyy hh:mm"> -->
+		<form:input path="endDate" id="endDate" class="datetimepicker" placeholder="dd/MM/yyyy hh:mm" />
+<!--     	<span class="add-on"><i class="icon-th"></i></span> -->
+<!-- 	</div> -->
 	<form:errors cssClass = "error" path = "endDate" />
 	<br />
 	
 	<form:label path="publicationDate">
 		<spring:message code="trip.publicationDate"/>
 	</form:label>
-	<form:input path="publicationDate" placeholder="dd/MM/yyyy hh:mm" />
+<!-- 	<div class="input-append date" id="datetimepicker" data-date="12/02/2017 hh:mm" data-date-format="dd/MM/yyyy hh:mm"> -->
+		<form:input path="publicationDate" id="publicationDate" class="datetimepicker" placeholder="dd/MM/yyyy hh:mm" />
+<!--     	<span class="add-on"><i class="icon-th"></i></span> -->
+<!-- 	</div> -->
 	<form:errors cssClass = "error" path = "publicationDate" />
 	<br />
 	

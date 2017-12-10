@@ -140,8 +140,8 @@ public class TripService {
 		Assert.notNull(trip);
 		final Authority auth = new Authority();
 		auth.setAuthority(Authority.MANAGER);
-		if (LoginService.getPrincipal().getAuthorities().contains(auth) && trip.getId() != 0)
-			Assert.isTrue(trip.getPublicationDate().after(new Date()));
+		//		if (LoginService.getPrincipal().getAuthorities().contains(auth) && trip.getId() != 0)
+		//			Assert.isTrue(trip.getPublicationDate().after(new Date()));
 		Assert.isTrue(trip.getStartDate().before(trip.getEndDate()));
 
 		if (trip.getId() == 0) {
@@ -153,13 +153,12 @@ public class TripService {
 		Collection<Stage> stages, savedStages;
 		Stage savedStage;
 		double price = 0.;
-		Configuration configuration;
-		Collection<Manager> managers;
-		Collection<Tag> tags;
+		final Configuration configuration;
+		final Collection<Manager> managers;
+		final Collection<Tag> tags;
 
 		if (trip.getPublicationDate().before(new Date()))
 			Assert.isTrue(trip.getCancelReason() == null || trip.getCancelReason() == "");
-
 		if (trip.getCancelReason() != null && trip.getCancelReason() != "")
 			Assert.isTrue(trip.getPublicationDate().after(new Date()) && trip.getStartDate().after(new Date()));
 

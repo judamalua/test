@@ -15,6 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jstl:set value="auditor" var="role"/>
 <jstl:set value="false" var="enabled"/>
@@ -32,8 +33,10 @@
 	<form:hidden path = "moment" />
 	
 	<security:authorize access="hasRole('MANAGER')">
-		<form:hidden path = "momentOfReply" />
-		<form:hidden path = "replierManager" />
+		<fmt:formatDate var="moment" value="${momentOfReply}" pattern="dd/MM/yyyy hh:mm"/>
+		
+		<form:hidden path = "momentOfReply" value="${moment}"/>
+		<form:hidden path = "replierManager" value="${manager.id}"/>
 		<form:hidden path = "remark" />
 	</security:authorize>
 

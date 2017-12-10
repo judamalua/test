@@ -18,12 +18,13 @@ import services.ActorService;
 import services.ManagerService;
 import services.NoteService;
 import services.TripService;
+import controllers.AbstractController;
 import domain.Manager;
 import domain.Note;
 
 @Controller
 @RequestMapping("note/manager")
-public class NoteManagerController {
+public class NoteManagerController extends AbstractController {
 
 	@Autowired
 	ManagerService	managerService;
@@ -46,15 +47,17 @@ public class NoteManagerController {
 	public ModelAndView edit(@RequestParam final int noteId) {
 		ModelAndView result;
 		Note note;
+		Manager replierManager;
 
 		note = this.noteService.findOne(noteId);
 
-		final Manager replierManager = (Manager) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
-
-		note.setMomentOfReply(new Date(System.currentTimeMillis() - 1000));
-		note.setReplierManager(replierManager);
+		replierManager = (Manager) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
+		//		note.setMomentOfReply(new Date(System.currentTimeMillis() - 1000));
+		//		note.setReplierManager(replierManager);
 
 		result = this.createEditModelAndView(note);
+		result.addObject("manager", replierManager);
+		result.addObject("momentOfReply", new Date(System.currentTimeMillis() - 1));
 
 		return result;
 	}

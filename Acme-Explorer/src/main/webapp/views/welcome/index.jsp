@@ -20,12 +20,12 @@
 <spring:message var = "lang" code = "welcome.message.verifier"/>
 
 <p>
-	<jstl:if test="${lang == \"Español\"}">
-	${welcomeMessageEsp}
+	<jstl:if test="${lang == \"es\"}">
+		${welcomeMessageEsp}
 	</jstl:if>
 	
-	<jstl:if test="${lang == \"English\"}">
-	${welcomeMessageEng}
+	<jstl:if test="${lang == \"en\"}">
+		${welcomeMessageEng}
 	</jstl:if>
 	
 </p>
