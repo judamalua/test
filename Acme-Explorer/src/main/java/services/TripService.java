@@ -57,6 +57,8 @@ public class TripService {
 	private ManagerService			managerService;
 	@Autowired
 	private TagService				tagService;
+	@Autowired
+	private SurvivalClassService	survivalClassService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -156,6 +158,8 @@ public class TripService {
 		final Configuration configuration;
 		final Collection<Manager> managers;
 		final Collection<Tag> tags;
+		final Collection<SurvivalClass> survivalClasses, savedSurvivalClasses;
+		final SurvivalClass savedSurvivalClass;
 
 		if (trip.getPublicationDate().before(new Date()))
 			Assert.isTrue(trip.getCancelReason() == null || trip.getCancelReason() == "");
@@ -169,13 +173,18 @@ public class TripService {
 			Assert.isTrue(trip.getLegalText().getFinalMode());
 
 		stages = trip.getStages();
-		savedStages = new HashSet<>();
+		savedStages = new HashSet<Stage>();
 
 		for (final Stage stage : stages) {
 			savedStage = this.stageService.save(stage);
 			savedStages.add(savedStage);
 		}
 		trip.setStages(savedStages);
+
+		survivalClasses = trip.getSurvivalClasses();
+		savedSurvivalClasses = new HashSet<SurvivalClass>();
+
+		trip.setSurvivalClasses(savedSurvivalClasses);
 
 		configuration = this.configurationService.findConfiguration();
 
@@ -257,6 +266,11 @@ public class TripService {
 		return result;
 	}
 
+	public Collection<Trip> findTripsBySurvivalClass(final SurvivalClass s) {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+		return this.tripRepository.findTripBySurvivalClass(s.getId());
+	}
 	public Collection<String> getInfoNotesFromTrips() {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);

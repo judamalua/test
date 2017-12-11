@@ -76,19 +76,8 @@ public class SurvivalClass extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private Collection<Trip>		trips;
 	private Collection<Explorer>	explorers;
 
-
-	@NotNull
-	@ManyToMany
-	public Collection<Trip> getTrips() {
-		return this.trips;
-	}
-
-	public void setTrips(final Collection<Trip> trips) {
-		this.trips = trips;
-	}
 
 	@NotNull
 	@ManyToMany(mappedBy = "survivalClasses")

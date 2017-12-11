@@ -270,7 +270,7 @@ public class Trip extends DomainEntity {
 	//	}
 
 	@NotNull
-	@ManyToMany(mappedBy = "trips")
+	@ManyToMany
 	public Collection<SurvivalClass> getSurvivalClasses() {
 		return this.survivalClasses;
 	}

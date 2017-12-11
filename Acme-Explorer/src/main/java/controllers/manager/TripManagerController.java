@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -191,6 +192,58 @@ public class TripManagerController extends AbstractController {
 		trip.getManagers().add(manager);
 
 		result = this.createEditModelAndView(trip);
+
+		return result;
+	}
+
+	// Canceling ----------------------------------------------------------------
+	@RequestMapping(value = "/addSurvivalClasses", method = RequestMethod.GET)
+	public ModelAndView addSurvivalClasses(@RequestParam("tripId") final int tripId) {
+		ModelAndView result;
+		Trip trip;
+		final Collection<SurvivalClass> notAddedSurvivalClasses;
+
+		trip = this.tripService.findOne(tripId);
+		Assert.notNull(trip);
+		result = new ModelAndView("trip/addSurvivalClasses");
+		notAddedSurvivalClasses = this.survivalClassService.findAll();
+		notAddedSurvivalClasses.removeAll(trip.getSurvivalClasses());
+		result.addObject("trip", tripId);
+		result.addObject("survivalClasses", notAddedSurvivalClasses);
+
+		return result;
+	}
+
+	// Saving Canceling ----------------------------------------------------------------
+	@RequestMapping(value = "/addSurvivalClasses", method = RequestMethod.POST, params = {
+		"tripId", "selectedSurvivalClasses", "save"
+	})
+	public ModelAndView addSurvivalClasses(final int tripId, @ModelAttribute("selectedSurvivalClasses") final SurvivalClass selectedSurvivalClasses[]) {
+		ModelAndView result;
+		Trip trip;
+
+		trip = this.tripService.findOne(tripId);
+		Assert.notNull(trip);
+		//trip.getSurvivalClasses().addAll(selectedSurvivalClasses);
+		this.tripService.save(trip);
+		result = new ModelAndView("redirect:list.do");
+
+		return result;
+	}
+
+	// Removing SurvivalClass ----------------------------------------------------------------
+	@RequestMapping(value = "/removeSurvivalClass", method = RequestMethod.GET)
+	public ModelAndView removeSurvivalClass(@RequestParam("tripId") final int tripId, @RequestParam("survivalClassId") final int survivalClassId) {
+		ModelAndView result;
+		Trip trip;
+		SurvivalClass survivalClass;
+
+		trip = this.tripService.findOne(tripId);
+		survivalClass = this.survivalClassService.findOne(survivalClassId);
+		Assert.notNull(trip);
+		trip.getSurvivalClasses().remove(survivalClass);
+		this.tripService.save(trip);
+		result = new ModelAndView("redirect:/trip/detailed-trip.do?tripId=" + tripId + "&anonymous=false");
 
 		return result;
 	}

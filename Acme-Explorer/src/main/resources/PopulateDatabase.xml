@@ -2457,12 +2457,7 @@
 			<ref bean = "explorer1"/>
 			</list>
 		</property>
-		<property name="trips">
-			<list>
-				<ref bean="trip1" />
-				<ref bean="trip2" />
-			</list>
-		</property>
+		
 
 	</bean>
 
@@ -2477,12 +2472,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="trips">
-			<list>
-				<ref bean="trip1" />
-				<ref bean="trip2" />
-			</list>
-		</property>
+		
 
 	</bean>
 
@@ -4086,7 +4076,6 @@
 		<property name="survivalClasses">
 			<list>
 				<ref bean="survivalClass1" />
-				<ref bean="survivalClass2" />
 			</list>
 		</property>
 

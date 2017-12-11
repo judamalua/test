@@ -207,7 +207,11 @@ iframe de maps
 					<a href="survivalClass/manager/edit.do?survivalClassId=${row3.id}">
 						<spring:message code="detailed.trip.edit" />
 					</a>
-
+					<jstl:if test="${trip.publicationDate>=currentDate}">
+					<a href="trip/manager/removeSurvivalClass.do?survivalClassId=${row3.id}&tripId=${trip.id}">
+						<spring:message code="detailed.trip.remove" />
+					</a>
+					</jstl:if>
 				</display:column>
 			</jstl:if>
 		</security:authorize>
@@ -238,6 +242,11 @@ iframe de maps
 		<a href="survivalClass/manager/create.do">
 			<button>
 				<spring:message code="detailed.trip.edit" />
+			</button>
+		</a>
+			<a href="trip/manager/addSurvivalClasses.do?tripId=${trip.id}">
+			<button>
+				<spring:message code="detailed.trip.addSurvivalClasses" />
 			</button>
 		</a>
 	</jstl:if>

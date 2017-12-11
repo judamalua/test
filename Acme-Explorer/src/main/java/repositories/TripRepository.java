@@ -86,6 +86,9 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select t from Trip t where t.title like ?1 and t.price between ?2 and ?3 and t.publicationDate < CURRENT_DATE ")
 	Collection<Trip> findTripsByTitleAndPricePublication(String q, double d1, double d2);
 
+	@Query("select t from Trip t join t.survivalClasses s where s.id = ?1")
+	Collection<Trip> findTripBySurvivalClass(int idSurvivalClass);
+
 	// Paginated Queries
 
 	@Query("select t from Trip t where t.ticker like ?1 or t.title like ?1 or t.description like ?1 and t.publicationDate < CURRENT_DATE")

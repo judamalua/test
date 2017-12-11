@@ -47,11 +47,9 @@ public class SurvivalClassService {
 		this.checkUserLogin();
 
 		SurvivalClass result;
-		final Collection<Trip> trips = new HashSet<Trip>();
 		final Collection<Explorer> explorers = new HashSet<Explorer>();
 
 		result = new SurvivalClass();
-		result.setTrips(trips);
 		result.setExplorers(explorers);
 
 		return result;
@@ -103,15 +101,23 @@ public class SurvivalClassService {
 		final Manager manager;
 		final Collection<Explorer> explorers;
 		Explorer explorer;
+		boolean containsManager;
 
-		trips = survivalClass.getTrips();
-		if (survivalClass.getId() != 0)
-			manager = this.managerService.findManagerBySurvivalClass(survivalClass.getId());
-		else
-			manager = (Manager) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
+		trips = this.tripService.findTripsBySurvivalClass(survivalClass);
+		//		if (survivalClass.getId() != 0)
+		//			manager = this.managerService.findManagerBySurvivalClass(survivalClass.getId());
+		//		else
+		manager = (Manager) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
 
-		if (!LoginService.getPrincipal().getAuthorities().contains(authority))
-			Assert.isTrue(manager.equals(actor));
+		if (!LoginService.getPrincipal().getAuthorities().contains(authority)) {
+			containsManager = false;
+			for (final Trip trip : trips)
+				if (trip.getManagers().contains(manager)) {
+					containsManager = true;
+					break;
+				}
+			Assert.isTrue(containsManager);
+		}
 		explorers = survivalClass.getExplorers();
 
 		if (LoginService.getPrincipal().getAuthorities().contains(authority)) {
@@ -132,11 +138,11 @@ public class SurvivalClassService {
 		//Requirement 43
 		if (survivalClass.getId() != 0) {
 
-			if (manager.getSurvivalClasses().contains(survivalClass))
+			if (manager.getSurvivalClasses().contains(survivalClass)) {
 				manager.getSurvivalClasses().remove(survivalClass);
-
-			manager.getSurvivalClasses().add(result);
-			this.managerService.save(manager);
+				manager.getSurvivalClasses().add(result);
+				this.managerService.save(manager);
+			}
 
 			for (final Explorer e : explorers) {
 
@@ -146,15 +152,15 @@ public class SurvivalClassService {
 				e.getSurvivalClasses().add(result);
 				this.explorerService.save(e);
 			}
-
-			for (final Trip t : trips) {
-
-				if (t.getSurvivalClasses().contains(survivalClass))
-					t.getSurvivalClasses().remove(survivalClass);
-
-				t.getSurvivalClasses().add(result);
-				this.tripService.save(t);
-			}
+			// REVISAR MAS TARDE
+			//			for (final Trip t : trips) {
+			//
+			//				if (t.getSurvivalClasses().contains(survivalClass))
+			//					t.getSurvivalClasses().remove(survivalClass);
+			//
+			//				t.getSurvivalClasses().add(result);
+			//				this.tripService.save(t);
+			//			}
 
 		}
 		return result;
@@ -178,13 +184,13 @@ public class SurvivalClassService {
 		manager = this.managerService.findManagerBySurvivalClass(survivalClass.getId());
 		Assert.isTrue(manager.equals(actor));
 		explorers = survivalClass.getExplorers();
-		trips = survivalClass.getTrips();
+		trips = this.tripService.findTripsBySurvivalClass(survivalClass);
 
 		manager.getSurvivalClasses().remove(survivalClass);
 
 		this.managerService.save(manager);
 
-		if (survivalClass.getTrips().size() != 0)
+		if (trips.size() != 0)
 			for (final Trip t : trips) {
 				t.getSurvivalClasses().remove(survivalClass);
 				this.tripService.save(t);

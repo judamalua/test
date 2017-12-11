@@ -50,7 +50,6 @@ public class SurvivalClassServiceTest extends AbstractTest {
 		Assert.isNull(survivalClass.getDescription());
 		Assert.isNull(survivalClass.getOrganisationMoment());
 		Assert.isNull(survivalClass.getLocation());
-		Assert.isTrue(survivalClass.getTrips().size() == 0);
 		Assert.isTrue(survivalClass.getExplorers().size() == 0);
 
 		super.unauthenticate();
@@ -89,7 +88,6 @@ public class SurvivalClassServiceTest extends AbstractTest {
 		//final Explorer explorer = (Explorer) this.explorerService.findAll().toArray()[1];
 
 		survivalClass.setTitle("Titulito");
-		survivalClass.getTrips().add(trip);
 
 		final SurvivalClass savedSurvivalClass = this.survivalClassService.save(survivalClass);
 
@@ -129,7 +127,7 @@ public class SurvivalClassServiceTest extends AbstractTest {
 		final Manager manager = (Manager) actor;
 		final SurvivalClass survivalClass = (SurvivalClass) this.survivalClassService.findAll().toArray()[0];
 
-		final Collection<Trip> trips = survivalClass.getTrips();
+		final Collection<Trip> trips = this.tripService.findTripsBySurvivalClass(survivalClass);
 		final Collection<Explorer> explorers = survivalClass.getExplorers();
 
 		Assert.notNull(survivalClass);

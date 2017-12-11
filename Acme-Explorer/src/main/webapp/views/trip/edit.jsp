@@ -145,14 +145,12 @@
 		<form:label path="survivalClasses">
 		<spring:message code="trip.survivalClasses"/>
 	</form:label>
-		<jstl:forEach var="survivalClass" items="${trip.survivalClasses}"> <!-- Variable del controlador -->
-			<p> - <jstl:out value="${survivalClass.title}" />
-		</p>
-		</jstl:forEach>
-		<form:label path="survivalClasses">
-		<spring:message code="trip.addSurvivalClasses"/>
-		</form:label>
 	<form:select multiple="true"  path="survivalClasses">
+	<jstl:forEach var="survivalClass" items="${trip.survivalClasses}"> <!-- Variable del controlador -->
+			<form:option selected="true" value="${survivalClass.id}">
+				<jstl:out value="${survivalClass.title}"/> 
+			</form:option>
+		</jstl:forEach>
 		<jstl:forEach var="survivalClass" items="${survivalClasses}"> <!-- Variable del controlador -->
 			<form:option value="${survivalClass.id}">
 				<jstl:out value="${survivalClass.title}"/> 
