@@ -34,6 +34,7 @@ public class AbstractController {
 	 * @author Juanmi
 	 */
 	@ModelAttribute(value = "banner")
+	//@RequestMapping(method = RequestMethod.POST)
 	public String banner() {
 		String result;
 
@@ -49,6 +50,7 @@ public class AbstractController {
 	 * @author Juanmi
 	 */
 	@ModelAttribute(value = "welcomeMessageEng")
+	//@RequestMapping(method = RequestMethod.POST)
 	public String welcomeMessageEng() {
 		String result;
 
@@ -64,6 +66,8 @@ public class AbstractController {
 	 * @author Juanmi
 	 */
 	@ModelAttribute(value = "welcomeMessageEsp")
+	//@RequestMapping(value = "*", method = RequestMethod.POST)
+	//@RequestMapping(method = RequestMethod.POST)
 	public String welcomeMessageEsp() {
 		String result;
 
