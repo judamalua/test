@@ -74,26 +74,31 @@ public class CategoryService {
 	public Category save(final Category category) {
 		this.actorService.checkUserLogin();
 		this.checkCategory(category);
+		Category rootCategory;
+
+		rootCategory = this.categoryRepository.findRootCategory();
 
 		assert category != null;
-		if (category.getFatherCategory().equals(null))
+		if (!category.equals(rootCategory) && category.getFatherCategory().equals(null))
 			// Si no tiene categoría padre, ponemos la categoría por defecto CATEGORY como
 			// categoría padre.
 			category.setFatherCategory(this.categoryRepository.findRootCategory());
 
-		final Collection<Category> childrenCategories = category.getFatherCategory().getCategories();
+		//final Collection<Category> childrenCategories = category.getFatherCategory().getCategories();
 
 		// El nombre de la categoría debe ser único dentro de los hijos de un mismo padre.
-		for (final Category c : childrenCategories)
-			if (!c.equals(category))
-				Assert.isTrue(!category.getName().equals(c.getName()));
+		//		for (final Category c : childrenCategories)
+		//			if (!c.equals(category))
+		//				Assert.isTrue(!category.getName().equals(c.getName()));
 
 		Category result;
 		final Collection<Trip> trips = category.getTrips();
 
 		result = this.categoryRepository.save(category);
-		for (final Trip t : trips)
+		for (final Trip t : trips) {
 			t.setCategory(result);
+			this.tripService.save(t);
+		}
 
 		return result;
 
@@ -104,7 +109,7 @@ public class CategoryService {
 		assert category != null;
 		assert category.getId() != 0;
 		final Category fatherCategory = category.getFatherCategory();
-		final Collection<Category> categories = category.getCategories();
+		//final Collection<Category> categories = category.getCategories();
 		final Collection<Category> fatherCategoryCategories = category.getFatherCategory().getCategories();
 		final Collection<Trip> trips = category.getTrips();
 
@@ -116,14 +121,17 @@ public class CategoryService {
 			this.tripService.save(t);
 		}
 
+		// Eliminamos recursivamente todas las categorías hijas de las categorías hija de la categoría a eliminar
+		this.deleteChildrenCategories(category);
+
 		// Al eliminar una categoría, referenciamos sus categorías hijas a su categoría padre.
-		for (final Category c : categories) {
-			c.setFatherCategory(category.getFatherCategory());
-			this.save(c);
-		}
+		//		for (final Category c : categories) {
+		//			c.setFatherCategory(category.getFatherCategory());
+		//			this.save(c);
+		//		}
 
 		fatherCategoryCategories.remove(category);
-		fatherCategory.setCategories(fatherCategoryCategories);
+		//fatherCategory.setCategories(fatherCategoryCategories);
 		this.save(fatherCategory);
 
 		this.categoryRepository.delete(category);
@@ -152,7 +160,7 @@ public class CategoryService {
 
 		mem.put(category.getName(), category);
 
-		if (category.getFatherCategory().equals(rootCategory))
+		if (category.equals(rootCategory) || category.getFatherCategory().equals(rootCategory))
 			result = true;
 		else if (mem.get(category.getFatherCategory().getName()) != null || mem.keySet().contains(category.getFatherCategory().getName()))
 			result = false;
@@ -193,6 +201,45 @@ public class CategoryService {
 		Assert.notNull(category);
 
 		return category;
+	}
+
+	//	private void reorderTripFromDeletedCategory(final Category category) {
+	//		Collection<Category> categories;
+	//
+	//		categories = category.getCategories();
+	//
+	//		if (!categories.isEmpty())
+	//			for (final Category c : categories) {
+	//				if (!c.getTrips().isEmpty()) {
+	//					final Collection<Trip> tripsCategory = c.getTrips();
+	//					for (final Trip t : tripsCategory)
+	//						t.setCategory(category.getFatherCategory());
+	//				}
+	//				if (!c.getCategories().isEmpty())
+	//					this.reorderTripFromDeletedCategory(c);
+	//			}
+	//	}
+
+	/**
+	 * Recursive algorithm to delete a category's children categories
+	 * 
+	 * @param category
+	 *            to delete its children categories
+	 * 
+	 * @author Juanmi
+	 */
+	private void deleteChildrenCategories(final Category category) {
+		Collection<Category> categories;
+
+		categories = category.getCategories();
+
+		if (!categories.isEmpty())
+			for (final Category c : category.getCategories()) {
+				if (!c.getCategories().isEmpty())
+					this.deleteChildrenCategories(c);
+				this.delete(c);
+			}
+
 	}
 
 }
