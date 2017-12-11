@@ -34,27 +34,27 @@
 	<form:label path="price">
 		<spring:message code="stage.price"/>
 	</form:label>
-	<div class="wrapper">
-  <form class="form-inline">
-    <label class="sr-only" for="inlineFormInputGroup">Amount</label>
-    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-      <div class="input-group-addon currency-symbol">$</div>
-      <form:input path="price" type="text" class="form-control currency-amount" id="inlineFormInputGroup" placeholder="0.00" size="8"/>
-      <div class="input-group-addon currency-addon">
+<!-- 	<div class="wrapper"> -->
+<%--   <form class="form-inline"> --%>
+<!--     <label class="sr-only" for="inlineFormInputGroup">Amount</label> -->
+<!--     <div class="input-group mb-2 mr-sm-2 mb-sm-0"> -->
+<!--       <div class="input-group-addon currency-symbol">$</div> -->
+      <form:input path="price" type="text" placeholder="0.00" size="8"/> <!--  class="form-control currency-amount" id="inlineFormInputGroup"--> 
+<!--       <div class="input-group-addon currency-addon"> -->
 
-        <select class="currency-selector">
-          <option data-symbol="$" data-placeholder="0.00" selected>USD</option>
-          <option data-symbol="€" data-placeholder="0.00">EUR</option>
-          <option data-symbol="£" data-placeholder="0.00">GBP</option>
-          <option data-symbol="¥" data-placeholder="0">JPY</option>
-          <option data-symbol="$" data-placeholder="0.00">CAD</option>
-          <option data-symbol="$" data-placeholder="0.00">AUD</option>
-        </select>
+<!--         <select class="currency-selector"> -->
+<!--           <option data-symbol="$" data-placeholder="0.00" selected>USD</option> -->
+<!--           <option data-symbol="€" data-placeholder="0.00">EUR</option> -->
+<!--           <option data-symbol="£" data-placeholder="0.00">GBP</option> -->
+<!--           <option data-symbol="¥" data-placeholder="0">JPY</option> -->
+<!--           <option data-symbol="$" data-placeholder="0.00">CAD</option> -->
+<!--           <option data-symbol="$" data-placeholder="0.00">AUD</option> -->
+<!--         </select> -->
 
-      </div>
-    </div>
-  </form>
-</div>
+<!--       </div> -->
+<!--     </div> -->
+<%--   </form> --%>
+<!-- </div> -->
 	<form:errors cssClass="error" path="price"/>
 	<br/>
 	

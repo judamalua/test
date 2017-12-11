@@ -66,7 +66,7 @@
 			pattern="dd/MM/yyyy HH:mm" />
 			
 <!-- 	<div class="input-append date" id="datetimepicker" data-date="12/02/2017 hh:mm" data-date-format="dd/MM/yyyy hh:mm"> -->
-		<form:input path="startDate" id="startDate" class="datetimepicker" placeholder="dd/MM/yyyy hh:mm" />
+		<form:input path="startDate" id="startDate" placeholder="dd/MM/yyyy hh:mm" />
 <!--     	<span class="add-on"><i class="icon-th"></i></span> -->
 <!-- 	</div> -->
 	<form:errors cssClass = "error" path = "startDate" />
@@ -76,7 +76,7 @@
 		<spring:message code="trip.endDate"/>
 	</form:label>
 <!-- 	<div class="input-append date" id="datetimepicker" data-date="12/02/2017 hh:mm" data-date-format="dd/MM/yyyy hh:mm"> -->
-		<form:input path="endDate" id="endDate" class="datetimepicker" placeholder="dd/MM/yyyy hh:mm" />
+		<form:input path="endDate" id="endDate" placeholder="dd/MM/yyyy hh:mm" />
 <!--     	<span class="add-on"><i class="icon-th"></i></span> -->
 <!-- 	</div> -->
 	<form:errors cssClass = "error" path = "endDate" />
@@ -86,7 +86,7 @@
 		<spring:message code="trip.publicationDate"/>
 	</form:label>
 <!-- 	<div class="input-append date" id="datetimepicker" data-date="12/02/2017 hh:mm" data-date-format="dd/MM/yyyy hh:mm"> -->
-		<form:input path="publicationDate" id="publicationDate" class="datetimepicker" placeholder="dd/MM/yyyy hh:mm" />
+		<form:input path="publicationDate" id="publicationDate" placeholder="dd/MM/yyyy hh:mm" />
 <!--     	<span class="add-on"><i class="icon-th"></i></span> -->
 <!-- 	</div> -->
 	<form:errors cssClass = "error" path = "publicationDate" />
@@ -142,23 +142,23 @@
 	
 
 	
-		<form:label path="survivalClasses">
-		<spring:message code="trip.survivalClasses"/>
-	</form:label>
-	<form:select multiple="true"  path="survivalClasses">
-	<jstl:forEach var="survivalClass" items="${trip.survivalClasses}"> <!-- Variable del controlador -->
-			<form:option selected="true" value="${survivalClass.id}">
-				<jstl:out value="${survivalClass.title}"/> 
-			</form:option>
-		</jstl:forEach>
-		<jstl:forEach var="survivalClass" items="${survivalClasses}"> <!-- Variable del controlador -->
-			<form:option value="${survivalClass.id}">
-				<jstl:out value="${survivalClass.title}"/> 
-			</form:option>
-		</jstl:forEach>
-	</form:select>	
-	<form:errors cssClass = "error" path = "survivalClasses" />
-	<br />
+<%-- 	<form:label path="survivalClasses"> --%>
+<%-- 		<spring:message code="trip.survivalClasses"/> --%>
+<%-- 	</form:label> --%>
+<%-- 	<form:select multiple="true"  path="survivalClasses"> --%>
+<%-- 	<jstl:forEach var="survivalClass" items="${trip.survivalClasses}"> <!-- Variable del controlador --> --%>
+<%-- 			<form:option selected="true" value="${survivalClass.id}"> --%>
+<%-- 				<jstl:out value="${survivalClass.title}"/>  --%>
+<%-- 			</form:option> --%>
+<%-- 		</jstl:forEach> --%>
+<%-- 		<jstl:forEach var="survivalClass" items="${survivalClasses}"> <!-- Variable del controlador --> --%>
+<%-- 			<form:option value="${survivalClass.id}"> --%>
+<%-- 				<jstl:out value="${survivalClass.title}"/>  --%>
+<%-- 			</form:option> --%>
+<%-- 		</jstl:forEach> --%>
+<%-- 	</form:select>	 --%>
+<%-- 	<form:errors cssClass = "error" path = "survivalClasses" /> --%>
+<!-- 	<br /> -->
 
 	<form:label path="category">
 		<spring:message code="trip.category"/>
