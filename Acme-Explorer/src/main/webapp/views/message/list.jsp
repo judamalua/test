@@ -51,6 +51,20 @@
 	
 	</jstl:if>
 	
+	<display:column >
+		<a href="message/delete.do?messageId=${message.id}&messageFolderId=${messageFolder.id}">
+			<button>
+				<spring:message code="message.delete"/>
+			</button>
+		</a>
+		
+		<a href="message/move.do?messageId=${message.id}">
+			<button>
+				<spring:message code="message.move"/>
+			</button>
+		</a>
+	</display:column>
+	
 </display:table>
 </jstl:if>
 

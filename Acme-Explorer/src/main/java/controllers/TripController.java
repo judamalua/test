@@ -171,6 +171,7 @@ public class TripController extends AbstractController {
 			result.addObject("sponsorship", trip.getSponsorships().toArray()[random.nextInt(trip.getSponsorships().size())]);
 		else
 			result.addObject("sponsorship", null);
+
 		result.addObject("hasManager", hasManager);
 		result.addObject("hasExplorer", hasExplorer);
 

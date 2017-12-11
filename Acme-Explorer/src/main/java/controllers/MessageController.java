@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,6 +65,55 @@ public class MessageController extends AbstractController {
 				result = new ModelAndView("redirect:list.do?messageFolderId=" + message.getMessageFolder().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(message, "message.commit.error");
+			}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam("messageId") final int messageId, @RequestParam("messageFolderId") final int messageFolderId) {
+		ModelAndView result;
+		Message message;
+
+		message = this.messageService.findOne(messageId);
+		this.messageService.delete(message);
+
+		result = new ModelAndView("redirect:/message/list.do?messageFolderId=" + messageFolderId);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/move", method = RequestMethod.GET)
+	public ModelAndView move(@RequestParam final int messageId) {
+		ModelAndView result;
+		Actor actor;
+		Collection<MessageFolder> messageFolders;
+
+		actor = this.actorService.findActorByPrincipal();
+		messageFolders = actor.getMessageFolders();
+
+		result = new ModelAndView("message/move");
+		result.addObject("messageFolders", messageFolders);
+		result.addObject("messageId", messageId);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/move", method = RequestMethod.POST, params = {
+		"selectedMessageFolder", "messageId", "save"
+	})
+	public ModelAndView SaveMove(@ModelAttribute("selectedMessageFolder") @Valid final MessageFolder selectedMessageFolder, @ModelAttribute("messageId") final int messageId, final BindingResult binding) {
+		ModelAndView result;
+		Message message;
+		if (binding.hasErrors())
+			result = new ModelAndView("redirect:move.do");
+		else
+			try {
+				message = this.messageService.findOne(messageId);
+				this.actorService.moveMessage(message, selectedMessageFolder);
+				result = new ModelAndView("redirect:/message/list.do?messageFolderId=" + message.getMessageFolder().getId());
+			} catch (final Throwable oops) {
+				result = new ModelAndView("redirect:move.do");
 			}
 
 		return result;

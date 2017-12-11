@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -101,7 +102,7 @@ public class ActorController extends AbstractController {
 
 	//Saving explorer ---------------------------------------------------------------------
 	@RequestMapping(value = "/register-explorer", method = RequestMethod.POST, params = "save")
-	public ModelAndView registerExplorer(@Valid final Explorer explorer, final BindingResult binding) {
+	public ModelAndView registerExplorer(@ModelAttribute("explorer") @Valid final Explorer explorer, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())

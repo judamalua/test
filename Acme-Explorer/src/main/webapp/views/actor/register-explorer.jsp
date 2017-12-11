@@ -9,7 +9,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <form:form
-	id = "form"
 	action="actor/register-explorer.do"
 	modelAttribute="actor">
 	

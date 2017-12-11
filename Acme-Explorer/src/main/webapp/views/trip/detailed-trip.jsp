@@ -110,12 +110,9 @@ iframe de maps
 </p>
 
 <security:authorize access="hasRole('EXPLORER')">
+
 	<jstl:if test="${!hasExplorer}">
-	
-
-			
-		<jstl:if test="${trip.publicationDate>=currentDate}">
-
+		<jstl:if test="${trip.publicationDate<currentDate}">
 			<a href="application/explorer/create.do?tripId=${trip.id}">
 				<button>
 					<spring:message code="trip.apply" />
@@ -175,7 +172,6 @@ iframe de maps
 	</jstl:if>
 </jstl:if>
 <br/>
-
 <jstl:if test="${not empty trip.survivalClasses}">
 	<display:table name="${trip.survivalClasses}" id="row3"
 		requestURI="survivalClass/list.do?tripId=${trip.id}" pagesize="10"
@@ -220,7 +216,7 @@ iframe de maps
 				</display:column>
 			</jstl:if>
 		</security:authorize>
-
+		
 		<security:authorize access="hasRole('EXPLORER')">
 			<jstl:if test="${hasExplorer}">
 				<display:column>

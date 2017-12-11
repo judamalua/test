@@ -63,7 +63,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select t from Trip t join t.stories s where s.id=?1")
 	Trip getTripFromStory(int storyId);
 
-	@Query("select t from Explorer e join e.applications a join a.trip t where e.id=?1")
+	@Query("select t from Explorer e join e.applications a join a.trip t where e.id=?1 and a.status='ACCEPTED'")
 	Collection<Trip> getAcceptedTripsFromExplorerId(int explorerId);
 
 	//Requirement 44

@@ -93,7 +93,7 @@ public class ApplicationExplorerController extends AbstractController {
 			result = this.createEditModelAndView(application, "application.params.error");
 		else
 			try {
-				if (!application.getCreditCard().getHolderName().equals("NONE") || !application.getCreditCard().getBrandName().equals("NONE") || !application.getCreditCard().getNumber().equals("1111111111111117"))
+				if (!application.getCreditCard().getHolderName().equals("NONE") || !application.getCreditCard().getBrandName().equals("NONE") || !application.getCreditCard().getNumber().equals("0000000000000000"))
 					this.applicationService.changeStatus(application, "ACCEPTED");
 				this.applicationService.save(application);
 				result = new ModelAndView("redirect:list.do");

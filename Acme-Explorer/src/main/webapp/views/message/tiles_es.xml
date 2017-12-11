@@ -26,4 +26,9 @@
 		<put-attribute name="body" value="/views/message/edit.jsp" />
 	</definition>
 	
+	<definition name="message/move" extends="master.page">	
+		<put-attribute name="title" value="Mover un mensaje" />
+		<put-attribute name="body" value="/views/message/move.jsp" />
+	</definition>
+	
 </tiles-definitions>
