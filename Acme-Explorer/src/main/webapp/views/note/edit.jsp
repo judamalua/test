@@ -69,8 +69,9 @@
 			onclick="return confirm('<spring:message code='note.confirm.delete' />') " /> --%>
 	<%-- </jstl:if> --%>
 	
-	
-		<input type = "button" name = "cancel" value = "<spring:message code = "note.cancel" />" onclick="javascript:window.history.back()"/>
+	<a href="trip/detailed-trip.do?tripId=${note.trip.id}&anonymous=false">
+		<input type = "button" name = "cancel" value = "<spring:message code = "note.cancel" />"/>
+	</a>
 
 
 </form:form>
