@@ -92,7 +92,7 @@ public class TripController extends AbstractController {
 	}
 
 	// Searching --------------------------------------------------------------
-	@RequestMapping(value = "/search", method = RequestMethod.GET, params = {
+	@RequestMapping(value = "/search", method = RequestMethod.POST, params = {
 		"keyword", "search"
 	})
 	public ModelAndView search(@RequestParam("keyword") final String keyword, @RequestParam("search") final String search) {

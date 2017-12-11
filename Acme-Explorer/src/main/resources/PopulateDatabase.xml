@@ -3199,9 +3199,9 @@
 
 	<!-- LegalText -->
 	<bean id="legalText1" class="domain.LegalText">
-		<property name="title" value="Responsabilities" />
+		<property name="title" value="Responsibilities" />
 		<property name="body"
-			value="You are responsable for all your acts in this trip." />
+			value="You are responsible for all your acts in this trip." />
 		<property name="registrationDate" value="20/10/2016 00:00" />
 		<property name="applicableLaws">
 			<list>

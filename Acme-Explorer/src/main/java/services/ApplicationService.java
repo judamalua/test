@@ -139,6 +139,7 @@ public class ApplicationService {
 		Message message, messageCopy;
 		Collection<Manager> managers;
 		MessageFolder messageFolderSystem;
+		MessageFolder messageFolderReceiver;
 		Explorer explorer;
 
 		Assert.isTrue(!status.equals("PENDING"));
@@ -160,7 +161,8 @@ public class ApplicationService {
 			explorer = this.explorerService.findExplorerByApplication(application);
 
 			managers = this.managerService.findManagersManage(application);
-			messageFolderSystem = this.messageFolderService.findMessageFolder("out box", system);
+			messageFolderSystem = this.messageFolderService.findMessageFolder("notification box", system);
+			messageFolderReceiver = this.messageFolderService.findMessageFolder("notification box", explorer);
 
 			system = this.administratorService.findSystemAdministrator();
 			message = this.messageService.create();
@@ -171,11 +173,12 @@ public class ApplicationService {
 			message.setSubject("Status changed");
 			message.setBody("The new status of application with trip: " + application.getTrip().getTitle() + ", is " + status + ".");
 
-			this.actorService.sendMessage(message, system, explorer);
+			this.actorService.sendMessage(message, system, explorer, messageFolderReceiver);
 
 			for (final Manager m : managers) {
 				messageCopy = this.messageService.copyMessage(message);
-				this.actorService.sendMessage(messageCopy, system, m);
+				messageFolderReceiver = this.messageFolderService.findMessageFolder("notification box", m);
+				this.actorService.sendMessage(messageCopy, system, m, messageFolderReceiver);
 			}
 		}
 	}

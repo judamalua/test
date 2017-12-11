@@ -208,6 +208,47 @@ public class ActorService {
 		return result;
 	}
 
+	public void sendMessage(final Message message, final Actor sender, final Actor receiver, MessageFolder messageFolderReceiver) {
+
+		Assert.notNull(message);
+		this.checkUserLogin();
+
+		UserAccount userAccount;
+		Message savedMessage, savedMessageCopy, messageCopy;
+		MessageFolder messageFolderSender;
+
+		userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+		Assert.notNull(sender);
+		Boolean badActor = false;
+
+		for (final String s : this.configurationService.findConfiguration().getSpamWords())
+			if (message.getBody().toLowerCase().contains(s.toLowerCase()))
+				badActor = true;
+		if (badActor == true) {
+			message.getSender().setSuspicious(true);
+			this.actorRepository.save(message.getSender());
+		}
+		messageCopy = this.messageService.copyMessage(message);
+
+		if (messageCopy.getBody() != null && this.checkSpamWords(messageCopy))
+			messageFolderReceiver = this.messageFolderService.findMessageFolder("spam box", receiver);
+
+		messageCopy.setMessageFolder(messageFolderReceiver);
+
+		savedMessage = this.messageService.save(message);
+		savedMessageCopy = this.messageService.save(messageCopy);
+
+		messageFolderSender = savedMessage.getMessageFolder();
+
+		messageFolderReceiver.getMessages().add(savedMessageCopy);
+		messageFolderSender.getMessages().add(savedMessage);
+
+		this.messageFolderService.save(messageFolderSender);
+		this.messageFolderService.save(messageFolderReceiver);
+
+	}
+
 	public void sendMessage(final Message message, final Actor sender, final Actor receiver) {
 
 		Assert.notNull(message);
@@ -215,13 +256,13 @@ public class ActorService {
 
 		UserAccount userAccount;
 		Message savedMessage, savedMessageCopy, messageCopy;
-		MessageFolder messageFolderReceiver;
-		MessageFolder messageFolderSender;
+		MessageFolder messageFolderSender, messageFolderReceiver;
 
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		Assert.notNull(sender);
 		Boolean badActor = false;
+
 		for (final String s : this.configurationService.findConfiguration().getSpamWords())
 			if (message.getBody().toLowerCase().contains(s.toLowerCase()))
 				badActor = true;
@@ -235,7 +276,6 @@ public class ActorService {
 			messageFolderReceiver = this.messageFolderService.findMessageFolder("in box", receiver);
 		else
 			messageFolderReceiver = this.messageFolderService.findMessageFolder("spam box", receiver);
-
 		messageCopy.setMessageFolder(messageFolderReceiver);
 
 		savedMessage = this.messageService.save(message);
