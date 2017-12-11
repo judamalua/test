@@ -9,16 +9,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.CategoryService;
 import services.ConfigurationService;
 import services.SurvivalClassService;
 import services.TripService;
 import domain.Actor;
+import domain.Category;
 import domain.Configuration;
 import domain.Explorer;
 import domain.Manager;
@@ -37,6 +40,8 @@ public class TripController extends AbstractController {
 	ConfigurationService	configurationService;
 	@Autowired
 	SurvivalClassService	survivalClassService;
+	@Autowired
+	CategoryService			categoryService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -87,6 +92,23 @@ public class TripController extends AbstractController {
 		result.addObject("trips", trips);
 		result.addObject("pageNum", tripsPage.getTotalPages());
 		result.addObject("requestUri", "trip/list.do");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET, params = "categoryId")
+	public ModelAndView listCategory(@RequestParam final int categoryId) {
+		ModelAndView result;
+		Collection<Trip> trips;
+		Category category;
+
+		result = new ModelAndView("trip/list");
+		category = this.categoryService.findOne(categoryId);
+		Assert.notNull(category);
+
+		trips = this.tripService.findTrips(category);
+
+		result.addObject("trips", trips);
 
 		return result;
 	}
