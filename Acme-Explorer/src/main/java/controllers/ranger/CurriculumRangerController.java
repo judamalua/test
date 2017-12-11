@@ -23,9 +23,10 @@ import domain.EndorserRecord;
 import domain.MiscellaneousRecord;
 import domain.PersonalRecord;
 import domain.ProfessionalRecord;
+import domain.Ranger;
 
 @Controller
-@RequestMapping("/curriculum/ranger")
+@RequestMapping("/curriculum")
 public class CurriculumRangerController extends AbstractController {
 
 	@Autowired
@@ -43,7 +44,7 @@ public class CurriculumRangerController extends AbstractController {
 	}
 	// Listing ---------------------------------------------------------------		
 
-	@RequestMapping("/list")
+	@RequestMapping("/ranger/list")
 	public ModelAndView list() {
 		ModelAndView result;
 		final Collection<ProfessionalRecord> professional;
@@ -51,6 +52,7 @@ public class CurriculumRangerController extends AbstractController {
 		final Collection<EndorserRecord> endorser;
 		final Collection<MiscellaneousRecord> miscellaneous;
 		final Collection<EducationRecord> education;
+		final Boolean curriculumRanger = true;
 
 		result = new ModelAndView("curriculum/list");
 
@@ -68,6 +70,43 @@ public class CurriculumRangerController extends AbstractController {
 			result.addObject("educationRecords", education);
 			result.addObject("personalRecord", personal);
 			result.addObject("miscellaneousRecords", miscellaneous);
+			result.addObject("curriculumRanger", curriculumRanger);
+		}
+
+		result.addObject("requestUri", "curriculum/ranger/list.do");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView listWithoutRangerLogin(@RequestParam final int rangerId) {
+		ModelAndView result;
+		final Collection<ProfessionalRecord> professional;
+		final PersonalRecord personal;
+		final Collection<EndorserRecord> endorser;
+		final Collection<MiscellaneousRecord> miscellaneous;
+		final Collection<EducationRecord> education;
+		final Boolean curriculumRanger = false;
+
+		result = new ModelAndView("curriculum/list");
+
+		final Ranger ranger = this.rangerService.findOne(rangerId);
+		final Curriculum curriculum = this.curriculumService.findOne(ranger.getCurriculum().getId());
+
+		if (curriculum != (null)) {
+			professional = curriculum.getProfessionalRecords();
+			endorser = curriculum.getEndorserRecords();
+			personal = curriculum.getPersonalRecord();
+			education = curriculum.getEducationRecords();
+			miscellaneous = curriculum.getMiscellaneousRecords();
+
+			result.addObject("curriculum", curriculum);
+			result.addObject("professionalRecords", professional);
+			result.addObject("endorserRecords", endorser);
+			result.addObject("educationRecords", education);
+			result.addObject("personalRecord", personal);
+			result.addObject("miscellaneousRecords", miscellaneous);
+			result.addObject("curriculumRanger", curriculumRanger);
 		}
 
 		result.addObject("requestUri", "curriculum/ranger/list.do");
@@ -77,7 +116,7 @@ public class CurriculumRangerController extends AbstractController {
 
 	// Creating -------------------------------------
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/ranger/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
 		Curriculum curriculum;
@@ -91,7 +130,7 @@ public class CurriculumRangerController extends AbstractController {
 	// Editing ---------------------------------------------
 
 	// Saving ----------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/ranger/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Curriculum c, final BindingResult binding) {
 		ModelAndView result;
 
@@ -111,7 +150,7 @@ public class CurriculumRangerController extends AbstractController {
 
 	// Deleting --------------------------------------------
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/ranger/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int curriculumId) {
 		ModelAndView result;
 		Curriculum c;

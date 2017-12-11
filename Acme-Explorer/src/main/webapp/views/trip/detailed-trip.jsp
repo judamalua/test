@@ -102,6 +102,11 @@ iframe de maps
 	:
 	<jstl:out value="${trip.ranger.name}" />
 	<jstl:out value="${trip.ranger.surname}" />
+	<a href="curriculum/show.do?rangerId=${trip.ranger.id}">
+				<button>
+					<spring:message code="trip.ranger.curriculum" />
+				</button>
+			</a>
 </p>
 
 <security:authorize access="hasRole('EXPLORER')">

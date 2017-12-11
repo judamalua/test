@@ -32,49 +32,44 @@
 
 
 <jstl:if test="${curriculum!=null}">
-	<security:authorize access="hasRole('RANGER')">
+	
 
-
-		<spring:message code="curriculum.personalRecord.nameOfCandidate"
-			var="nameOfCandidateHeader" />
+		
+		<h4><spring:message code="curriculum.personalRecord.nameOfCandidate" /></h4>
 		<p>${curriculum.personalRecord.nameOfCandidate}</p>
 
-		<spring:message code="curriculum.personalRecord.photo"
-			var="photoHeader" />
+		<h4><spring:message code="curriculum.personalRecord.photo"/></h4>
 		<p>${curriculum.personalRecord.photo}</p>
 
-		<spring:message code="curriculum.personalRecord.email"
-			var="emailHeader" />
+		<h4><spring:message code="curriculum.personalRecord.email" /></h4>
 		<p>${curriculum.personalRecord.email}</p>
 
-		<spring:message code="curriculum.personalRecord.phoneNumber"
-			var="phoneNumberHeader" />
+		<h4><spring:message code="curriculum.personalRecord.phoneNumber"/></h4>
 		<p>${curriculum.personalRecord.phoneNumber}</p>
 
-		<spring:message code="curriculum.personalRecord.linkedInProfileURL"
-			var="linkedInProfileURLHeader" />
+		<h4><spring:message code="curriculum.personalRecord.linkedInProfileURL" /></h4>
 		<p>${curriculum.personalRecord.linkedInProfileURL}</p>
 
-
+		<jstl:if test="${curriculum==null&&curriculumRanger}">
 		<security:authorize access="hasRole('RANGER')">
 
 
 			<a href="personalRecord/ranger/edit.do?personalRecordId=${personalRecord.id}">
 				<spring:message code="curriculum.edit" />
 			</a>
-
+		
 
 		</security:authorize>
+		</jstl:if>
 
-
-	</security:authorize>
+	
 </jstl:if>
 
 
 
 <jstl:if test="${curriculum!=null}">
 	<jstl:if test="${not empty curriculum.professionalRecords}">
-		<security:authorize access="hasRole('RANGER')">
+		
 			<jstl:set value="${professionalRecords}" var="professionalRecords"></jstl:set>
 
 			<display:table name="professionalRecords" id="professionalRecord"
@@ -115,21 +110,21 @@
 
 
 				<security:authorize access="hasRole('RANGER')">
-
+				<jstl:if test="${curriculum!=null&&curriculumRanger}">
 					<display:column>
 						<a
 							href="professionalRecord/ranger/edit.do?professionalRecordId=${professionalRecord.id}">
 							<spring:message code="curriculum.edit" />
 						</a>
 					</display:column>
-
+				</jstl:if>
 				</security:authorize>
 
 			</display:table>
-		</security:authorize>
+		
 	</jstl:if>
 </jstl:if>
-
+<jstl:if test="${curriculum!=null&&curriculumRanger}">
 <security:authorize access="hasRole('RANGER')">
 
 	<a href="professionalRecord/ranger/create.do">
@@ -139,12 +134,12 @@
 	</a>
 
 </security:authorize>
-
+</jstl:if>
 
 
 <jstl:if test="${curriculum!=null}">
 	<jstl:if test="${not empty miscellaneousRecords}">
-		<security:authorize access="hasRole('RANGER')">
+		
 		
 
 			<display:table name="miscellaneousRecords" id="miscellaneousRecord"
@@ -168,22 +163,22 @@
 
 
 				<security:authorize access="hasRole('RANGER')">
-
+				<jstl:if test="${curriculum!=null&&curriculumRanger}">
 					<display:column>
 						<a
 							href="miscellaneousRecord/ranger/edit.do?miscellaneousRecordId=${miscellaneousRecord.id}">
 							<spring:message code="curriculum.edit" />
 						</a>
 					</display:column>
-
+				</jstl:if>
 				</security:authorize>
 
 			</display:table>
-		</security:authorize>
+		
 	</jstl:if>
 </jstl:if>
 
-
+<jstl:if test="${curriculum!=null&&curriculumRanger}">
 <security:authorize access="hasRole('RANGER')">
 
 	<a href="miscellaneousRecord/ranger/create.do">
@@ -193,7 +188,7 @@
 	</a>
 
 </security:authorize> 
-
+</jstl:if>
 
 <jstl:if test="${curriculum!=null}">
 	<jstl:if test="${not empty curriculum.educationRecords}">
@@ -223,7 +218,7 @@
 				<spring:message code="curriculum.educationRecord.institution"
 					var="institutionHeader" />
 				<display:column property="institution"
-					title="${institutionHeader}" sortable="true" />
+					title="${institutionHeader}" sortable="false" />
 
 				<spring:message code="curriculum.educationRecord.attachment"
 					var="attachment2Header" />
@@ -237,21 +232,21 @@
 
 
 				<security:authorize access="hasRole('RANGER')">
-
+				<jstl:if test="${curriculum!=null&&curriculumRanger}">
 					<display:column>
 						<a
 							href="educationRecord/ranger/edit.do?educationRecordId=${educationRecord.id}">
 							<spring:message code="curriculum.edit" />
 						</a>
 					</display:column>
-
+				</jstl:if>
 				</security:authorize>
 
 			</display:table>
 		</security:authorize>
 	</jstl:if>
 </jstl:if>
-
+<jstl:if test="${curriculum!=null&&curriculumRanger}">
 <security:authorize access="hasRole('RANGER')">
 
 	<a href="educationRecord/ranger/create.do">
@@ -261,13 +256,13 @@
 	</a>
 
 </security:authorize>
-
+</jstl:if>
 
 
 <jstl:if test="${curriculum!=null}">
 	<jstl:if test="${not empty curriculum.endorserRecords}">
 
-		<security:authorize access="hasRole('RANGER')">
+		
 	
 			<display:table name="endorserRecords" id="endorserRecord"
 				requestURI="endorserRecord/list.do?curriculumId=${curriculum.id}"
@@ -296,6 +291,7 @@
 
 
 				<security:authorize access="hasRole('RANGER')">
+				<jstl:if test="${curriculum!=null&&curriculumRanger}">
 
 					<display:column>
 						<a
@@ -303,14 +299,14 @@
 							<spring:message code="curriculum.edit" />
 						</a>
 					</display:column>
-
+				</jstl:if>
 				</security:authorize>
 
 			</display:table>
-		</security:authorize>
+		
 	</jstl:if>
 </jstl:if>
-
+<jstl:if test="${curriculum!=null&&curriculumRanger}">
 <security:authorize access="hasRole('RANGER')">
 
 	<a href="endorserRecord/ranger/create.do">
@@ -320,12 +316,12 @@
 	</a>
 
 </security:authorize>
-
+</jstl:if>
 
 
 
 <security:authorize access="hasRole('RANGER')">
-<jstl:if test="${curriculum==null}">
+<jstl:if test="${curriculum==null&&curriculumRanger}">
 
 	<a href="curriculum/ranger/create.do">
 		<button>
@@ -336,7 +332,7 @@
 </security:authorize>
 
 <security:authorize access="hasRole('RANGER')">
-<jstl:if test="${curriculum!=null}">
+<jstl:if test="${curriculum!=null&&curriculumRanger}">
 	<a href="curriculum/ranger/delete.do?curriculumId=${curriculum.id}">
 		<button>
 			<spring:message code="curriculum.delete" />
