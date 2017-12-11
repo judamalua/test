@@ -121,7 +121,12 @@
 	<!--  Dependencies -->
 
 	<dependencies>
-
+		
+		<dependency>
+		    <groupId>cz.jirutka.validator</groupId>
+		    <artifactId>validator-collection</artifactId>
+		    <version>2.2.0</version>
+		</dependency>
 		<!-- Spring Framework -->
 		
 		<dependency>
