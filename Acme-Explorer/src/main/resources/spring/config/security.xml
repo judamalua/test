@@ -96,6 +96,9 @@
 		
 		<security:intercept-url pattern="/stage/manager/**" access="hasRole('MANAGER')" />
 		
+		<security:intercept-url pattern="/story/explorer/create.do" access="hasRole('EXPLORER')" />
+		<security:intercept-url pattern="/story/explorer/edit.do" access="hasRole('EXPLORER')" />
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 
