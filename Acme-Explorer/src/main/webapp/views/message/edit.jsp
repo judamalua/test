@@ -59,7 +59,7 @@
 	<form:select path="receiver">
 		<jstl:forEach items="${actors}" var="actor">
 			<jstl:if test="${actor.name!=\"SYSTEM\"}">
-				<form:option label="${actor.email}" value="${actor.id}"/>
+				<form:option label="${actor.userAccount.username}" value="${actor.id}"/>
 			</jstl:if>
 		</jstl:forEach>
 	</form:select>
