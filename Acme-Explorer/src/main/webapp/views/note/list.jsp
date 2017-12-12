@@ -22,7 +22,7 @@
 </security:authorize>
 
 <display:table name = "notes" id = "row" 
-	requestURI = "note/${auditor}/list.do" pagesize = "5" class = "displaytag">
+	requestURI = "note/${role}/list.do" pagesize = "5" class = "displaytag">
 
 	<spring:message code = "note.moment" var = "momentHeader"/>
 	<display:column property = "moment" title = "${momentHeader}" sortable = "true"/>

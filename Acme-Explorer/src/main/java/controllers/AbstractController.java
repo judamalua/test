@@ -33,6 +33,7 @@ public class AbstractController {
 	 * 
 	 * @author Juanmi
 	 */
+
 	@ModelAttribute(value = "banner")
 	//@RequestMapping(method = RequestMethod.POST)
 	public String banner() {

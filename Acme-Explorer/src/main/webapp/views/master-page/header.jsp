@@ -8,6 +8,8 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@page import="services.ConfigurationService"%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 

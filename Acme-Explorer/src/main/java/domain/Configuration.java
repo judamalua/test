@@ -15,6 +15,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
+import cz.jirutka.validator.collection.constraints.EachNotBlank;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class Configuration extends DomainEntity {
@@ -54,6 +56,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotNull
+	@EachNotBlank
 	@ElementCollection
 	public Collection<String> getSpamWords() {
 		return this.spamWords;
