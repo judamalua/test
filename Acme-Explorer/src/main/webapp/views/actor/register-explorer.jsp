@@ -8,9 +8,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form
-	action="actor/register-explorer.do"
-	modelAttribute="actor">
+<form:form id = "form" action="actor/register-explorer.do" modelAttribute="actor">
 	
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
@@ -58,7 +56,7 @@
 	<form:label path="phoneNumber">
 		<spring:message code="actor.phoneNumber"/>
 	</form:label>
-	<form:input path="phoneNumber"/>
+	<form:input id = "phoneNumber" path="phoneNumber"/>
 	<form:errors cssClass="error" path="phoneNumber"/>
 	<br/>
 	

@@ -8,7 +8,7 @@ function validatePhone(form, message) {
 	var p = form["phoneNumber"].value;
 
 	var r1 = /^(\+[0-9]{1,3} )(\([0-9]{1,3}\) )([0-9]{4,})$/g;
-	var r2 = /^(\([0-9]{1,3}\) )([0,9]{4,})$/g;
+	var r2 = /^(\+[0-9]{1,3} )([0-9]{4,})$d/g;
 	var r3 = /^([0-9]{4,})$/g;
 
 	if (!(p === "")) {

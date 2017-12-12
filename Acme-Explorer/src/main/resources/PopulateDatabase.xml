@@ -2425,7 +2425,7 @@
 		<property name="pieceOfText" value="Piece of text 1" />
 		<property name="attachments">
 			<list>
-				<value>www.attachment1.com</value>
+				<value>https://www.attachment1.com</value>
 			</list>
 		</property>
 
@@ -2437,7 +2437,7 @@
 		<property name="pieceOfText" value="Piece of text 2" />
 		<property name="attachments">
 			<list>
-				<value>www.attachment2.com</value>
+				<value>https://www.attachment2.com</value>
 			</list>
 		</property>
 
@@ -2531,8 +2531,7 @@
 				<value>jes extender</value>
 			</list>
 		</property>
-		<property name="bannerUrl"
-			value="http://creek-tours.com/wp-content/uploads/Kenya-Tanzania-Family-Safari-banner.jpg" />
+		<property name="bannerUrl" value="http://creek-tours.com/wp-content/uploads/Kenya-Tanzania-Family-Safari-banner.jpg" />
 		<property name="welcomeMessageEng" value="Tanzanika is an adventure company that makes your explorer's dreams true" />
 		<property name="welcomeMessageEsp" value="Tanzanika es la empresa de aventuras que hará tus sueños de explorador realidad" />
 		<property name="defaultPhoneCountryCode" value="+34" />
@@ -2550,8 +2549,8 @@
 		<property name="isFinalMode" value="false" />
 		<property name="attachments">
 			<list>
-				<value>www.attachment1.com</value>
-				<value>www.attachment2.com</value>
+				<value>https://www.attachment1.com</value>
+				<value>https://www.attachment2.com</value>
 			</list>
 		</property>
 		<property name="auditor" ref="auditor1" />
@@ -2568,8 +2567,8 @@
 		<property name="isFinalMode" value="false" />
 		<property name="attachments">
 			<list>
-				<value>www.attachment1.com</value>
-				<value>www.attachment2.com</value>
+				<value>https://www.attachment1.com</value>
+				<value>https://www.attachment2.com</value>
 			</list>
 		</property>
 		<property name="auditor" ref="auditor2" />
@@ -2585,8 +2584,8 @@
 		<property name="isFinalMode" value="false" />
 		<property name="attachments">
 			<list>
-				<value>www.attachment1.com</value>
-				<value>www.attachment2.com</value>
+				<value>https://www.attachment1.com</value>
+				<value>https://www.attachment2.com</value>
 			</list>
 		</property>
 		<property name="auditor" ref="auditor3" />
@@ -2602,8 +2601,8 @@
 		<property name="isFinalMode" value="false" />
 		<property name="attachments">
 			<list>
-				<value>www.attachment1.com</value>
-				<value>www.attachment2.com</value>
+				<value>https://www.attachment1.com</value>
+				<value>https://www.attachment2.com</value>
 			</list>
 		</property>
 		<property name="auditor" ref="auditor3" />
@@ -2619,8 +2618,8 @@
 		<property name="isFinalMode" value="false" />
 		<property name="attachments">
 			<list>
-				<value>www.attachment1.com</value>
-				<value>www.attachment2.com</value>
+				<value>https://www.attachment1.com</value>
+				<value>https://www.attachment2.com</value>
 			</list>
 		</property>
 		<property name="auditor" ref="auditor5" />
