@@ -2,6 +2,7 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,10 +115,10 @@ public class TripController extends AbstractController {
 	}
 
 	// Searching --------------------------------------------------------------
-	@RequestMapping(value = "/search", method = RequestMethod.POST, params = {
-		"keyword", "search"
-	})
-	public ModelAndView search(@RequestParam("keyword") final String keyword, @RequestParam("search") final String search) {
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public ModelAndView search(@RequestParam(value = "keyword", defaultValue = "") final String keyword, @RequestParam(value = "startPrice", defaultValue = "0.0") final double startPrice,
+		@RequestParam(value = "endPrice", defaultValue = "10000.0") final double endprice, @RequestParam(value = "", defaultValue = "2000/01/01 00:00") final Date startDate,
+		@RequestParam(value = "endDate", defaultValue = "2999/01/01 00:00") final Date endDate) {
 		ModelAndView result;
 		Collection<Trip> trips;
 		Page<Trip> tripsPage;
@@ -128,7 +129,7 @@ public class TripController extends AbstractController {
 		configuration = this.configurationService.findConfiguration();
 		pageable = new PageRequest(0, configuration.getMaxResults());
 
-		tripsPage = this.tripService.findTrips(keyword, pageable);
+		tripsPage = this.tripService.findTripsBySearchParameters(keyword, startPrice, endprice, startDate, endDate, pageable);
 		trips = tripsPage.getContent();
 
 		result.addObject("trips", trips);

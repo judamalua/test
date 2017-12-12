@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Random;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,6 @@ import domain.Category;
 import domain.Configuration;
 import domain.Manager;
 import domain.Note;
-import domain.Search;
 import domain.Sponsorship;
 import domain.Stage;
 import domain.Story;
@@ -316,26 +316,6 @@ public class TripService {
 		return this.tripRepository.getNumberOfReferencesLegalTexts();
 	}
 
-	//Requirement 34
-	public Collection<Trip> findTripsBySearchParameters(final Search search, final Pageable pageable) {
-
-		final String q = search.getKeyWord();
-		final Date date1 = search.getDateRangeStart();
-		final Date date2 = search.getDateRangeEnd();
-		final Double pricelow = search.getPriceRangeStart();
-		final Double pricehigh = search.getPriceRangeEnd();
-
-		this.searchService.save(search);
-
-		// Añadir el objeto pageable al método bueno también Luis
-		final Collection<Trip> t1 = this.tripRepository.findTripsBySearchParameters(q, date1, date2, pricelow, pricehigh, pageable).getContent();
-
-		return t1;
-	}
-	//	public Collection<Trip> findTripsApplicationExplorer(final int id) {
-	//		return this.tripRepository.findTripsApplicationExplorer(id);
-	//	}
-
 	public Collection<String> getTripTickers() {
 		return this.tripRepository.getTripTickers();
 	}
@@ -445,6 +425,24 @@ public class TripService {
 			result = this.findAll(pageable);
 		return result;
 	}
+
+
+	String	r	= new LocalDateTime(2000, 1, 1, 10, 10).toDate().toString();
+
+
+	//Requirement 34
+	public Page<Trip> findTripsBySearchParameters(final String q, final Double pricelow, final Double pricehigh, final Date date1, final Date date2, final Pageable pageable) {
+		final Page<Trip> t1;
+
+		if (q.equals("") || q == null)
+			t1 = this.tripRepository.findTripsBySearchParametersWithoutQ(date1, date2, pricelow, pricehigh, pageable);
+		else
+			t1 = this.tripRepository.findTripsBySearchParameters(q, date1, date2, pricelow, pricehigh, pageable);
+		return t1;
+	}
+	//	public Collection<Trip> findTripsApplicationExplorer(final int id) {
+	//		return this.tripRepository.findTripsApplicationExplorer(id);
+	//	}
 
 	public Collection<Trip> findTrips(final Category category, final Pageable pageable) {
 

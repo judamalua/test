@@ -27,11 +27,11 @@
 
 		<label> <spring:message code="trip.startDate" />
 		</label>
-		<input type="number" name="startDate" placeholder="dd/MM/yyyy">
+		<input type="text" name="startDate" placeholder="dd/MM/yyyy">
 
 		<label> <spring:message code="trip.endDate" />
 		</label>
-		<input type="number" name="endDate" placeholder="dd/MM/yyyy">
+		<input type="text" name="endDate" placeholder="dd/MM/yyyy">
 
 	</security:authorize>
 
