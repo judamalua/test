@@ -19,7 +19,6 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Application;
-import domain.AuditRecord;
 import domain.Category;
 import domain.Configuration;
 import domain.Manager;
@@ -66,7 +65,6 @@ public class TripService {
 		String ticker;
 		final Collection<Tag> tags = new HashSet<Tag>();
 		final Collection<Application> applications = new HashSet<Application>();
-		final Collection<AuditRecord> auditRecords = new HashSet<AuditRecord>();
 		final Collection<Manager> managers = new HashSet<Manager>();
 		final Collection<Note> notes = new HashSet<Note>();
 		final Collection<Sponsorship> sponsorships = new HashSet<Sponsorship>();
@@ -81,7 +79,6 @@ public class TripService {
 		result.setTags(tags);
 		result.setTicker(ticker);
 		result.setApplications(applications);
-		result.setAuditRecords(auditRecords);
 		result.setManagers(managers);
 		result.setNotes(notes);
 		result.setSponsorships(sponsorships);

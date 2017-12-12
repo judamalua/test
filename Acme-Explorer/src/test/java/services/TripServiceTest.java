@@ -64,7 +64,6 @@ public class TripServiceTest extends AbstractTest {
 		trip = this.tripService.create();
 
 		Assert.isTrue(trip.getApplications().size() == 0);
-		Assert.isTrue(trip.getAuditRecords().size() == 0);
 		Assert.isTrue(trip.getCancelReason() == null);
 		Assert.isTrue(trip.getCategory() == null);
 		Assert.isTrue(trip.getEndDate() == null);

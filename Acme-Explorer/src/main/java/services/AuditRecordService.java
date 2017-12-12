@@ -96,11 +96,10 @@ public class AuditRecordService {
 
 		if (auditor.getAuditRecords().contains(audit))
 			auditor.getAuditRecords().remove(audit);
-		if (trip.getAuditRecords().contains(audit))
-			trip.getAuditRecords().remove(audit);
+		if (trip.getAuditRecord() != null && trip.getAuditRecord().equals(audit))
+			trip.setAuditRecord(result);
 
 		auditor.getAuditRecords().add(result);
-		trip.getAuditRecords().add(result);
 
 		this.auditorService.save(auditor);
 		this.tripService.save(trip);
@@ -125,7 +124,7 @@ public class AuditRecordService {
 		this.auditorService.save(auditor);
 
 		trip = audit.getTrip();
-		trip.getAuditRecords().remove(audit);
+		trip.setAuditRecord(null);
 		this.tripService.save(trip);
 
 		this.auditRecordRepository.delete(audit);

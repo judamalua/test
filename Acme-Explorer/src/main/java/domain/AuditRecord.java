@@ -9,6 +9,7 @@ import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -104,7 +105,7 @@ public class AuditRecord extends DomainEntity {
 
 
 	@Valid
-	@ManyToOne(optional = false)
+	@OneToOne(optional = false)
 	public Trip getTrip() {
 		return this.trip;
 	}

@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -142,7 +143,7 @@ public class Trip extends DomainEntity {
 	private Ranger						ranger;
 	private LegalText					legalText;
 	private Category					category;
-	private Collection<AuditRecord>		auditRecords;
+	private AuditRecord					auditRecord;
 	private Collection<Note>			notes;
 	private Collection<Manager>			managers;
 	private Collection<Application>		applications;
@@ -178,14 +179,13 @@ public class Trip extends DomainEntity {
 		this.notes = notes;
 	}
 
-	@NotNull
-	@OneToMany(mappedBy = "trip")
-	public Collection<AuditRecord> getAuditRecords() {
-		return this.auditRecords;
+	@OneToOne(mappedBy = "trip")
+	public AuditRecord getAuditRecord() {
+		return this.auditRecord;
 	}
 
-	public void setAuditRecords(final Collection<AuditRecord> auditRecords) {
-		this.auditRecords = auditRecords;
+	public void setAuditRecord(final AuditRecord auditRecord) {
+		this.auditRecord = auditRecord;
 	}
 
 	@Valid

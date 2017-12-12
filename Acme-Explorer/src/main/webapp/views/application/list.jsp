@@ -36,13 +36,11 @@
 	<jstl:set value="DUE" var="due"/>
 	<security:authorize access="hasRole('MANAGER')">
 	<display:column>
-		<jstl:if test="${status == pending}">
-			<a href="application/manager/edit.do?applicationId=${row.id}">
-				<button>
-					<spring:message code="application.edit"/>
-				</button>
-			</a>
-		</jstl:if>
+		<a href="application/manager/edit.do?applicationId=${row.id}">
+			<button>
+				<spring:message code="application.reject"/>
+			</button>
+		</a>
 	</display:column>
 	
 	<display:column>

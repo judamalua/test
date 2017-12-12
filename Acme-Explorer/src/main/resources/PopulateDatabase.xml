@@ -2557,7 +2557,6 @@
 		<property name="auditor" ref="auditor1" />
 		<property name="trip" ref="trip1" />
 
-
 	</bean>
 
 	<bean id="auditRecord2" class="domain.AuditRecord">
@@ -2594,39 +2593,39 @@
 
 	</bean>
 
-	<bean id="auditRecord4" class="domain.AuditRecord">
+<!-- 	<bean id="auditRecord4" class="domain.AuditRecord"> -->
 
-		<property name="momentWhenCarriedOut" value="2015/06/21 23:59" />
-		<property name="title" value="Title 4" />
-		<property name="description" value="Description 4" />
-		<property name="isFinalMode" value="false" />
-		<property name="attachments">
-			<list>
-				<value>https://www.attachment1.com</value>
-				<value>https://www.attachment2.com</value>
-			</list>
-		</property>
-		<property name="auditor" ref="auditor3" />
-		<property name="trip" ref="trip3" />
+<!-- 		<property name="momentWhenCarriedOut" value="2015/06/21 23:59" /> -->
+<!-- 		<property name="title" value="Title 4" /> -->
+<!-- 		<property name="description" value="Description 4" /> -->
+<!-- 		<property name="isFinalMode" value="false" /> -->
+<!-- 		<property name="attachments"> -->
+<!-- 			<list> -->
+<!-- 				<value>https://www.attachment1.com</value> -->
+<!-- 				<value>https://www.attachment2.com</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 		<property name="auditor" ref="auditor3" /> -->
+<!-- 		<property name="trip" ref="trip4" /> -->
 
-	</bean>
+<!-- 	</bean> -->
 
-	<bean id="auditRecord5" class="domain.AuditRecord">
+<!-- 	<bean id="auditRecord5" class="domain.AuditRecord"> -->
 
-		<property name="momentWhenCarriedOut" value="2015/11/01 23:59" />
-		<property name="title" value="Title 5" />
-		<property name="description" value="Description 5" />
-		<property name="isFinalMode" value="false" />
-		<property name="attachments">
-			<list>
-				<value>https://www.attachment1.com</value>
-				<value>https://www.attachment2.com</value>
-			</list>
-		</property>
-		<property name="auditor" ref="auditor5" />
-		<property name="trip" ref="trip3" />
+<!-- 		<property name="momentWhenCarriedOut" value="2015/11/01 23:59" /> -->
+<!-- 		<property name="title" value="Title 5" /> -->
+<!-- 		<property name="description" value="Description 5" /> -->
+<!-- 		<property name="isFinalMode" value="false" /> -->
+<!-- 		<property name="attachments"> -->
+<!-- 			<list> -->
+<!-- 				<value>https://www.attachment1.com</value> -->
+<!-- 				<value>https://www.attachment2.com</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 		<property name="auditor" ref="auditor5" /> -->
+<!-- 		<property name="trip" ref="trip5" /> -->
 
-	</bean>
+<!-- 	</bean> -->
 
 	<!-- Auditors -->
 
@@ -2732,7 +2731,7 @@
 		<property name="userAccount" ref="userAccount20" />
 		<property name="auditRecords">
 			<list>
-				<ref bean="auditRecord4" />
+<!-- 				<ref bean="auditRecord4" /> -->
 			</list>
 		</property>
 		<property name="notes">
@@ -2801,7 +2800,7 @@
 		<property name="userAccount" ref="userAccount22" />
 		<property name="auditRecords">
 			<list>
-				<ref bean="auditRecord5" />
+<!-- 				<ref bean="auditRecord5" /> -->
 			</list>
 		</property>
 		<property name="notes">
@@ -4005,11 +4004,7 @@
 			</list>
 		</property>
 
-		<property name="auditRecords">
-			<list>
-				<ref bean="auditRecord1" />
-			</list>
-		</property>
+		<property name="auditRecord" ref="auditRecord1"/>
 
 		<property name="sponsorships">
 			<list>
@@ -4086,12 +4081,8 @@
 			</list>
 		</property>
 
-		<property name="auditRecords">
-			<list>
-				<ref bean="auditRecord2" />
-			</list>
-		</property>
-
+		<property name="auditRecord" ref="auditRecord2"/>
+				
 		<property name="sponsorships">
 			<list>
 				<ref bean="sponsorship3" />
@@ -4163,13 +4154,7 @@
 			</list>
 		</property>
 
-		<property name="auditRecords">
-			<list>
-				<ref bean="auditRecord3" />
-				<ref bean="auditRecord4" />
-				<ref bean="auditRecord5" />
-			</list>
-		</property>
+		<property name="auditRecord" ref="auditRecord3"/>
 
 		<property name="sponsorships">
 			<list>
@@ -4242,11 +4227,6 @@
 			</list>
 		</property>
 
-		<property name="auditRecords">
-			<list>
-			</list>
-		</property>
-
 		<property name="sponsorships">
 			<list>
 			</list>
@@ -4307,11 +4287,6 @@
 		</property>
 
 		<property name="notes">
-			<list>
-			</list>
-		</property>
-
-		<property name="auditRecords">
 			<list>
 			</list>
 		</property>
