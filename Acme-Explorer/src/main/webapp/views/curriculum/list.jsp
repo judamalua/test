@@ -21,7 +21,8 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-
+<spring:message code="format.date" var="formatDate"/>
+<spring:message code="format.price" var="formatPrice"/>
 <display:table name="curriculum" id="row"
 	requestURI="curriculum/ranger/list.do" pagesize="10" class="displaytag">
 
@@ -85,13 +86,13 @@
 					code="curriculum.professionalRecord.workingPeriodStart"
 					var="workingPeriodStartHeader" />
 				<display:column property="workingPeriodStart"
-					title="${workingPeriodStartHeader}" sortable="false" />
+					title="${workingPeriodStartHeader}" sortable="false" format="${formatDate}"/>
 
 				<spring:message
 					code="curriculum.professionalRecord.workingPeriodEnd"
 					var="workingPeriodEndHeader" />
 				<display:column property="workingPeriodEnd"
-					title="${workingPeriodEndHeader}" sortable="false" />
+					title="${workingPeriodEndHeader}" sortable="false" format="${formatDate}"/>
 
 				<spring:message code="curriculum.professionalRecord.role"
 					var="roleHeader" />

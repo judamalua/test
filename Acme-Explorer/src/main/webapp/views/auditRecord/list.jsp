@@ -18,6 +18,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<spring:message code="format.date" var="formatDate"/>
 <display:table name = "auditRecords" id = "row" 
 	requestURI = "auditRecord/auditor/list.do" pagesize = "10" class = "displaytag">
 
@@ -28,7 +29,7 @@
 	<display:column property = "description" title = "${descriptionHeader}" sortable = "false"/>
 	
 	<spring:message code = "auditRecord.moment" var = "momentHeader"/>
-	<display:column property = "momentWhenCarriedOut" title = "${momentHeader}" sortable = "true"/>
+	<display:column property = "momentWhenCarriedOut" title = "${momentHeader}" sortable = "true" format="${formatDate}"/>
 
 	<spring:message code = "auditRecord.attachments" var = "attachmentsHeader"/>
 	<display:column property = "attachments" title = "${attachmentsHeader}" sortable = "false">

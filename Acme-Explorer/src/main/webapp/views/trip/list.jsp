@@ -59,14 +59,17 @@
 	<display:column property="title" title="${title}" sortable="true" />
 
 	<spring:message code="trip.price" var="price" />
-	<display:column property="price" title="${price}" sortable="true"  />
-
+	<spring:message code="format.price" var="formatPrice"/>
+	<display:column property="price" title="${price}" sortable="true" format="${formatPrice}" />
+	
+	<spring:message code="format.date" var="formatDate"/>
 	<spring:message code="trip.startDate" var="startDate" />
 	<display:column property="startDate" title="${startDate}"
-		sortable="true" />
+		sortable="true" format="${formatDate}" />
 
 	<spring:message code="trip.endDate" var="endDate" />
-	<display:column property="endDate" title="${endDate}" sortable="true" />
+
+	<display:column property="endDate" title="${endDate}" sortable="true" format="${formatDate}"/>
 
 	<jstl:set value="false" var="anonymous" />
 	<security:authorize access="isAnonymous()">

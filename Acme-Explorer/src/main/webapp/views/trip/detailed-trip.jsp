@@ -11,8 +11,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-Errores: Añadir formato a fechas Añadir formato a numeros Arreglar
-iframe de maps
+<spring:message code="format.price" var="formatPrice"/>
+<spring:message code="format.date" var="formatDate"/>
+<spring:message code="format.date.out" var="formatDateOut"/>
+<spring:message code="language" var="language"/>
 
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate var="currentDate" value="${now}"
@@ -66,8 +68,14 @@ iframe de maps
 <p>
 	<spring:message code="trip.price" />
 	:
-	<jstl:out value="${trip.price}" />
-	EUR
+	<jstl:set value="${trip.price}" var="price" />
+	
+	<jstl:if test="${language==\"en\"}">
+		&#8364; <jstl:out value="${trip.price}" />
+	</jstl:if>
+	<jstl:if test="${language==\"es\"}">
+		<jstl:out value="${trip.price} " />&#8364; 
+	</jstl:if>
 </p>
 <p>
 	<spring:message code="trip.requirements" />
@@ -77,12 +85,14 @@ iframe de maps
 <p>
 	<spring:message code="trip.startDate" />
 	:
-	<jstl:out value="${trip.startDate}" />
+	<jstl:set value="${trip.startDate}" var="startDate"/>
+	<fmt:formatDate value="${startDate}" pattern="${formatDateOut}"/>
 </p>
 <p>
 	<spring:message code="trip.endDate" />
 	:
-	<jstl:out value="${trip.endDate}" />
+	<jstl:set value="${trip.endDate}" var="endDate"/>
+	<fmt:formatDate value="${endDate}" pattern="${formatDateOut}"/>
 </p>
 
 <jstl:if test="${not empty trip.tags}">
@@ -151,7 +161,7 @@ iframe de maps
 
 		<spring:message code="detailedTrip.stage.price" var="priceHeader" />
 		<display:column property="price" title="${priceHeader}"
-			sortable="true" />
+			sortable="true" format="${formatPrice}"/>
 		<display:column>
 			<jstl:if test="${trip.publicationDate > currentDate}">
 			<a href="stage/manager/edit.do?stageId=${row1.id}">
@@ -190,7 +200,7 @@ iframe de maps
 		<spring:message code="detailedTrip.survivalClass.organisationMoment"
 			var="organisationMomentHeader" />
 		<display:column property="organisationMoment"
-			title="${organisationMomentHeader}" sortable="true" />
+			title="${organisationMomentHeader}" sortable="true" format="${formatDate}"/>
 
 		<spring:message code="detailedTrip.survivalClass.location"
 			var="locationHeader" />
@@ -263,7 +273,7 @@ iframe de maps
 				<spring:message code="detailedTrip.auditRecord.moment"
 					var="momentHeader" />
 				<display:column property="momentWhenCarriedOut" title="${momentHeader}"
-					sortable="true" />
+					sortable="true" format="${formatDate}"/>
 
 				<spring:message code="detailedTrip.auditRecord.title"
 					var="titleHeader" />
@@ -305,7 +315,8 @@ iframe de maps
 	<br />
 	<jstl:out value="${trip.legalText.body}" />
 	<br />
-	<jstl:out value="${trip.legalText.registrationDate}" />
+	<jstl:set value="${trip.legalText.registrationDate}" var="registrationDate"/>
+	<fmt:formatDate value="${registrationDate}" pattern="${formatDateOut}"/>
 
 </jstl:if>
 
@@ -318,7 +329,7 @@ iframe de maps
 
 		<spring:message code="detailedTrip.notes.moment" var="noteHeader" />
 		<display:column property="moment" title="${noteHeader}"
-			sortable="true" />
+			sortable="true" format="${formatDate}"/>
 
 		<spring:message code="detailedTrip.notes.remark" var="remarkHeader" />
 		<display:column property="remark" title="${remarkHeader}" />
@@ -329,7 +340,7 @@ iframe de maps
 
 			<spring:message code="detailedTrip.notes.momentReply"
 				var="momentReplyHeader" />
-			<display:column property="momentOfReply" title="${momentReplyHeader}" />
+			<display:column property="momentOfReply" title="${momentReplyHeader}" format="${formatDate}"/>
 		</jstl:if>
 
 	</display:table>
@@ -345,7 +356,7 @@ iframe de maps
 
 		<spring:message code="detailedTrip.notes.moment" var="noteHeader" />
 		<display:column property="moment" title="${noteHeader}"
-			sortable="true" />
+			sortable="true" format="${formatDate}"/>
 
 		<spring:message code="detailedTrip.notes.remark" var="remarkHeader" />
 		<display:column property="remark" title="${remarkHeader}" />
@@ -356,7 +367,7 @@ iframe de maps
 
 			<spring:message code="detailedTrip.notes.momentReply"
 				var="momentReplyHeader" />
-			<display:column property="momentOfReply" title="${momentReplyHeader}" />
+			<display:column property="momentOfReply" title="${momentReplyHeader}" format="${formatDate}"/>
 		</jstl:if>
 
 		<security:authorize access="hasRole('MANAGER')">

@@ -8,6 +8,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<spring:message code="format.date" var="formatDate"/>
 <display:table 
 	name="applications"
 	id="row"
@@ -16,7 +17,7 @@
 	class="displayTag">
 	
 	<spring:message code="application.date" var="date"/>
-	<display:column property="date" title="${date}" sortable="true" />
+	<display:column property="date" title="${date}" sortable="true" format="${formatDate}"/>
 	
 	<spring:message code="application.commentaries" var="commentaries"/>
 	<display:column property="commentaries" title="${commentaries}" sortable="true" />
@@ -34,13 +35,16 @@
 	<jstl:set value="PENDING" var="pending"/>
 	<jstl:set value="ACCEPTED" var="accepted"/>
 	<jstl:set value="DUE" var="due"/>
+	<jstl:set value="REJECTED" var="rejected"/>
 	<security:authorize access="hasRole('MANAGER')">
 	<display:column>
-		<a href="application/manager/edit.do?applicationId=${row.id}">
-			<button>
-				<spring:message code="application.reject"/>
-			</button>
-		</a>
+		<jstl:if test="${status == rejected}">
+			<a href="application/manager/edit.do?applicationId=${row.id}">
+				<button>
+					<spring:message code="application.reject"/>
+				</button>
+			</a>
+		</jstl:if>
 	</display:column>
 	
 	<display:column>

@@ -21,11 +21,13 @@
 	<jstl:set value="manager" var="role"/>
 </security:authorize>
 
+<spring:message code="format.date" var="formatDate"/>
+<spring:message code="format.price" var="formatPrice"/>
 <display:table name = "notes" id = "row" 
 	requestURI = "note/${role}/list.do" pagesize = "5" class = "displaytag">
 
 	<spring:message code = "note.moment" var = "momentHeader"/>
-	<display:column property = "moment" title = "${momentHeader}" sortable = "true"/>
+	<display:column property = "moment" title = "${momentHeader}" sortable = "true" format="${formatDate}"/>
 
 	<spring:message code = "note.remark" var = "remarkHeader"/>
 	<display:column property = "remark" title = "${remarkHeader}"/>
@@ -37,7 +39,7 @@
 	
 	<jstl:if test = "${not empty row.momentOfReply}">
 		<spring:message code = "note.momentOfReply" var = "momentOfReplyHeader"/>
-		<display:column property = "momentOfReply" title = "${momentOfReplyHeader}" />
+		<display:column property = "momentOfReply" title = "${momentOfReplyHeader}" format="${formatDate}"/>
 	</jstl:if>
 	
 	<security:authorize access = "hasRole('MANAGER')">

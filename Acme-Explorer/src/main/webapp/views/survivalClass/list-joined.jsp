@@ -6,9 +6,11 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<spring:message code="format.date" var="formatDate"/>
+<spring:message code="format.price" var="formatPrice"/>
 <display:table name = "survivalclass" id = "row" 
 	requestURI = "survivalClass/explorer/list-joined.do" pagesize = "5" class = "displaytag">
-
+	
 	<spring:message code = "survivalclass.title" var = "title"/>
 	<display:column property = "title" title = "${title}" sortable = "true"/>
 
@@ -16,7 +18,7 @@
 	<display:column property = "description" title = "${description}" sortable = "false"/>
 	
 	<spring:message code = "survivalclass.organisationMoment" var = "organisationMoment"/>
-	<display:column property = "organisationMoment" title = "${organisationMoment}" sortable = "true"/>
+	<display:column property = "organisationMoment" title = "${organisationMoment}" sortable = "true" format="${formatDate}"/>
 	
 	<spring:message code = "survivalclass.location.name" var = "locationName"/>
 	<display:column property = "locationName" title = "${locationName}" sortable = "true"/>

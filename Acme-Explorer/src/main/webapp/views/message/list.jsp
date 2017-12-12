@@ -20,6 +20,7 @@
 <jstl:set var = "messageFolderName" value = "${messageFolder.name}"/>
 
 <jstl:if test="${not empty messages}">
+<spring:message code="format.date" var="formatDate"/>
 
 <display:table 
 	name="messages"
@@ -38,8 +39,8 @@
 	<spring:message code="message.body" var="body"/>
 	<display:column property="body" title="${body}" sortable="false"/>
 
-	<spring:message code="message.receptionDate" var="receptionDate"/>
-	<display:column property="receptionDate" title="${receptionDate}" sortable="true"/>
+	<spring:message code="message.receptionDate" var="receptionDate" />
+	<display:column property="receptionDate" title="${receptionDate}" sortable="true" format="${formatDate}"/>
 	
 	<spring:message code="message.sender" var="sender"/>
 	<display:column property="sender.email" title="${sender}" sortable="false"/>

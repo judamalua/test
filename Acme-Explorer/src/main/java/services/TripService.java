@@ -44,9 +44,6 @@ public class TripService {
 
 	@Autowired
 	private ActorService			actorService;
-
-	@Autowired
-	private SearchService			searchService;
 	@Autowired
 	private CurriculumService		curriculumService;
 	@Autowired
@@ -152,7 +149,7 @@ public class TripService {
 
 		Collection<Stage> stages, savedStages;
 		Stage savedStage;
-		double price = 0.;
+		double price = 0., vat;
 		final Configuration configuration;
 		final Collection<Manager> managers;
 		final Collection<Tag> tags;
@@ -180,8 +177,8 @@ public class TripService {
 		configuration = this.configurationService.findConfiguration();
 
 		price = this.getPriceStages(trip);
-		price *= configuration.getVat();
-		trip.setPrice(price);
+		vat = price * configuration.getVat();
+		trip.setPrice(price + vat);
 
 		if (trip.getTags().contains(null))
 			trip.getTags().remove(null);
