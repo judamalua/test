@@ -20,6 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import cz.jirutka.validator.collection.constraints.EachNotBlank;
+import cz.jirutka.validator.collection.constraints.EachURL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -77,6 +78,7 @@ public class AuditRecord extends DomainEntity {
 
 	@ElementCollection
 	@EachNotBlank
+	@EachURL
 	@NotEmpty
 	public Collection<String> getAttachments() {
 		return this.attachments;
