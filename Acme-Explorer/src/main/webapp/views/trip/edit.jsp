@@ -176,6 +176,25 @@
 	<form:errors cssClass = "error" path = "category" />
 	<br />
 	
+	<h3><spring:message code="trip.stages"/></h3>
+	
+	<label for="titleStage">
+		<spring:message code="stage.title"/>
+	</label>
+	<input type="text" name="titleStage" required="required"/>
+	
+	<label for="priceStage">
+		<spring:message code="stage.price"/>
+	</label>
+	<input type="number" name="priceStage" required="required"/>
+	
+	<label for="descriptionStage">
+		<spring:message code="stage.description"/>
+	</label>
+	<textarea name="descriptionStage">
+
+	</textarea>
+	<br/>
 	<input 
 		type="submit"
 		name="save"
@@ -197,3 +216,5 @@
 	
 	
 </form:form>
+
+

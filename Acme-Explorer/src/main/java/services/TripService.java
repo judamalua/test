@@ -170,7 +170,7 @@ public class TripService {
 
 		stages = trip.getStages();
 		savedStages = new HashSet<Stage>();
-
+		stages.remove(null);
 		for (final Stage stage : stages) {
 			savedStage = this.stageService.save(stage);
 			savedStages.add(savedStage);

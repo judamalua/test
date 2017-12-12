@@ -71,6 +71,18 @@ public class LegalTextService {
 
 	}
 
+	public Collection<LegalText> findAllFinalMode() {
+
+		Collection<LegalText> result;
+
+		Assert.notNull(this.legalTextRepository);
+		result = this.legalTextRepository.findAllFinalMode();
+		Assert.notNull(result);
+
+		return result;
+
+	}
+
 	public LegalText findOne(final int legalTextId) {
 
 		LegalText result;
