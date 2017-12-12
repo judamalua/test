@@ -1,6 +1,8 @@
 
 package controllers.explorer;
 
+import java.util.Arrays;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,14 +77,16 @@ public class StoryExplorerController extends AbstractController {
 	public ModelAndView save(@Valid final Story story, @RequestParam("trip") final int tripId, final BindingResult binding) {
 		ModelAndView result;
 		Trip trip;
-
+		//Los attachments se separan por comas para introducir varios valores
+		if (story.getAttachments().size() == 1)
+			story.setAttachments(Arrays.asList(story.getAttachments().iterator().next().split(",")));
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(story, tripId, "story.params.error");
 		else
 			try {
 				trip = this.tripService.findOne(tripId);
 				this.storyService.save(story, trip);
-				result = new ModelAndView("redirect:/trip/manager/list.do");
+				result = new ModelAndView("redirect:/trip/explorer/list.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(story, tripId, "story.commit.error");
@@ -102,7 +106,7 @@ public class StoryExplorerController extends AbstractController {
 		try {
 			trip.getStories().remove(story);
 			this.tripService.save(trip);
-			result = new ModelAndView("redirect:/trip/manager/list.do");
+			result = new ModelAndView("redirect:/trip/explorer/list.do");
 
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(story, trip.getId(), "category.commit.error");

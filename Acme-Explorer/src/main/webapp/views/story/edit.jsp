@@ -27,14 +27,14 @@
 	<form:label path="pieceOfText">
 		<spring:message code="story.pieceOfText"/>
 	</form:label>
-	<form:input path="pieceOfText"/>
+	<form:textarea path="pieceOfText"/>
 	<form:errors cssClass="error" path="pieceOfText"/>
 	<br/>
 	
 	<form:label path="attachments">
 		<spring:message code="story.attachments"/>
 	</form:label>
-	<form:input path="attachments"/>
+	<form:textarea path="attachments"/>
 	<form:errors cssClass="error" path="attachments"/>
 	<br/>
 	
