@@ -228,15 +228,18 @@
 		</security:authorize>
 		
 		<security:authorize access="hasRole('EXPLORER')">
-			<jstl:if test="${hasExplorer}">
+			<jstl:if test="${hasExplorer}"> 
+		
+			<jstl:if test="${row3.organisationMoment>=currentDate}"> 
 				<display:column>
-
+		
 					<a href="survivalClass/explorer/join.do?survivalClassId=${row3.id}">
 						<spring:message code="detailed.trip.join" />
 					</a>
 
 				</display:column>
 			</jstl:if>
+			</jstl:if> 
 
 			<%-- 		<display:column> --%>
 			<%-- 			<a href = "survivalClass/auditor/leave.do?survivalClassId=${row.id}"> --%>

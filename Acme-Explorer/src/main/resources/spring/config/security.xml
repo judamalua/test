@@ -84,6 +84,7 @@
 		<security:intercept-url pattern="/survivalClass/manager/edit.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/survivalClass/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/survivalClass/explorer/list-joined.do" access="hasRole('EXPLORER')" />
+		<security:intercept-url pattern="/survivalClass/explorer/join.do" access="hasRole('EXPLORER')" />
 		
 		<security:intercept-url pattern="/trip/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/trip/detailed-trip.do" access="permitAll" /> 

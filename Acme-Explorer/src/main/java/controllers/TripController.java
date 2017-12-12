@@ -165,6 +165,7 @@ public class TripController extends AbstractController {
 
 			if (actor instanceof Explorer && this.tripService.getAcceptedTripsFromExplorerId(actor.getId()).contains(trip))
 				hasExplorer = true;
+
 		}
 
 		result.addObject("trip", trip);
