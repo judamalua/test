@@ -40,10 +40,11 @@
 
 </form>
 
-<jstl:set value="&" var="connector"></jstl:set>
-<security:authorize access="isAnonymous()">
-	<jstl:set value="?" var="connector"></jstl:set>
-</security:authorize>
+
+<jstl:set value="&" var="connector"/>
+<jstl:if test="${requestUri==\"trip/list.do\"}">
+	<jstl:set value="?" var="connector"/>
+</jstl:if>
 <ul>
 	<jstl:forEach begin="1" end="${pageNum}" var="index">
 		<li><a href="${requestUri}${connector}page=${index-1}"> <jstl:out
@@ -58,7 +59,7 @@
 	<display:column property="title" title="${title}" sortable="true" />
 
 	<spring:message code="trip.price" var="price" />
-	<display:column property="price" title="${price}" sortable="true" />
+	<display:column property="price" title="${price}" sortable="true"  />
 
 	<spring:message code="trip.startDate" var="startDate" />
 	<display:column property="startDate" title="${startDate}"

@@ -141,6 +141,8 @@
 						code="master.page.actorMessageFolder" /></a></li>
 			<li><a href="category/list.do"><spring:message
 								code="master.page.categoryList" /></a></li>
+			<li><a class="fNiv" href="trip/list.do"><spring:message
+						code="master.page.tripList" /></a></li>
 
 		</security:authorize>
 	</ul>
