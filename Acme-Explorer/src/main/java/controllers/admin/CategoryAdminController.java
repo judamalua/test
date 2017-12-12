@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CategoryService;
+import services.TripService;
 import controllers.AbstractController;
 import domain.Category;
 import domain.Trip;
@@ -27,6 +28,9 @@ public class CategoryAdminController extends AbstractController {
 
 	@Autowired
 	CategoryService	categoryService;
+
+	@Autowired
+	TripService		tripService;
 
 
 	// Editing ---------------------------------------------------------
@@ -106,10 +110,12 @@ public class CategoryAdminController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Category category, final String messageCode) {
 		ModelAndView result;
 		Collection<Trip> trips;
-		Category rootCategory;
+		final Category rootCategory;
 		final Collection<Category> categories;
+		int categoryId;
 
-		trips = category.getTrips();
+		categoryId = category.getId();
+		trips = this.tripService.findTripsByCategoryId(categoryId);
 		rootCategory = this.categoryService.getRootCategory();
 		categories = this.categoryService.findAll();
 
@@ -124,5 +130,4 @@ public class CategoryAdminController extends AbstractController {
 		return result;
 
 	}
-
 }

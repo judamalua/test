@@ -67,7 +67,7 @@ public class CategoryServiceTest extends AbstractTest {
 		super.authenticate("admin1");
 		final Category c = (Category) this.categoryService.findAll().toArray()[1];
 
-		final Collection<Trip> trips = c.getTrips();
+		final Collection<Trip> trips = this.tripService.findTrips(c);
 		c.setName("Montaña");
 
 		final Category savedc = this.categoryService.save(c);
@@ -86,7 +86,8 @@ public class CategoryServiceTest extends AbstractTest {
 
 		final Category c = (Category) this.categoryService.findAll().toArray()[1];
 		Assert.notNull(c);
-		final Collection<Trip> t = c.getTrips();
+		Assert.notNull(c.getCategories());
+		final Collection<Trip> t = this.tripService.findTripsByCategoryId(c.getId());
 		Assert.notNull(t);
 
 		this.categoryService.delete(c);

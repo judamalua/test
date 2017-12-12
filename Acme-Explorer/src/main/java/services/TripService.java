@@ -453,4 +453,16 @@ public class TripService {
 		return result;
 	}
 
+	public Collection<Trip> findTripsByCategoryId(final int id) {
+		Assert.isTrue(id != 0);
+		Collection<Trip> result;
+
+		result = this.tripRepository.findTripsByCategoryId(id);
+
+		Assert.notNull(result);
+
+		return result;
+
+	}
+
 }

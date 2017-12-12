@@ -43,7 +43,7 @@ public class CategoryService {
 		final Collection<Category> categories = new HashSet<Category>();
 
 		result = new Category();
-		result.setTrips(trips);
+		//result.setTrips(trips);
 		result.setCategories(categories);
 
 		return result;
@@ -73,8 +73,10 @@ public class CategoryService {
 
 	public Category save(final Category category) {
 		this.actorService.checkUserLogin();
-		this.checkCategory(category);
+		//this.checkCategory(category);
 		Category rootCategory;
+		final Collection<Trip> trips;
+		trips = this.tripService.findTripsByCategoryId(category.getId());
 
 		rootCategory = this.categoryRepository.findRootCategory();
 
@@ -92,7 +94,7 @@ public class CategoryService {
 		//				Assert.isTrue(!category.getName().equals(c.getName()));
 
 		Category result;
-		final Collection<Trip> trips = category.getTrips();
+		//final Collection<Trip> trips = category.getTrips();
 
 		result = this.categoryRepository.save(category);
 		for (final Trip t : trips) {
@@ -109,17 +111,18 @@ public class CategoryService {
 		assert category != null;
 		assert category.getId() != 0;
 		final Category fatherCategory = category.getFatherCategory();
+		final Category rootCategory = this.getRootCategory();
 		//final Collection<Category> categories = category.getCategories();
 		final Collection<Category> fatherCategoryCategories = category.getFatherCategory().getCategories();
-		final Collection<Trip> trips = category.getTrips();
+		final Collection<Trip> trips = this.tripService.findTripsByCategoryId(category.getId());
 
 		Assert.isTrue(this.categoryRepository.exists(category.getId()));
 
 		// Al eliminar una categoría, referenciamos los viajes a su categoría padre.
-		for (final Trip t : trips) {
-			t.setCategory(category.getFatherCategory());
-			this.tripService.save(t);
-		}
+		//		for (final Trip t : trips) {
+		//			t.setCategory(category.getFatherCategory());
+		//			this.tripService.save(t);
+		//		}
 
 		// Eliminamos recursivamente todas las categorías hijas de las categorías hija de la categoría a eliminar
 		this.deleteChildrenCategories(category);
@@ -131,7 +134,7 @@ public class CategoryService {
 		//		}
 
 		fatherCategoryCategories.remove(category);
-		//fatherCategory.setCategories(fatherCategoryCategories);
+		fatherCategory.setCategories(fatherCategoryCategories);
 		this.save(fatherCategory);
 
 		this.categoryRepository.delete(category);
@@ -220,26 +223,56 @@ public class CategoryService {
 	//			}
 	//	}
 
+	//	/**
+	//	 * Recursive algorithm to delete a category's children categories
+	//	 * 
+	//	 * @param category
+	//	 *            to delete its children categories
+	//	 * 
+	//	 * @author Juanmi
+	//	 */
+	//	private void deleteChildrenCategories(final Category category) {
+	//		Collection<Category> categories;
+	//
+	//		categories = category.getCategories();
+	//
+	//		if (!categories.isEmpty())
+	//			for (final Category c : category.getCategories()) {
+	//				if (!c.getCategories().isEmpty())
+	//					this.deleteChildrenCategories(c);
+	//				this.delete(c);
+	//			}
+	//
+	//	}
+
 	/**
 	 * Recursive algorithm to delete a category's children categories
 	 * 
 	 * @param category
 	 *            to delete its children categories
 	 * 
-	 * @author Juanmi
+	 * @author Juanmi & Manu
 	 */
 	private void deleteChildrenCategories(final Category category) {
-		Collection<Category> categories;
+		final Collection<Category> categories, categoriesCopy;
+		Collection<Trip> trips;
 
 		categories = category.getCategories();
+		categoriesCopy = new HashSet<Category>(category.getCategories());
+		trips = this.tripService.findTripsByCategoryId(category.getId());
 
-		if (!categories.isEmpty())
-			for (final Category c : category.getCategories()) {
-				if (!c.getCategories().isEmpty())
-					this.deleteChildrenCategories(c);
-				this.delete(c);
+		if (categories.isEmpty()) {
+			for (final Trip t : trips) {
+				t.setCategory(category.getFatherCategory());
+				this.tripService.save(t);
 			}
-
+			this.categoryRepository.delete(category);
+		} else
+			for (final Category c : categoriesCopy) {
+				categories.remove(c);
+				category.setCategories(categories);
+				this.save(category);
+				this.deleteChildrenCategories(c);
+			}
 	}
-
 }

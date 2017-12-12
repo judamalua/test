@@ -2822,12 +2822,12 @@
 				<ref bean="category2" />
 			</list>
 		</property>
-		<property name="trips">
+		<!-- <property name="trips">
 			<list>
 				<ref bean="trip1" />
 				<ref bean="trip2" />
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 
@@ -2841,12 +2841,12 @@
 				<ref bean="category7" />
 			</list>
 		</property>
-		<property name="trips">
+		<!-- <property name="trips">
 			<list>
 				<ref bean="trip1" />
 				<ref bean="trip2" />
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 
@@ -2858,12 +2858,12 @@
 			<list>
 			</list>
 		</property>
-		<property name="trips">
+		<!-- <property name="trips">
 			<list>
 				<ref bean="trip3" />
 
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 	
@@ -2880,10 +2880,10 @@
 				<ref bean="category6" />
 			</list>
 		</property>
-		<property name="trips">
+		<!-- <property name="trips">
 			<list>
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 	
@@ -2897,11 +2897,11 @@
 				<ref bean="category9" />
 			</list>
 		</property>
-		<property name="trips">
+	<!-- 	<property name="trips">
 			<list>
 			</list>
 		</property>
-
+ -->
 	</bean>
 	
 	<bean id="category6" class="domain.Category">
@@ -2914,10 +2914,10 @@
 				<ref bean="category11" />
 			</list>
 		</property>
-		<property name="trips">
+		<!-- <property name="trips">
 			<list>
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 	
@@ -2929,10 +2929,10 @@
 			<list>
 			</list>
 		</property>
-		<property name="trips">
+		<!-- <property name="trips">
 			<list>
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 	
@@ -2944,10 +2944,10 @@
 			<list>
 			</list>
 		</property>
-		<property name="trips">
+		<!-- <property name="trips">
 			<list>
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 	
@@ -2959,10 +2959,10 @@
 			<list>
 			</list>
 		</property>
-		<property name="trips">
+	<!-- 	<property name="trips">
 			<list>
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 	
@@ -2974,10 +2974,10 @@
 			<list>
 			</list>
 		</property>
-		<property name="trips">
+		<!-- <property name="trips">
 			<list>
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 	
@@ -2989,10 +2989,10 @@
 			<list>
 			</list>
 		</property>
-		<property name="trips">
+		<!-- <property name="trips">
 			<list>
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 

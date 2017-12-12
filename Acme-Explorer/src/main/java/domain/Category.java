@@ -39,8 +39,9 @@ public class Category extends DomainEntity {
 	// Relationships ----------------------------------------------------------
 	private Category				fatherCategory;
 	private Collection<Category>	categories;
-	private Collection<Trip>		trips;
 
+
+	//private Collection<Trip>		trips;
 
 	@Valid
 	@ManyToOne(optional = true)
@@ -62,14 +63,14 @@ public class Category extends DomainEntity {
 		this.categories = categories;
 	}
 
-	@NotNull
-	@OneToMany(mappedBy = "category")
-	public Collection<Trip> getTrips() {
-		return this.trips;
-	}
-
-	public void setTrips(final Collection<Trip> trips) {
-		this.trips = trips;
-	}
+	//	@NotNull
+	//	@OneToMany(mappedBy = "category")
+	//	public Collection<Trip> getTrips() {
+	//		return this.trips;
+	//	}
+	//
+	//	public void setTrips(final Collection<Trip> trips) {
+	//		this.trips = trips;
+	//	}
 
 }
