@@ -43,7 +43,7 @@ public class StoryExplorerController extends AbstractController {
 	// Editing ---------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam("tripId") final int storyId, @RequestParam("tripId") final int tripId) {
+	public ModelAndView edit(@RequestParam("storyId") final int storyId, @RequestParam("tripId") final int tripId) {
 		final ModelAndView result;
 		Story story;
 

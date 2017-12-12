@@ -417,6 +417,8 @@ iframe de maps
 				</jstl:forEach>
 			</ul>
 		</display:column>
+
+		
 	</display:table>
 </jstl:if>
 
@@ -424,7 +426,7 @@ iframe de maps
 		
 	<jstl:if test="${hasExplorer and trip.endDate<currentDate}">
 		
-		<a href="story/explorer/edit.do">
+		<a href="story/explorer/create.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="detailedTrip.story.create" />
 			</button>
