@@ -278,7 +278,7 @@
 </security:authorize>
 
 <jstl:if test="${not empty trip.auditRecords}">
-<h1><spring:message code="detailed.trip.auditRecords" /></h1>
+<h2><spring:message code="detailed.trip.auditRecords" /></h2>
 			<display:table name="${trip.auditRecords}" id="row4"
 				requestURI="auditRecord/list.do?tripId=${trip.id}" pagesize="10"
 				class="displaytag">
@@ -334,7 +334,7 @@
 	<security:authorize access="hasRole('AUDITOR')">
 
 <jstl:if test="${not empty trip.notes}">
-<h1><spring:message code="detailed.trip.notes" /></h1>
+<h2><spring:message code="detailed.trip.notes" /></h2>
 
 	<display:table name="${trip.notes}" id="row4"
 		requestURI="notes/list.do?tripId=${trip.id}" pagesize="10"
@@ -363,7 +363,7 @@
 	<security:authorize access="hasRole('MANAGER')">
 
 <jstl:if test="${not empty trip.notes}">
-<h1><spring:message code="detailed.trip.notes" /></h1>
+<h2><spring:message code="detailed.trip.notes" /></h2>
 
 	<display:table name="${trip.notes}" id="row4"
 		requestURI="notes/list.do?tripId=${trip.id}" pagesize="10"
