@@ -39,7 +39,7 @@
 <!--     <label class="sr-only" for="inlineFormInputGroup">Amount</label> -->
 <!--     <div class="input-group mb-2 mr-sm-2 mb-sm-0"> -->
 <!--       <div class="input-group-addon currency-symbol">$</div> -->
-      <form:input path="price" type="text" placeholder="0.00" size="8"/> <!--  class="form-control currency-amount" id="inlineFormInputGroup"--> 
+      <form:input path="price" type="text" placeholder="0.00" /> <!--  class="form-control currency-amount" id="inlineFormInputGroup"--> 
 <!--       <div class="input-group-addon currency-addon"> -->
 
 <!--         <select class="currency-selector"> -->
@@ -77,6 +77,6 @@
 		type="button"
 		name="cancel"
 		value="<spring:message code="stage.cancel" />"
-		onclick="javascript: relativeRedir('/trip/manager/create.do');" />
+		onclick="javascript: relativeRedir('/trip/manager/list.do');" />
 
 </form:form>

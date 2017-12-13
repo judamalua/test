@@ -29,24 +29,25 @@ window.onload = function(){
 	class="displayTag">
 	
 	<jstl:if test="${row.status==\"PENDING\"}">
-		<jstl:set var="class" value="pending"/>
+		<jstl:set var="classTd" value="pending"/>
 	</jstl:if>
 	<jstl:if test="${row.status==\"DUE\"}">
-		<jstl:set var="class" value="due"/>
+		<jstl:set var="classTd" value="due"/>
 	</jstl:if>	
 	<jstl:if test="${row.status==\"REJECTED\"}">
-		<jstl:set var="class" value="rejected"/>
+		<jstl:set var="classTd" value="rejected"/>
 	</jstl:if>	
 	<jstl:if test="${row.status==\"ACCEPTED\"}">
-		<jstl:set var="class" value="accepted"/>
+		<jstl:set var="classTd" value="accepted"/>
 	</jstl:if>	
 	<jstl:if test="${row.status==\"CANCELLED\"}">
-		<jstl:set var="class" value="cancelled"/>
+		<jstl:set var="classTd" value="cancelled"/>
 	</jstl:if>
-			
+	
+	 ${classTd}
 	
 	<spring:message code="application.date" var="date"/>
-	<display:column property="date" title="${date}" sortable="true" format="${formatDate}" class="${class}"/>
+	<display:column property="date" title="${date}" sortable="true" format="${formatDate}" />
 	
 	<spring:message code="application.commentaries" var="commentaries"/>
 	<display:column property="commentaries" title="${commentaries}" sortable="true" />
