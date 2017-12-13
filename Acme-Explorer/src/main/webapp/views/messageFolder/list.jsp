@@ -12,54 +12,61 @@
 
 <jstl:if test="${father!=null}">
 	<jstl:if test="${ father.messageFolderFather==null}">
-	<h2><a href="messageFolder/list.do">
-		<jstl:out value="${father.name}" />
-	</a></h2>
+		<h2>
+			<a href="messageFolder/list.do"> <jstl:out value="${father.name}" />
+			</a>
+		</h2>
 	</jstl:if>
-	
+
 	<jstl:if test="${ father.messageFolderFather!=null}">
-	<h2><a href="messageFolder/list.do?messageFolderId=${father.messageFolderFather.id}">
-		<jstl:out value="${father.name}" />
-	</a></h2>
+		<h2>
+			<a
+				href="messageFolder/list.do?messageFolderId=${father.messageFolderFather.id}">
+				<jstl:out value="${father.name}" />
+			</a>
+		</h2>
 	</jstl:if>
 </jstl:if>
 
-<display:table name="messageFolders" id="messageFolder"
-	requestURI="messageFolder/list.do" pagesize="10" class="displayTag">
 
-	<spring:message code="messageFolder.name" var="name" />
-	<display:column title="${name}" property="name" sortable="true" />
+<jstl:if test="${not empty messageFolders}">
+	<display:table name="messageFolders" id="messageFolder"
+		requestURI="messageFolder/list.do" pagesize="10" class="displayTag">
 
-	<spring:message code="messageFolder.messageFolderChildren"
-		var="messageFolderChildren" />
-	<display:column title="${messageFolderChildren}">
-		<a href="messageFolder/list.do?messageFolderId=${messageFolder.id}">
-			<button>
-				<spring:message code="messageFolder.messageFolderChildrenLink" />
-			</button>
-		</a>
-	</display:column>
+		<spring:message code="messageFolder.name" var="name" />
+		<display:column title="${name}" property="name" sortable="true" />
 
-	<spring:message code="messageFolder.messages" var="messages" />
-	<display:column title="${messages}">
-		<a href="message/list.do?messageFolderId=${messageFolder.id}">
-			<button>
-				<spring:message code="messageFolder.messagesLink" />
-			</button>
-		</a>
-	</display:column>
-	<display:column>
-		<jstl:if test="${!messageFolder.isDefault}">
-			<a href="messageFolder/edit.do?messageFolderId=${messageFolder.id}">
+		<spring:message code="messageFolder.messageFolderChildren"
+			var="messageFolderChildren" />
+		<display:column title="${messageFolderChildren}">
+			<a href="messageFolder/list.do?messageFolderId=${messageFolder.id}">
 				<button>
-					<spring:message code="messageFolder.edit" />
+					<spring:message code="messageFolder.messageFolderChildrenLink" />
 				</button>
 			</a>
-		</jstl:if>
-	</display:column>
+		</display:column>
+
+		<spring:message code="messageFolder.messages" var="messages" />
+		<display:column title="${messages}">
+			<a href="message/list.do?messageFolderId=${messageFolder.id}">
+				<button>
+					<spring:message code="messageFolder.messagesLink" />
+				</button>
+			</a>
+		</display:column>
+		<display:column>
+			<jstl:if test="${!messageFolder.isDefault}">
+				<a href="messageFolder/edit.do?messageFolderId=${messageFolder.id}">
+					<button>
+						<spring:message code="messageFolder.edit" />
+					</button>
+				</a>
+			</jstl:if>
+		</display:column>
 
 
-</display:table>
+	</display:table>
+</jstl:if>
 
 <a href="messageFolder/create.do">
 	<button>
@@ -69,6 +76,6 @@
 
 <a href="message/create.do">
 	<button>
-		<spring:message code="messageFolder.message.create"/>
+		<spring:message code="messageFolder.message.create" />
 	</button>
 </a>

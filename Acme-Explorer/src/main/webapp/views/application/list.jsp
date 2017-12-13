@@ -44,22 +44,22 @@ window.onload = function(){
 		<jstl:set var="classTd" value="cancelled"/>
 	</jstl:if>
 	
-	 ${classTd}
+	 
 	
 	<spring:message code="application.date" var="date"/>
-	<display:column property="date" title="${date}" sortable="true" format="${formatDate}" />
+	<display:column property="date" title="${date}" sortable="true" format="${formatDate}" class="${classTd}"/>
 	
 	<spring:message code="application.commentaries" var="commentaries"/>
-	<display:column property="commentaries" title="${commentaries}" sortable="true" />
+	<display:column property="commentaries" title="${commentaries}" sortable="true" class="${classTd}"/>
 	
 	<spring:message code="application.status" var="status"/>
-	<display:column property="status" title="${status}" sortable="true" />
+	<display:column property="status" title="${status}" sortable="true" class="${classTd}"/>
 	
 	<spring:message code="application.rejection" var="rejection"/>
-	<display:column property="rejection.reason" title="${rejection}" sortable="true"/>
+	<display:column property="rejection.reason" title="${rejection}" sortable="true" class="${classTd}"/>
 	
 	<spring:message code="application.trip" var="trip"/>
-	<display:column property="trip.title" title="${trip}" sortable="true"/>
+	<display:column property="trip.title" title="${trip}" sortable="true" class="${classTd}"/>
 	
 	<jstl:set value="${row.status}" var="status"/>
 	<jstl:set value="PENDING" var="pending"/>
@@ -67,7 +67,7 @@ window.onload = function(){
 	<jstl:set value="DUE" var="due"/>
 	<jstl:set value="REJECTED" var="rejected"/>
 	<security:authorize access="hasRole('MANAGER')">
-	<display:column>
+	<display:column class="${classTd}">
 		<jstl:if test="${status != rejected}">
 			<a href="application/manager/edit.do?applicationId=${row.id}">
 				<button>
@@ -77,7 +77,7 @@ window.onload = function(){
 		</jstl:if>
 	</display:column>
 	
-	<display:column>
+	<display:column class="${classTd}">
 		<jstl:if test="${status == pending}">
 			<a href="application/manager/change-status.do?applicationId=${row.id}">
 				<button>

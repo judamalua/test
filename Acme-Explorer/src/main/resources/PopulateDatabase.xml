@@ -3127,6 +3127,8 @@
 		<property name="applications">
 			<list>
 				<ref bean="application1" />
+				<ref bean="application6" />
+				<ref bean="application5" />
 				<ref bean="application4" />
 			</list>
 		</property>
