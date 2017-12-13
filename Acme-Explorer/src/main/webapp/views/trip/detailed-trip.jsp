@@ -271,9 +271,9 @@
 				<spring:message code="detailed.trip.edit" />
 			</button>
 		</a>
-			<a href="trip/manager/addSurvivalClasses.do?tripId=${trip.id}">
+			<a href="trip/manager/manageSurvivalClasses.do?tripId=${trip.id}">
 			<button>
-				<spring:message code="detailed.trip.addSurvivalClasses" />
+				<spring:message code="detailed.trip.manageSurvivalClasses" />
 			</button>
 		</a>
 	</jstl:if>

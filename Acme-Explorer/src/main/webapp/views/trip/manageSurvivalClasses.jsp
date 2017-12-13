@@ -13,24 +13,22 @@
 </script>
 
 <form
-	action="trip/manager/addSurvivalClasses.do" method="POST">
+	action="trip/manager/manageSurvivalClasses.do" method="POST">
 	<input type="hidden" name="tripId" value="${trip}">
 	
 	<select multiple name="selectedSurvivalClasses">
 	<jstl:forEach items="${survivalClasses}" var="survivalClass" varStatus="index">
-	<jstl:if test="${survivalClassesIndexed[index.count]}">
+	<jstl:if test="${indexedSurvivalClasses[index.count-1]}">
 	<option selected value="${survivalClass.id}">
 	<jstl:out value="${survivalClass.title}"/> 
 	</option>
 	</jstl:if>
 	
-	<jstl:if test="${!survivalClassesIndexed[index.count]}">
+	<jstl:if test="${!indexedSurvivalClasses[index.count-1]}">
 	<option value="${survivalClass.id}">
 	<jstl:out value="${survivalClass.title}"/> 
 	</option>
 	</jstl:if>
-	
-	
 	</jstl:forEach>
 	</select>
 	

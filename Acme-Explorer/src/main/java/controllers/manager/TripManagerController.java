@@ -231,8 +231,8 @@ public class TripManagerController extends AbstractController {
 	}
 
 	// Canceling ----------------------------------------------------------------
-	@RequestMapping(value = "/addSurvivalClasses", method = RequestMethod.GET)
-	public ModelAndView addSurvivalClasses(@RequestParam("tripId") final int tripId) {
+	@RequestMapping(value = "/manageSurvivalClasses", method = RequestMethod.GET)
+	public ModelAndView manageSurvivalClasses(@RequestParam("tripId") final int tripId) {
 		ModelAndView result;
 		Trip trip;
 		final List<SurvivalClass> survivalClasses;
@@ -241,7 +241,7 @@ public class TripManagerController extends AbstractController {
 
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
-		result = new ModelAndView("trip/addSurvivalClasses");
+		result = new ModelAndView("trip/manageSurvivalClasses");
 		manager = (Manager) this.actorService.findActorByPrincipal();
 
 		survivalClasses = new ArrayList<SurvivalClass>(trip.getSurvivalClasses());
@@ -251,16 +251,17 @@ public class TripManagerController extends AbstractController {
 			indexedSurvivalClasses.add(trip.getSurvivalClasses().contains(sv));
 		result.addObject("trip", tripId);
 		result.addObject("survivalClasses", survivalClasses);
+
 		result.addObject("indexedSurvivalClasses", indexedSurvivalClasses);
 
 		return result;
 	}
 
 	// Saving Canceling ----------------------------------------------------------------
-	@RequestMapping(value = "/addSurvivalClasses", method = RequestMethod.POST, params = {
+	@RequestMapping(value = "/manageSurvivalClasses", method = RequestMethod.POST, params = {
 		"tripId", "selectedSurvivalClasses", "save"
 	})
-	public ModelAndView addSurvivalClasses(final int tripId, @RequestParam("selectedSurvivalClasses") final Collection<SurvivalClass> selectedSurvivalClasses) {
+	public ModelAndView manageSurvivalClasses(final int tripId, @RequestParam("selectedSurvivalClasses") final Collection<SurvivalClass> selectedSurvivalClasses) {
 		ModelAndView result;
 		Trip trip;
 
