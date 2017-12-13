@@ -51,6 +51,11 @@
 		<security:intercept-url pattern="/actor/sponsor/edit.do" access="hasRole('SPONSOR')" /> 
 		<security:intercept-url pattern="/actor/register-explorer.do" access="isAnonymous()" /> 
 		<security:intercept-url pattern="/actor/register-ranger.do" access="isAnonymous()" /> 
+				
+		<security:intercept-url pattern="/actor/admin/ban.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/actor/admin/list-suspicious.do" access="hasRole('ADMIN')" /> 
+		
+		
 
 		<security:intercept-url pattern="/application/explorer/**" access="hasRole('EXPLORER')" /> 
 		<security:intercept-url pattern="/application/manager/**" access="hasRole('MANAGER')" />

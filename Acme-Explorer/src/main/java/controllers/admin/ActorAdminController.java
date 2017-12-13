@@ -1,6 +1,8 @@
 
 package controllers.admin;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Administrator;
 
 @Controller
@@ -25,6 +28,20 @@ public class ActorAdminController extends AbstractController {
 	ActorService	actorService;
 
 
+	// Listing ---------------------------------------------------------------		
+
+	@RequestMapping("/list-suspicious")
+	public ModelAndView listSuspicious() {
+		ModelAndView result;
+
+		result = new ModelAndView("actor/list-suspicious");
+
+		final Collection<Actor> actors = this.actorService.findSuspicious();
+		result.addObject("actors", actors);
+		result.addObject("requestUri", "actor/admin/list-suspicious.do");
+
+		return result;
+	}
 	// Editing ---------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -59,6 +76,14 @@ public class ActorAdminController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/ban", method = RequestMethod.GET)
+	public ModelAndView saveFinal(final int actorId) {
+		final Actor actor = this.actorService.findOne(actorId);
+		actor.setIsBanned(true);
+		this.actorService.save(actor);
+		final ModelAndView result = this.listSuspicious();
+		return result;
+	}
 	// Ancillary methods --------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Administrator administrator) {
