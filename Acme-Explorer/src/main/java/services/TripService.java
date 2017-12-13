@@ -19,12 +19,15 @@ import repositories.TripRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
 import domain.Application;
 import domain.AuditRecord;
 import domain.Category;
 import domain.Configuration;
+import domain.Explorer;
 import domain.Manager;
 import domain.Note;
+import domain.Search;
 import domain.Sponsorship;
 import domain.Stage;
 import domain.Story;
@@ -54,6 +57,8 @@ public class TripService {
 	private ManagerService			managerService;
 	@Autowired
 	private TagService				tagService;
+	@Autowired
+	private SearchService			searchService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -428,8 +433,20 @@ public class TripService {
 
 
 	//Requirement 34
-	public Page<Trip> findTripsBySearchParameters(final String q, final Double pricelow, final Double pricehigh, final Date date1, final Date date2, final Pageable pageable) {
+	public Page<Trip> findTripsBySearchParameters(final String q, final Double pricelow, final Double pricehigh, final Date date1, final Date date2, final Pageable pageable, final int isAnonymous) {
 		final Page<Trip> t1;
+		final Search s = new Search();
+		s.setKeyWord(q);
+		s.setPriceRangeStart(pricelow);
+		s.setPriceRangeEnd(pricehigh);
+		s.setDateRangeEnd(date2);
+		s.setDateRangeStart(date1);
+		if (isAnonymous == 0) {
+			final Actor a = this.actorService.findActorByPrincipal();
+			if (a instanceof Explorer)
+				this.searchService.save(s);
+
+		}
 
 		if (q.equals("") || q == null)
 			t1 = this.tripRepository.findTripsBySearchParametersWithoutQ(date1, date2, pricelow, pricehigh, pageable);

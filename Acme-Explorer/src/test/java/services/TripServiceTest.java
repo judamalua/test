@@ -1,22 +1,13 @@
 
 package services;
 
-import java.util.Collection;
-
-import org.joda.time.LocalDateTime;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-import domain.Search;
-import domain.Trip;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -45,7 +36,6 @@ public class TripServiceTest extends AbstractTest {
 	public SurvivalClassService	survivalClassService;
 	@Autowired
 	public SearchService		searchService;
-
 
 	//
 	//	@Test
@@ -304,22 +294,22 @@ public class TripServiceTest extends AbstractTest {
 	//		super.unauthenticate();
 	//	}
 
-	@Test
-	public void testFindTripBySearchParameters() {
-
-		super.authenticate("admin1");
-		final Search s = this.searchService.create();
-		s.setKeyWord("Cheap Trip");
-		s.setPriceRangeEnd(2000.0);
-		s.setPriceRangeStart(20.0);
-		s.setDateRangeStart(new LocalDateTime(2000, 1, 1, 10, 10).toDate());
-		s.setDateRangeEnd(new LocalDateTime(2050, 1, 1, 10, 10).toDate());
-
-		final Pageable pageable = new PageRequest(0, 10);
-		final Collection<Trip> t = this.tripService.findTripsBySearchParameters("Cheap Trip", 2000.0, 20.0, s.getDateRangeStart(), s.getDateRangeEnd(), pageable).getContent();
-		Assert.notNull(t);
-		super.unauthenticate();
-
-	}
+	//	@Test
+	//	public void testFindTripBySearchParameters() {
+	//
+	//		super.authenticate("admin1");
+	//		final Search s = this.searchService.create();
+	//		s.setKeyWord("Cheap Trip");
+	//		s.setPriceRangeEnd(2000.0);
+	//		s.setPriceRangeStart(20.0);
+	//		s.setDateRangeStart(new LocalDateTime(2000, 1, 1, 10, 10).toDate());
+	//		s.setDateRangeEnd(new LocalDateTime(2050, 1, 1, 10, 10).toDate());
+	//
+	//		final Pageable pageable = new PageRequest(0, 10);
+	//		final Collection<Trip> t = this.tripService.findTripsBySearchParameters("Cheap Trip", 2000.0, 20.0, s.getDateRangeStart(), s.getDateRangeEnd(), pageable).getContent();
+	//		Assert.notNull(t);
+	//		super.unauthenticate();
+	//
+	//	}
 
 }

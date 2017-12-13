@@ -40,7 +40,9 @@
 		<value>/views/educationRecord/tiles.xml</value>
 		<value>/views/curriculum/tiles.xml</value>
 		<value>/views/stage/tiles.xml</value>
-		<value>/views/story/tiles.xml</value>		
+		<value>/views/story/tiles.xml</value>
+		<value>/views/search/tiles.xml</value>		
+			
 	</util:list>
 
 </beans>

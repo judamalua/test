@@ -32,14 +32,14 @@
 					<li class="arrow"></li>
 					<li><a href="application/explorer/list.do"><spring:message
 								code="master.page.applicationList" /></a></li>
-<%-- 					<li><a href="trip/list.do"><spring:message --%>
-<%-- 								code="master.page.tripList" /></a></li> --%>
-<%-- 					<li><a href="category/list.do"><spring:message --%>
-<%-- 								code="master.page.categoryList" /></a></li> --%>
+					<%-- 					<li><a href="trip/list.do"><spring:message --%>
+					<%-- 								code="master.page.tripList" /></a></li> --%>
+					<%-- 					<li><a href="category/list.do"><spring:message --%>
+					<%-- 								code="master.page.categoryList" /></a></li> --%>
 					<li><a href="survivalClass/explorer/list-joined.do"><spring:message
 								code="master.page.survivalClassList" /></a></li>
 					<li><a href="actor/explorer/edit.do"><spring:message
-						code="master.page.actorEdit" /></a></li>
+								code="master.page.actorEdit" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -50,12 +50,12 @@
 					<li class="arrow"></li>
 					<li><a href="trip/list.do"><spring:message
 								code="master.page.tripList" /></a></li>
-<%-- 					<li><a href="category/list.do"><spring:message --%>
-<%-- 								code="master.page.categoryList" /></a></li> --%>
+					<%-- 					<li><a href="category/list.do"><spring:message --%>
+					<%-- 								code="master.page.categoryList" /></a></li> --%>
 					<li><a href="curriculum/ranger/list.do"><spring:message
-					code="master.page.curriculumList" /></a></li>
+								code="master.page.curriculumList" /></a></li>
 					<li><a href="actor/ranger/edit.do"><spring:message
-						code="master.page.actorEdit" /></a></li>
+								code="master.page.actorEdit" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -66,12 +66,12 @@
 					<li class="arrow"></li>
 					<li><a href="trip/list.do"><spring:message
 								code="master.page.tripList" /></a></li>
-<%-- 					<li><a href="category/list.do"><spring:message --%>
-<%-- 								code="master.page.categoryList" /></a></li> --%>
+					<%-- 					<li><a href="category/list.do"><spring:message --%>
+					<%-- 								code="master.page.categoryList" /></a></li> --%>
 					<li><a href="sponsorship/sponsor/list.do"><spring:message
 								code="master.page.sponsorshipList" /></a></li>
 					<li><a href="actor/sponsor/edit.do"><spring:message
-						code="master.page.actorEdit" /></a></li>
+								code="master.page.actorEdit" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -86,12 +86,12 @@
 								code="master.page.applicationList" /></a></li>
 					<li><a href="auditRecord/manager/list.do"><spring:message
 								code="master.page.auditRecordList" /></a></li>
-<%-- 					<li><a href="category/list.do"><spring:message --%>
-<%-- 								code="master.page.categoryList" /></a></li> --%>
+					<%-- 					<li><a href="category/list.do"><spring:message --%>
+					<%-- 								code="master.page.categoryList" /></a></li> --%>
 					<li><a href="sponsorship/manager/list.do"><spring:message
 								code="master.page.sponsorshipList" /></a></li>
 					<li><a href="actor/manager/edit.do"><spring:message
-						code="master.page.actorEdit" /></a></li>
+								code="master.page.actorEdit" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -109,19 +109,19 @@
 					<li><a href="note/auditor/list.do"><spring:message
 								code="master.page.noteList" /></a></li>
 					<li><a href="actor/auditor/edit.do"><spring:message
-						code="master.page.actorEdit" /></a></li>
+								code="master.page.actorEdit" /></a></li>
 				</ul></li>
 		</security:authorize>
-		
 		<security:authorize access="hasRole('ADMIN')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.auditor" /></a>
+			<li><a class="fNiv"><spring:message code="master.page.admin" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/list-suspicious.do"><spring:message
-								code="master.page.list.suspicious" /></a></li>
-					<li><a href="actor/admin/edit.do"><spring:message
-						code="master.page.actorEdit" /></a></li>
+					<li><a href="trip/list.do"><spring:message
+								code="master.page.tripList" /></a></li>
+					<li><a href="category/list.do"><spring:message
+								code="master.page.categoryList" /></a></li>
+					<li><a href="search/admin/list.do"><spring:message
+								code="master.page.searchs" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -135,7 +135,7 @@
 			<li><a class="fNiv" href="trip/list.do"><spring:message
 						code="master.page.tripList" /></a></li>
 			<li><a href="category/list.do"><spring:message
-								code="master.page.categoryList" /></a></li>
+						code="master.page.categoryList" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
@@ -152,11 +152,12 @@
 			<li><a href="messageFolder/list.do"><spring:message
 						code="master.page.actorMessageFolder" /></a></li>
 			<li><a href="category/list.do"><spring:message
-								code="master.page.categoryList" /></a></li>
+						code="master.page.categoryList" /></a></li>
 			<li><a class="fNiv" href="trip/list.do"><spring:message
 						code="master.page.tripList" /></a></li>
 
 		</security:authorize>
+
 	</ul>
 </div>
 
