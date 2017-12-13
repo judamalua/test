@@ -417,6 +417,16 @@
 	</a>
 	
 </security:authorize>
+
+<security:authorize access = "hasRole('SPONSOR')">
+		
+	<a href = "sponsorship/sponsor/create.do?tripId=${trip.id}">
+		<button>
+			<spring:message code = "sponsorship.create"/>
+		</button>
+	</a>
+	
+</security:authorize>
 <jstl:if test="${not empty trip.stories}">
 	<display:table name="${trip.stories}" id="row2"
 		requestURI="story/list.do?tripId=${trip.id}" pagesize="10"
