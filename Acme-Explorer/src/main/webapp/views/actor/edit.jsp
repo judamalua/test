@@ -88,10 +88,9 @@
 		value="<spring:message code="actor.save.edit" />"
 		onclick = "return validate('<spring:message code = "actor.confirm.phone"/>')">
 	
-	<input 
-		type="submit"
-		name="cancel"
-		value="<spring:message code="actor.cancel" />"
-		onclick="javascript: window.location.replace('welcome/index.jsp')">
-
 </form:form>
+
+<button
+		name="cancel"
+		onclick="javascript: relativeRedir('/welcome/index.do')">
+		<spring:message code="actor.cancel" /></button>

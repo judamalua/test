@@ -111,7 +111,7 @@ public class EndorserRecordCurriculumController extends AbstractController {
 
 		try {
 			this.endorserRecordService.delete(endorserRecord);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:/curriculum/ranger/list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(endorserRecord, "endorserRecord.commit.error");
 		}

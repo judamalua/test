@@ -112,7 +112,7 @@ public class EducationRecordCurriculumController extends AbstractController {
 
 		try {
 			this.educationRecordService.delete(educationRecord);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:/curriculum/ranger/list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
 		}

@@ -105,13 +105,13 @@ public class MiscellaneousRecordCurriculumController extends AbstractController 
 
 	// Deleting --------------------------------------------
 
-	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final MiscellaneousRecord miscellaneousRecord, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
 			this.miscellaneousRecordService.delete(miscellaneousRecord);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:/curriculum/ranger/list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
 		}

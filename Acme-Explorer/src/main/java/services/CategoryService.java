@@ -108,6 +108,7 @@ public class CategoryService {
 	public void delete(final Category category) {
 		this.actorService.checkUserLogin();
 
+		Category result;
 		assert category != null;
 		assert category.getId() != 0;
 		final Category fatherCategory = category.getFatherCategory();
@@ -125,7 +126,7 @@ public class CategoryService {
 		//		}
 
 		// Eliminamos recursivamente todas las categorías hijas de las categorías hija de la categoría a eliminar
-		this.deleteChildrenCategories(category);
+		result = this.deleteChildrenCategories(category);
 
 		// Al eliminar una categoría, referenciamos sus categorías hijas a su categoría padre.
 		//		for (final Category c : categories) {
@@ -137,7 +138,7 @@ public class CategoryService {
 		fatherCategory.setCategories(fatherCategoryCategories);
 		this.save(fatherCategory);
 
-		this.categoryRepository.delete(category);
+		this.categoryRepository.delete(result);
 
 	}
 	// Other methods --------------------------------------------------
@@ -253,10 +254,12 @@ public class CategoryService {
 	 * 
 	 * @author Juanmi & Manu
 	 */
-	private void deleteChildrenCategories(final Category category) {
+	private Category deleteChildrenCategories(final Category category) {
 		final Collection<Category> categories, categoriesCopy;
+		Category result;
 		Collection<Trip> trips;
 
+		result = category;
 		categories = category.getCategories();
 		categoriesCopy = new HashSet<Category>(category.getCategories());
 		trips = this.tripService.findTripsByCategoryId(category.getId());
@@ -271,8 +274,10 @@ public class CategoryService {
 			for (final Category c : categoriesCopy) {
 				categories.remove(c);
 				category.setCategories(categories);
-				this.save(category);
+				result = this.save(category);
 				this.deleteChildrenCategories(c);
 			}
+
+		return result;
 	}
 }

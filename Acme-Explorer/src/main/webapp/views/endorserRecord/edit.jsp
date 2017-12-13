@@ -18,7 +18,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action = "endorserRecord/ranger/edit.do" modelAttribute = "endorserRecord">
+<form:form id = "form" action = "endorserRecord/ranger/edit.do" modelAttribute = "endorserRecord">
 	
 	
 	<form:hidden path = "id" />
@@ -41,7 +41,7 @@
 	<form:label path = "phoneNumber">
 		<spring:message code = "endorserRecord.phoneNumber" />:
 	</form:label>
-	<form:input path = "phoneNumber"  />
+	<form:input id = "phoneNumber" path = "phoneNumber"  />
 	<form:errors cssClass = "error" path = "phoneNumber" />
 	<br />
 	
@@ -66,7 +66,8 @@
 	<input 
 		type="submit"
 		name="save"
-		value="<spring:message code="endorserRecord.save" />" />
+		value="<spring:message code="endorserRecord.save" />" 
+		onclick = "return validate('<spring:message code = "endorserRecord.confirm.phone"/>')"/>
 		
 
 	<jstl:if test="${endorserRecord.id!=0}">

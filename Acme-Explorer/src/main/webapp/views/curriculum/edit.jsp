@@ -18,7 +18,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action = "curriculum/ranger/edit.do" modelAttribute = "curriculum">
+<form:form id = "form" action = "curriculum/ranger/edit.do" modelAttribute = "curriculum">
 	
 	<form:hidden path = "ticker" />
 	<form:hidden path = "ranger" />
@@ -53,7 +53,7 @@
 	<form:label path = "personalRecord.phoneNumber">
 		<spring:message code = "curriculum.personalRecord.phoneNumber" />:
 	</form:label>
-	<form:input path = "personalRecord.phoneNumber" />
+	<form:input id = "phoneNumber" path = "personalRecord.phoneNumber" />
 	<form:errors cssClass = "error" path = "personalRecord.phoneNumber" />
 	<br />
 	
@@ -69,7 +69,8 @@
 	<input 
 		type="submit"
 		name="save"
-		value="<spring:message code="curriculum.save" />" />
+		value="<spring:message code="curriculum.save" />" 
+		onclick = "return validate('<spring:message code = "curriculum.confirm.phone"/>')"/>
 		
 
 
