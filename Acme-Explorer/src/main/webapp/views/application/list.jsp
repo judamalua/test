@@ -27,10 +27,26 @@ window.onload = function(){
 	requestURI="${requestUri}"
 	pagesize="10"
 	class="displayTag">
-	<display:setProperty value=".pending" name="class"/>
+	
+	<jstl:if test="${row.status==\"PENDING\"}">
+		<jstl:set var="class" value="pending"/>
+	</jstl:if>
+	<jstl:if test="${row.status==\"DUE\"}">
+		<jstl:set var="class" value="due"/>
+	</jstl:if>	
+	<jstl:if test="${row.status==\"REJECTED\"}">
+		<jstl:set var="class" value="rejected"/>
+	</jstl:if>	
+	<jstl:if test="${row.status==\"ACCEPTED\"}">
+		<jstl:set var="class" value="accepted"/>
+	</jstl:if>	
+	<jstl:if test="${row.status==\"CANCELLED\"}">
+		<jstl:set var="class" value="cancelled"/>
+	</jstl:if>
+			
 	
 	<spring:message code="application.date" var="date"/>
-	<display:column property="date" title="${date}" sortable="true" format="${formatDate}"/>
+	<display:column property="date" title="${date}" sortable="true" format="${formatDate}" class="${class}"/>
 	
 	<spring:message code="application.commentaries" var="commentaries"/>
 	<display:column property="commentaries" title="${commentaries}" sortable="true" />
