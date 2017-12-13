@@ -49,7 +49,6 @@ window.onload = function(){
 	<security:authorize access="hasRole('MANAGER')">
 		<jstl:set value="true" var="disabled" />
 		<form:hidden path="date" />
-		<form:hidden path="commentaries" />
 		<form:hidden path="trip" />
 		<form:hidden path="creditCard" />
 		<form:hidden path="status"/>
@@ -152,7 +151,7 @@ window.onload = function(){
 
 	<input type="button" name="cancel"
 		value="<spring:message code="application.cancel" />"
-		onclick="javascript: relativeRedir('trip/list.do')">
+		onclick="javascript: relativeRedir('application/manager/list.do')">
 
 
 </form:form>

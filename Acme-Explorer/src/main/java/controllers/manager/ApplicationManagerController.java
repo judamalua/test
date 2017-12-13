@@ -95,9 +95,9 @@ public class ApplicationManagerController extends AbstractController {
 			result = this.createEditModelAndView(application, "application.params.error");
 		else
 			try {
+				this.applicationService.changeStatus(application, "REJECTED");
 				rejection = application.getRejection();
 				rejection.setApplication(application);
-				this.applicationService.changeStatus(application, "REJECTED");
 				this.rejectionService.save(rejection);
 				result = new ModelAndView("redirect:list.do");
 

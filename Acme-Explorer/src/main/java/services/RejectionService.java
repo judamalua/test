@@ -102,7 +102,6 @@ public class RejectionService {
 		}
 		application.setRejection(result);
 		manager = (Manager) actor;
-		application.setStatus("REJECTED");
 
 		this.applicationService.save(application);
 		manager.getRejections().add(result);

@@ -193,7 +193,7 @@
 
 		<label for="priceStage"> <spring:message code="stage.price" />
 		</label>
-		<input type="number" name="priceStage" required="required" />
+		<input type="number" name="priceStage" required="required" step="any"/>
 
 		<label for="descriptionStage"> <spring:message
 				code="stage.description" />
