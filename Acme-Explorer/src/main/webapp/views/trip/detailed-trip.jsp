@@ -148,6 +148,7 @@
 <fmt:formatDate value="${currDate}" var="currentDate" pattern="yyyy-MM-dd hh:mm:ss"/>
 	
 <jstl:if test="${not empty trip.stages}">
+<h2><spring:message code="detailed.trip.stages" /></h2>
 	<display:table name="${trip.stages}" id="row1"
 		requestURI="stage/list.do?tripId=${trip.id}" pagesize="10"
 		class="displaytag">
@@ -185,6 +186,7 @@
 </jstl:if>
 <br/>
 <jstl:if test="${not empty survivalClasses}">
+<h2><spring:message code="detailed.trip.survivalClasses" /></h2>
 	<display:table name="${survivalClasses}" id="row3"
 		requestURI="survivalClass/list.do?tripId=${trip.id}" pagesize="10"
 		class="displaytag">
@@ -429,6 +431,7 @@
 	
 </security:authorize>
 <jstl:if test="${not empty trip.stories}">
+<h2><spring:message code="detailed.trip.stories" /></h2>
 	<display:table name="${trip.stories}" id="row2"
 		requestURI="story/list.do?tripId=${trip.id}" pagesize="10"
 		class="displaytag">
