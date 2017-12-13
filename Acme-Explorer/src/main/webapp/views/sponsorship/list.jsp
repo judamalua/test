@@ -11,11 +11,11 @@
 <display:table name = "sponsorships" id = "row" 
 	requestURI = "${requestUri}" pagesize = "5" class = "displaytag">
 
-	<spring:message code = "sponsorship.bannerURL" var = "bannerURL"/>
-	<display:column property = "bannerURL" title = "${bannerURLHeader}" sortable = "true"/>
+	<spring:message code = "sponsorship.bannerUrl" var = "bannerUrl"/>
+	<display:column property = "bannerUrl" title = "${bannerUrlHeader}" sortable = "true"/>
 
-	<spring:message code = "sponsorship.additionalInfo" var = "additionalInfo"/>
-	<display:column property = "additionalInfoLink" title = "${additionalInfo}" sortable = "false"/>
+	<spring:message code = "sponsorship.additionalInfoLink" var = "additionalInfoLink"/>
+	<display:column property = "additionalInfoLink" title = "${additionalInfoLink}" sortable = "false"/>
 	
 	<spring:message code = "sponsorship.trip.title" var = "trip"/>
 	<display:column property = "trip.title" title = "${trip}" sortable = "false"/>
@@ -30,10 +30,3 @@
 	
 </display:table>
 
-<security:authorize access = "hasRole('SPONSOR')">
-	<a href = "sponsorship/sponsor/create.do">
-		<button>
-			<spring:message code = "sponsorship.create"/>
-		</button>
-	</a>
-</security:authorize>
