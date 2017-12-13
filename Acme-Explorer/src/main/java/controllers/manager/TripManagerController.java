@@ -235,7 +235,7 @@ public class TripManagerController extends AbstractController {
 	public ModelAndView manageSurvivalClasses(@RequestParam("tripId") final int tripId) {
 		ModelAndView result;
 		Trip trip;
-		final List<SurvivalClass> survivalClasses;
+		final Collection<SurvivalClass> survivalClasses;
 		final List<Boolean> indexedSurvivalClasses;
 		final Manager manager;
 
@@ -244,7 +244,7 @@ public class TripManagerController extends AbstractController {
 		result = new ModelAndView("trip/manageSurvivalClasses");
 		manager = (Manager) this.actorService.findActorByPrincipal();
 
-		survivalClasses = new ArrayList<SurvivalClass>(trip.getSurvivalClasses());
+		survivalClasses = new HashSet<SurvivalClass>(trip.getSurvivalClasses());
 		indexedSurvivalClasses = new ArrayList<Boolean>();
 		survivalClasses.addAll(manager.getSurvivalClasses());
 		for (final SurvivalClass sv : survivalClasses)
@@ -259,12 +259,13 @@ public class TripManagerController extends AbstractController {
 
 	// Saving Canceling ----------------------------------------------------------------
 	@RequestMapping(value = "/manageSurvivalClasses", method = RequestMethod.POST, params = {
-		"tripId", "selectedSurvivalClasses", "save"
+		"tripId", "save"
 	})
-	public ModelAndView manageSurvivalClasses(final int tripId, @RequestParam("selectedSurvivalClasses") final Collection<SurvivalClass> selectedSurvivalClasses) {
+	public ModelAndView manageSurvivalClasses(final int tripId, @RequestParam(value = "selectedSurvivalClasses", required = false) Collection<SurvivalClass> selectedSurvivalClasses) {
 		ModelAndView result;
 		Trip trip;
-
+		if (selectedSurvivalClasses == null)
+			selectedSurvivalClasses = new HashSet<SurvivalClass>();
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
 		trip.setSurvivalClasses(new HashSet<SurvivalClass>(selectedSurvivalClasses));
