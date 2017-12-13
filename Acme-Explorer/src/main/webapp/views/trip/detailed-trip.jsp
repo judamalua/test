@@ -268,7 +268,7 @@
 	<jstl:if test="${hasManager}">
 		<a href="survivalClass/manager/create.do">
 			<button>
-				<spring:message code="detailed.trip.edit" />
+				<spring:message code="detailed.trip.createSurvivalClass" />
 			</button>
 		</a>
 			<a href="trip/manager/manageSurvivalClasses.do?tripId=${trip.id}">

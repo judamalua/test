@@ -101,7 +101,7 @@ public class SurvivalClassManagerController extends AbstractController {
 	// Creating -----------------------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam(required = false) final Integer tripID) {
 		final ModelAndView result;
 		SurvivalClass survivalClass;
 
