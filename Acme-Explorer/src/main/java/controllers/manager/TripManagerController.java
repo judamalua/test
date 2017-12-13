@@ -5,10 +5,12 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +21,7 @@ import services.CategoryService;
 import services.LegalTextService;
 import services.ManagerService;
 import services.RangerService;
+import services.StageService;
 import services.SurvivalClassService;
 import services.TagService;
 import services.TripService;
@@ -27,6 +30,7 @@ import domain.Category;
 import domain.LegalText;
 import domain.Manager;
 import domain.Ranger;
+import domain.Stage;
 import domain.SurvivalClass;
 import domain.Tag;
 import domain.Trip;
@@ -60,6 +64,8 @@ public class TripManagerController extends AbstractController {
 
 	@Autowired
 	SurvivalClassService	survivalClassService;
+	@Autowired
+	StageService			stageService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -146,14 +152,23 @@ public class TripManagerController extends AbstractController {
 		return result;
 	}
 	// Saving -----------------------------------------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Trip trip, final BindingResult binding) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = {
+		"save", "titleStage", "descriptionStage", "priceStage"
+	})
+	public ModelAndView save(@Valid final Trip trip, @ModelAttribute("titleStage") @NotBlank final String titleStage, @ModelAttribute("descriptionStage") final String descriptionStage, @ModelAttribute("priceStage") @NotBlank final double priceStage,
+		final BindingResult binding) {
 		ModelAndView result;
+		Stage stage;
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(trip, "trip.params.error");
 		else
 			try {
+				stage = this.stageService.create();
+				stage.setTitle(titleStage);
+				stage.setPrice(priceStage);
+				stage.setDescription(descriptionStage);
+				trip.getStages().add(stage);
 				this.tripService.save(trip);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
@@ -162,7 +177,6 @@ public class TripManagerController extends AbstractController {
 
 		return result;
 	}
-
 	// Deleting -------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Trip trip, final BindingResult binding) {
@@ -266,7 +280,7 @@ public class TripManagerController extends AbstractController {
 		final Collection<SurvivalClass> notAddedSurvivalClasses;
 
 		rangers = this.rangerService.findAll();
-		legalTexts = this.legalTextService.findAll();
+		legalTexts = this.legalTextService.findAllFinalMode();
 		tags = this.tagService.findAll();
 		categories = this.categoryService.findAll();
 		notAddedSurvivalClasses = this.survivalClassService.findAll();

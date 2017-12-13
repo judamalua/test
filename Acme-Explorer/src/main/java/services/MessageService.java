@@ -136,7 +136,7 @@ public class MessageService {
 		Assert.isTrue(actor.getMessageFolders().contains(message.getMessageFolder()));
 
 		messageFolder = message.getMessageFolder();
-		if (messageFolder.getName() == "trash box" && messageFolder.getIsDefault() == true) {
+		if (messageFolder.getName().equals("trash box") && messageFolder.getIsDefault() == true) {
 			messageFolder.getMessages().remove(message);
 			this.messageFolderService.save(messageFolder);
 			this.messageRepository.delete(message);

@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<spring:message var = "lang" code = "welcome.message.verifier"/>
+<spring:message var = "lang" code = "language"/>
 
 <p>
 	<jstl:if test="${lang == \"es\"}">

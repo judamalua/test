@@ -8,6 +8,9 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate var="currentDate" value="${now}"
+	pattern="yyyy-MM-dd HH:mm" />
 <spring:message code="format.date" var="formatDate"/>
 <display:table 
 	name="applications"
@@ -15,6 +18,26 @@
 	requestURI="${requestUri}"
 	pagesize="10"
 	class="displayTag">
+	
+	<jstl:set value="" var="statusClass"/>
+	<jstl:if test="${row.status==\"PENDING\"}">
+		<jstl:set value=".pending" var="statusClass"/>
+	</jstl:if>
+	<jstl:if test="${row.status==\"REJECTED\"}">
+		<jstl:set value=".rejected" var="statusClass"/>
+	</jstl:if>
+	<jstl:if test="${row.status==\"DUE\"}">
+		<jstl:set value=".due" var="statusClass"/>
+	</jstl:if>
+	<jstl:if test="${row.status==\"ACCEPTED\"}">
+		<jstl:set value=".accepted" var="statusClass"/>
+	</jstl:if>
+	<jstl:if test="${row.status==\"CANCELLED\"}">
+		<jstl:set value=".cancelled" var="statusClass"/>
+	</jstl:if>
+<%-- 	<jstl:if test="${row.trip.startDate < currentDate}"> --%>
+<%-- 		<jstl:set value=".cancelled" var="statusClass"/> --%>
+<%-- 	</jstl:if> --%>
 	
 	<spring:message code="application.date" var="date"/>
 	<display:column property="date" title="${date}" sortable="true" format="${formatDate}"/>
@@ -38,7 +61,7 @@
 	<jstl:set value="REJECTED" var="rejected"/>
 	<security:authorize access="hasRole('MANAGER')">
 	<display:column>
-		<jstl:if test="${status == rejected}">
+		<jstl:if test="${status != rejected}">
 			<a href="application/manager/edit.do?applicationId=${row.id}">
 				<button>
 					<spring:message code="application.reject"/>

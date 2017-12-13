@@ -13,6 +13,30 @@
 	font-weight: bolder;
 }
 
+.pending {
+	background-color: #f7f7f7;
+}
+
+.tripGoingStart {
+	background-color: #ff3333;
+}
+
+.rejected {
+	background-color: #b3b3b3;
+}
+
+.due {
+	background-color: #ffff66;
+}
+
+.accepted {
+	background-color: #66ff66;
+}
+
+.cancelled {
+	background-color: #33ccff;
+}
+
 .message {
 	color: red;
 	font-weight: bolder;

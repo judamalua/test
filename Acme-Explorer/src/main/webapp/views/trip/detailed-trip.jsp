@@ -112,11 +112,13 @@
 	:
 	<jstl:out value="${trip.ranger.name}" />
 	<jstl:out value="${trip.ranger.surname}" />
-	<a href="curriculum/show.do?rangerId=${trip.ranger.id}">
-				<button>
-					<spring:message code="trip.ranger.curriculum" />
-				</button>
-			</a>
+	<security:authorize access="isAuthenticated()">
+		<a href="curriculum/show.do?rangerId=${trip.ranger.id}">
+					<button>
+						<spring:message code="trip.ranger.curriculum" />
+					</button>
+				</a>
+	</security:authorize>
 </p>
 
 <security:authorize access="hasRole('EXPLORER')">
