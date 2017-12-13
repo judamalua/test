@@ -28,14 +28,14 @@
 	<spring:message code = "search.keyWord" var = "keyWordHeader"/>
 	<display:column property = "keyWord" title = "${keyWordHeader}" sortable = "true"/>
 
-	<spring:message code = "search.priceRangeStart" var = "descriptionHeader"/>
-	<display:column property = "description" title = "${descriptionHeader}" sortable = "false"/>
+	<spring:message code = "search.priceRangeStart" var = "priceRangeStartHeader"/>
+	<display:column property = "priceRangeStart" title = "${priceRangeStartHeader}" sortable = "false"/>
 	
-	<spring:message code = "search.priceRangeEnd" var = "momentHeader"/>
-	<display:column property = "momentWhenCarriedOut" title = "${momentHeader}" sortable = "true" format="${formatDate}"/>
+	<spring:message code = "search.priceRangeEnd" var = "priceRangeEndHeader"/>
+	<display:column property = "priceRangeEnd" title = "${priceRangeEndHeader}" sortable = "true" format="${formatDate}"/>
 
-	<spring:message code = "search.dateRangeStart" var = "attachmentsHeader"/>
-	<display:column property = "attachments" title = "${attachmentsHeader}" sortable = "false"/>
+	<spring:message code = "search.dateRangeStart" var = "dateRangeStartHeader"/>
+	<display:column property = "dateRangeStart" title = "${dateRangeStartHeader}" sortable = "false"/>
 		
 	<spring:message code = "search.dateRangeEnd" var = "dateRangeEndHeader"/>
 	<display:column property = "dateRangeEnd" title = "${dateRangeEndHeader}" sortable = "false"/>	

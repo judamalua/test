@@ -41,6 +41,7 @@
 		<value>/views/curriculum/messages</value>
 		<value>/views/stage/messages</value>
 		<value>/views/story/messages</value>
+		<value>/views/search/messages</value>
 		
 	</util:list>
 

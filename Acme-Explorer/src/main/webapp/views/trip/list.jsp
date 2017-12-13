@@ -11,11 +11,20 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <form action="trip/search.do" method="post">
+	
+	
+
+	<security:authorize access="isAnonymous()">
+	<input type = "hidden" name = "isAnonymous" value= "1"/>
+	
+	</security:authorize>
 	<label> <spring:message code="trip.search" />
 	</label> <input type="text" name="keyword" id="keyword"
 		placeholder="<spring:message code="search.keyword.placeholder"/>">
 
 	<security:authorize access="isAuthenticated()">
+	
+
 
 		<label> <spring:message code="trip.startPrice" />
 		</label>

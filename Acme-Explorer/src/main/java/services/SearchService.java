@@ -6,14 +6,12 @@ import java.util.Date;
 
 import javax.transaction.Transactional;
 
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.SearchRepository;
-import security.LoginService;
-import security.UserAccount;
-import domain.Actor;
 import domain.Search;
 
 @Service
@@ -25,27 +23,24 @@ public class SearchService {
 	@Autowired
 	private SearchRepository	searchRepository;
 
-	// Supporting services --------------------------------------------------
-	@Autowired
-	private ActorService		actorService;
 
+	// Supporting services --------------------------------------------------
 
 	// Simple CRUD methods --------------------------------------------------
 	public Search create() {
-		this.checkUserLogin();
 
 		Search result;
 
 		result = new Search();
 
 		result.setSearchMoment(new Date(System.currentTimeMillis() - 2000));
+		result.setmillis(LocalDateTime.now().getMillisOfSecond());
 
 		return result;
 	}
 
 	public Collection<Search> findAll() {
-		this.checkUserLogin();
-
+		this.checkSearchDataBase();
 		Collection<Search> result;
 
 		Assert.notNull(this.searchRepository);
@@ -57,7 +52,7 @@ public class SearchService {
 	}
 
 	public Search findOne(final int searchId) {
-		this.checkUserLogin();
+		this.checkSearchDataBase();
 
 		Search result;
 
@@ -68,12 +63,13 @@ public class SearchService {
 	}
 
 	public Search save(final Search search) {
-		this.checkUserLogin();
+		this.checkSearchDataBase();
 
 		assert search != null;
 
 		final Search result;
 		search.setSearchMoment(new Date(System.currentTimeMillis() - 2000));
+		search.setmillis(LocalDateTime.now().getMillisOfSecond());
 
 		result = this.searchRepository.save(search);
 
@@ -82,7 +78,6 @@ public class SearchService {
 	}
 
 	public void delete(final Search search) {
-		this.checkUserLogin();
 
 		assert search != null;
 		assert search.getId() != 0;
@@ -92,14 +87,13 @@ public class SearchService {
 		this.searchRepository.delete(search);
 
 	}
+
 	// Other Business  methods --------------------------------------------------
 
-	private void checkUserLogin() {
-		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
-		final Actor actor = this.actorService.findActorByUserAccountId(userAccount.getId());
-		Assert.notNull(actor);
-
+	public void checkSearchDataBase() {
+		final Collection<Search> searchs = this.searchRepository.findAll();
+		for (final Search s : searchs)
+			if (LocalDateTime.now().getMillisOfSecond() - s.getmillis() >= 3600000)
+				this.delete(s);
 	}
-
 }

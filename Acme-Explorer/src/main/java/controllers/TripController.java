@@ -121,7 +121,7 @@ public class TripController extends AbstractController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView search(@RequestParam(value = "keyword", defaultValue = "") final String keyword, @RequestParam(value = "startPrice", defaultValue = "0.0") final double startPrice,
 		@RequestParam(value = "endPrice", defaultValue = "10000.0") final double endprice, @RequestParam(value = "", defaultValue = "2000/01/01 00:00") final Date startDate,
-		@RequestParam(value = "endDate", defaultValue = "2999/01/01 00:00") final Date endDate) {
+		@RequestParam(value = "endDate", defaultValue = "2999/01/01 00:00") final Date endDate, @RequestParam(value = "isAnonymous", defaultValue = "0") final int isAnonymous) {
 		ModelAndView result;
 		Collection<Trip> trips;
 		Page<Trip> tripsPage;
@@ -132,7 +132,7 @@ public class TripController extends AbstractController {
 		configuration = this.configurationService.findConfiguration();
 		pageable = new PageRequest(0, configuration.getMaxResults());
 
-		tripsPage = this.tripService.findTripsBySearchParameters(keyword, startPrice, endprice, startDate, endDate, pageable);
+		tripsPage = this.tripService.findTripsBySearchParameters(keyword, startPrice, endprice, startDate, endDate, pageable, isAnonymous);
 		trips = tripsPage.getContent();
 
 		result.addObject("trips", trips);

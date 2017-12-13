@@ -30,6 +30,7 @@ public class Search extends DomainEntity {
 	private Date	dateRangeStart;
 	private Date	dateRangeEnd;
 	private Date	searchMoment;
+	private int		millis;
 
 
 	@NotBlank
@@ -39,6 +40,14 @@ public class Search extends DomainEntity {
 
 	public void setKeyWord(final String keyWord) {
 		this.keyWord = keyWord;
+	}
+
+	public int getmillis() {
+		return this.millis;
+	}
+
+	public void setmillis(final int millis) {
+		this.millis = millis;
 	}
 
 	public Double getPriceRangeStart() {

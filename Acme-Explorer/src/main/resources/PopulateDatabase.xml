@@ -3869,6 +3869,7 @@
 		<property name="dateRangeStart" value="2017/12/12 12:00" />
 		<property name="dateRangeEnd" value="2017/12/25 12:00" />
 		<property name="searchMoment" value="2017/12/10 12:00" />
+		<property name= "millis"      value= "1000000" />
 	</bean>
 
 	<!-- Note -->
