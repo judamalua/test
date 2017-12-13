@@ -48,7 +48,8 @@
 	<br />
 
 	<form:label path = "attachments">
-		<spring:message code="auditRecord.attachments"/>
+		<spring:message code="auditRecord.attachments"/> <spring:message code="auditRecord.comma.message"/>
+		
 	</form:label>
 		<form:textarea path = "attachments" />
 	<form:errors cssClass = "error" path = "attachments" />
