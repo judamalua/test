@@ -19,25 +19,6 @@
 	pagesize="10"
 	class="displayTag">
 	
-	<jstl:set value="" var="statusClass"/>
-	<jstl:if test="${row.status==\"PENDING\"}">
-		<jstl:set value=".pending" var="statusClass"/>
-	</jstl:if>
-	<jstl:if test="${row.status==\"REJECTED\"}">
-		<jstl:set value=".rejected" var="statusClass"/>
-	</jstl:if>
-	<jstl:if test="${row.status==\"DUE\"}">
-		<jstl:set value=".due" var="statusClass"/>
-	</jstl:if>
-	<jstl:if test="${row.status==\"ACCEPTED\"}">
-		<jstl:set value=".accepted" var="statusClass"/>
-	</jstl:if>
-	<jstl:if test="${row.status==\"CANCELLED\"}">
-		<jstl:set value=".cancelled" var="statusClass"/>
-	</jstl:if>
-<%-- 	<jstl:if test="${row.trip.startDate < currentDate}"> --%>
-<%-- 		<jstl:set value=".cancelled" var="statusClass"/> --%>
-<%-- 	</jstl:if> --%>
 	
 	<spring:message code="application.date" var="date"/>
 	<display:column property="date" title="${date}" sortable="true" format="${formatDate}"/>

@@ -52,7 +52,7 @@ window.onload = function(){
 		<form:hidden path="commentaries" />
 		<form:hidden path="trip" />
 		<form:hidden path="creditCard" />
-		<form:hidden path="status" value="REJECTED" />
+		<form:hidden path="status"/>
 	</security:authorize>
 	<jstl:if test="${application.id!=0}">
 		<jstl:set value="true" var="disabled" />

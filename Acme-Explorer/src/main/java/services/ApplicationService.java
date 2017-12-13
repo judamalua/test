@@ -143,17 +143,17 @@ public class ApplicationService {
 		Explorer explorer;
 
 		Assert.isTrue(!status.equals("PENDING"));
-		if (status.equals("DUE") || status.equals("REJECTED"))
+		if (status.equals("DUE"))
 			Assert.isTrue(application.getStatus().equals("PENDING"));
 		else if (status.equals("ACCEPTED")) {
 			Assert.isTrue(application.getStatus().equals("DUE"));
 			Assert.isTrue(!application.getCreditCard().getBrandName().equals("NONE"));
 			Assert.isTrue(!application.getCreditCard().getHolderName().equals("NONE"));
 			Assert.isTrue(!application.getCreditCard().getNumber().equals("0000000000000000"));
-		} else if (status.equals("CANCELLED"))
+		} else if (status.equals("CANCELLED")){
 			Assert.isTrue(application.getStatus().equals("ACCEPTED"));
-
-		application.setStatus(status);
+		}else if (status.equals("REJECTED"))
+			Assert.isTrue(!application.getStatus().equals("REJECTED"));
 
 		if (!application.getStatus().equals(status)) {
 
@@ -181,6 +181,7 @@ public class ApplicationService {
 				this.actorService.sendMessage(messageCopy, system, m, messageFolderReceiver);
 			}
 		}
+		application.setStatus(status);
 	}
 	public Application save(final Application application) {
 

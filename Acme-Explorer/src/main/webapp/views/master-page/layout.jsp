@@ -77,18 +77,6 @@
 	</script>
 </jstl:if>
 <script type="text/javascript">
-$(document).ready(function() {
-	$('#pricepicker').curry({
-		target: '.price',
-	    change: true,
-	    base:   'EUR',
-	    customCurrency: {
-	        'USD': 1,
-	        'GBP': 0.67,
-	        'EUR': 0.42
-	    }
-	});
-});
 	function askSubmission(msg, form) {
 		if (confirm(msg))
 			form.submit();

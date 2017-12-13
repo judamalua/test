@@ -34,7 +34,7 @@
 </h1>
 
 <security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${hasManager and publicationDate > currentDate}">
+	<jstl:if test="${hasManager and publicationDate > currentDate and trip.cancelReason!=null}">
 		<a href="trip/manager/edit.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="trip.edit" />
@@ -462,7 +462,7 @@
 <br/>
 
 <security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${trip.publicationDate>currentDate and hasManager and trip.cancelReason!=null}">
+	<jstl:if test="${trip.publicationDate>currentDate and hasManager and trip.cancelReason==null}">
 		<a href="trip/manager/cancel.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="detailedTrip.cancel" />
