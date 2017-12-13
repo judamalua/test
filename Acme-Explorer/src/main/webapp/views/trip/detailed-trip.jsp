@@ -184,8 +184,8 @@
 	</jstl:if>
 </jstl:if>
 <br/>
-<jstl:if test="${not empty trip.survivalClasses}">
-	<display:table name="${trip.survivalClasses}" id="row3"
+<jstl:if test="${not empty survivalClasses}">
+	<display:table name="${survivalClasses}" id="row3"
 		requestURI="survivalClass/list.do?tripId=${trip.id}" pagesize="10"
 		class="displaytag">
 
@@ -231,17 +231,26 @@
 		
 		<security:authorize access="hasRole('EXPLORER')">
 			<jstl:if test="${hasExplorer}"> 
-		
+			<jstl:if test="${!survivalClassesJoinedIndexed[row3_rowNum -1]}"> 
 			<jstl:if test="${row3.organisationMoment>=currentDate}"> 
 				<display:column>
 		
 					<a href="survivalClass/explorer/join.do?survivalClassId=${row3.id}">
-						<spring:message code="detailed.trip.join" />
+						<spring:message code="survivalclass.join" />
 					</a>
 
 				</display:column>
 			</jstl:if>
 			</jstl:if> 
+			<jstl:if  test="${survivalClassesJoinedIndexed[row3_rowNum -1]}"> 
+			<display:column>
+		
+					<a href="survivalClass/explorer/leave.do?survivalClassId=${row3.id}">
+						<spring:message code="survivalclass.leave" />
+					</a>
+					</display:column>
+			</jstl:if>
+			</jstl:if>
 
 			<%-- 		<display:column> --%>
 			<%-- 			<a href = "survivalClass/auditor/leave.do?survivalClassId=${row.id}"> --%>

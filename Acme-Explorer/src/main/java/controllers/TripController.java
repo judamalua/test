@@ -1,8 +1,10 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import domain.Category;
 import domain.Configuration;
 import domain.Explorer;
 import domain.Manager;
+import domain.SurvivalClass;
 import domain.Trip;
 
 @Controller
@@ -150,10 +153,14 @@ public class TripController extends AbstractController {
 		boolean hasManager;
 		boolean hasExplorer;
 		final Actor actor;
+		final List<SurvivalClass> survivalClasses;
+		final List<Boolean> survivalClassesJoinedIndexed = new ArrayList<Boolean>();
+		final Explorer explorer;
 
 		result = new ModelAndView("trip/detailed-trip");
 		random = new Random();
 		trip = this.tripService.findOne(tripId);
+		survivalClasses = new ArrayList<SurvivalClass>(trip.getSurvivalClasses());
 		hasManager = false;
 		hasExplorer = false;
 
@@ -163,11 +170,18 @@ public class TripController extends AbstractController {
 			if (actor instanceof Manager && trip.getManagers().contains(actor))
 				hasManager = true;
 
-			if (actor instanceof Explorer && this.tripService.getAcceptedTripsFromExplorerId(actor.getId()).contains(trip))
+			if (actor instanceof Explorer && this.tripService.getAcceptedTripsFromExplorerId(actor.getId()).contains(trip)) {
 				hasExplorer = true;
 
-		}
+				explorer = (Explorer) actor;
+				// Añade una lista paralela si el explorer esta inscrito o no en esa survivalClass
+				for (final SurvivalClass sv : survivalClasses)
+					survivalClassesJoinedIndexed.add(explorer.getSurvivalClasses().contains(sv));
 
+				result.addObject("survivalClassesJoinedIndexed", survivalClassesJoinedIndexed);
+			}
+		}
+		result.addObject("survivalClasses", survivalClasses);
 		result.addObject("trip", trip);
 		if (trip.getSponsorships().size() > 0)
 			result.addObject("sponsorship", trip.getSponsorships().toArray()[random.nextInt(trip.getSponsorships().size())]);

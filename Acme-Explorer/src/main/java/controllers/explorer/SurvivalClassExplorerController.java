@@ -56,7 +56,7 @@ public class SurvivalClassExplorerController extends AbstractController {
 		return result;
 	}
 
-	// Joining ------------------------------------------------------------------
+	// Join and leave ------------------------------------------------------------------
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public ModelAndView join(@RequestParam("survivalClassId") final int survivalClassId) {
@@ -66,6 +66,21 @@ public class SurvivalClassExplorerController extends AbstractController {
 
 		explorer = (Explorer) this.actorService.findActorByPrincipal();
 		explorer.getSurvivalClasses().add(this.survivalClassService.findOne(survivalClassId));
+		this.explorerService.save(explorer);
+
+		result = new ModelAndView("redirect:/trip/list.do");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/leave", method = RequestMethod.GET)
+	public ModelAndView leave(@RequestParam("survivalClassId") final int survivalClassId) {
+		ModelAndView result;
+
+		final Explorer explorer;
+
+		explorer = (Explorer) this.actorService.findActorByPrincipal();
+		explorer.getSurvivalClasses().remove(this.survivalClassService.findOne(survivalClassId));
 		this.explorerService.save(explorer);
 
 		result = new ModelAndView("redirect:/trip/list.do");

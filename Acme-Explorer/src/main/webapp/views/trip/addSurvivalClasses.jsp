@@ -17,7 +17,8 @@
 	<input type="hidden" name="tripId" value="${trip}">
 	
 	<select multiple name="selectedSurvivalClasses">
-	<jstl:forEach items="${survivalClasses}" var="survivalClass">
+	<jstl:forEach items="${survivalClasses}" var="survivalClass" varStatus="index">
+	<jstl:if test="{survivalClassesIndex"
 	<option  value="${survivalClass.id}">
 	<jstl:out value="${survivalClass.title}"/> 
 	</option>
