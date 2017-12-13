@@ -112,6 +112,18 @@
 						code="master.page.actorEdit" /></a></li>
 				</ul></li>
 		</security:authorize>
+		
+		<security:authorize access="hasRole('ADMIN')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.auditor" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="actor/list-suspicious.do"><spring:message
+								code="master.page.list.suspicious" /></a></li>
+					<li><a href="actor/admin/edit.do"><spring:message
+						code="master.page.actorEdit" /></a></li>
+				</ul></li>
+		</security:authorize>
 
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
