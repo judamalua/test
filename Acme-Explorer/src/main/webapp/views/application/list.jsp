@@ -8,6 +8,15 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<script type="text/javascript">
+window.onload = function(){
+	var elem = document.getElementsByTagName("tr");
+	var results = [];
+    for(var x=0;x<elem.length;x++){
+         results.push(elem[x].value);
+    }
+};
+</script>
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate var="currentDate" value="${now}"
 	pattern="yyyy-MM-dd HH:mm" />
@@ -18,7 +27,7 @@
 	requestURI="${requestUri}"
 	pagesize="10"
 	class="displayTag">
-	
+	<display:setProperty value=".pending" name="class"/>
 	
 	<spring:message code="application.date" var="date"/>
 	<display:column property="date" title="${date}" sortable="true" format="${formatDate}"/>
