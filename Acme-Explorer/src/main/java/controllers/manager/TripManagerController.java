@@ -1,7 +1,10 @@
 
 package controllers.manager;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -232,15 +235,23 @@ public class TripManagerController extends AbstractController {
 	public ModelAndView addSurvivalClasses(@RequestParam("tripId") final int tripId) {
 		ModelAndView result;
 		Trip trip;
-		final Collection<SurvivalClass> notAddedSurvivalClasses;
+		final List<SurvivalClass> survivalClasses;
+		final List<Boolean> indexedSurvivalClasses;
+		final Manager manager;
 
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
 		result = new ModelAndView("trip/addSurvivalClasses");
-		notAddedSurvivalClasses = this.survivalClassService.findAll();
-		notAddedSurvivalClasses.removeAll(trip.getSurvivalClasses());
+		manager = (Manager) this.actorService.findActorByPrincipal();
+
+		survivalClasses = new ArrayList<SurvivalClass>(trip.getSurvivalClasses());
+		indexedSurvivalClasses = new ArrayList<Boolean>();
+		survivalClasses.addAll(manager.getSurvivalClasses());
+		for (final SurvivalClass sv : survivalClasses)
+			indexedSurvivalClasses.add(trip.getSurvivalClasses().contains(sv));
 		result.addObject("trip", tripId);
-		result.addObject("survivalClasses", notAddedSurvivalClasses);
+		result.addObject("survivalClasses", survivalClasses);
+		result.addObject("indexedSurvivalClasses", indexedSurvivalClasses);
 
 		return result;
 	}
@@ -255,7 +266,8 @@ public class TripManagerController extends AbstractController {
 
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
-		trip.getSurvivalClasses().addAll(selectedSurvivalClasses);
+		trip.setSurvivalClasses(new HashSet<SurvivalClass>(selectedSurvivalClasses));
+
 		this.tripService.save(trip);
 		result = new ModelAndView("redirect:list.do");
 
