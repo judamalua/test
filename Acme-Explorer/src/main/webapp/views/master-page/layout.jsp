@@ -32,7 +32,6 @@
 <script type="text/javascript" src="scripts/jmenu.js"></script>
 <script type="text/javascript" src="scripts/checkphone.js"></script>
 <script type="text/javascript" src="scripts/bootstrap-datetimepicker.js"></script>
-<!-- <script type="text/javascript" src="scripts/curry-0.8.3.min.js"></script> -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/2.0.4/css/bootstrap.min.css">
 <script type="text/javascript"

@@ -92,6 +92,8 @@ public class MessageFolderService {
 			actor = this.actorService.findActorByMessageFolder(messageFolder.getId());
 		Assert.notNull(actor);
 		Assert.isTrue(this.messageFolderRepository.exists(messageFolder.getId()) || !messageFolder.getIsDefault() || actor.getMessageFolders().size() < 6);
+		if (messageFolder.getId() != 0)
+			Assert.isTrue(!messageFolder.getIsDefault());
 		MessageFolder result;
 
 		result = this.messageFolderRepository.save(messageFolder);
@@ -102,7 +104,6 @@ public class MessageFolderService {
 
 		return result;
 	}
-
 	public void delete(final MessageFolder messageFolder) {
 
 		Assert.notNull(messageFolder);

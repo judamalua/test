@@ -177,6 +177,24 @@ public class TripManagerController extends AbstractController {
 
 		return result;
 	}
+
+	// Saving -----------------------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Trip trip, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(trip, "trip.params.error");
+		else
+			try {
+				this.tripService.save(trip);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(trip, "trip.commit.error");
+			}
+
+		return result;
+	}
 	// Deleting -------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Trip trip, final BindingResult binding) {

@@ -78,7 +78,6 @@ public class ApplicationExplorerController extends AbstractController {
 		Application application;
 
 		application = this.applicationService.findOne(applicationId);
-
 		result = this.createEditModelAndView(application);
 
 		return result;
