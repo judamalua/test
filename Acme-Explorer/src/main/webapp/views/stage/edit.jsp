@@ -65,7 +65,7 @@
 		name="save"
 		value="<spring:message code="stage.save" />" />
 		
-	<jstl:if test="${category.id!=0}">
+	<jstl:if test="${stage.id!=0}">
 		<input 
 			type="submit"
 			name="delete"

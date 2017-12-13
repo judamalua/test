@@ -182,7 +182,7 @@
 	<form:errors cssClass="error" path="category" />
 	<br />
 
-	<jstl:if test="${trip.id!=0}">
+	<jstl:if test="${trip.id==0}">
 		<h3>
 			<spring:message code="trip.stages" />
 		</h3>
