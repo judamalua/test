@@ -18,10 +18,11 @@
 	
 	<select multiple name="selectedSurvivalClasses">
 	<jstl:forEach items="${survivalClasses}" var="survivalClass" varStatus="index">
-	<jstl:if test="{survivalClassesIndex"
+	<jstl:if test="${survivalClassesIndex}">
 	<option  value="${survivalClass.id}">
 	<jstl:out value="${survivalClass.title}"/> 
 	</option>
+	</jstl:if>
 	</jstl:forEach>
 	</select>
 	

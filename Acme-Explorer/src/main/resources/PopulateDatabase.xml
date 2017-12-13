@@ -4074,7 +4074,7 @@
 
 		<property name="survivalClasses">
 			<list>
-				<ref bean="survivalClass1" />
+			<!-- 	<ref bean="survivalClass1" /> -->
 			</list>
 		</property>
 
