@@ -425,20 +425,23 @@
 
 
 <security:authorize access="hasRole('AUDITOR')">
-	<a href="note/auditor/create.do?tripId=${trip.id}">
-		<button>
-			<spring:message code="detailedTrip.notes.create" />
-		</button>
-	</a>
+	<jstl:if test="${trip.cancelReason!=null or trip.cancelReason==\"\"}">
+		<a href="note/auditor/create.do?tripId=${trip.id}">
+			<button>
+				<spring:message code="detailedTrip.notes.create" />
+			</button>
+		</a>
+	</jstl:if>
 </security:authorize>
 
 <security:authorize access="hasRole('AUDITOR')">
-
-	<a href="auditRecord/auditor/create.do?tripId=${trip.id}">
-		<button>
-			<spring:message code="auditRecord.create" />
-		</button>
-	</a>
+	<jstl:if test="${trip.cancelReason!=null or trip.cancelReason==\"\"}">
+		<a href="auditRecord/auditor/create.do?tripId=${trip.id}">
+			<button>
+				<spring:message code="auditRecord.create" />
+			</button>
+		</a>
+	</jstl:if>
 
 </security:authorize>
 
