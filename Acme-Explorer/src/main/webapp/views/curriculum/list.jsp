@@ -35,6 +35,7 @@
 <jstl:if test="${curriculum!=null}">
 	
 
+		<h2><spring:message code="curriculum.personalRecord" /></h2>
 		
 		<h4><spring:message code="curriculum.personalRecord.nameOfCandidate" /></h4>
 		<p>${curriculum.personalRecord.nameOfCandidate}</p>
@@ -51,7 +52,7 @@
 		<h4><spring:message code="curriculum.personalRecord.linkedInProfileURL" /></h4>
 		<p>${curriculum.personalRecord.linkedInProfileURL}</p>
 
-		<jstl:if test="${curriculum==null&&curriculumRanger}">
+		<jstl:if test="${curriculumRanger}">
 		<security:authorize access="hasRole('RANGER')">
 
 
@@ -70,6 +71,8 @@
 
 <jstl:if test="${curriculum!=null}">
 	<jstl:if test="${not empty curriculum.professionalRecords}">
+			<h2><spring:message code="curriculum.professionalRecords" /></h2>
+			
 		
 			<jstl:set value="${professionalRecords}" var="professionalRecords"></jstl:set>
 
@@ -140,6 +143,7 @@
 
 <jstl:if test="${curriculum!=null}">
 	<jstl:if test="${not empty miscellaneousRecords}">
+	<h2><spring:message code="curriculum.miscellaneousRecords" /></h2>
 		
 		
 
@@ -194,7 +198,7 @@
 <jstl:if test="${curriculum!=null}">
 	<jstl:if test="${not empty curriculum.educationRecords}">
 		<security:authorize access="hasRole('RANGER')">
-		
+		<h2><spring:message code="curriculum.educationRecords" /></h2>
 
 			<display:table name="educationRecords" id="educationRecord"
 				requestURI="educationRecord/list.do?curriculumId=${curriculum.id}"
@@ -262,6 +266,7 @@
 
 <jstl:if test="${curriculum!=null}">
 	<jstl:if test="${not empty curriculum.endorserRecords}">
+	<h2><spring:message code="curriculum.endorserRecords" /></h2>
 
 		
 	
