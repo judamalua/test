@@ -18,7 +18,6 @@ import services.CategoryService;
 import services.TripService;
 import controllers.AbstractController;
 import domain.Category;
-import domain.Trip;
 
 @Controller
 @RequestMapping("/category/admin")
@@ -109,12 +108,8 @@ public class CategoryAdminController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Category category, final String messageCode) {
 		ModelAndView result;
-		final Collection<Trip> trips;
 		final Category rootCategory;
 		final Collection<Category> categories;
-		int categoryId;
-
-		categoryId = category.getId();
 
 		//trips = this.tripService.findAllTripsByCategoryId(categoryId);
 

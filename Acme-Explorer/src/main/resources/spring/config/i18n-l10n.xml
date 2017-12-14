@@ -43,6 +43,7 @@
 		<value>/views/story/messages</value>
 		<value>/views/search/messages</value>
 		<value>/views/contact/messages</value>
+		<value>/views/configuration/messages</value>
 		
 	</util:list>
 
