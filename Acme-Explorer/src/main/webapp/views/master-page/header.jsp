@@ -34,8 +34,7 @@
 								code="master.page.applicationList" /></a></li>
 					<%-- 					<li><a href="trip/list.do"><spring:message --%>
 					<%-- 								code="master.page.tripList" /></a></li> --%>
-					<%-- 					<li><a href="category/list.do"><spring:message --%>
-					<%-- 								code="master.page.categoryList" /></a></li> --%>
+					<li><a href="contact/explorer/list.do"><spring:message code="master.page.contacts" /></a></li>
 					<li><a href="survivalClass/explorer/list-joined.do"><spring:message
 								code="master.page.survivalClassList" /></a></li>
 					<li><a href="actor/explorer/edit.do"><spring:message
