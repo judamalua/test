@@ -393,4 +393,16 @@ public class ActorService {
 		return result;
 	}
 
+	public void checkforSpamWords(final Collection<String> strings) {
+		if (this.configurationService.findConfiguration() != null)
+			for (final String s : strings)
+				this.checkforSpamWords(s);
+	}
+
+	private void checkforSpamWords(final String s) {
+		if (this.configurationService.findConfiguration() != null)
+			if (this.configurationService.findConfiguration().getSpamWords().contains(s.toLowerCase()))
+				this.actorRepository.findActorByUserAccountId(LoginService.getPrincipal().getId()).setSuspicious(true);
+	}
+
 }
