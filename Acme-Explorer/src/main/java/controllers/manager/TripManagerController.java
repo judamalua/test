@@ -117,7 +117,7 @@ public class TripManagerController extends AbstractController {
 		manager = (Manager) this.actorService.findActorByPrincipal();
 		trip.getManagers().add(manager);
 		this.tripService.save(trip);
-		result = new ModelAndView("trip/list");
+		result = new ModelAndView("redirect:/trip/list.do");
 
 		return result;
 	}

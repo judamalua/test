@@ -398,7 +398,7 @@
 				<display:column property="momentOfReply"
 					title="${momentReplyHeader}" format="${formatDate}" />
 			</jstl:if>
-
+		
 			<security:authorize access="hasRole('MANAGER')">
 				<jstl:if test="${hasManager}">
 					<display:column>
@@ -416,7 +416,7 @@
 
 
 <security:authorize access="hasRole('AUDITOR')">
-	<jstl:if test="${trip.publicationDate<currentDate and trip.cancelReason!=null or trip.cancelReason==\"\"}">
+	<jstl:if test="${trip.publicationDate<currentDate and (trip.cancelReason==null or trip.cancelReason==\"\")}">
 		<a href="note/auditor/create.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="detailedTrip.notes.create" />
