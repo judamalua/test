@@ -118,6 +118,8 @@
 			<li><a class="fNiv"><spring:message code="master.page.admin" /></a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="actor/admin/list-suspicious.do"><spring:message
+								code="master.page.list.suspicious" /></a></li>
 					<li><a href="trip/list.do"><spring:message
 								code="master.page.tripList" /></a></li>
 					<li><a href="category/list.do"><spring:message

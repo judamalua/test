@@ -77,9 +77,18 @@ public class ActorAdminController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/ban", method = RequestMethod.GET)
-	public ModelAndView saveFinal(final int actorId) {
+	public ModelAndView ban(final int actorId) {
 		final Actor actor = this.actorService.findOne(actorId);
 		actor.setIsBanned(true);
+		this.actorService.save(actor);
+		final ModelAndView result = this.listSuspicious();
+		return result;
+	}
+
+	@RequestMapping(value = "/unban", method = RequestMethod.GET)
+	public ModelAndView unban(final int actorId) {
+		final Actor actor = this.actorService.findOne(actorId);
+		actor.setIsBanned(false);
 		this.actorService.save(actor);
 		final ModelAndView result = this.listSuspicious();
 		return result;
