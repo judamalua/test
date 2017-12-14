@@ -18,12 +18,12 @@
 
 	<definition name="contact/list" extends="master.page">	
 		<put-attribute name="title" value="List of contacts" />
-		<put-attribute name="body" value="/views/category/list.jsp" />
+		<put-attribute name="body" value="/views/contact/list.jsp" />
 	</definition>
 	
 	<definition name="contact/edit" extends="master.page">	
 		<put-attribute name="title" value="Edit contact" />
-		<put-attribute name="body" value="/views/category/edit.jsp" />
+		<put-attribute name="body" value="/views/contact/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>

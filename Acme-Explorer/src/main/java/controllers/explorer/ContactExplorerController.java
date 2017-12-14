@@ -1,6 +1,8 @@
 
 package controllers.explorer;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.ContactService;
 import controllers.AbstractController;
 import domain.Contact;
+import domain.Explorer;
 
 @Controller
 @RequestMapping("/contact/explorer")
@@ -24,26 +28,27 @@ public class ContactExplorerController extends AbstractController {
 
 	@Autowired
 	ContactService	contactService;
+	@Autowired
+	ActorService	actorService;
 
 
 	// Listing ----------------------------------------------------
 
-	//	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	//	public ModelAndView list() {
-	//		ModelAndView result;
-	//		Explorer explorer;
-	//		Collection<Application> applications;
-	//
-	//		result = new ModelAndView("application/list");
-	//
-	//		explorer = (Explorer) this.actorService.findActorByPrincipal();
-	//
-	//		applications = this.applicationService.findApplications(explorer);
-	//		result.addObject("applications", applications);
-	//		result.addObject("requestUri", "application/explorer/list.do");
-	//
-	//		return result;
-	//	}
+	@RequestMapping(value = "/list")
+	public ModelAndView list() {
+		ModelAndView result;
+		Explorer explorer;
+		final Collection<Contact> contacts;
+
+		result = new ModelAndView("contact/list");
+
+		explorer = (Explorer) this.actorService.findActorByPrincipal();
+
+		contacts = explorer.getContacts();
+		result.addObject("contacts", contacts);
+
+		return result;
+	}
 
 	// Editing ---------------------------------------------------------
 
@@ -86,7 +91,7 @@ public class ContactExplorerController extends AbstractController {
 				result = new ModelAndView("redirect:list.do");
 
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(contact, "category.commit.error");
+				result = this.createEditModelAndView(contact, "contact.commit.error");
 			}
 
 		return result;
