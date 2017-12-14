@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.ConfigurationService;
 import services.ContactService;
 import controllers.AbstractController;
 import domain.Contact;
@@ -27,9 +28,11 @@ public class ContactExplorerController extends AbstractController {
 	// Services -------------------------------------------------------
 
 	@Autowired
-	ContactService	contactService;
+	ContactService			contactService;
 	@Autowired
-	ActorService	actorService;
+	ActorService			actorService;
+	@Autowired
+	ConfigurationService	configurationService;
 
 
 	// Listing ----------------------------------------------------

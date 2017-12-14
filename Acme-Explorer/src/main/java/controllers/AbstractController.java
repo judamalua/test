@@ -29,6 +29,22 @@ public class AbstractController {
 
 	/**
 	 * 
+	 * @return the number of result to be shown in every list table, stored in the database
+	 * 
+	 * @author Juanmi
+	 */
+	@ModelAttribute(value = "pagesize")
+	//@RequestMapping(method = RequestMethod.POST)
+	public Integer pagesize() {
+		Integer result;
+
+		result = this.configurationService.findConfiguration().getMaxResults();
+
+		return result;
+	}
+
+	/**
+	 * 
 	 * @return banner URL of the system as a model attribute to be used in any other view
 	 * 
 	 * @author Juanmi

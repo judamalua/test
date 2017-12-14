@@ -29,6 +29,9 @@ public class PersonalRecordService {
 	@Autowired
 	private CurriculumService			curriculumService;
 
+	@Autowired
+	private ConfigurationService		configurationService;
+
 
 	// Simple CRUD methods --------------------------------------------------
 
@@ -72,6 +75,22 @@ public class PersonalRecordService {
 
 		PersonalRecord result;
 		Curriculum c;
+		String phoneNumberPrefix;
+
+		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();
+
+		// Si el número de teléfono no tiene prefijo, se añade el de configuración por defecto.
+		if (!personalRecord.getPhoneNumber().trim().startsWith("+")) {
+			String trimmedPhoneNumber;
+			String finalPhoneNumber;
+
+			trimmedPhoneNumber = personalRecord.getPhoneNumber().trim();
+
+			finalPhoneNumber = phoneNumberPrefix + " " + trimmedPhoneNumber;
+
+			personalRecord.setPhoneNumber(finalPhoneNumber);
+
+		}
 
 		c = this.curriculumService.findCurriculumByRangerID();
 		result = this.personalRecordRepository.save(personalRecord);
