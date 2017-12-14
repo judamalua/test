@@ -2,6 +2,7 @@
 package controllers.admin;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.validation.Valid;
 
@@ -115,7 +116,10 @@ public class CategoryAdminController extends AbstractController {
 		int categoryId;
 
 		categoryId = category.getId();
-		trips = this.tripService.findTripsByCategoryId(categoryId);
+		if (category.getId() != 0)
+			trips = this.tripService.findAllTripsByCategoryId(categoryId);
+		else
+			trips = new HashSet<Trip>();
 		rootCategory = this.categoryService.getRootCategory();
 		categories = this.categoryService.findAll();
 
