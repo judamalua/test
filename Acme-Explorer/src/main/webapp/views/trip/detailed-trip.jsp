@@ -125,7 +125,7 @@
 <security:authorize access="hasRole('EXPLORER')">
 
 	<jstl:if test="${!hasExplorer}">
-		<jstl:if test="${trip.publicationDate<currentDate}">
+		<jstl:if test="${trip.publicationDate<currentDate and trip.startDate > currentDate}">
 			<a href="application/explorer/create.do?tripId=${trip.id}">
 				<button>
 					<spring:message code="trip.apply" />
@@ -136,7 +136,7 @@
 </security:authorize>
 
 <security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${!hasManager}">
+	<jstl:if test="${!hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}">
 		<a href="trip/manager/join.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="trip.manage" />
@@ -272,13 +272,8 @@
 	</display:table>
 </jstl:if>
 <security:authorize access="hasRole('MANAGER')">
-	<jstl:if
-		test="${hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}">
-<%-- 		<a href="survivalClass/manager/create.do">
-			<button>
-				<spring:message code="detailed.trip.createSurvivalClass" />
-			</button>
-		</a> --%>
+	<jstl:if test="${trip.publicationDate>currentDate and hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}">
+
 		<a href="trip/manager/manageSurvivalClasses.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="detailed.trip.manageSurvivalClasses" />
@@ -421,7 +416,7 @@
 
 
 <security:authorize access="hasRole('AUDITOR')">
-	<jstl:if test="${trip.cancelReason!=null or trip.cancelReason==\"\"}">
+	<jstl:if test="${trip.publicationDate<currentDate and trip.cancelReason!=null or trip.cancelReason==\"\"}">
 		<a href="note/auditor/create.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="detailedTrip.notes.create" />
@@ -431,7 +426,7 @@
 </security:authorize>
 
 <security:authorize access="hasRole('AUDITOR')">
-	<jstl:if test="${trip.cancelReason!=null or trip.cancelReason==\"\"}">
+	<jstl:if test="${trip.publicationDate<currentDate and trip.cancelReason!=null or trip.cancelReason==\"\"}">
 		<a href="auditRecord/auditor/create.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="auditRecord.create" />
@@ -442,12 +437,13 @@
 </security:authorize>
 
 <security:authorize access="hasRole('SPONSOR')">
-
+	<jstl:if test="${trip.publicationDate<currentDate and (trip.cancelReason==null or trip.cancelReason==\"\")}">
 	<a href="sponsorship/sponsor/create.do?tripId=${trip.id}">
 		<button>
 			<spring:message code="sponsorship.create" />
 		</button>
 	</a>
+	</jstl:if>
 
 </security:authorize>
 <jstl:if test="${not empty trip.stories}">
@@ -485,7 +481,7 @@
 
 <security:authorize access="hasRole('EXPLORER')">
 
-	<jstl:if test="${hasExplorer and trip.endDate<currentDate}">
+	<jstl:if test="${hasExplorer and trip.endDate<currentDate }">
 
 		<a href="story/explorer/create.do?tripId=${trip.id}">
 			<button>
