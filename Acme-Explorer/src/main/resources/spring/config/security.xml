@@ -88,8 +88,10 @@
 		<security:intercept-url pattern="/sponsorship/sponsor/**" access="hasRole('SPONSOR')" /> 
 		<security:intercept-url pattern="/sponsorship/manager/**" access="hasRole('MANAGER')" /> 
 		
-		<security:intercept-url pattern="/survivalClass/manager/edit.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/survivalClass/manager/edit.do" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/survivalClass/manager/delete.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/survivalClass/manager/create.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/survivalClass/manager/list-managed.do" access="hasRole('MANAGER')" />
 		<security:intercept-url pattern="/survivalClass/explorer/list-joined.do" access="hasRole('EXPLORER')" />
 		<security:intercept-url pattern="/survivalClass/explorer/join.do" access="hasRole('EXPLORER')" />
 		<security:intercept-url pattern="/survivalClass/explorer/leave.do" access="hasRole('EXPLORER')" />

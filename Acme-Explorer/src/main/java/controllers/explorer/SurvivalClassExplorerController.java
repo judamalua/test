@@ -41,17 +41,17 @@ public class SurvivalClassExplorerController extends AbstractController {
 
 	// Listing ------------------------------------------------------------------
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list-joined", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<SurvivalClass> survivalClasses;
 		final Explorer explorer;
 
-		result = new ModelAndView("trip/list");
+		result = new ModelAndView("survivalClass/list-joined");
 		explorer = (Explorer) this.actorService.findActorByPrincipal();
 
 		survivalClasses = this.survivalClassService.findSurvivalClassesByExplorerID(explorer.getId());
-		result.addObject("trips", survivalClasses);
+		result.addObject("survivalClasses", survivalClasses);
 
 		return result;
 	}

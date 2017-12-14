@@ -9,7 +9,7 @@
 <spring:message code="format.date" var="formatDate"/>
 <spring:message code="format.price" var="formatPrice"/>
 <display:table name = "survivalClasses" id = "row" 
-	requestURI = "survivalClass/explorer/list-joined.do" pagesize = "5" class = "displaytag">
+	requestURI = "survivalClass/manager/list-managed.do" pagesize = "5" class = "displaytag">
 	
 	<spring:message code = "survivalclass.title" var = "title"/>
 	<display:column property = "title" title = "${title}" sortable = "true"/>
@@ -39,11 +39,21 @@
 	
 		<spring:message code = "table.actions" var = "actions"/>
 		<display:column title="${actions}">
-			<a href = "survivalClass/explorer/leave.do?survivalClassId=${row.id}">
-				<spring:message code = "survivalclass.leave"/>
+		<a href = "survivalClass/manager/edit.do?survivalClassId=${row.id}">
+				<spring:message code = "survivalclass.edit"/>
 			</a>
+			
+	<%-- 		<a href = "survivalClass/manager/delete.do?survivalClassId=${row.id}">
+				<spring:message code = "survivalclass.delete"/>
+			</a> --%>
 		</display:column>
 	
 
 
 </display:table>
+<br>
+<a href="survivalClass/manager/create.do">
+				<button>
+					<spring:message code="survivalclass.create" />
+				</button>
+			</a>

@@ -10,6 +10,9 @@
 
 package controllers.manager;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +28,9 @@ import services.ManagerService;
 import services.RejectionService;
 import services.SurvivalClassService;
 import controllers.AbstractController;
+import domain.Manager;
 import domain.SurvivalClass;
+import domain.Trip;
 
 @Controller
 @RequestMapping("/survivalClass/manager")
@@ -64,7 +69,7 @@ public class SurvivalClassManagerController extends AbstractController {
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView reject(@Valid final SurvivalClass survivalClass, final BindingResult binding) {
+	public ModelAndView edit(@Valid final SurvivalClass survivalClass, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -72,11 +77,30 @@ public class SurvivalClassManagerController extends AbstractController {
 		else
 			try {
 				this.survivalClassService.save(survivalClass);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:list-managed.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(survivalClass, "survivalClass.commit.error");
 			}
+
+		return result;
+	}
+
+	// Listing ------------------------------------------------------------------
+
+	@RequestMapping(value = "/list-managed", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		Collection<SurvivalClass> survivalClasses;
+		final Manager manager;
+
+		result = new ModelAndView("survivalClass/list-managed");
+		manager = (Manager) this.actorService.findActorByPrincipal();
+
+		survivalClasses = new HashSet<SurvivalClass>(manager.getSurvivalClasses());
+		for (final Trip t : manager.getTrips())
+			survivalClasses.addAll(t.getSurvivalClasses());
+		result.addObject("survivalClasses", survivalClasses);
 
 		return result;
 	}
@@ -101,7 +125,7 @@ public class SurvivalClassManagerController extends AbstractController {
 	// Creating -----------------------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam(required = false) final Integer tripID) {
+	public ModelAndView create() {
 		final ModelAndView result;
 		SurvivalClass survivalClass;
 
