@@ -74,7 +74,7 @@
 		type="button"
 		name="cancel"
 		value="<spring:message code="message.cancel" />"
-		onclick="javascript: relativeRedir('message/list.do')">
+		onclick="javascript: relativeRedir('/messageFolder/list.do')">
 	
 </form:form>
     
