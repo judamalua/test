@@ -122,13 +122,10 @@
 		<spring:message code="trip.tags" />
 	</form:label>
 	<form:select multiple="true" path="tags">
-		<form:option selected="true" value="0">
-			----------
-		</form:option>
-		<jstl:forEach var="tag" items="${tags}">
+		<jstl:forEach items="${tagsTrip}" var="tagTrip" >
 			<!-- Variable del controlador -->
-			<form:option value="${tag.id}">
-				<jstl:out value="${tag.name}" />
+			<form:option value="${tagTrip.id}">
+				<jstl:out value="${tagTrip.name}" />
 			</form:option>
 		</jstl:forEach>
 	</form:select>

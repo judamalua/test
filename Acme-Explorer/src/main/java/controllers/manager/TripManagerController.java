@@ -8,12 +8,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -158,8 +156,7 @@ public class TripManagerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = {
 		"save", "titleStage", "descriptionStage", "priceStage"
 	})
-	public ModelAndView create(@Valid final Trip trip, @ModelAttribute("titleStage") @NotBlank final String titleStage, @ModelAttribute("descriptionStage") final String descriptionStage, @ModelAttribute("priceStage") @NotBlank final double priceStage,
-		final BindingResult binding) {
+	public ModelAndView create(@RequestParam("titleStage") final String titleStage, @RequestParam("descriptionStage") final String descriptionStage, @RequestParam("priceStage") final double priceStage, @Valid final Trip trip, final BindingResult binding) {
 		ModelAndView result;
 		Stage stage;
 
@@ -321,10 +318,10 @@ public class TripManagerController extends AbstractController {
 		result = new ModelAndView("trip/edit");
 		result.addObject("rangers", rangers);
 		result.addObject("legalTexts", legalTexts);
-		result.addObject("tags", tags);
+		result.addObject("tagsTrip", tags);
 		result.addObject("categories", categories);
 		result.addObject("trip", trip);
-		result.addObject("survivalClasses", notAddedSurvivalClasses);
+		//		result.addObject("notAddedSurvivalClasses", notAddedSurvivalClasses);
 
 		result.addObject("message", messageCode);
 
