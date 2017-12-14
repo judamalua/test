@@ -156,41 +156,47 @@ public class TripController extends AbstractController {
 		final List<SurvivalClass> survivalClasses;
 		final List<Boolean> survivalClassesJoinedIndexed = new ArrayList<Boolean>();
 		final Explorer explorer;
+		try {
+			result = new ModelAndView("trip/detailed-trip");
+			random = new Random();
+			trip = this.tripService.findOne(tripId);
+			survivalClasses = new ArrayList<SurvivalClass>(trip.getSurvivalClasses());
+			hasManager = false;
+			hasExplorer = false;
+			//			Assert.isTrue(trip.getPublicationDate().before(new Date()));
 
-		result = new ModelAndView("trip/detailed-trip");
-		random = new Random();
-		trip = this.tripService.findOne(tripId);
-		survivalClasses = new ArrayList<SurvivalClass>(trip.getSurvivalClasses());
-		hasManager = false;
-		hasExplorer = false;
+			if (anonymous == false) {
+				actor = this.actorService.findActorByPrincipal();
 
-		if (anonymous == false) {
-			actor = this.actorService.findActorByPrincipal();
+				if (actor instanceof Manager && trip.getManagers().contains(actor))
+					hasManager = true;
+				else if (actor instanceof Explorer && this.tripService.getAcceptedTripsFromExplorerId(actor.getId()).contains(trip)) {
+					hasExplorer = true;
+					Assert.isTrue(trip.getPublicationDate().before(new Date()));
 
-			if (actor instanceof Manager && trip.getManagers().contains(actor))
-				hasManager = true;
+					explorer = (Explorer) actor;
+					// Añade una lista paralela si el explorer esta inscrito o no en esa survivalClass
+					for (final SurvivalClass sv : survivalClasses)
+						survivalClassesJoinedIndexed.add(explorer.getSurvivalClasses().contains(sv));
 
-			if (actor instanceof Explorer && this.tripService.getAcceptedTripsFromExplorerId(actor.getId()).contains(trip)) {
-				hasExplorer = true;
+					result.addObject("survivalClassesJoinedIndexed", survivalClassesJoinedIndexed);
+				}
 
-				explorer = (Explorer) actor;
-				// Añade una lista paralela si el explorer esta inscrito o no en esa survivalClass
-				for (final SurvivalClass sv : survivalClasses)
-					survivalClassesJoinedIndexed.add(explorer.getSurvivalClasses().contains(sv));
+			} else
+				Assert.isTrue(trip.getPublicationDate().before(new Date()));
+			result.addObject("survivalClasses", survivalClasses);
+			result.addObject("trip", trip);
+			if (trip.getSponsorships().size() > 0)
+				result.addObject("sponsorship", trip.getSponsorships().toArray()[random.nextInt(trip.getSponsorships().size())]);
+			else
+				result.addObject("sponsorship", null);
 
-				result.addObject("survivalClassesJoinedIndexed", survivalClassesJoinedIndexed);
-			}
+			result.addObject("hasManager", hasManager);
+			result.addObject("hasExplorer", hasExplorer);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/index.do");
 		}
-		result.addObject("survivalClasses", survivalClasses);
-		result.addObject("trip", trip);
-		if (trip.getSponsorships().size() > 0)
-			result.addObject("sponsorship", trip.getSponsorships().toArray()[random.nextInt(trip.getSponsorships().size())]);
-		else
-			result.addObject("sponsorship", null);
-
-		result.addObject("hasManager", hasManager);
-		result.addObject("hasExplorer", hasExplorer);
-
 		return result;
+
 	}
 }
