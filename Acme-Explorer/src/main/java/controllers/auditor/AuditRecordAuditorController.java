@@ -84,6 +84,7 @@ public class AuditRecordAuditorController extends AbstractController {
 
 		auditRecord = this.auditRecordService.findOne(auditRecordId);
 		Assert.notNull(auditRecord);
+		Assert.isTrue(!auditRecord.getIsFinalMode());
 
 		result = this.createEditModelAndView(auditRecord);
 
