@@ -14,6 +14,7 @@
 	<form:hidden path = "version" />
 	<form:hidden path = "sponsor" />
 	<form:hidden path = "trip" />
+	<form:hidden path = "creditCard" />
 	
 	
 	<form:label path = "bannerUrl">
