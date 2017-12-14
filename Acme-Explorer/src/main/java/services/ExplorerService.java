@@ -139,5 +139,10 @@ public class ExplorerService {
 
 		return result;
 	}
+	public Explorer findExplorerWithSearch(final Search s) {
+
+		return this.explorerRepository.findExplorerBySearch(s.getId());
+
+	}
 
 }

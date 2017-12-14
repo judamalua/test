@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.SearchRepository;
+import domain.Explorer;
 import domain.Search;
 
 @Service
@@ -23,8 +24,12 @@ public class SearchService {
 	@Autowired
 	private SearchRepository	searchRepository;
 
-
 	// Supporting services --------------------------------------------------
+	@Autowired
+	private ExplorerService		explorerservice;
+	@Autowired
+	private ActorService		actorservice;
+
 
 	// Simple CRUD methods --------------------------------------------------
 	public Search create() {
@@ -63,15 +68,17 @@ public class SearchService {
 	}
 
 	public Search save(final Search search) {
-		this.checkSearchDataBase();
 
 		assert search != null;
 
 		final Search result;
 		search.setSearchMoment(new Date(System.currentTimeMillis() - 2000));
 		search.setmillis(LocalDateTime.now().getMillisOfSecond());
-
 		result = this.searchRepository.save(search);
+
+		final Explorer e = (Explorer) this.actorservice.findActorByPrincipal();
+		e.getSearches().add(result);
+		this.explorerservice.save(e);
 
 		return result;
 
@@ -82,18 +89,25 @@ public class SearchService {
 		assert search != null;
 		assert search.getId() != 0;
 
-		Assert.isTrue(this.searchRepository.exists(search.getId()));
+		final Explorer e = this.explorerservice.findExplorerWithSearch(search);
+		Assert.notNull(e);
+		e.getSearches().remove(search);
+		this.explorerservice.save(e);
 
 		this.searchRepository.delete(search);
 
 	}
-
 	// Other Business  methods --------------------------------------------------
 
 	public void checkSearchDataBase() {
 		final Collection<Search> searchs = this.searchRepository.findAll();
-		for (final Search s : searchs)
-			if (LocalDateTime.now().getMillisOfSecond() - s.getmillis() >= 3600000)
+		long diferencia;
+		for (final Search s : searchs) {
+			final Date d = new Date();
+			diferencia = d.getTime() - s.getSearchMoment().getTime();
+			if (diferencia >= 3600000)
 				this.delete(s);
+
+		}
 	}
 }
