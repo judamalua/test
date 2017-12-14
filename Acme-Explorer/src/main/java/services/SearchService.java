@@ -24,7 +24,9 @@ public class SearchService {
 	@Autowired
 	private SearchRepository	searchRepository;
 
-	// Supporting services --------------------------------------------------
+	// Supporting services -------------------------------------------------
+	@Autowired
+	private CacheService		cacheService;
 	@Autowired
 	private ExplorerService		explorerservice;
 	@Autowired
@@ -57,7 +59,6 @@ public class SearchService {
 	}
 
 	public Search findOne(final int searchId) {
-		this.checkSearchDataBase();
 
 		Search result;
 
@@ -68,6 +69,7 @@ public class SearchService {
 	}
 
 	public Search save(final Search search) {
+		this.cacheService.checkCache();
 
 		assert search != null;
 
