@@ -16,14 +16,19 @@
       
 <tiles-definitions>
 
-	<definition name="survivalclass/list-joined" extends="master.page">	
+	<definition name="survivalClass/list-joined" extends="master.page">	
 		<put-attribute name="title" value="Lista de clases de supervivencia a las que se ha unido" />
-		<put-attribute name="body" value="/views/survivalclass/list-joined.jsp" />
+		<put-attribute name="body" value="/views/survivalClass/list-joined.jsp" />
 	</definition>
 	
-	<definition name="survivalclass/edit" extends="master.page">	
+	<definition name="survivalClass/edit" extends="master.page">	
 		<put-attribute name="title" value="Editar clase de supervivencia" />
-		<put-attribute name="body" value="/views/survivalclass/edit.jsp" />
+		<put-attribute name="body" value="/views/survivalClass/edit.jsp" />
+	</definition>
+	
+		<definition name="survivalClass/list-managed" extends="master.page">	
+		<put-attribute name="title" value="Clases de supervivencia gestionadas" />
+		<put-attribute name="body" value="/views/survivalClass/list-managed.jsp" />
 	</definition>
 	
 </tiles-definitions>

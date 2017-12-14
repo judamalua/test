@@ -86,6 +86,8 @@
 								code="master.page.applicationList" /></a></li>
 					<li><a href="auditRecord/manager/list.do"><spring:message
 								code="master.page.auditRecordList" /></a></li>
+					<li><a href="survivalClass/manager/list-managed.do"><spring:message
+								code="master.page.survivalClassListManaged" /></a></li>
 					<%-- 					<li><a href="category/list.do"><spring:message --%>
 					<%-- 								code="master.page.categoryList" /></a></li> --%>
 					<li><a href="sponsorship/manager/list.do"><spring:message

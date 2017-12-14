@@ -15,7 +15,7 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="categories"/>
-	<form:hidden path="trips"/>
+	<%-- <form:hidden path="trips"/> --%>
 	
 	
 	<form:label path="name">

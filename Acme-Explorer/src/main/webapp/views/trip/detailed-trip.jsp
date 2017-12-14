@@ -265,11 +265,7 @@
 				</jstl:if>
 			</jstl:if>
 
-			<%-- 		<display:column> --%>
-			<%-- 			<a href = "survivalClass/auditor/leave.do?survivalClassId=${row.id}"> --%>
-			<%-- 				<spring:message code = "survivalclass.leave"/> --%>
-			<!-- 			</a> -->
-			<%-- 		</display:column> --%>
+
 
 		</security:authorize>
 
@@ -277,12 +273,12 @@
 </jstl:if>
 <security:authorize access="hasRole('MANAGER')">
 	<jstl:if
-		test="${hasManager and hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}">
-		<a href="survivalClass/manager/create.do">
+		test="${hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}">
+<%-- 		<a href="survivalClass/manager/create.do">
 			<button>
 				<spring:message code="detailed.trip.createSurvivalClass" />
 			</button>
-		</a>
+		</a> --%>
 		<a href="trip/manager/manageSurvivalClasses.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="detailed.trip.manageSurvivalClasses" />

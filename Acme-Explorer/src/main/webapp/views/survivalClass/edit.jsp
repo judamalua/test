@@ -11,9 +11,8 @@
 	
 	<form:hidden path = "id" />
 	<form:hidden path = "version" />
-	<form:hidden path = "manager" />
-	<form:hidden path = "organisationMoment"/>
-		
+	<form:hidden path = "explorers"/>
+
 	
 	
 	<form:label path = "title">
@@ -29,6 +28,10 @@
 	<form:input path = "description" />
 	<form:errors cssClass = "error" path = "description" />
 	<br />
+	<form:label path = "organisationMoment">
+	<spring:message code = "survivalclass.organisationMoment" />:
+	</form:label>
+	<form:input path="organisationMoment" id="organisationMoment" placeholder="dd/MM/yyyy hh:mm" />
 	
 	<form:label path = "location.name">
 		<spring:message code = "survivalclass.location.name" />:
@@ -50,8 +53,8 @@
 		<input 
 			type="submit"
 			name="delete"
-			value="<spring:message code="survivalClass.delete" />"
-			onclick="return confirm('<spring:message code='survivalClass.confirm.delete' />') " />
+			value="<spring:message code="survivalclass.delete" />"
+			onclick="return confirm('<spring:message code='survivalclass.confirm.delete' />') " />
 	</jstl:if>
 
 	<a href = "trip/manager/list.do">
