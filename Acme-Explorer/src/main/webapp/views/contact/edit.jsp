@@ -8,7 +8,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form id = "form" action="contact/explorer/edit.do" modelAttribute ="contact">
+<form:form id = "form" onsubmit = "return validateEmailAndPhone('<spring:message code = 'contact.email.phone.alert'/>')" action="contact/explorer/edit.do" modelAttribute ="contact">
 	
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
@@ -24,7 +24,7 @@
 	<form:label path="email">
 		<spring:message code="contact.email"/>
 	</form:label>
-	<form:input path="email"/>
+	<form:input id = "email" path="email"/>
 	<form:errors cssClass="error" path="email"/>
 	<br/>
 	
