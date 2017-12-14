@@ -3,6 +3,7 @@ package controllers.manager;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -98,10 +99,17 @@ public class TripManagerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int tripId) {
 		ModelAndView result;
 		Trip trip;
-
-		trip = this.tripService.findOne(tripId);
-		Assert.notNull(trip);
-		result = this.createEditModelAndView(trip);
+		Manager manager;
+		try {
+			trip = this.tripService.findOne(tripId);
+			manager = (Manager) this.actorService.findActorByPrincipal();
+			Assert.isTrue(trip.getPublicationDate().after(new Date()));
+			Assert.isTrue(this.managerService.findTripsByManager(manager.getId()).contains(trip));
+			Assert.notNull(trip);
+			result = this.createEditModelAndView(trip);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/index.do");
+		}
 
 		return result;
 	}

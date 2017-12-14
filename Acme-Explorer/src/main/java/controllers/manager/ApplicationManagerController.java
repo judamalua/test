@@ -81,7 +81,7 @@ public class ApplicationManagerController extends AbstractController {
 			application = this.applicationService.findOne(applicationId);
 			result = this.createEditModelAndView(application);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:misc/index.do");
+			result = new ModelAndView("redirect:/misc/index.do");
 		}
 
 		return result;
@@ -115,10 +115,14 @@ public class ApplicationManagerController extends AbstractController {
 		ModelAndView result;
 		Application application;
 
-		application = this.applicationService.findOne(applicationId);
-		this.applicationService.changeStatus(application, "DUE");
-		this.applicationService.save(application);
-		result = new ModelAndView("redirect:list.do");
+		try {
+			application = this.applicationService.findOne(applicationId);
+			this.applicationService.changeStatus(application, "DUE");
+			this.applicationService.save(application);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/index.do");
+		}
 
 		return result;
 	}
