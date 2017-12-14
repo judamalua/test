@@ -8,12 +8,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table 
-	name="contacts"
-	id="contact"
-	requestURI="contact/list.do"
-	pagesize="10"
-	class="displayTag">
+<display:table name="contacts" id="contact" requestURI="contact/explorer/list.do" pagesize="10" class="displayTag">
 	
 	<spring:message code="contact.name" var="name"/>
 	<display:column property="name" title="${name}" sortable="true"/>
@@ -33,6 +28,8 @@
 </display:table>
 
 	<a href = "contact/explorer/create.do">
+	<button>
 		<spring:message code = "contact.create"/>
+	</button>
 	</a>
 
