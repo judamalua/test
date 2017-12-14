@@ -55,7 +55,7 @@ public class Explorer extends Actor {
 	}
 
 	@NotNull
-	@ManyToMany
+	@OneToMany
 	public Collection<Contact> getContacts() {
 		return this.contacts;
 	}

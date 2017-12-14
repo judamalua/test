@@ -102,7 +102,7 @@ public class MessageController extends AbstractController {
 	@RequestMapping(value = "/move", method = RequestMethod.POST, params = {
 		"selectedMessageFolder", "messageId", "save"
 	})
-	public ModelAndView SaveMove(@ModelAttribute("selectedMessageFolder") @Valid final MessageFolder selectedMessageFolder, @ModelAttribute("messageId") final int messageId, final BindingResult binding) {
+	public ModelAndView SaveMove(@ModelAttribute("messageId") final int messageId, @ModelAttribute("selectedMessageFolder") @Valid final MessageFolder selectedMessageFolder, final BindingResult binding) {
 		ModelAndView result;
 		Message message;
 		if (binding.hasErrors())
