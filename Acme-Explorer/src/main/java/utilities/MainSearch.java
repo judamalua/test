@@ -50,6 +50,22 @@ public class MainSearch {
 
 	}
 
+	public static List<Trip> fullTextSearch(final String keyWord) throws Throwable {
+		LogManager.getLogger("org.hibernate").setLevel(Level.OFF);
+		final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Acme-Explorer");
+		final EntityManager em = entityManagerFactory.createEntityManager();
+		final FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
+
+		MainSearch.createIndexer(fullTextEntityManager);
+		final QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Trip.class).get();
+		final org.apache.lucene.search.Query query = qb.keyword().onFields("ticker", "title", "description").matching(keyWord).createQuery();
+		final FullTextQuery persistenceQuery = fullTextEntityManager.createFullTextQuery(query, Trip.class);
+
+		final List<Trip> result = persistenceQuery.getResultList();
+
+		return result;
+	}
+
 	public static void createIndexer(final FullTextEntityManager fullTextEntityManager) {
 		try {
 			fullTextEntityManager.createIndexer(Trip.class).startAndWait();
