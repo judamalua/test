@@ -145,9 +145,13 @@ public class SponsorshipSponsorController extends AbstractController {
 		sponsorship.setTrip(trip);
 		sponsorship.setCreditCard(creditCard);
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(sponsorship);
-		else
+		if (binding.hasErrors()) {
+			result = new ModelAndView("sponsorship/addCreditCard");
+			result.addObject("tripId", tripId);
+			result.addObject("bannerUrl", bannerUrl);
+			result.addObject("additionalInfoLink", additionalInfoLink);
+			result.addObject("creditcard", creditCard);
+		} else
 			try {
 				this.sponsorshipService.save(sponsorship);
 				result = new ModelAndView("redirect:list.do");
