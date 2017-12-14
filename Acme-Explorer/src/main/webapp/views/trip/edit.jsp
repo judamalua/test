@@ -172,17 +172,24 @@
 		<h3>
 			<spring:message code="trip.stages" />
 		</h3>
-
-		<label for="titleStage"> <spring:message code="stage.title" />
+	
+		<spring:message var="inputError" code="stage.input.error"/>
+		<label for="titleStage">
+			 <spring:message code="stage.title" />
 		</label>
-		<input type="text" name="titleStage" required="required" />
+		
+		<input type="text" name="titleStage" required="required" 
+		 oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}"/>
 
 		<label for="priceStage"> <spring:message code="stage.price" />
 		</label>
-		<input type="number" name="priceStage" required="required" step="any"/>
+		<input type="number" name="priceStage" required="required" step="any"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}"/>
 
-		<label for="descriptionStage"> <spring:message
-				code="stage.description" />
+		<label for="descriptionStage"> 
+		<spring:message code="stage.description" />
 		</label>
 		<textarea name="descriptionStage">
 	</textarea>
