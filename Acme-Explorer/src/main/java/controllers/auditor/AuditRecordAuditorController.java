@@ -85,6 +85,7 @@ public class AuditRecordAuditorController extends AbstractController {
 		auditRecord = this.auditRecordService.findOne(auditRecordId);
 		Assert.notNull(auditRecord);
 		Assert.isTrue(!auditRecord.getIsFinalMode());
+		Assert.isTrue(auditRecord.getAuditor().getId() == this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId()).getId());
 
 		result = this.createEditModelAndView(auditRecord);
 
@@ -95,6 +96,7 @@ public class AuditRecordAuditorController extends AbstractController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveDraft")
 	public ModelAndView saveDraft(@Valid final AuditRecord auditRecord, final BindingResult binding) {
+		Assert.isTrue(auditRecord.getAuditor().getId() == this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId()).getId());
 
 		ModelAndView result;
 
@@ -113,6 +115,7 @@ public class AuditRecordAuditorController extends AbstractController {
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveFinal")
 	public ModelAndView saveFinal(@Valid final AuditRecord auditRecord, final BindingResult binding) {
+		Assert.isTrue(auditRecord.getAuditor().getId() == this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId()).getId());
 		ModelAndView result;
 		auditRecord.setIsFinalMode(true);
 		if (binding.hasErrors())
@@ -133,6 +136,7 @@ public class AuditRecordAuditorController extends AbstractController {
 
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final AuditRecord auditRecord, final BindingResult binding) {
+		Assert.isTrue(auditRecord.getAuditor().getId() == this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId()).getId());
 		ModelAndView result;
 
 		try {

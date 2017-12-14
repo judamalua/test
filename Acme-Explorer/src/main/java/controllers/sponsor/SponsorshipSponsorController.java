@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -115,9 +116,13 @@ public class SponsorshipSponsorController extends AbstractController {
 
 		ModelAndView result;
 
-		if (sponsorship.getCreditCard() == null)
+		if (sponsorship.getCreditCard() == null) {
+			if (this.chechErrorsBinding(binding))
+				result = this.createEditModelAndView(sponsorship, "auditRecord.commit.error");
+			else {
+			}
 			result = new ModelAndView("redirect:addCreditCard.do?bannerUrl=" + sponsorship.getBannerUrl() + "&additionalInfoLink=" + sponsorship.getAdditionalInfoLink() + "&tripId=" + sponsorship.getTrip().getId());
-		else if (binding.hasErrors())
+		} else if (binding.hasErrors())
 			result = this.createEditModelAndView(sponsorship);
 		else
 			try {
@@ -132,7 +137,7 @@ public class SponsorshipSponsorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/addCreditCard", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveAddCreditCard(@RequestParam final String bannerUrl, @RequestParam final String additionalInfoLink, @RequestParam final int tripId, @Valid final CreditCard creditCard, final BindingResult binding) {
+	public ModelAndView saveAddCreditCard(final String bannerUrl, final String additionalInfoLink, final int tripId, @Valid final CreditCard creditCard, final BindingResult binding) {
 
 		ModelAndView result;
 
@@ -198,5 +203,11 @@ public class SponsorshipSponsorController extends AbstractController {
 
 		return result;
 	}
-
+	private boolean chechErrorsBinding(final BindingResult binding) {
+		boolean res = false;
+		for (final ObjectError e : binding.getAllErrors())
+			if (e.getObjectName().equals("bannerUrl") || e.getObjectName().equals("additionalInfoLink"))
+				res = true;
+		return res;
+	}
 }

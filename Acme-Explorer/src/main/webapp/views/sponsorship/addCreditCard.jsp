@@ -25,7 +25,7 @@
 		<spring:bind path="creditcard.holderName">
    			<input type="text" name="${status.expression}" value="${status.value}"><br />
         </spring:bind>
-		<form:errors cssClass = "error" path = "holderName" />
+		<form:errors cssClass = "error" path = "creditCard.holderName" />
 		<br />
 		
 		<form:label path = "creditcard.brandName">
@@ -34,7 +34,7 @@
 		<spring:bind path="creditcard.brandName">
    			<input type="text" name="${status.expression}" value="${status.value}"><br />
         </spring:bind>		
-        <form:errors cssClass = "error" path = "creditcard.brandName" />
+        <form:errors cssClass = "error" path = "creditCard.brandName" />
 		<br />
 		
 		<form:label path = "creditcard.number">
@@ -43,7 +43,7 @@
 		<spring:bind path="creditcard.number">
    			<input type="text" name="${status.expression}" value="${status.value}" placeholder = "xxxxxxxxxxxxxxxx"><br />
         </spring:bind>
-		<form:errors cssClass = "error" path = "creditcard.number" />
+		<form:errors cssClass = "error" path = "creditCard.number" />
 		<br />
 		
 		<form:label path = "creditcard.expirationMonth">
@@ -52,7 +52,7 @@
 		<spring:bind path="creditcard.expirationMonth">
    			<input type="text" name="${status.expression}" value="${status.value}" placeholder = "xx"><br />
         </spring:bind>
-        <form:errors cssClass = "error" path = "creditcard.expirationMonth" />
+        <form:errors cssClass = "error" path = "creditCard.expirationMonth" />
 		<br />
 		
 		<form:label path = "creditcard.expirationYear">
@@ -61,7 +61,7 @@
 		<spring:bind path="creditcard.expirationYear">
    			<input type="text" name="${status.expression}" value="${status.value}" placeholder = "xx"><br />
         </spring:bind>		
-        <form:errors cssClass = "error" path = "creditcard.expirationYear" />
+        <form:errors cssClass = "error" path = "creditCard.expirationYear" />
 		<br />
 		
 		<form:label path = "creditcard.cvv">
@@ -70,7 +70,7 @@
 		<spring:bind path="creditcard.cvv">
    			<input type="text" name="${status.expression}" value="${status.value}" placeholder = "xxx"><br />
         </spring:bind>
-		<form:errors cssClass = "error" path = "creditcard.cvv" />
+		<form:errors cssClass = "error" path = "creditCard.cvv" />
 		<br />
 		<input type = "submit" name = "save" value = "<spring:message code = "sponsorship.save"/>" />
 </form>
