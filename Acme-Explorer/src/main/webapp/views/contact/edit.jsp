@@ -8,60 +8,51 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form
-	action="category/admin/edit.do"
-	modelAttribute ="category">
+<form:form id = "form" action="contact/explorer/edit.do" modelAttribute ="contact">
 	
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="categories"/>
-	<%-- <form:hidden path="trips"/> --%>
 	
 	
 	<form:label path="name">
-		<spring:message code="category.name"/>
+		<spring:message code="contact.name"/>
 	</form:label>
 	<form:input path="name"/>
 	<form:errors cssClass="error" path="name"/>
 	<br/>
 	
-	<form:label path="fatherCategory">
-		<spring:message code="category.fatherCategory"/>
+	<form:label path="email">
+		<spring:message code="contact.email"/>
 	</form:label>
-	<form:select path="fatherCategory">
+	<form:input path="email"/>
+	<form:errors cssClass="error" path="email"/>
+	<br/>
 	
-		<form:option value="${rootCategory.id}"> <!-- Variable pasada por el modelo -->
-			<spring:message code = "category.root"/>
-		</form:option>
-		<jstl:forEach var="categoryIf" items="${categories}"> <!-- Variable del controlador -->
-		<jstl:if test="${categoryIf.name != \"CATEGORY\"}">
-			<form:option value="${categoryIf.id}">
-				<jstl:out value="${categoryIf.name}"/> 	
-			</form:option>
-		</jstl:if>
-		</jstl:forEach>
-		
-	</form:select>
-	<form:errors cssClass="error" path="fatherCategory"/>
+	<form:label path="phoneNumber">
+		<spring:message code="contact.phoneNumber"/>
+	</form:label>
+	<form:input id = "phoneNumber" path="phoneNumber"/>
+	<form:errors cssClass="error" path="phoneNumber"/>
 	<br/>
 	
 	<input 
 		type="submit"
 		name="save"
-		value="<spring:message code="category.save" />" />
+		value="<spring:message code="contact.save" />" 
+		onclick = "return validate('<spring:message code = "contact.confirm.phone"/>')"/>
 		
-	<jstl:if test="${category.id!=0}">
+	<jstl:if test="${contact.id!=0}">
 		<input 
 			type="submit"
 			name="delete"
-			value="<spring:message code="category.delete" />"
-			onclick="return confirm('<spring:message code='category.confirm.delete' />') "/>
+			value="<spring:message code="contact.delete" />"
+			onclick="return confirm('<spring:message code='contact.confirm.delete' />') "/>
 	</jstl:if>
 	
 	<input 
 		type="button"
 		name="cancel"
-		value="<spring:message code="category.cancel" />"
-		onclick="javascript: relativeRedir('category/list.do');" />
+		value="<spring:message code="contact.cancel" />"
+		onclick="javascript: relativeRedir('contact/explorer/list.do');" />
 
 </form:form>
