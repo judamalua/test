@@ -438,8 +438,10 @@ public class TripService {
 	public Page<Trip> findTripsBySearchParameters(final String q, final Double pricelow, final Double pricehigh, final Date date1, final Date date2, final Pageable pageable, final int isAnonymous) {
 		final Page<Trip> t1;
 		final Search s = new Search();
-		if (q.equals("") || q == null)
-			s.setKeyWord("No find parameter");
+		if (q == null || q.equals(""))
+			s.setKeyWord("None");
+		else
+			s.setKeyWord(q);
 		s.setPriceRangeStart(pricelow);
 		s.setPriceRangeEnd(pricehigh);
 		s.setDateRangeEnd(date2);
