@@ -73,10 +73,13 @@ public class CategoryService {
 
 	public Category save(final Category category) {
 		this.actorService.checkUserLogin();
-		//this.checkCategory(category);
+		this.checkCategory(category);
 		Category rootCategory;
 		final Collection<Trip> trips;
-		trips = this.tripService.findTripsByCategoryId(category.getId());
+		if (category.getId() != 0)
+			trips = this.tripService.findTripsByCategoryId(category.getId());
+		else
+			trips = new HashSet<Trip>();
 
 		rootCategory = this.categoryRepository.findRootCategory();
 

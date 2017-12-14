@@ -2,7 +2,6 @@
 package controllers.admin;
 
 import java.util.Collection;
-import java.util.HashSet;
 
 import javax.validation.Valid;
 
@@ -110,21 +109,20 @@ public class CategoryAdminController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Category category, final String messageCode) {
 		ModelAndView result;
-		Collection<Trip> trips;
+		final Collection<Trip> trips;
 		final Category rootCategory;
 		final Collection<Category> categories;
 		int categoryId;
 
 		categoryId = category.getId();
-		if (category.getId() != 0)
-			trips = this.tripService.findAllTripsByCategoryId(categoryId);
-		else
-			trips = new HashSet<Trip>();
+
+		//trips = this.tripService.findAllTripsByCategoryId(categoryId);
+
 		rootCategory = this.categoryService.getRootCategory();
 		categories = this.categoryService.findAll();
 
 		result = new ModelAndView("category/edit");
-		result.addObject("trips", trips);
+		//result.addObject("trips", trips);
 		result.addObject("rootCategory", rootCategory);
 		result.addObject("categories", categories);
 		result.addObject("category", category);

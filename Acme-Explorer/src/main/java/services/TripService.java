@@ -483,7 +483,7 @@ public class TripService {
 	}
 
 	public Collection<Trip> findAllTripsByCategoryId(final int id) {
-		Assert.isTrue(id != 0);
+		//Assert.isTrue(id != 0);
 		Collection<Trip> result;
 
 		result = this.tripRepository.findAllTripsByCategoryId(id);
