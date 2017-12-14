@@ -119,26 +119,27 @@ public class CategoryService {
 
 		Assert.isTrue(this.categoryRepository.exists(category.getId()));
 
-		// Al eliminar una categoría, referenciamos los viajes a su categoría padre.
+		fatherCategory.getCategories().remove(category);
+		this.save(fatherCategory);
+		// Eliminamos recursivamente todas las categorías hijas de las categorías hija de la categoría a eliminar
+		result = this.deleteChildrenCategories(category, category);
+
+		//		 Al eliminar una categoría, referenciamos los viajes a su categoría padre.
 		//		for (final Trip t : trips) {
-		//			t.setCategory(category.getFatherCategory());
+		//			t.setCategory(fatherCategory);
 		//			this.tripService.save(t);
 		//		}
-
-		// Eliminamos recursivamente todas las categorías hijas de las categorías hija de la categoría a eliminar
-		result = this.deleteChildrenCategories(category);
-
 		// Al eliminar una categoría, referenciamos sus categorías hijas a su categoría padre.
 		//		for (final Category c : categories) {
 		//			c.setFatherCategory(category.getFatherCategory());
 		//			this.save(c);
 		//		}
 
-		fatherCategoryCategories.remove(category);
-		fatherCategory.setCategories(fatherCategoryCategories);
-		this.save(fatherCategory);
-
-		this.categoryRepository.delete(result);
+		//		fatherCategoryCategories.remove(category);
+		//		fatherCategory.setCategories(fatherCategoryCategories);
+		//		this.save(fatherCategory);
+		//
+		//		this.categoryRepository.delete(result);
 
 	}
 	// Other methods --------------------------------------------------
@@ -252,32 +253,41 @@ public class CategoryService {
 	 * @param category
 	 *            to delete its children categories
 	 * 
-	 * @author Juanmi & Manu
+	 * @author Juanmi & Manu &&& AleMagician
 	 */
-	private Category deleteChildrenCategories(final Category category) {
-		final Collection<Category> categories, categoriesCopy;
+	private Category deleteChildrenCategories(final Category category, final Category initialCategory) {
+		final Collection<Category> categories;
 		Category result;
 		Collection<Trip> trips;
 
 		result = category;
 		categories = category.getCategories();
-		categoriesCopy = new HashSet<Category>(category.getCategories());
-		trips = this.tripService.findTripsByCategoryId(category.getId());
+		trips = this.tripService.findAllTripsByCategoryId(category.getId());
 
 		if (categories.isEmpty()) {
 			for (final Trip t : trips) {
-				t.setCategory(category.getFatherCategory());
+				t.setCategory(initialCategory.getFatherCategory());
 				this.tripService.save(t);
 			}
-			this.categoryRepository.delete(category);
-		} else
-			for (final Category c : categoriesCopy) {
-				categories.remove(c);
-				category.setCategories(categories);
-				result = this.save(category);
-				this.deleteChildrenCategories(c);
-			}
 
+			final Category fatherCategory = category.getFatherCategory();
+			fatherCategory.getCategories().remove(category);
+			this.save(fatherCategory);
+
+			this.categoryRepository.delete(category);
+
+		} else {
+			for (final Category c : categories)
+				this.deleteChildrenCategories(c, initialCategory);
+
+			categories.clear();
+			category.setCategories(categories);
+			result = this.save(category);
+			this.deleteChildrenCategories(category, initialCategory);
+
+			this.categoryRepository.delete(category);
+
+		}
 		return result;
 	}
 }

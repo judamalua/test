@@ -21,6 +21,9 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select t from Trip t where t.category.id = ?1 and t.publicationDate < CURRENT_DATE")
 	Collection<Trip> findTripsByCategoryId(int id);
 
+	@Query("select t from Trip t where t.category.id = ?1")
+	Collection<Trip> findAllTripsByCategoryId(int id);
+
 	@Query("select min(t.notes.size), max(t.notes.size), avg(t.notes.size), sqrt(sum(t.notes.size * t.notes.size) / count(t.notes.size) - (avg(t.notes.size) * avg(t.notes.size))) from Trip t")
 	Collection<String> getInfoNotesFromTrips();
 
