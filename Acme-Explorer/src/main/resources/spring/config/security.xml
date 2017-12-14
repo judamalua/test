@@ -86,6 +86,8 @@
 		<security:intercept-url pattern="/miscellaneousRecord/ranger/**" access="hasRole('RANGER')" />
 		<security:intercept-url pattern="/educationRecord/ranger/**" access="hasRole('RANGER')" />
 		
+		<security:intercept-url pattern="/configuration/admin/**" access="hasRole('ADMIN')" /> 
+		
 		<security:intercept-url pattern="/sponsorship/sponsor/**" access="hasRole('SPONSOR')" /> 
 		<security:intercept-url pattern="/sponsorship/manager/**" access="hasRole('MANAGER')" /> 
 		

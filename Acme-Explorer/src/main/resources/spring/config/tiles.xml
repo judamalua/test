@@ -43,6 +43,7 @@
 		<value>/views/story/tiles.xml</value>
 		<value>/views/search/tiles.xml</value>
 		<value>/views/contact/tiles.xml</value>		
+		<value>/views/configuration/tiles.xml</value>		
 			
 	</util:list>
 
