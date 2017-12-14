@@ -82,7 +82,9 @@ public class ActorService {
 		UserAccount userAccount;
 		Actor loggedActor;
 		Actor result;
+		String phoneNumberPrefix;
 
+		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		loggedActor = this.actorRepository.findActorByUserAccountId(userAccount.getId());
@@ -95,6 +97,19 @@ public class ActorService {
 			if (actor.getIsBanned() != this.actorRepository.findOne(actor.getId()).getIsBanned())
 				if (actor.getIsBanned() == true)
 					Assert.isTrue(actor.isSuspicious());
+
+		// Si el número de teléfono no tiene prefijo, se añade el de configuración por defecto.
+		if (!actor.getPhoneNumber().trim().startsWith("+") && !actor.getPhoneNumber().equals("")) {
+			String trimmedPhoneNumber;
+			String finalPhoneNumber;
+
+			trimmedPhoneNumber = actor.getPhoneNumber().trim();
+
+			finalPhoneNumber = phoneNumberPrefix + " " + trimmedPhoneNumber;
+
+			actor.setPhoneNumber(finalPhoneNumber);
+
+		}
 
 		result = this.actorRepository.save(actor);
 
@@ -122,6 +137,9 @@ public class ActorService {
 		UserAccount savedUserAccount;
 		String password;
 		Md5PasswordEncoder encoder;
+		String phoneNumberPrefix;
+
+		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();
 
 		Assert.notNull(r.getUserAccount());
 		Assert.isTrue(!this.userAccountService.findAll().contains(r.getUserAccount()));
@@ -132,6 +150,19 @@ public class ActorService {
 		password = r.getUserAccount().getPassword();
 		password = encoder.encodePassword(password, null);
 		r.getUserAccount().setPassword(password);
+
+		// Si el número de teléfono no tiene prefijo, se añade el de configuración por defecto.
+		if (!r.getPhoneNumber().trim().startsWith("+") && !r.getPhoneNumber().equals("")) {
+			String trimmedPhoneNumber;
+			String finalPhoneNumber;
+
+			trimmedPhoneNumber = r.getPhoneNumber().trim();
+
+			finalPhoneNumber = phoneNumberPrefix + " " + trimmedPhoneNumber;
+
+			r.setPhoneNumber(finalPhoneNumber);
+
+		}
 
 		savedUserAccount = this.userAccountService.save(r.getUserAccount());
 
@@ -151,12 +182,28 @@ public class ActorService {
 		final UserAccount savedUserAccount;
 		String password;
 		Md5PasswordEncoder encoder;
+		String phoneNumberPrefix;
+
+		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();
 
 		encoder = new Md5PasswordEncoder();
 
 		password = e.getUserAccount().getPassword();
 		password = encoder.encodePassword(password, null);
 		e.getUserAccount().setPassword(password);
+
+		// Si el número de teléfono no tiene prefijo, se añade el de configuración por defecto.
+		if (!e.getPhoneNumber().trim().startsWith("+") && !e.getPhoneNumber().equals("")) {
+			String trimmedPhoneNumber;
+			String finalPhoneNumber;
+
+			trimmedPhoneNumber = e.getPhoneNumber().trim();
+
+			finalPhoneNumber = phoneNumberPrefix + " " + trimmedPhoneNumber;
+
+			e.setPhoneNumber(finalPhoneNumber);
+
+		}
 
 		savedUserAccount = this.userAccountService.save(e.getUserAccount());
 

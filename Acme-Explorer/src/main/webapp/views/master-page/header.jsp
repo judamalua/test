@@ -89,8 +89,6 @@
 								code="master.page.survivalClassListManaged" /></a></li>
 					<%-- 					<li><a href="category/list.do"><spring:message --%>
 					<%-- 								code="master.page.categoryList" /></a></li> --%>
-					<li><a href="sponsorship/manager/list.do"><spring:message
-								code="master.page.sponsorshipList" /></a></li>
 					<li><a href="actor/manager/edit.do"><spring:message
 								code="master.page.actorEdit" /></a></li>
 				</ul></li>

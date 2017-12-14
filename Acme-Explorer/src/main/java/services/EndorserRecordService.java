@@ -25,6 +25,9 @@ public class EndorserRecordService {
 	@Autowired
 	private CurriculumService			curriculumService;
 
+	@Autowired
+	private ConfigurationService		configurationService;
+
 
 	// Supporting services --------------------------------------------------
 
@@ -65,7 +68,24 @@ public class EndorserRecordService {
 		assert endorserRecord != null;
 
 		EndorserRecord result;
+		String phoneNumberPrefix;
+
+		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();
+
 		final Curriculum c = this.curriculumService.findCurriculumByRangerID();
+
+		// Si el número de teléfono no tiene prefijo, se añade el de configuración por defecto.
+		if (!endorserRecord.getPhoneNumber().trim().startsWith("+")) {
+			String trimmedPhoneNumber;
+			String finalPhoneNumber;
+
+			trimmedPhoneNumber = endorserRecord.getPhoneNumber().trim();
+
+			finalPhoneNumber = phoneNumberPrefix + " " + trimmedPhoneNumber;
+
+			endorserRecord.setPhoneNumber(finalPhoneNumber);
+
+		}
 
 		result = this.endorserRecordRepository.save(endorserRecord);
 		if (c.getEndorserRecords().contains(endorserRecord))
