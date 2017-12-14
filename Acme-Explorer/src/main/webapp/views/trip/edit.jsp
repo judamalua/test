@@ -44,13 +44,6 @@
 	<form:errors cssClass="error" path="description" />
 	<br />
 
-	<%-- 	<form:label path="price"> --%>
-	<%-- 		<spring:message code="trip.price"/> --%>
-	<%-- 	</form:label> --%>
-	<%-- 	<form:input path="price"/> --%>
-	<%-- 	<form:errors cssClass = "error" path = "price" /> --%>
-	<!-- 	<br /> -->
-
 	<form:label path="requirements">
 		<spring:message code="trip.requirements" />
 	</form:label>
@@ -98,9 +91,6 @@
 		<spring:message code="trip.ranger" />
 	</form:label>
 	<form:select path="ranger">
-		<form:option value="0">
-			----------
-		</form:option>
 		<jstl:forEach var="ranger" items="${rangers}">
 			<!-- Variable del controlador -->
 			<form:option value="${ranger.id}">
@@ -169,14 +159,13 @@
 		<spring:message code="trip.category" />
 	</form:label>
 	<form:select multiple="true" path="category">
-		<form:option value="0">
-			----------
-		</form:option>
 		<jstl:forEach var="category" items="${categories}">
 			<!-- Variable del controlador -->
-			<form:option value="${category.id}">
-				<jstl:out value="${category.name}" />
-			</form:option>
+			<jstl:if test="${category.name!=\"CATEGORY\"}">
+				<form:option value="${category.id}">
+					<jstl:out value="${category.name}" />
+				</form:option>
+			</jstl:if>
 		</jstl:forEach>
 	</form:select>
 	<form:errors cssClass="error" path="category" />

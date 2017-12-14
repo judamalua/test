@@ -94,7 +94,7 @@ public class StageService {
 		trip = this.tripService.getTripFromStageId(stage.getId());
 
 		Assert.notNull(trip);
-
+		Assert.isTrue(trip.getStages().size() != 1);
 		Assert.isTrue(this.stageRepository.exists(stage.getId()));
 
 		trip.getStages().remove(stage);

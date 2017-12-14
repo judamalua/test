@@ -158,7 +158,7 @@ public class TripManagerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = {
 		"save", "titleStage", "descriptionStage", "priceStage"
 	})
-	public ModelAndView save(@Valid final Trip trip, @ModelAttribute("titleStage") @NotBlank final String titleStage, @ModelAttribute("descriptionStage") final String descriptionStage, @ModelAttribute("priceStage") @NotBlank final double priceStage,
+	public ModelAndView create(@Valid final Trip trip, @ModelAttribute("titleStage") @NotBlank final String titleStage, @ModelAttribute("descriptionStage") final String descriptionStage, @ModelAttribute("priceStage") @NotBlank final double priceStage,
 		final BindingResult binding) {
 		ModelAndView result;
 		Stage stage;

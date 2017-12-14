@@ -426,7 +426,7 @@
 </security:authorize>
 
 <security:authorize access="hasRole('AUDITOR')">
-	<jstl:if test="${trip.publicationDate<currentDate and trip.cancelReason!=null or trip.cancelReason==\"\"}">
+	<jstl:if test="${trip.publicationDate<currentDate and (trip.cancelReason==null or trip.cancelReason==\"\")}">
 		<a href="auditRecord/auditor/create.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="auditRecord.create" />
