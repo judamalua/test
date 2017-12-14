@@ -25,6 +25,11 @@
 			<spring:message code = "actor.ban"/>
 		</a>
 	</jstl:if>
+	<jstl:if test="${row.isBanned}">
+		<a href = "actor/admin/unban.do?actorId=${row.id}">
+			<spring:message code = "actor.unban"/>
+		</a>
+	</jstl:if>
 	</display:column>
 	
 </display:table>
