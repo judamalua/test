@@ -96,4 +96,53 @@ public class Search extends DomainEntity {
 	public void setSearchMoment(final Date searchMoment) {
 		this.searchMoment = searchMoment;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((this.dateRangeEnd == null) ? 0 : this.dateRangeEnd.hashCode());
+		result = prime * result + ((this.dateRangeStart == null) ? 0 : this.dateRangeStart.hashCode());
+		result = prime * result + ((this.keyWord == null) ? 0 : this.keyWord.hashCode());
+		result = prime * result + ((this.priceRangeEnd == null) ? 0 : this.priceRangeEnd.hashCode());
+		result = prime * result + ((this.priceRangeStart == null) ? 0 : this.priceRangeStart.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (this.getClass() != obj.getClass())
+			return false;
+		final Search other = (Search) obj;
+		if (this.dateRangeEnd == null) {
+			if (other.dateRangeEnd != null)
+				return false;
+		} else if (!this.dateRangeEnd.equals(other.dateRangeEnd))
+			return false;
+		if (this.dateRangeStart == null) {
+			if (other.dateRangeStart != null)
+				return false;
+		} else if (!this.dateRangeStart.equals(other.dateRangeStart))
+			return false;
+		if (this.keyWord == null) {
+			if (other.keyWord != null)
+				return false;
+		} else if (!this.keyWord.equals(other.keyWord))
+			return false;
+		if (this.priceRangeEnd == null) {
+			if (other.priceRangeEnd != null)
+				return false;
+		} else if (!this.priceRangeEnd.equals(other.priceRangeEnd))
+			return false;
+		if (this.priceRangeStart == null) {
+			if (other.priceRangeStart != null)
+				return false;
+		} else if (!this.priceRangeStart.equals(other.priceRangeStart))
+			return false;
+		return true;
+	}
 }
