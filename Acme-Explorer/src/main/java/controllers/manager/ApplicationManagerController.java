@@ -77,10 +77,12 @@ public class ApplicationManagerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int applicationId) {
 		ModelAndView result;
 		Application application;
-
-		application = this.applicationService.findOne(applicationId);
-
-		result = this.createEditModelAndView(application);
+		try {
+			application = this.applicationService.findOne(applicationId);
+			result = this.createEditModelAndView(application);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:misc/index.do");
+		}
 
 		return result;
 	}

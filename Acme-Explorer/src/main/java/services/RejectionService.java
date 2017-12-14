@@ -16,6 +16,7 @@ import domain.Actor;
 import domain.Application;
 import domain.Manager;
 import domain.Rejection;
+import domain.Trip;
 
 @Service
 @Transactional
@@ -69,6 +70,24 @@ public class RejectionService {
 		Rejection result;
 
 		result = this.rejectionRepository.findOne(rejectionId);
+
+		return result;
+
+	}
+
+	public Rejection findOneToEdit(final int rejectionId) {
+
+		Rejection result;
+		Actor actor;
+		Collection<Trip> trips;
+
+		actor = this.actorService.findActorByPrincipal();
+		trips = this.managerService.findTripsByManager(actor.getId());
+
+		result = this.rejectionRepository.findOne(rejectionId);
+
+		Assert.isTrue(actor instanceof Manager);
+		Assert.isTrue(trips.contains(result.getApplication().getTrip()));
 
 		return result;
 

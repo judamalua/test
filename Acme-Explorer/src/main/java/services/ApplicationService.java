@@ -113,19 +113,17 @@ public class ApplicationService {
 		Assert.notNull(actor);
 		Assert.isTrue(applicationId != 0);
 		Assert.isTrue(this.applicationRepository.exists(applicationId));
-		//Assert.isTrue(actor instanceof Explorer);
-
-		//		 authority = new Authority();
-		//		authority.setAuthority(Authority.EXPLORER);
-		//		Assert.isTrue(userAccount.getAuthorities().contains(authority));
 
 		result = this.applicationRepository.findOne(applicationId);
+		Assert.notNull(result);
 
 		if (actor instanceof Explorer) {
 			explorer = (Explorer) actor;
+			Assert.isTrue(!result.getStatus().equals("CANCELLED") || !result.getStatus().equals("REJECTED"));
 			Assert.isTrue(explorer.getApplications().contains(result));
 		} else {
 			manager = (Manager) actor;
+			Assert.isTrue(result.getRejection() == null || result.getRejection().getReason() == "");
 			Assert.isTrue(this.managerService.findManagedApplicationsByManager(manager).contains(result));
 		}
 
@@ -150,9 +148,9 @@ public class ApplicationService {
 			Assert.isTrue(!application.getCreditCard().getBrandName().equals("NONE"));
 			Assert.isTrue(!application.getCreditCard().getHolderName().equals("NONE"));
 			Assert.isTrue(!application.getCreditCard().getNumber().equals("0000000000000000"));
-		} else if (status.equals("CANCELLED")){
+		} else if (status.equals("CANCELLED"))
 			Assert.isTrue(application.getStatus().equals("ACCEPTED"));
-		}else if (status.equals("REJECTED"))
+		else if (status.equals("REJECTED"))
 			Assert.isTrue(!application.getStatus().equals("REJECTED"));
 
 		if (!application.getStatus().equals(status)) {
