@@ -55,8 +55,12 @@ public class ContactService {
 	public Contact findOne(final int contactId) {
 
 		Contact result;
+		final Explorer e = (Explorer) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
 
 		result = this.contactRepository.findOne(contactId);
+
+		if (contactId != 0)
+			Assert.isTrue(e.getContacts().contains(result));
 
 		return result;
 
@@ -72,6 +76,11 @@ public class ContactService {
 		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();
 
 		final Explorer e = (Explorer) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
+
+		if (contact.getId() != 0)
+			Assert.isTrue(e.getContacts().contains(contact));
+
+		Assert.isTrue(!((contact.getEmail() == "" || contact.getEmail() == null) && (contact.getPhoneNumber() == "" || contact.getPhoneNumber() == null)));
 
 		// Si el número de teléfono no tiene prefijo, se añade el de configuración por defecto.
 		if (!contact.getPhoneNumber().trim().startsWith("+") && !contact.getPhoneNumber().equals("")) {

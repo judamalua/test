@@ -8,7 +8,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form id = "form" onsubmit = "return validateEmailAndPhone('<spring:message code = 'contact.email.phone.alert'/>')" action="contact/explorer/edit.do" modelAttribute ="contact">
+<form:form id = "form" action="contact/explorer/edit.do" modelAttribute ="contact">
 	
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
@@ -56,3 +56,9 @@
 		onclick="javascript: relativeRedir('contact/explorer/list.do');" />
 
 </form:form>
+
+<jstl:if test="${error}">
+<div class = "message">
+	<spring:message code = "contact.email.phone.alert"/>
+</div>
+</jstl:if>

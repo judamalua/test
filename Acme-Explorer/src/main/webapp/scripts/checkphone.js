@@ -1,7 +1,6 @@
 function validate(message) {
 	var f = document.getElementById("form");
-	validatePhone(f, message);
-	return checkEmailAndPhone(f, message);
+	return validatePhone(f, message);
 }
 
 function validatePhone(form, message) {
@@ -25,23 +24,23 @@ function validatePhone(form, message) {
 	return result;
 }
 
-function validateEmailAndPhone(message) {
-	var f = document.getElementById("form");
-	return checkEmailAndPhone(f, message);
-}
-
-function checkEmailAndPhone(form, message) {
-	var result = true;
-	var email = form["email"].value;
-	var phoneNumber = form["phoneNumber"].value;
-
-	if (email === "" && phoneNumber === "") {
-		result = false;
-		alert(message);
-	}
-
-	return result;
-}
+// function validateEmailAndPhone(message) {
+// var f = document.getElementById("form");
+// return checkEmailAndPhone(f, message);
+// }
+//
+// function checkEmailAndPhone(form, message) {
+// var result = true;
+// var email = form["email"].value;
+// var phoneNumber = form["phoneNumber"].value;
+//
+// if (email === "" && phoneNumber === "") {
+// result = false;
+// alert(message);
+// }
+//
+// return result;
+// }
 
 function updateSymbol(e) {
 	var selected = $(".currency-selector option:selected");

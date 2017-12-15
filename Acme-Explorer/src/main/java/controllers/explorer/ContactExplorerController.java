@@ -60,9 +60,13 @@ public class ContactExplorerController extends AbstractController {
 		ModelAndView result;
 		Contact contact;
 
-		contact = this.contactService.findOne(contactId);
-		Assert.notNull(contact);
-		result = this.createEditModelAndView(contact);
+		try {
+			contact = this.contactService.findOne(contactId);
+			Assert.notNull(contact);
+			result = this.createEditModelAndView(contact);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}
@@ -85,6 +89,7 @@ public class ContactExplorerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Contact contact, final BindingResult binding) {
 		ModelAndView result;
+		final Boolean error = true;
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(contact, "contact.params.error");
@@ -95,6 +100,8 @@ public class ContactExplorerController extends AbstractController {
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(contact, "contact.commit.error");
+				if ((contact.getEmail() == "" || contact.getEmail() == null) && (contact.getPhoneNumber() == "" || contact.getPhoneNumber() == null))
+					result.addObject("error", error);
 			}
 
 		return result;
