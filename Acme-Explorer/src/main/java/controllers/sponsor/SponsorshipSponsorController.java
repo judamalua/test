@@ -5,6 +5,8 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -112,16 +114,15 @@ public class SponsorshipSponsorController extends AbstractController {
 	// Saving --------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(final Sponsorship sponsorship, final BindingResult binding) {
+	public ModelAndView save(@Valid final Sponsorship sponsorship, final BindingResult binding) {
 
 		ModelAndView result;
 
 		if (sponsorship.getCreditCard() == null) {
 			if (this.chechErrorsBinding(binding))
 				result = this.createEditModelAndView(sponsorship, "auditRecord.commit.error");
-			else {
-			}
-			result = new ModelAndView("redirect:addCreditCard.do?bannerUrl=" + sponsorship.getBannerUrl() + "&additionalInfoLink=" + sponsorship.getAdditionalInfoLink() + "&tripId=" + sponsorship.getTrip().getId());
+			else
+				result = new ModelAndView("redirect:addCreditCard.do?bannerUrl=" + sponsorship.getBannerUrl() + "&additionalInfoLink=" + sponsorship.getAdditionalInfoLink() + "&tripId=" + sponsorship.getTrip().getId());
 		} else if (binding.hasErrors())
 			result = this.createEditModelAndView(sponsorship);
 		else
@@ -137,7 +138,7 @@ public class SponsorshipSponsorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/addCreditCard", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveAddCreditCard(final String bannerUrl, final String additionalInfoLink, final int tripId, @Valid final CreditCard creditCard, final BindingResult binding) {
+	public ModelAndView saveAddCreditCard(@Valid @URL @NotBlank final String bannerUrl, @Valid @URL @NotBlank final String additionalInfoLink, final int tripId, @Valid final CreditCard creditCard, final BindingResult binding) {
 
 		ModelAndView result;
 
@@ -206,8 +207,10 @@ public class SponsorshipSponsorController extends AbstractController {
 	private boolean chechErrorsBinding(final BindingResult binding) {
 		boolean res = false;
 		for (final ObjectError e : binding.getAllErrors())
-			if (e.getObjectName().equals("bannerUrl") || e.getObjectName().equals("additionalInfoLink"))
-				res = true;
+			for (int i = 0; i < e.getCodes().length; i++)
+				if (e.getCodes()[i].toString().toLowerCase().contains("bannerurl") || e.getCodes()[i].toString().toLowerCase().contains("additionalinfolink"))
+					res = true;
+
 		return res;
 	}
 }

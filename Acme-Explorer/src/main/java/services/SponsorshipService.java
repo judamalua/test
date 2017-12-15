@@ -9,13 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.SponsorshipRepository;
+import controllers.AbstractController;
 import domain.Sponsor;
 import domain.Sponsorship;
 import domain.Trip;
 
 @Service
 @Transactional
-public class SponsorshipService {
+public class SponsorshipService extends AbstractController {
 
 	// Managed repository --------------------------------------------------
 
