@@ -266,13 +266,13 @@ public class TripService {
 		Assert.notNull(userAccount);
 		return this.tripRepository.findTripBySurvivalClass(s.getId());
 	}
-	public Collection<String> getInfoNotesFromTrips() {
+	public String getInfoNotesFromTrips() {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 
 		return this.tripRepository.getInfoNotesFromTrips();
 	}
-	public Collection<String> getInfoAuditsFromTrips() {
+	public String getInfoAuditsFromTrips() {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 
@@ -286,14 +286,14 @@ public class TripService {
 	}
 
 	// Requisito funcional 14.6, query C/1.
-	public Collection<String> getApplicationsInfoFromTrips() {
+	public String getApplicationsInfoFromTrips() {
 		this.actorService.checkUserLogin();
 
 		return this.tripRepository.getApplicationsInfoFromTrips();
 	}
 
 	// Requisito funcional 14.6, query C/3.
-	public Collection<String> getPriceInfoFromTrips() {
+	public String getPriceInfoFromTrips() {
 		this.actorService.checkUserLogin();
 
 		return this.tripRepository.getPriceInfoFromTrips();
@@ -316,10 +316,12 @@ public class TripService {
 	// Requisito funcional 14.6, query C/11.
 	public Collection<String> getNumberOfReferencesLegalTexts() {
 		this.actorService.checkUserLogin();
+		Collection<String> result;
 
-		return this.tripRepository.getNumberOfReferencesLegalTexts();
+		result = this.tripRepository.getNumberOfReferencesLegalTexts();
+
+		return result;
 	}
-
 	public Collection<String> getTripTickers() {
 		return this.tripRepository.getTripTickers();
 	}

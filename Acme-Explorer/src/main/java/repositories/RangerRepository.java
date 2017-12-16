@@ -22,7 +22,7 @@ public interface RangerRepository extends JpaRepository<Ranger, Integer> {
 	String getRatioSuspiciousRangers();
 
 	@Query("select min(r.trips.size), max(r.trips.size), avg(r.trips.size), sqrt(sum(r.trips.size * r.trips.size) / count(r.trips.size) - (avg(r.trips.size) * avg(r.trips.size))) from Ranger r")
-	Collection<String> getTripsInfoFromRanger();
+	String getTripsInfoFromRanger();
 
 	@Query("select r from Ranger r where r.suspicious = true")
 	Collection<Ranger> findSuspiciousRangers();

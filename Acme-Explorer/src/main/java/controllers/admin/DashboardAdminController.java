@@ -46,12 +46,13 @@ public class DashboardAdminController extends AbstractController {
 
 	@RequestMapping("/list")
 	public ModelAndView list() {
-		ModelAndView result;
+		final ModelAndView result;
 		final String ratioApplicationsPending, ratioApplicationsDue, ratioApplicationsAccepted, ratioApplicationsCancelled, ratioTripsCancelled, ratioAuditRecordTrip, ratioRangerCurricula, ratioRangerEndorsedCurricula, ratioSuspiciousManager, ratioSuspiciousRangers;
-		Collection<String> applicationsPerTrip;
-		final Collection<String> numberReferencesLegalText, numberNotesPerTrip, auditRecordsPerTrip;
-		final Collection<String> tripsManagedPerManager, tripsPrice, tripsGuidedPerRanger;
-		Collection<Trip> tripsMoreApplications;
+		final String applicationsPerTrip;
+		final String numberNotesPerTrip, auditRecordsPerTrip;
+		final String tripsManagedPerManager, tripsPrice, tripsGuidedPerRanger;
+		final Collection<Trip> tripsMoreApplications;
+		Collection<String> numberReferencesLegalText;
 
 		applicationsPerTrip = this.tripService.getApplicationsInfoFromTrips();
 		tripsManagedPerManager = this.managerService.getTripsInfoFromManager();
@@ -77,28 +78,28 @@ public class DashboardAdminController extends AbstractController {
 		ratioSuspiciousRangers = this.rangerService.getRatioSuspiciousRangers();
 
 		result = new ModelAndView("dashboard/list");
-		result.addObject("applicationAverage", applicationsPerTrip.toArray()[0]);
-		result.addObject("applicationMinimum", applicationsPerTrip.toArray()[1]);
-		result.addObject("applicationMaximum", applicationsPerTrip.toArray()[2]);
-		result.addObject("applicationStandardDeviation", applicationsPerTrip.toArray()[3]);
+		result.addObject("applicationAverage", applicationsPerTrip.split(",")[2]);
+		result.addObject("applicationMinimum", applicationsPerTrip.split(",")[0]);
+		result.addObject("applicationMaximum", applicationsPerTrip.split(",")[1]);
+		result.addObject("applicationStandardDeviation", applicationsPerTrip.split(",")[3]);
 
-		result.addObject("tripManagerAverage", tripsManagedPerManager.toArray()[0]);
-		result.addObject("tripManagerMinimum", tripsManagedPerManager.toArray()[1]);
-		result.addObject("tripManagerMaximum", tripsManagedPerManager.toArray()[2]);
-		result.addObject("tripManagerStandardDeviation", tripsManagedPerManager.toArray()[3]);
+		result.addObject("tripManagerAverage", tripsManagedPerManager.split(",")[2]);
+		result.addObject("tripManagerMinimum", tripsManagedPerManager.split(",")[0]);
+		result.addObject("tripManagerMaximum", tripsManagedPerManager.split(",")[1]);
+		result.addObject("tripManagerStandardDeviation", tripsManagedPerManager.split(",")[3]);
 
-		result.addObject("tripPriceAverage", tripsPrice.toArray()[0]);
-		result.addObject("tripPriceMinimum", tripsPrice.toArray()[1]);
-		result.addObject("tripPriceMaximum", tripsPrice.toArray()[2]);
-		result.addObject("tripPriceStandardDeviation", tripsPrice.toArray()[3]);
+		result.addObject("tripPriceAverage", tripsPrice.split(",")[2]);
+		result.addObject("tripPriceMinimum", tripsPrice.split(",")[0]);
+		result.addObject("tripPriceMaximum", tripsPrice.split(",")[1]);
+		result.addObject("tripPriceStandardDeviation", tripsPrice.split(",")[3]);
 
 		result.addObject("tripsMoreApplications", tripsMoreApplications);
-		result.addObject("numberReferecesLegalText", numberReferencesLegalText);
+		result.addObject("numberReferencesLegalText", numberReferencesLegalText);
 
-		result.addObject("tripRangerAverage", tripsGuidedPerRanger.toArray()[0]);
-		result.addObject("tripRangerMinimum", tripsGuidedPerRanger.toArray()[1]);
-		result.addObject("tripRangerMaximum", tripsGuidedPerRanger.toArray()[2]);
-		result.addObject("tripRangerStandardDeviation", tripsGuidedPerRanger.toArray()[3]);
+		result.addObject("tripRangerAverage", tripsGuidedPerRanger.split(",")[2]);
+		result.addObject("tripRangerMinimum", tripsGuidedPerRanger.split(",")[0]);
+		result.addObject("tripRangerMaximum", tripsGuidedPerRanger.split(",")[1]);
+		result.addObject("tripRangerStandardDeviation", tripsGuidedPerRanger.split(",")[3]);
 
 		result.addObject("ratioApplicationPending", ratioApplicationsPending);
 		result.addObject("ratioApplicationDue", ratioApplicationsDue);
@@ -108,15 +109,15 @@ public class DashboardAdminController extends AbstractController {
 		result.addObject("tripRangerAverage", ratioTripsCancelled);
 		result.addObject("numTrips", this.tripService.findAll().size());
 
-		result.addObject("tripNoteAverage", numberNotesPerTrip.toArray()[0]);
-		result.addObject("tripNoteMinimum", numberNotesPerTrip.toArray()[1]);
-		result.addObject("tripRangerMaximum", numberNotesPerTrip.toArray()[2]);
-		result.addObject("tripRangerStandardDeviation", numberNotesPerTrip.toArray()[3]);
+		result.addObject("tripNoteAverage", numberNotesPerTrip.split(",")[2]);
+		result.addObject("tripNoteMinimum", numberNotesPerTrip.split(",")[0]);
+		result.addObject("tripRangerMaximum", numberNotesPerTrip.split(",")[1]);
+		result.addObject("tripRangerStandardDeviation", numberNotesPerTrip.split(",")[3]);
 
-		result.addObject("tripAuditRecordAverage", auditRecordsPerTrip.toArray()[0]);
-		result.addObject("tripAuditRecordMinimum", auditRecordsPerTrip.toArray()[1]);
-		result.addObject("tripAuditRecordMaximum", auditRecordsPerTrip.toArray()[2]);
-		result.addObject("tripAuditRecordStandardDeviation", auditRecordsPerTrip.toArray()[3]);
+		result.addObject("tripAuditRecordAverage", auditRecordsPerTrip.split(",")[2]);
+		result.addObject("tripAuditRecordMinimum", auditRecordsPerTrip.split(",")[2]);
+		result.addObject("tripAuditRecordMaximum", auditRecordsPerTrip.split(",")[1]);
+		result.addObject("tripAuditRecordStandardDeviation", auditRecordsPerTrip.split(",")[3]);
 
 		result.addObject("tripAuditRecordRatio", ratioAuditRecordTrip);
 		result.addObject("CurriculaRatio", ratioRangerCurricula);

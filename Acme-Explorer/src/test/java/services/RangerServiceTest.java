@@ -176,7 +176,7 @@ public class RangerServiceTest extends AbstractTest {
 	public void testgetTripsInfoRanger() {
 		super.authenticate("admin1");
 
-		final Collection<String> s = this.rangerService.getTripsInfoFromRanger();
+		final String s = this.rangerService.getTripsInfoFromRanger();
 
 		Assert.notNull(s);
 		super.unauthenticate();

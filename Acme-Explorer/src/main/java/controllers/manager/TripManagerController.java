@@ -108,7 +108,7 @@ public class TripManagerController extends AbstractController {
 			Assert.notNull(trip);
 			result = this.createEditModelAndView(trip);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/misc/index.do");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;
