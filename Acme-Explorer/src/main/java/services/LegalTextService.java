@@ -54,7 +54,8 @@ public class LegalTextService {
 
 		result = new LegalText();
 		result.setApplicableLaws(applicableLaws);
-		result.setRegistrationDate(c);
+		//result.setRegistrationDate(c);
+		result.setRegistrationDate(new Date(System.currentTimeMillis() - 2000));
 
 		return result;
 	}
@@ -100,11 +101,18 @@ public class LegalTextService {
 		assert legalText != null;
 
 		// Requirement 14.2: A legal text cannot be edited if it is saved in final mode.
-		Assert.isTrue(!legalText.getFinalMode());
+		if (legalText.getId() != 0)
+			if (legalText.getFinalMode())
+				Assert.isTrue(!this.legalTextRepository.findOne(legalText.getId()).getFinalMode());
 
 		LegalText result;
 
 		result = this.legalTextRepository.save(legalText);
+
+		if (legalText.getId() == 0)
+			result.setRegistrationDate(new Date(System.currentTimeMillis() - 2000));
+		else
+			result.setRegistrationDate(legalText.getRegistrationDate());
 
 		return result;
 

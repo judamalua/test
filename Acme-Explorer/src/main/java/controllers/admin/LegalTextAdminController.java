@@ -59,6 +59,7 @@ public class LegalTextAdminController extends AbstractController {
 		try {
 			legalText = this.legalTextService.findOne(legalTextId);
 			Assert.notNull(legalText);
+			Assert.isTrue(!legalText.getFinalMode());
 			result = this.createEditModelAndView(legalText);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
@@ -89,13 +90,13 @@ public class LegalTextAdminController extends AbstractController {
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(legalText, "legalText.params.error");
 		else
-			//			try {
-			this.legalTextService.save(legalText);
-		result = new ModelAndView("redirect:list.do");
+			try {
+				this.legalTextService.save(legalText);
+				result = new ModelAndView("redirect:list.do");
 
-		//			} catch (final Throwable oops) {
-		result = this.createEditModelAndView(legalText, "legalText.commit.error");
-		//			}
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(legalText, "legalText.commit.error");
+			}
 
 		return result;
 	}
@@ -108,13 +109,13 @@ public class LegalTextAdminController extends AbstractController {
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(legalText, "legalText.params.error");
 		else
-			//			try {
-			this.legalTextService.save(legalText);
-		result = new ModelAndView("redirect:list.do");
+			try {
+				this.legalTextService.save(legalText);
+				result = new ModelAndView("redirect:list.do");
 
-		//			} catch (final Throwable oops) {
-		result = this.createEditModelAndView(legalText, "legalText.commit.error");
-		//			}
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(legalText, "legalText.commit.error");
+			}
 
 		return result;
 	}
@@ -126,6 +127,7 @@ public class LegalTextAdminController extends AbstractController {
 		ModelAndView result;
 
 		try {
+			Assert.isTrue(!legalText.getFinalMode());
 			this.legalTextService.delete(legalText);
 			result = new ModelAndView("redirect:list.do");
 
@@ -149,7 +151,7 @@ public class LegalTextAdminController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final LegalText legalText, final String messageCode) {
 		ModelAndView result;
 
-		result = new ModelAndView("contact/edit");
+		result = new ModelAndView("legalText/edit");
 		result.addObject("legalText", legalText);
 
 		result.addObject("message", messageCode);
