@@ -86,6 +86,7 @@ public class SocialIdentityService {
 		SocialIdentity result;
 
 		result = this.socialIdentityRepository.save(socialIdentity);
+		actor.getSocialIdentities().remove(socialIdentity);
 		actor.getSocialIdentities().add(result);
 		this.actorService.save(actor);
 

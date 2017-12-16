@@ -154,6 +154,8 @@
 
 			<li><a href="messageFolder/list.do"><spring:message
 						code="master.page.actorMessageFolder" /></a></li>
+			<li><a class="fNiv" href="socialIdentity/list.do"><spring:message
+						code="master.page.socialIdentities" /></a></li>
 			<li><a href="category/list.do"><spring:message
 						code="master.page.categoryList" /></a></li>
 			<li><a class="fNiv" href="trip/list.do"><spring:message
