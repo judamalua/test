@@ -125,6 +125,8 @@
 								code="master.page.searchs" /></a></li>
 					<li><a href="configuration/admin/list.do"><spring:message
 								code="master.page.configurationList" /></a></li>
+					<li><a href="dashboard/admin/list.do"><spring:message
+								code="master.page.dashboardList" /></a></li>
 				</ul></li>
 		</security:authorize>
 

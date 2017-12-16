@@ -18,7 +18,7 @@ public interface ManagerRepository extends JpaRepository<Manager, Integer> {
 	String getRatioSuspiciousManagers();
 
 	@Query("select min(m.trips.size), max(m.trips.size), avg(m.trips.size), sqrt(sum(m.trips.size * m.trips.size) / count(m.trips.size) - (avg(m.trips.size) * avg(m.trips.size))) from Manager m")
-	Collection<String> getTripsInfoFromManager();
+	String getTripsInfoFromManager();
 
 	@Query("select a from Manager m join m.trips t join t.applications a where m.id=?1")
 	Collection<Application> findApplicationsManagedByManager(int managerId);

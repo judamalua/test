@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ManagerRepository;
-import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Application;
@@ -200,13 +199,12 @@ public class ManagerService {
 	public String getRatioSuspiciousManagers() {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
-		Assert.isTrue(userAccount.getAuthorities().contains(Authority.ADMIN));
 
 		return this.managerRepository.getRatioSuspiciousManagers();
 	}
 
 	// Requisito funcional 14.6, segunda query.
-	public Collection<String> getTripsInfoFromManager() {
+	public String getTripsInfoFromManager() {
 		this.actorService.checkUserLogin();
 
 		return this.managerRepository.getTripsInfoFromManager();

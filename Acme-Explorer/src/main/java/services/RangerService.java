@@ -183,7 +183,7 @@ public class RangerService {
 	}
 
 	// Requisito funcional 14.6, query C/4.
-	public Collection<String> getTripsInfoFromRanger() {
+	public String getTripsInfoFromRanger() {
 		this.actorService.checkUserLogin();
 
 		return this.rangerRepository.getTripsInfoFromRanger();

@@ -8,6 +8,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
 <h4><spring:message code="dashboard.application.number"/></h4>
 <p><spring:message code="dashboard.average"/> : <jstl:out value="${applicationAverage}"></jstl:out></p>
 
@@ -67,15 +68,19 @@
 	<display:column title="${titleApplication}" property="title" />
 </display:table>
 
-<display:table name="legalTexts">
-	<spring:message var="titleLegalText" code="legalText.title"/>
-	<display:column title="${titleLegalText}" property="title" />
-	
-<%-- 	<spring:message var="timesLegalText" code="legalText.times"/> --%>
-<%-- 	<display:column title="${timesLegalText}"> --%>
-<%-- 	</display:column> --%>
+<h4><spring:message code="dashboard.legalText"/></h4>
+<table>
+		<tr>
+			<th><spring:message code="dashboard.legalText"/></th>
+			<th><spring:message code="dashboard.numReferences"/></th>
+		</tr>
+	<jstl:forEach items="${numberReferencesLegalText}" var="row">
+		<tr>
+			<td>${row[0]}</td> <td> ${row[1]} </td>
+		</tr>
+	</jstl:forEach>
 
-</display:table>
+</table>
 
 <h4><spring:message code="dashboard.trip.note"/></h4>
 
