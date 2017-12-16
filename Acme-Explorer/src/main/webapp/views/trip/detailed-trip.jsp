@@ -223,10 +223,11 @@
 		<security:authorize access="hasRole('MANAGER')">
 			<jstl:if test="${hasManager}">
 				<display:column>
-
+				<jstl:if test="${row3.organisationMoment>currentDate}">
 					<a href="survivalClass/manager/edit.do?survivalClassId=${row3.id}">
 						<spring:message code="detailed.trip.edit" />
 					</a>
+				</jstl:if>
 					<jstl:if
 						test="${trip.publicationDate>=currentDate and hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}}">
 						<a

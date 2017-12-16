@@ -62,7 +62,9 @@
 	</jstl:forEach>
 </ul>
 
-<display:table name="trips" id="trip" class="displaytag">
+<display:table name="trips" id="trip" 
+	requestURI="${requestUri}"
+	class="displaytag">
 
 	<spring:message code="trip.title" var="title" />
 	<display:column property="title" title="${title}" sortable="true" />
@@ -98,7 +100,7 @@
 	<jstl:if test="${requestUri==\"trip/manager/list.do\"}"></jstl:if>
 	<fmt:formatDate value="${currDate}" var="currentDate" pattern="yyyy-MM-dd hh:mm:ss"/>
 		<display:column>
-		<jstl:if test="${trip.publicationDate > currentDate}">
+		<jstl:if test="${trip.publicationDate > currentDate and (trip.cancelReason==null || trip.cancelReason==\"\")}">
 			<a href="stage/manager/create.do?tripId=${trip.id}">
 				<button>
 					<spring:message code="stage.create" />

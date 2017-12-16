@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.CategoryService;
 import services.ConfigurationService;
+import services.ManagerService;
 import services.SurvivalClassService;
 import services.TripService;
 import domain.Actor;
@@ -46,6 +47,8 @@ public class TripController extends AbstractController {
 	SurvivalClassService	survivalClassService;
 	@Autowired
 	CategoryService			categoryService;
+	@Autowired
+	ManagerService			managerService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -180,7 +183,8 @@ public class TripController extends AbstractController {
 						survivalClassesJoinedIndexed.add(explorer.getSurvivalClasses().contains(sv));
 
 					result.addObject("survivalClassesJoinedIndexed", survivalClassesJoinedIndexed);
-				}
+				} else
+					Assert.isTrue(trip.getPublicationDate().before(new Date()));
 
 			} else
 				Assert.isTrue(trip.getPublicationDate().before(new Date()));

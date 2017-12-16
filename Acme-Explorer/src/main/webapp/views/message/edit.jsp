@@ -65,6 +65,17 @@
 	</form:select>
 	<form:errors cssClass="error" path="priority"/>
 	
+	<security:authorize access="hasRole('ADMIN')">
+		<label>
+			<spring:message code="message.broadcast" />
+		</label>
+		<input type="checkbox" name="broadcast" />
+		
+		<br/>
+		<br/>
+		
+	</security:authorize>
+	
 		<input 
 		type="submit"
 		name="save"

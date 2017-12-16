@@ -166,18 +166,22 @@ public class MessageService {
 	// Requirement 14.5: An administrator must be able to send a broadcast notification.
 	public void broadcastNotification(final Message message) {
 
+		Message messageCopy;
+		MessageFolder messageFolder, messageFolderNotification;
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		final Actor actor = this.actorService.findActorByUserAccountId(userAccount.getId());
 		Assert.notNull(actor);
 
-		final String box = message.getMessageFolder().getName();
-		Assert.isTrue(box.equals("notification box"));
 		final Collection<Actor> allActors = this.actorService.findAll();
 
 		for (final Actor a : allActors) {
 			Assert.notNull(a);
-			this.actorService.sendMessage(message, actor, a);
+			messageCopy = this.copyMessage(message);
+			messageFolder = this.messageFolderService.findMessageFolder("out box", a);
+			messageFolderNotification = this.messageFolderService.findMessageFolder("notification box", a);
+			messageCopy.setMessageFolder(messageFolder);
+			this.actorService.sendMessage(messageCopy, actor, a, messageFolderNotification);
 		}
 
 	}

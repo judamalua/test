@@ -14,6 +14,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -103,11 +104,15 @@ public class ActorController extends AbstractController {
 	@RequestMapping(value = "/register-explorer", method = RequestMethod.POST, params = "save")
 	public ModelAndView registerExplorer(@Valid final Explorer explorer, final BindingResult binding) {
 		ModelAndView result;
+		Authority auth;
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(explorer, "actor.params.error");
 		else
 			try {
+				auth = new Authority();
+				auth.setAuthority(Authority.EXPLORER);
+				Assert.isTrue(explorer.getUserAccount().getAuthorities().contains(auth));
 				this.actorService.registerExplorer(explorer);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
@@ -116,7 +121,6 @@ public class ActorController extends AbstractController {
 
 		return result;
 	}
-
 	// Registering ranger ----------------------------------------------------------------
 	@RequestMapping(value = "/register-ranger", method = RequestMethod.GET)
 	public ModelAndView registerRanger() {
@@ -135,11 +139,15 @@ public class ActorController extends AbstractController {
 	@RequestMapping(value = "/register-ranger", method = RequestMethod.POST, params = "save")
 	public ModelAndView registerExplorer(@Valid final Ranger ranger, final BindingResult binding) {
 		ModelAndView result;
+		Authority auth;
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(ranger, "actor.params.error");
 		else
 			try {
+				auth = new Authority();
+				auth.setAuthority(Authority.RANGER);
+				Assert.isTrue(ranger.getUserAccount().getAuthorities().contains(auth));
 				this.actorService.registerRanger(ranger);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {

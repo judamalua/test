@@ -70,6 +70,28 @@ public class MessageController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = {
+		"save", "broadcast"
+	})
+	public ModelAndView saveBroadcast(@Valid final Message message, @RequestParam("broadcast") final boolean broadcast, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(message, "message.params.error");
+		else
+			try {
+				if (broadcast == true)
+					this.messageService.broadcastNotification(message);
+				else
+					this.actorService.sendMessage(message, message.getSender(), message.getReceiver());
+
+				result = new ModelAndView("redirect:list.do?messageFolderId=" + message.getMessageFolder().getId());
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(message, "message.commit.error");
+			}
+
+		return result;
+	}
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam("messageId") final int messageId, @RequestParam("messageFolderId") final int messageFolderId) {
 		ModelAndView result;
