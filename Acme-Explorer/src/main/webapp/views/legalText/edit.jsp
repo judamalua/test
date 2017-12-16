@@ -31,7 +31,7 @@
 	<form:label path="registrationDate">
 		<spring:message code="legalText.registrationDate"/>
 	</form:label>
-	<form:input path="registrationDate"/>
+	<form:input path="registrationDate" placeholder="dd/MM/yyyy HH:mm"/>
 	<form:errors cssClass="error" path="registrationDate"/>
 	<br/>
 	
@@ -52,7 +52,7 @@
 		name="saveFinal"
 		value="<spring:message code="legalText.save.final" />" />
 		
-	<jstl:if test="${contact.id!=0}">
+	<jstl:if test="${legalText.id!=0}">
 		<input 
 			type="submit"
 			name="delete"
