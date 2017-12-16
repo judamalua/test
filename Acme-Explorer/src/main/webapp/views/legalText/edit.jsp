@@ -12,6 +12,7 @@
 	
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
+	<form:hidden path="registrationDate"/>
 	
 	
 	<form:label path="title">
@@ -26,13 +27,6 @@
 	</form:label>
 	<form:textarea path="body"/>
 	<form:errors cssClass="error" path="body"/>
-	<br/>
-	
-	<form:label path="registrationDate">
-		<spring:message code="legalText.registrationDate"/>
-	</form:label>
-	<form:input path="registrationDate" placeholder="dd/MM/yyyy HH:mm"/>
-	<form:errors cssClass="error" path="registrationDate"/>
 	<br/>
 	
 	<form:label path="applicableLaws">

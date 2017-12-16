@@ -22,13 +22,14 @@
 	<spring:message code="legalText.applicableLaws" var="applicableLaws"/>
 	<display:column property="applicableLaws" title="${applicableLaws}" sortable="false"/>
 	
-	<jstl:if test="${legalText.finalMode != true}">
 	<display:column>
+	<jstl:if test="${!legalText.finalMode}">
 		<a href="legalText/admin/edit.do?legalTextId=${legalText.id}">
 			<spring:message code="legalText.edit"/>
 		</a>
-	</display:column>
 	</jstl:if>
+	</display:column>
+	
 	
 </display:table>
 
