@@ -303,7 +303,7 @@ public class ActorService {
 
 		UserAccount userAccount;
 		Message savedMessage, savedMessageCopy, messageCopy;
-		MessageFolder messageFolderSender;
+		MessageFolder messageFolderSender, outBoxSender;
 
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
@@ -324,15 +324,17 @@ public class ActorService {
 
 		messageCopy.setMessageFolder(messageFolderReceiver);
 
-		savedMessage = this.messageService.save(message);
+		outBoxSender = this.messageFolderService.findMessageFolder("out box", sender);
+		if (!outBoxSender.getMessages().contains(message)) {
+			savedMessage = this.messageService.save(message);
+			messageFolderSender = savedMessage.getMessageFolder();
+			messageFolderSender.getMessages().add(savedMessage);
+			this.messageFolderService.save(messageFolderSender);
+		}
 		savedMessageCopy = this.messageService.save(messageCopy);
 
-		messageFolderSender = savedMessage.getMessageFolder();
-
 		messageFolderReceiver.getMessages().add(savedMessageCopy);
-		messageFolderSender.getMessages().add(savedMessage);
 
-		this.messageFolderService.save(messageFolderSender);
 		this.messageFolderService.save(messageFolderReceiver);
 
 	}

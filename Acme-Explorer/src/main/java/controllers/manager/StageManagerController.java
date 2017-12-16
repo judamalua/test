@@ -1,6 +1,8 @@
 
 package controllers.manager;
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.StageService;
 import services.TripService;
 import controllers.AbstractController;
+import domain.Manager;
 import domain.Stage;
 import domain.Trip;
 
@@ -28,6 +32,8 @@ public class StageManagerController extends AbstractController {
 	StageService	stageService;
 	@Autowired
 	TripService		tripService;
+	@Autowired
+	ActorService	actorService;
 
 
 	// Editing ---------------------------------------------------------
@@ -37,13 +43,19 @@ public class StageManagerController extends AbstractController {
 		ModelAndView result;
 		Stage stage;
 		Trip trip;
+		Manager manager;
 
-		stage = this.stageService.findOne(stageId);
-		Assert.notNull(stage);
-		trip = this.tripService.getTripFromStageId(stageId);
-
-		result = this.createEditModelAndView(stage, trip.getId());
-
+		try {
+			manager = (Manager) this.actorService.findActorByPrincipal();
+			stage = this.stageService.findOne(stageId);
+			Assert.notNull(stage);
+			trip = this.tripService.getTripFromStageId(stageId);
+			Assert.isTrue(trip.getManagers().contains(manager));
+			Assert.isTrue(trip.getPublicationDate().after(new Date()));
+			result = this.createEditModelAndView(stage, trip.getId());
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
 
@@ -53,14 +65,17 @@ public class StageManagerController extends AbstractController {
 	public ModelAndView create(@RequestParam final int tripId) {
 		ModelAndView result;
 		Stage stage;
-
-		stage = this.stageService.create();
-
-		result = this.createEditModelAndView(stage, tripId);
-
+		Trip trip;
+		try {
+			stage = this.stageService.create();
+			trip = this.tripService.findOne(tripId);
+			Assert.isTrue(trip.getPublicationDate().after(new Date()));
+			result = this.createEditModelAndView(stage, tripId);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
-
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")

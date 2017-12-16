@@ -102,6 +102,7 @@ public class TripManagerController extends AbstractController {
 		Manager manager;
 		try {
 			trip = this.tripService.findOne(tripId);
+			Assert.isTrue(trip.getPublicationDate().after(new Date()));
 			manager = (Manager) this.actorService.findActorByPrincipal();
 			Assert.isTrue(trip.getPublicationDate().after(new Date()));
 			Assert.isTrue(this.managerService.findTripsByManager(manager.getId()).contains(trip));
@@ -135,12 +136,15 @@ public class TripManagerController extends AbstractController {
 	public ModelAndView cancel(@RequestParam("tripId") final int tripId) {
 		ModelAndView result;
 		Trip trip;
-
-		trip = this.tripService.findOne(tripId);
-		Assert.notNull(trip);
-		result = new ModelAndView("trip/cancel-trip");
-		result.addObject("trip", tripId);
-
+		try {
+			trip = this.tripService.findOne(tripId);
+			Assert.isTrue(trip.getPublicationDate().after(new Date()));
+			Assert.notNull(trip);
+			result = new ModelAndView("trip/cancel-trip");
+			result.addObject("trip", tripId);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
 
@@ -151,13 +155,16 @@ public class TripManagerController extends AbstractController {
 	public ModelAndView SaveCancel(final int tripId, final String reason) {
 		ModelAndView result;
 		Trip trip;
-
-		trip = this.tripService.findOne(tripId);
-		Assert.notNull(trip);
-		trip.setCancelReason(reason);
-		this.tripService.save(trip);
-		result = new ModelAndView("redirect:list.do");
-
+		try {
+			trip = this.tripService.findOne(tripId);
+			Assert.isTrue(trip.getPublicationDate().after(new Date()));
+			Assert.notNull(trip);
+			trip.setCancelReason(reason);
+			this.tripService.save(trip);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
 	// Saving -----------------------------------------------------------------------------
@@ -196,6 +203,7 @@ public class TripManagerController extends AbstractController {
 		else
 			try {
 				this.tripService.save(trip);
+
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(trip, "trip.commit.error");
@@ -209,6 +217,7 @@ public class TripManagerController extends AbstractController {
 		ModelAndView result;
 
 		try {
+			Assert.isTrue(trip.getPublicationDate().after(new Date()));
 			this.tripService.delete(trip);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
@@ -244,20 +253,33 @@ public class TripManagerController extends AbstractController {
 		final List<Boolean> indexedSurvivalClasses;
 		final Manager manager;
 
-		trip = this.tripService.findOne(tripId);
-		Assert.notNull(trip);
-		result = new ModelAndView("trip/manageSurvivalClasses");
-		manager = (Manager) this.actorService.findActorByPrincipal();
+		try {
 
-		survivalClasses = new HashSet<SurvivalClass>(trip.getSurvivalClasses());
-		indexedSurvivalClasses = new ArrayList<Boolean>();
-		survivalClasses.addAll(manager.getSurvivalClasses());
-		for (final SurvivalClass sv : survivalClasses)
-			indexedSurvivalClasses.add(trip.getSurvivalClasses().contains(sv));
-		result.addObject("trip", tripId);
-		result.addObject("survivalClasses", survivalClasses);
+			trip = this.tripService.findOne(tripId);
+			Assert.isTrue(trip.getPublicationDate().after(new Date()));
+			Assert.notNull(trip);
+			result = new ModelAndView("trip/manageSurvivalClasses");
+			manager = (Manager) this.actorService.findActorByPrincipal();
 
-		result.addObject("indexedSurvivalClasses", indexedSurvivalClasses);
+			survivalClasses = new HashSet<SurvivalClass>();
+			indexedSurvivalClasses = new ArrayList<Boolean>();
+
+			for (final SurvivalClass sv : trip.getSurvivalClasses())
+				if (sv.getOrganisationMoment().after(new Date()))
+					survivalClasses.add(sv);
+
+			for (final SurvivalClass sv : manager.getSurvivalClasses())
+				if (sv.getOrganisationMoment().after(new Date()))
+					survivalClasses.add(sv);
+
+			for (final SurvivalClass sv : survivalClasses)
+				indexedSurvivalClasses.add(trip.getSurvivalClasses().contains(sv));
+			result.addObject("trip", tripId);
+			result.addObject("survivalClasses", survivalClasses);
+			result.addObject("indexedSurvivalClasses", indexedSurvivalClasses);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}
@@ -269,13 +291,16 @@ public class TripManagerController extends AbstractController {
 	public ModelAndView manageSurvivalClasses(final int tripId, @RequestParam(value = "selectedSurvivalClasses", required = false) Collection<SurvivalClass> selectedSurvivalClasses) {
 		ModelAndView result;
 		Trip trip;
-		if (selectedSurvivalClasses == null)
-			selectedSurvivalClasses = new HashSet<SurvivalClass>();
-		trip = this.tripService.findOne(tripId);
-		Assert.notNull(trip);
-		trip.setSurvivalClasses(new HashSet<SurvivalClass>(selectedSurvivalClasses));
-
-		this.tripService.save(trip);
+		try {
+			if (selectedSurvivalClasses == null)
+				selectedSurvivalClasses = new HashSet<SurvivalClass>();
+			trip = this.tripService.findOne(tripId);
+			Assert.notNull(trip);
+			trip.setSurvivalClasses(new HashSet<SurvivalClass>(selectedSurvivalClasses));
+			this.tripService.save(trip);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		result = new ModelAndView("redirect:list.do");
 
 		return result;
@@ -287,17 +312,19 @@ public class TripManagerController extends AbstractController {
 		ModelAndView result;
 		Trip trip;
 		SurvivalClass survivalClass;
-
-		trip = this.tripService.findOne(tripId);
-		survivalClass = this.survivalClassService.findOne(survivalClassId);
-		Assert.notNull(trip);
-		trip.getSurvivalClasses().remove(survivalClass);
-		this.tripService.save(trip);
-		result = new ModelAndView("redirect:/trip/detailed-trip.do?tripId=" + tripId + "&anonymous=false");
-
+		try {
+			trip = this.tripService.findOne(tripId);
+			Assert.isTrue(trip.getPublicationDate().after(new Date()));
+			survivalClass = this.survivalClassService.findOne(survivalClassId);
+			Assert.notNull(trip);
+			trip.getSurvivalClasses().remove(survivalClass);
+			this.tripService.save(trip);
+			result = new ModelAndView("redirect:/trip/detailed-trip.do?tripId=" + tripId + "&anonymous=false");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
-
 	// Ancillary methods --------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Trip trip) {
