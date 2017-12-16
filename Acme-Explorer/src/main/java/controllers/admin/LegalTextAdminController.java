@@ -100,7 +100,7 @@ public class LegalTextAdminController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveDraft")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveFinal")
 	public ModelAndView saveFinal(@Valid final LegalText legalText, final BindingResult binding) {
 		ModelAndView result;
 		legalText.setFinalMode(true);
