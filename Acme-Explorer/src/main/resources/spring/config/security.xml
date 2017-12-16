@@ -116,6 +116,8 @@
 		
 		<security:intercept-url pattern="/contact/explorer/**" access="hasRole('EXPLORER')" />
 		
+		<security:intercept-url pattern="/socialIdentity/**" access="isAuthenticated()" />
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

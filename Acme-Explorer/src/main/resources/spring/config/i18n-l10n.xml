@@ -45,6 +45,7 @@
 		<value>/views/contact/messages</value>
 		<value>/views/configuration/messages</value>
 		<value>/views/dashboard/messages</value>
+		<value>/views/socialIdentity/messages</value>
 		
 	</util:list>
 
