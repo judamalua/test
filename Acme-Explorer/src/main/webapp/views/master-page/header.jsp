@@ -135,6 +135,8 @@
 								code="master.page.register-sponsor" /></a></li>
 					<li><a href="actor/admin/register-admin.do"><spring:message
 								code="master.page.register-admin" /></a></li>
+					<li><a href="legalText/admin/list.do"><spring:message
+								code="master.page.legalText" /></a></li>
 				</ul></li>
 		</security:authorize>
 
