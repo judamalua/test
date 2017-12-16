@@ -214,6 +214,47 @@ public class ActorService {
 		return result;
 	}
 
+	public Actor registerActor(final Actor actor) {
+
+		Actor result;
+		UserAccount savedUserAccount;
+		String password;
+		Md5PasswordEncoder encoder;
+		String phoneNumberPrefix;
+
+		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();
+
+		Assert.notNull(actor.getUserAccount());
+		Assert.isTrue(!this.userAccountService.findAll().contains(actor.getUserAccount()));
+		Assert.isTrue(!this.actorRepository.exists((actor.getId())));
+
+		encoder = new Md5PasswordEncoder();
+
+		password = actor.getUserAccount().getPassword();
+		password = encoder.encodePassword(password, null);
+		actor.getUserAccount().setPassword(password);
+
+		// Si el número de teléfono no tiene prefijo, se añade el de configuración por defecto.
+		if (!actor.getPhoneNumber().trim().startsWith("+") && !actor.getPhoneNumber().equals("")) {
+			String trimmedPhoneNumber;
+			String finalPhoneNumber;
+
+			trimmedPhoneNumber = actor.getPhoneNumber().trim();
+
+			finalPhoneNumber = phoneNumberPrefix + " " + trimmedPhoneNumber;
+
+			actor.setPhoneNumber(finalPhoneNumber);
+
+		}
+
+		savedUserAccount = this.userAccountService.save(actor.getUserAccount());
+
+		actor.setUserAccount(savedUserAccount);
+		result = this.actorRepository.save(actor);
+
+		return result;
+	}
+
 	//Functional requeriment 10.2
 	public Collection<Trip> findAllTrips() {
 

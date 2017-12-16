@@ -53,6 +53,10 @@
 		<security:intercept-url pattern="/actor/register-ranger.do" access="isAnonymous()" /> 
 				
 		<security:intercept-url pattern="/actor/admin/ban.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/actor/admin/register-manager.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/actor/admin/register-auditor.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/actor/admin/register-sponsor.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/actor/admin/register-admin.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/actor/admin/unban.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/actor/admin/list-suspicious.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/category/admin/**" access="hasRole('ADMIN')" />

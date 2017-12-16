@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.ManagerService;
+
+import com.mchange.v1.cachedstore.CachedStore.Manager;
+
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Administrator;
@@ -26,6 +30,8 @@ public class ActorAdminController extends AbstractController {
 
 	@Autowired
 	ActorService	actorService;
+	@Autowired
+	ManagerService	managerService;
 
 
 	// Listing ---------------------------------------------------------------		
@@ -91,6 +97,48 @@ public class ActorAdminController extends AbstractController {
 		actor.setIsBanned(false);
 		this.actorService.save(actor);
 		final ModelAndView result = this.listSuspicious();
+		return result;
+	}
+
+	// Registering explorer ------------------------------------------------------------
+	@RequestMapping(value = "/register-manager", method = RequestMethod.GET)
+	public ModelAndView registerManager() {
+		ModelAndView result;
+		Actor actor;
+
+		actor = this.managerService.create();
+
+		result = new ModelAndView("actor/register-manager");
+
+		result.addObject("actor", actor);
+		result.addObject("message", null);
+		result.addObject("requestUri", "actor/admin/edit.do");
+		return result;
+	}
+
+	//Saving manager ---------------------------------------------------------------------
+	@RequestMapping(value = "/register-manager", method = RequestMethod.POST, params = "save")
+	public ModelAndView registerManagerSave(@Valid final Manager manager, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			result = new ModelAndView("actor/register-manager");
+
+			result.addObject("actor", manager);
+			result.addObject("message", "actor.params.error");
+			result.addObject("requestUri", "actor/admin/edit.do");
+		} else
+			try {
+				this.actorService.registerActor((Actor) manager);
+				result = new ModelAndView("redirect:/welcome/index.do");
+			} catch (final Throwable oops) {
+				result = new ModelAndView("actor/register-manager");
+
+				result.addObject("actor", manager);
+				result.addObject("message", "actor.commit.error");
+				result.addObject("requestUri", "actor/admin/edit.do");
+			}
+
 		return result;
 	}
 	// Ancillary methods --------------------------------------------------
