@@ -124,6 +124,8 @@
 		
 		<security:intercept-url pattern="/legalText/admin/**" access="hasRole('ADMIN')" />
 		
+		<security:intercept-url pattern="/tag/admin/**" access="hasRole('ADMIN')" />
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 
