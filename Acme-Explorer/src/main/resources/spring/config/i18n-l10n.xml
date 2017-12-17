@@ -47,6 +47,7 @@
 		<value>/views/dashboard/messages</value>
 		<value>/views/socialIdentity/messages</value>
 		<value>/views/legalText/messages</value>
+		<value>/views/tag/messages</value>
 		
 	</util:list>
 

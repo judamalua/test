@@ -18,7 +18,9 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <div>
+<a href = "welcome/index.do">
 	<img src="${banner}" alt="Acme Co., Inc." />
+</a>
 </div>
 
 <div>
@@ -137,6 +139,8 @@
 								code="master.page.register-admin" /></a></li>
 					<li><a href="legalText/admin/list.do"><spring:message
 								code="master.page.legalText" /></a></li>
+					<li><a href="tag/admin/list.do"><spring:message
+								code="master.page.tag" /></a></li>
 				</ul></li>
 		</security:authorize>
 
