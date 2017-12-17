@@ -113,7 +113,7 @@ public class SurvivalClassManagerController extends AbstractController {
 
 		try {
 			this.survivalClassService.delete(survivalClass);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:list-managed.do");
 
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(survivalClass, "survivalClass.commit.error");

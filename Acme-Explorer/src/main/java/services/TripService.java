@@ -162,8 +162,8 @@ public class TripService {
 		Trip result;
 
 		if (trip.getPublicationDate().before(new Date()))
-			Assert.isTrue(trip.getCancelReason() == null || trip.getCancelReason() == "");
-		if (trip.getCancelReason() != null && trip.getCancelReason() != "")
+			Assert.isTrue(trip.getCancelReason() == null || trip.getCancelReason().trim().equals(""));
+		if (trip.getCancelReason() != null && !trip.getCancelReason().equals(""))
 			Assert.isTrue(trip.getPublicationDate().after(new Date()) && trip.getStartDate().after(new Date()));
 
 		// Requirement 14.2: Only legal texts that are saved in final mode 
