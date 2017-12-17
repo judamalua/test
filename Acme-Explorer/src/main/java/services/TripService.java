@@ -57,8 +57,8 @@ public class TripService {
 	private StageService			stageService;
 	@Autowired
 	private ManagerService			managerService;
-	@Autowired
-	private TagService				tagService;
+	//	@Autowired
+	//	private TagService				tagService;
 	@Autowired
 	private SearchService			searchService;
 
@@ -158,7 +158,7 @@ public class TripService {
 		double price = 0., vat;
 		final Configuration configuration;
 		final Collection<Manager> managers;
-		final Collection<Tag> tags;
+		//		final Collection<Tag> tags;
 		Trip result;
 
 		if (trip.getPublicationDate().before(new Date()))
@@ -191,21 +191,22 @@ public class TripService {
 
 		result = this.tripRepository.save(trip);
 
-		if (trip.getId() != 0) {
+		//		if (trip.getId() != 0) {
+		//
+		//			tags = result.getTags();
+		//
+		//			for (final Tag t : tags)
+		//				if (!t.getTrips().contains(result)) {
+		//					if (t.getTrips().contains(trip))
+		//						t.getTrips().remove(trip);
+		//					t.getTrips().add(result);
+		//					this.tagService.save(t);
+		//				}
+		//
+		//			//managers = this.managerService.findManagerByTrip(trip.getId());
+		//
+		//		}
 
-			tags = result.getTags();
-
-			for (final Tag t : tags)
-				if (!t.getTrips().contains(result)) {
-					if (t.getTrips().contains(trip))
-						t.getTrips().remove(trip);
-					t.getTrips().add(result);
-					this.tagService.save(t);
-				}
-
-			//managers = this.managerService.findManagerByTrip(trip.getId());
-
-		}
 		managers = result.getManagers();
 		for (final Manager m : managers)
 			if (!m.getTrips().contains(result)) {
@@ -503,6 +504,16 @@ public class TripService {
 
 		return result;
 
+	}
+
+	public Collection<Trip> findTripsByTagId(final int tagId) {
+		Collection<Trip> result;
+
+		result = this.tripRepository.findTripsByTagId(tagId);
+
+		Assert.notNull(result);
+
+		return result;
 	}
 
 }

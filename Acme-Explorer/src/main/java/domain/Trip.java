@@ -294,7 +294,7 @@ public class Trip extends DomainEntity {
 	//	}
 
 	@NotNull
-	@ManyToMany(mappedBy = "trips")
+	@ManyToMany
 	public Collection<Tag> getTags() {
 		return this.tags;
 	}
