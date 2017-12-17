@@ -10,10 +10,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<script type="text/javascript">
-	
-</script>
-
 <form:form action="trip/manager/edit.do" modelAttribute="trip">
 
 	<form:hidden path="id" />

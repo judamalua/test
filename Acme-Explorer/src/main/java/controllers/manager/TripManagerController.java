@@ -189,7 +189,6 @@ public class TripManagerController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(trip, "trip.commit.error");
 			}
-
 		return result;
 	}
 

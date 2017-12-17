@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -102,7 +103,7 @@ public class ActorController extends AbstractController {
 
 	//Saving explorer ---------------------------------------------------------------------
 	@RequestMapping(value = "/register-explorer", method = RequestMethod.POST, params = "save")
-	public ModelAndView registerExplorer(@Valid final Explorer explorer, final BindingResult binding) {
+	public ModelAndView registerExplorer(@ModelAttribute("actor") @Valid final Explorer explorer, final BindingResult binding) {
 		ModelAndView result;
 		Authority auth;
 
@@ -137,7 +138,7 @@ public class ActorController extends AbstractController {
 	// Saving ranger -----------------------------------------------
 
 	@RequestMapping(value = "/register-ranger", method = RequestMethod.POST, params = "save")
-	public ModelAndView registerExplorer(@Valid final Ranger ranger, final BindingResult binding) {
+	public ModelAndView registerExplorer(@ModelAttribute("actor") @Valid final Ranger ranger, final BindingResult binding) {
 		ModelAndView result;
 		Authority auth;
 
