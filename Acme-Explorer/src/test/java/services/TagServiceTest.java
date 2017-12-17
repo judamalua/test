@@ -36,7 +36,6 @@ public class TagServiceTest extends AbstractTest {
 
 		Assert.notNull(tag);
 		Assert.isNull(tag.getName());
-		Assert.isTrue(tag.getTrips().size() == 0);
 
 		super.unauthenticate();
 	}
@@ -78,7 +77,9 @@ public class TagServiceTest extends AbstractTest {
 		super.authenticate("admin1");
 
 		final Tag tag = (Tag) this.tagService.findAll().toArray()[0];
-		final Collection<Trip> trips = tag.getTrips();
+		Collection<Trip> trips;
+
+		trips = this.tripService.findTripsByTagId(tag.getId());
 
 		Assert.notNull(tag);
 		Assert.notNull(trips);

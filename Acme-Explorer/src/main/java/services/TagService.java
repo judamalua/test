@@ -2,7 +2,6 @@
 package services;
 
 import java.util.Collection;
-import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,9 +40,9 @@ public class TagService {
 		Tag result;
 
 		result = new Tag();
-		// When we create the object, we initialize its trips to an empty list.
-		final Collection<Trip> trips = new HashSet<Trip>();
-		result.setTrips(trips);
+
+		//		final Collection<Trip> trips = new HashSet<Trip>();
+		//		result.setTrips(trips);
 
 		return result;
 	}
@@ -74,15 +73,18 @@ public class TagService {
 		assert tag != null;
 
 		Tag result, storedTag;
+		Collection<Trip> trips;
+
+		trips = this.tripService.findTripsByTagId(tag.getId());
 
 		storedTag = this.tagRepository.findOne(tag.getId());
 		// Requirement 14.3: A tag name can only be modified if it is not referenced by any trip.
 		if (tag.getId() != 0 && !storedTag.getName().equals(tag.getName()))
-			Assert.isTrue(tag.getTrips().size() == 0);
+			Assert.isTrue(trips.size() == 0);
 
 		result = this.tagRepository.save(tag);
 
-		for (final Trip t : tag.getTrips()) {
+		for (final Trip t : trips) {
 			if (!t.getTags().contains(tag))
 				t.getTags().remove(tag);
 			t.getTags().add(result);
@@ -98,9 +100,13 @@ public class TagService {
 		assert tag != null;
 		assert tag.getId() != 0;
 
+		Collection<Trip> trips;
+
+		trips = this.tripService.findTripsByTagId(tag.getId());
+
 		Assert.isTrue(this.tagRepository.exists(tag.getId()));
-		if (tag.getTrips().size() != 0)
-			for (final Trip t : tag.getTrips()) {
+		if (trips.size() != 0)
+			for (final Trip t : trips) {
 				t.getTags().remove(tag);
 				this.tripService.save(t);
 			}

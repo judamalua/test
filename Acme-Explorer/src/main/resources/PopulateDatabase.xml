@@ -2482,37 +2482,37 @@
 	<bean id="tag1" class="domain.Tag">
 
 		<property name="name" value="Country" />
-		<property name="trips">
+		<!-- <property name="trips">
 			<list>
 				<ref bean="trip1" />
 				<ref bean="trip2" />
 				<ref bean="trip4" />
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 
 	<bean id="tag2" class="domain.Tag">
 
 		<property name="name" value="Expertise" />
-		<property name="trips">
+		<!-- <property name="trips">
 			<list>
 				<ref bean="trip1" />
 				<ref bean="trip2" />
 				<ref bean="trip3" />
 				<ref bean="trip4" />
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 	
 	<bean id="tag3" class="domain.Tag">
 
 		<property name="name" value="Dangerousness" />
-		<property name="trips">
+		<!-- <property name="trips">
 			<list>
 			</list>
-		</property>
+		</property> -->
 
 	</bean>
 
