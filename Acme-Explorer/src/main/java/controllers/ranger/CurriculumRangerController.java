@@ -55,6 +55,7 @@ public class CurriculumRangerController extends AbstractController {
 		final Boolean curriculumRanger = true;
 
 		result = new ModelAndView("curriculum/list");
+		result.addObject("curriculumRanger", curriculumRanger);
 
 		final Curriculum curriculum = this.curriculumService.findCurriculumByRangerID();
 		if (curriculum != (null)) {
@@ -70,7 +71,7 @@ public class CurriculumRangerController extends AbstractController {
 			result.addObject("educationRecords", education);
 			result.addObject("personalRecord", personal);
 			result.addObject("miscellaneousRecords", miscellaneous);
-			result.addObject("curriculumRanger", curriculumRanger);
+
 		}
 
 		result.addObject("requestUri", "curriculum/ranger/list.do");
@@ -79,20 +80,30 @@ public class CurriculumRangerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView listWithoutRangerLogin(@RequestParam final int rangerId) {
+	public ModelAndView listWithoutRangerLogin(@RequestParam final int rangerId, @RequestParam(defaultValue = "false") final Boolean isRanger) {
 		ModelAndView result;
 		final Collection<ProfessionalRecord> professional;
 		final PersonalRecord personal;
 		final Collection<EndorserRecord> endorser;
 		final Collection<MiscellaneousRecord> miscellaneous;
 		final Collection<EducationRecord> education;
-		final Boolean curriculumRanger = false;
+		Boolean curriculumRanger = false;
+		final Curriculum curriculum;
 
 		result = new ModelAndView("curriculum/list");
 
 		final Ranger ranger = this.rangerService.findOne(rangerId);
-		final Curriculum curriculum = this.curriculumService.findOne(ranger.getCurriculum().getId());
-
+		if (ranger.getCurriculum() != null)
+			curriculum = this.curriculumService.findOne(ranger.getCurriculum().getId());
+		else
+			curriculum = null;
+		Ranger r1;
+		if (isRanger) {
+			r1 = (Ranger) this.actorService.findActorByPrincipal();
+			if (r1.equals(ranger))
+				curriculumRanger = true;
+		}
+		result.addObject("curriculumRanger", curriculumRanger);
 		if (curriculum != (null)) {
 			professional = curriculum.getProfessionalRecords();
 			endorser = curriculum.getEndorserRecords();
@@ -106,14 +117,13 @@ public class CurriculumRangerController extends AbstractController {
 			result.addObject("educationRecords", education);
 			result.addObject("personalRecord", personal);
 			result.addObject("miscellaneousRecords", miscellaneous);
-			result.addObject("curriculumRanger", curriculumRanger);
+
 		}
 
 		result.addObject("requestUri", "curriculum/ranger/list.do");
 
 		return result;
 	}
-
 	// Creating -------------------------------------
 
 	@RequestMapping(value = "/ranger/create", method = RequestMethod.GET)

@@ -96,25 +96,28 @@
 	<fmt:formatDate value="${endDate}" pattern="${formatDateOut}" />
 </p>
 
-<jstl:if test="${not empty trip.tags}">
+ <jstl:if test="${not empty trip.tags}">
 	<p>
 		<spring:message code="trip.tags" />
 		:
 		<jstl:forEach var="tag" items="${trip.tags}" varStatus="index">
 			<jstl:out value="${tag.name}" />
 
-			<%-- 		<jstl:if test="${trip.tags.length != index}">, </jstl:if> --%>
+			<%-- <jstl:if test="${trip.tags.length != index}">, </jstl:if> --%>
 		</jstl:forEach>
 	</p>
-</jstl:if>
+</jstl:if> 
 
 <p>
 	<spring:message code="trip.ranger" />
 	:
 	<jstl:out value="${trip.ranger.name}" />
 	<jstl:out value="${trip.ranger.surname}" />
+	<security:authorize access="hasRole('RANGER')">
+	<jstl:set value="true" var="isRanger"/>
+	</security:authorize>
 	<security:authorize access="isAuthenticated()">
-		<a href="curriculum/show.do?rangerId=${trip.ranger.id}">
+		<a href="curriculum/show.do?rangerId=${trip.ranger.id}&&isRanger=${isRanger}">
 			<button>
 				<spring:message code="trip.ranger.curriculum" />
 			</button>
