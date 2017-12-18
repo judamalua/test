@@ -22,12 +22,16 @@
 	<display:column>
 	<jstl:if test="${!row.isBanned}">
 		<a href = "actor/admin/ban.do?actorId=${row.id}">
+		<button onclick = "return confirm('<spring:message code='actor.confirm.ban' />') ">
 			<spring:message code = "actor.ban"/>
+		</button>
 		</a>
 	</jstl:if>
 	<jstl:if test="${row.isBanned}">
 		<a href = "actor/admin/unban.do?actorId=${row.id}">
+		<button onclick = "return confirm('<spring:message code='actor.confirm.unban' />') ">
 			<spring:message code = "actor.unban"/>
+		</button>
 		</a>
 	</jstl:if>
 	</display:column>
