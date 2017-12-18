@@ -21,6 +21,7 @@
 <spring:message code="format.date" var="formatDate"/>
 
 <h2><spring:message code = "search.show"></spring:message></h2>
+<spring:message code="format.date" var="formatDate"/>
 
 <display:table name = "searchs" id = "search" 
 	requestURI = "search/admin/list.do" pagesize = "10" class = "displaytag">
@@ -29,19 +30,19 @@
 	<display:column property = "keyWord" title = "${keyWordHeader}" sortable = "true"/>
 
 	<spring:message code = "search.priceRangeStart" var = "priceRangeStartHeader"/>
-	<display:column property = "priceRangeStart" title = "${priceRangeStartHeader}" sortable = "false"/>
+	<display:column property = "priceRangeStart" title = "${priceRangeStartHeader}"  format="${formatDate}" sortable = "false"/>
 	
 	<spring:message code = "search.priceRangeEnd" var = "priceRangeEndHeader"/>
 	<display:column property = "priceRangeEnd" title = "${priceRangeEndHeader}" sortable = "true" format="${formatDate}"/>
 
 	<spring:message code = "search.dateRangeStart" var = "dateRangeStartHeader"/>
-	<display:column property = "dateRangeStart" title = "${dateRangeStartHeader}" sortable = "false"/>
+	<display:column property = "dateRangeStart" title = "${dateRangeStartHeader}"  format="${formatDate}" sortable = "false"/>
 		
 	<spring:message code = "search.dateRangeEnd" var = "dateRangeEndHeader"/>
-	<display:column property = "dateRangeEnd" title = "${dateRangeEndHeader}" sortable = "false"/>	
+	<display:column property = "dateRangeEnd" title = "${dateRangeEndHeader}"   format="${formatDate}" sortable = "false"/>	
 	
 	<spring:message code = "search.searchMoment" var = "searchMomentHeader"/>
-	<display:column property = "searchMoment" title = "${searchMomentHeader}" sortable = "false"/>	
+	<display:column property = "searchMoment" title = "${searchMomentHeader}"   format="${formatDate}" sortable = "false"/>	
 		
 		
 		
