@@ -30,7 +30,6 @@ import services.SurvivalClassService;
 import controllers.AbstractController;
 import domain.Manager;
 import domain.SurvivalClass;
-import domain.Trip;
 
 @Controller
 @RequestMapping("/survivalClass/manager")
@@ -98,8 +97,8 @@ public class SurvivalClassManagerController extends AbstractController {
 		manager = (Manager) this.actorService.findActorByPrincipal();
 
 		survivalClasses = new HashSet<SurvivalClass>(manager.getSurvivalClasses());
-		for (final Trip t : manager.getTrips())
-			survivalClasses.addAll(t.getSurvivalClasses());
+		//		for (final Trip t : manager.getTrips())
+		//			survivalClasses.addAll(t.getSurvivalClasses());
 		result.addObject("survivalClasses", survivalClasses);
 
 		return result;
