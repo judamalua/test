@@ -89,9 +89,12 @@ public class ActorAdminController extends AbstractController {
 	@RequestMapping(value = "/ban", method = RequestMethod.GET)
 	public ModelAndView ban(final int actorId) {
 		final Actor actor = this.actorService.findOne(actorId);
+
+		Assert.notNull(actor);
+		Assert.isTrue(!actor.getUserAccount().getBanned());
+
 		this.userAccountService.ban(actor);
-		//actor.setIsBanned(true);
-		//this.actorService.save(actor);
+
 		final ModelAndView result = this.listSuspicious();
 		return result;
 	}
@@ -99,9 +102,12 @@ public class ActorAdminController extends AbstractController {
 	@RequestMapping(value = "/unban", method = RequestMethod.GET)
 	public ModelAndView unban(final int actorId) {
 		final Actor actor = this.actorService.findOne(actorId);
+
+		Assert.notNull(actor);
+		Assert.isTrue(actor.getUserAccount().getBanned());
+
 		this.userAccountService.unban(actor);
-		//actor.setIsBanned(false);
-		//this.actorService.save(actor);
+
 		final ModelAndView result = this.listSuspicious();
 		return result;
 	}

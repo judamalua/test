@@ -52,10 +52,8 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	private String					password;
 	private Collection<Authority>	authorities;
 
-	// Ban attributes
-	private boolean					isAccountNonLocked;
-	private boolean					isEnabled;
-	private boolean					touched;
+	// Ban attribute
+	private boolean					banned;
 
 
 	@Size(min = 5, max = 32)
@@ -115,15 +113,10 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Transient
 	@Override
 	public boolean isAccountNonLocked() {
-		if (this.isAccountNonLocked == false && this.touched == false)
+		if (this.banned == false)
 			return true;
 		else
-			return this.isAccountNonLocked;
-
-	}
-
-	public void setIsAccountNonLocked(final boolean isAccountNonLocked) {
-		this.isAccountNonLocked = isAccountNonLocked;
+			return false;
 	}
 
 	@Transient
@@ -135,23 +128,18 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Transient
 	@Override
 	public boolean isEnabled() {
-		System.out.println(this.isEnabled);
-		if (this.isEnabled == false && this.touched == false)
+		if (this.banned == false)
 			return true;
 		else
-			return this.isEnabled;
+			return false;
 	}
 
-	public void setIsEnabled(final boolean isEnabled) {
-		this.isEnabled = isEnabled;
+	public boolean getBanned() {
+		return this.banned;
 	}
 
-	public boolean getTouched() {
-		return this.touched;
-	}
-
-	public void setTouched(final boolean touched) {
-		this.touched = touched;
+	public void setBanned(final boolean banned) {
+		this.banned = banned;
 	}
 
 	@Override

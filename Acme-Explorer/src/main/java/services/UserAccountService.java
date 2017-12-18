@@ -75,11 +75,9 @@ public class UserAccountService {
 		final UserAccount userAccount = actor.getUserAccount();
 		UserAccount result;
 		Assert.notNull(userAccount);
+		Assert.isTrue(!userAccount.getBanned());
 
-		userAccount.setIsEnabled(false);
-		userAccount.setIsAccountNonLocked(false);
-		if (userAccount.getTouched() == false)
-			userAccount.setTouched(true);
+		userAccount.setBanned(true);
 
 		result = this.save(userAccount);
 
@@ -96,11 +94,9 @@ public class UserAccountService {
 		final UserAccount userAccount = actor.getUserAccount();
 		UserAccount result;
 		Assert.notNull(userAccount);
+		Assert.isTrue(userAccount.getBanned());
 
-		userAccount.setIsEnabled(true);
-		userAccount.setIsAccountNonLocked(true);
-		if (userAccount.getTouched() == true)
-			userAccount.setTouched(false);
+		userAccount.setBanned(false);
 
 		result = this.save(userAccount);
 
