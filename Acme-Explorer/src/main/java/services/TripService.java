@@ -453,7 +453,7 @@ public class TripService {
 		if (isAnonymous == 0) {
 			final Actor a = this.actorService.findActorByPrincipal();
 			if (a instanceof Explorer)
-				this.searchService.save(s);
+				this.searchService.save(s, false);
 
 		}
 		if (this.cacheService.findInCache(s) != null)

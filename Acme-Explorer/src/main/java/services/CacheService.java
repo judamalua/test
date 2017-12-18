@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.joda.time.LocalDateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,11 @@ public class CacheService {
 	// Memory Cache ---------------------------------------------------------------------------
 	private final Map<Search, Page<Trip>>	caché	= new HashMap<Search, Page<Trip>>();
 
-
 	// Supporting services --------------------------------------------------------------------------
+
+	@Autowired
+	private SearchService					searchService;
+
 
 	// Other business methods --------------------------------------------------------------------------
 	public Page<Trip> findInCache(final Search search) {
@@ -34,8 +38,10 @@ public class CacheService {
 				if (s1.getKeyWord().equals(search.getKeyWord()) && s1.getPriceRangeStart().equals(search.getPriceRangeStart()) && s1.getPriceRangeEnd().equals(search.getPriceRangeEnd()) && s1.getDateRangeStart().equals(search.getDateRangeStart())
 					&& s1.getDateRangeEnd().equals(search.getDateRangeEnd()))
 					sfinal = s1;
-			if (sfinal != null)
+			if (sfinal != null) {
+				this.searchService.save(sfinal, true);
 				trips = this.caché.get(sfinal);
+			}
 		}
 
 		return trips;
