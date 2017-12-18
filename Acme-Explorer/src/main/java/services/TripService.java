@@ -439,7 +439,8 @@ public class TripService {
 
 	//Requirement 34
 	public Page<Trip> findTripsBySearchParameters(final String q, final Double pricelow, final Double pricehigh, final Date date1, final Date date2, final Pageable pageable, final int isAnonymous) {
-		final Page<Trip> t1;
+		Page<Trip> t1;
+		t1 = this.tripRepository.findTrips(q, pageable);
 		final Search s = new Search();
 		if (q == null || q.equals(""))
 			s.setKeyWord("None");
@@ -450,20 +451,27 @@ public class TripService {
 		s.setDateRangeEnd(date2);
 		s.setDateRangeStart(date1);
 		s.setmillis(LocalDateTime.now().getMillisOfSecond());
+
+		//EXPLORER/////////////////////////////////////////////////////////////////////////
 		if (isAnonymous == 0) {
 			final Actor a = this.actorService.findActorByPrincipal();
-			if (a instanceof Explorer)
+			if (a instanceof Explorer) {
 				this.searchService.save(s, false);
+				if (this.cacheService.findInCache(s) != null)
+					t1 = this.cacheService.findInCache(s);
+				else if (q.equals("") || q == null)
+					t1 = this.tripRepository.findTripsBySearchParametersWithoutQ(date1, date2, pricelow, pricehigh, pageable);
+				else
+					t1 = this.tripRepository.findTripsBySearchParameters(q, date1, date2, pricelow, pricehigh, pageable);
 
-		}
-		if (this.cacheService.findInCache(s) != null)
-			t1 = this.cacheService.findInCache(s);
-		else if (q.equals("") || q == null)
-			t1 = this.tripRepository.findTripsBySearchParametersWithoutQ(date1, date2, pricelow, pricehigh, pageable);
+				this.cacheService.saveInCache(s, t1);
+			}
+
+		} //EXPLORER/////////////////////////////////////////////////////////////////////////
+		else if (q == null || q == "")
+			t1 = this.tripRepository.findAll(pageable);
 		else
-			t1 = this.tripRepository.findTripsBySearchParameters(q, date1, date2, pricelow, pricehigh, pageable);
-
-		this.cacheService.saveInCache(s, t1);
+			t1 = this.tripRepository.findTrips(q, pageable);
 
 		return t1;
 	}
