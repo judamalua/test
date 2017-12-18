@@ -483,16 +483,36 @@ public class ActorService {
 		return result;
 	}
 
-	public void checkforSpamWords(final Collection<String> strings) {
+	/**
+	 * This method check if a String collection contains any spam word
+	 * 
+	 * @param strings
+	 *            to check if any of its contained strings contains a spam word
+	 * 
+	 * @author Dani & Juanmi
+	 */
+	public void checkSpamWords(final Collection<String> strings) {
 		if (this.configurationService.findConfiguration() != null)
 			for (final String s : strings)
-				this.checkforSpamWords(s);
+				this.checkSpamWords(s);
 	}
 
-	private void checkforSpamWords(final String s) {
-		if (this.configurationService.findConfiguration() != null)
-			if (this.configurationService.findConfiguration().getSpamWords().contains(s.toLowerCase()))
-				this.actorRepository.findActorByUserAccountId(LoginService.getPrincipal().getId()).setSuspicious(true);
+	/**
+	 * This method check if a String contains any spam word
+	 * 
+	 * @param string
+	 *            to check if contains a spam word
+	 * 
+	 * @author Dani & Juanmi
+	 */
+	public void checkSpamWords(final String string) {
+		final Actor actor = this.actorRepository.findActorByUserAccountId(LoginService.getPrincipal().getId());
+		final Collection<String> spamWords = this.configurationService.findConfiguration().getSpamWords();
+
+		for (final String spamWord : spamWords)
+			if (string.toLowerCase().contains(spamWord.toLowerCase()))
+				actor.setSuspicious(true);
+		this.save(actor);
 	}
 
 }

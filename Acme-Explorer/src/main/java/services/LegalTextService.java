@@ -100,6 +100,11 @@ public class LegalTextService {
 
 		assert legalText != null;
 
+		// Filtro para las palabras de spam
+		this.actorService.checkSpamWords(legalText.getTitle());
+		this.actorService.checkSpamWords(legalText.getBody());
+		this.actorService.checkSpamWords(legalText.getApplicableLaws());
+
 		// Requirement 14.2: A legal text cannot be edited if it is saved in final mode.
 		if (legalText.getId() != 0)
 			if (legalText.getFinalMode())
@@ -117,7 +122,6 @@ public class LegalTextService {
 		return result;
 
 	}
-
 	public void delete(final LegalText legalText) {
 		this.checkUserLogin();
 

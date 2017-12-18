@@ -59,7 +59,7 @@
 	:
 	<jstl:out value="${trip.description}" />
 </p>
-<jstl:if test="${trip.cancelReason != null}">
+<jstl:if test="${trip.cancelReason != null && trip.cancelReason != ''}">
 	<p>
 		<spring:message code="trip.cancelReason" />
 		:
