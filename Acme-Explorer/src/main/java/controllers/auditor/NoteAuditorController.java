@@ -2,11 +2,13 @@
 package controllers.auditor;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,10 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.AuditorService;
+import services.ManagerService;
 import services.NoteService;
 import services.TripService;
 import controllers.AbstractController;
 import domain.Note;
+import domain.Trip;
 
 @Controller
 @RequestMapping("note/auditor")
@@ -30,6 +34,8 @@ public class NoteAuditorController extends AbstractController {
 	ActorService	actorService;
 	@Autowired
 	NoteService		noteService;
+	@Autowired
+	ManagerService	managerService;
 	@Autowired
 	TripService		tripService;
 
@@ -61,25 +67,36 @@ public class NoteAuditorController extends AbstractController {
 	public ModelAndView create(@RequestParam final int tripId) {
 		ModelAndView result;
 		Note note;
-		note = this.noteService.create();
-		note.setTrip(this.tripService.findOne(tripId));
-		result = this.createEditModelAndView(note);
+		Trip trip;
+		try {
+			trip = this.tripService.findOne(tripId);
+			Assert.isTrue(trip.getPublicationDate().before(new Date()));
+			note = this.noteService.create();
+			note.setTrip(trip);
+			result = this.createEditModelAndView(note);
 
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
-	// Editing ---------------------------------------------------------------	
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int noteId) {
-
-		ModelAndView result;
-		Note note;
-
-		note = this.noteService.findOne(noteId);
-
-		result = this.createEditModelAndView(note);
-
-		return result;
-	}
+	//	// Editing ---------------------------------------------------------------	
+	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	//	public ModelAndView edit(@RequestParam final int noteId) {
+	//
+	//		ModelAndView result;
+	//		Note note;
+	//		Auditor actor;
+	//		try {
+	//			actor = (Auditor) this.actorService.findActorByPrincipal();
+	//			note = this.noteService.findOne(noteId);
+	//			Assert.isTrue(actor.getNotes().contains(note));
+	//			result = this.createEditModelAndView(note);
+	//		} catch (final Throwable oops) {
+	//			result = new ModelAndView("redirect:/misc/403");
+	//		}
+	//		return result;
+	//	}
 	// Saving --------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")

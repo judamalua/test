@@ -8,7 +8,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form id = "form" action="${requestUri}" modelAttribute ="actor">
+<form:form id="form" action="${requestUri}" modelAttribute ="actor">
 	
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>

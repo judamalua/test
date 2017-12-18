@@ -105,6 +105,7 @@ public class ApplicationService {
 		Actor actor;
 		Explorer explorer;
 		Manager manager;
+		final Application application;
 		Application result;
 
 		userAccount = LoginService.getPrincipal();
@@ -119,8 +120,10 @@ public class ApplicationService {
 
 		if (actor instanceof Explorer) {
 			explorer = (Explorer) actor;
+			application = this.getApplicationTripExplorer(explorer.getId(), result.getTrip().getId());
 			Assert.isTrue(!result.getStatus().equals("CANCELLED") || !result.getStatus().equals("REJECTED"));
 			Assert.isTrue(explorer.getApplications().contains(result));
+
 		} else {
 			manager = (Manager) actor;
 			Assert.isTrue(result.getRejection() == null || result.getRejection().getReason() == "");
@@ -130,7 +133,6 @@ public class ApplicationService {
 		return result;
 
 	}
-
 	public void changeStatus(final Application application, final String status) {
 
 		Administrator system;

@@ -11,11 +11,13 @@
 package controllers.explorer;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,8 +79,12 @@ public class ApplicationExplorerController extends AbstractController {
 		ModelAndView result;
 		Application application;
 
-		application = this.applicationService.findOne(applicationId);
-		result = this.createEditModelAndView(application);
+		try {
+			application = this.applicationService.findOne(applicationId);
+			result = this.createEditModelAndView(application);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}
@@ -123,19 +129,27 @@ public class ApplicationExplorerController extends AbstractController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int tripId) {
-		final ModelAndView result;
-		Application application;
+		ModelAndView result;
+		Application application, doneApplication;
 		Trip trip;
+		Explorer explorer;
 
-		application = this.applicationService.create();
-		trip = this.tripService.findOne(tripId);
-		application.setTrip(trip);
-
-		result = this.createEditModelAndView(application);
+		try {
+			explorer = (Explorer) this.actorService.findActorByPrincipal();
+			application = this.applicationService.create();
+			trip = this.tripService.findOne(tripId);
+			doneApplication = this.applicationService.getApplicationTripExplorer(explorer.getId(), trip.getId());
+			Assert.isTrue(trip.getPublicationDate().before(new Date()));
+			Assert.isTrue(trip.getCancelReason() == null || trip.getCancelReason().equals(""));
+			Assert.isTrue(doneApplication == null || !doneApplication.getStatus().equals("ACCEPTED"));
+			application.setTrip(trip);
+			result = this.createEditModelAndView(application);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}
-
 	// Ancillary methods ---------------------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Application application) {

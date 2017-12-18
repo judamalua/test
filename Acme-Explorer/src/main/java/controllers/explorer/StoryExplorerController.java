@@ -74,7 +74,7 @@ public class StoryExplorerController extends AbstractController {
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Story story, @RequestParam("trip") final int tripId, final BindingResult binding) {
+	public ModelAndView save(@RequestParam("trip") final int tripId, @Valid final Story story, final BindingResult binding) {
 		ModelAndView result;
 		Trip trip;
 		//Los attachments se separan por comas para introducir varios valores

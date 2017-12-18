@@ -2,6 +2,7 @@
 package controllers.auditor;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -64,17 +65,22 @@ public class AuditRecordAuditorController extends AbstractController {
 	public ModelAndView create(@RequestParam final int tripId) {
 		ModelAndView result;
 		AuditRecord auditRecord;
+		Trip trip;
 
-		auditRecord = this.auditRecordService.create();
-		final Auditor auditor = (Auditor) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
-		auditRecord.setAuditor(auditor);
-		final Trip trip = this.tripService.findOne(tripId);
-		auditRecord.setTrip(trip);
-		result = this.createEditModelAndView(auditRecord);
-
+		try {
+			auditRecord = this.auditRecordService.create();
+			final Auditor auditor = (Auditor) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
+			trip = this.tripService.findOne(tripId);
+			Assert.isTrue(trip.getPublicationDate().before(new Date()));
+			Assert.isTrue(trip.getCancelReason() == null || trip.getCancelReason().equals(""));
+			auditRecord.setAuditor(auditor);
+			auditRecord.setTrip(trip);
+			result = this.createEditModelAndView(auditRecord);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
-
 	// Editing --------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -82,13 +88,16 @@ public class AuditRecordAuditorController extends AbstractController {
 		ModelAndView result;
 		AuditRecord auditRecord;
 
-		auditRecord = this.auditRecordService.findOne(auditRecordId);
-		Assert.notNull(auditRecord);
-		Assert.isTrue(!auditRecord.getIsFinalMode());
-		Assert.isTrue(auditRecord.getAuditor().getId() == this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId()).getId());
+		try {
+			auditRecord = this.auditRecordService.findOne(auditRecordId);
+			Assert.notNull(auditRecord);
+			Assert.isTrue(!auditRecord.getIsFinalMode());
+			Assert.isTrue(auditRecord.getAuditor().getId() == this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId()).getId());
 
-		result = this.createEditModelAndView(auditRecord);
-
+			result = this.createEditModelAndView(auditRecord);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
 
