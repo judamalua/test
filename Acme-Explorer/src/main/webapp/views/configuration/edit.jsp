@@ -35,8 +35,8 @@
 	<form:label path="searchTimeout">
 		<spring:message code="configuration.searchTimeout"/>
 	</form:label>
-	<form:input path="searchTimeout"/>
-	<form:errors cssClass="error" path="searchTimeout"/>
+	<form:input path="searchTimeout"/> <spring:message code="configuration.hour"/>
+	<form:errors cssClass="error" path="searchTimeout"/> 
 	
 	<spring:message code="configuration.spamWords.placeholder" var="spamWordsPlaceholder"/>
 	<form:label path="spamWords">
@@ -48,7 +48,7 @@
 	<form:label path="bannerUrl">
 		<spring:message code="configuration.bannerUrl"/>
 	</form:label>
-	<form:input path="bannerUrl"/>
+	<form:textarea path="bannerUrl"/>
 	<form:errors cssClass="error" path="bannerUrl"/>
 	
 	<form:label path="welcomeMessageEng">

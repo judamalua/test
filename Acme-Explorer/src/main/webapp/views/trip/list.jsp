@@ -74,6 +74,7 @@
 	<display:column property="price" title="${price}" sortable="true" format="${formatPrice}" />
 	
 	<spring:message code="format.date" var="formatDate"/>
+	
 	<spring:message code="trip.startDate" var="startDate" />
 	<display:column property="startDate" title="${startDate}"
 		sortable="true" format="${formatDate}" />

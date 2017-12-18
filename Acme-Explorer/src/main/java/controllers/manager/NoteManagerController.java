@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,16 +50,17 @@ public class NoteManagerController extends AbstractController {
 		Note note;
 		Manager replierManager;
 
-		note = this.noteService.findOne(noteId);
+		try {
+			note = this.noteService.findOne(noteId);
 
-		replierManager = (Manager) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
-		//		note.setMomentOfReply(new Date(System.currentTimeMillis() - 1000));
-		//		note.setReplierManager(replierManager);
-
-		result = this.createEditModelAndView(note);
-		result.addObject("manager", replierManager);
-		result.addObject("momentOfReply", new Date(System.currentTimeMillis() - 1));
-
+			replierManager = (Manager) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
+			Assert.isTrue(note.getReply() == null || note.getReply().equals(""));
+			result = this.createEditModelAndView(note);
+			result.addObject("manager", replierManager);
+			result.addObject("momentOfReply", new Date(System.currentTimeMillis() - 1));
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
 	// Saving --------------------------------------------

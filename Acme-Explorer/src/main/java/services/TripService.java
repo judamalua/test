@@ -135,6 +135,7 @@ public class TripService {
 
 		result = this.tripRepository.findOne(tripId);
 		Assert.notNull(result);
+
 		return result;
 	}
 

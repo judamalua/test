@@ -66,9 +66,9 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
-	//Arreglar Saving --------------------------------------------------------------------
+	//Saving --------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Actor actor, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("actor") @Valid final Actor actor, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
