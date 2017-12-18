@@ -16,7 +16,7 @@ import domain.Search;
 
 @Controller
 @RequestMapping("/search/admin")
-public class SearchrAdminController extends AbstractController {
+public class SearchAdminController extends AbstractController {
 
 	// Services -------------------------------------------------------
 
