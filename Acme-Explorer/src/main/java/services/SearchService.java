@@ -68,15 +68,24 @@ public class SearchService {
 
 	}
 
-	public Search save(final Search search) {
+	public Search save(final Search se) {
 		this.cacheService.checkCache();
 
-		assert search != null;
+		assert se != null;
 
 		final Search result;
-		search.setSearchMoment(new Date(System.currentTimeMillis() - 2000));
-		search.setmillis(LocalDateTime.now().getMillisOfSecond());
-		result = this.searchRepository.save(search);
+		final Collection<Search> searchesInTheSystem = this.findAll();
+
+		for (final Search s1 : searchesInTheSystem)
+			if (s1.getKeyWord().equals(se.getKeyWord()))
+				if (s1.getPriceRangeStart().equals(se.getPriceRangeStart()))
+					if (s1.getPriceRangeEnd().equals(se.getPriceRangeEnd()))
+						if (s1.getDateRangeStart().getTime() == (se.getDateRangeStart().getTime()))
+							if (s1.getDateRangeEnd().getTime() == (se.getDateRangeEnd().getTime()))
+								this.delete(s1);
+		se.setSearchMoment(new Date(System.currentTimeMillis() - 2000));
+		se.setmillis(LocalDateTime.now().getMillisOfSecond());
+		result = this.searchRepository.save(se);
 
 		final Explorer e = (Explorer) this.actorservice.findActorByPrincipal();
 		e.getSearches().add(result);
@@ -85,7 +94,6 @@ public class SearchService {
 		return result;
 
 	}
-
 	public void delete(final Search search) {
 
 		assert search != null;
