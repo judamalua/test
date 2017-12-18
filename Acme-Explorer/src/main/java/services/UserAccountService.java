@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import security.UserAccount;
 import security.UserAccountRepository;
+import domain.Actor;
 
 @Service
 @Transactional
@@ -17,6 +18,9 @@ public class UserAccountService {
 
 	@Autowired
 	private UserAccountRepository	userAccountRepository;
+
+	@Autowired
+	private ActorService			actorService;
 
 
 	// Simple CRUD methods ----------------------------------------------------
@@ -61,6 +65,49 @@ public class UserAccountService {
 		assert userAccount.getId() != 0;
 
 		this.userAccountRepository.delete(userAccount);
+	}
+
+	public void ban(final Actor actor) {
+		Assert.notNull(actor);
+		Assert.isTrue(actor.isSuspicious());
+		Assert.isTrue(!actor.getIsBanned());
+
+		final UserAccount userAccount = actor.getUserAccount();
+		UserAccount result;
+		Assert.notNull(userAccount);
+
+		userAccount.setIsEnabled(false);
+		userAccount.setIsAccountNonLocked(false);
+		if (userAccount.getTouched() == false)
+			userAccount.setTouched(true);
+
+		result = this.save(userAccount);
+
+		actor.setUserAccount(result);
+		actor.setIsBanned(true);
+		this.actorService.save(actor);
+
+	}
+	public void unban(final Actor actor) {
+		Assert.notNull(actor);
+		Assert.isTrue(actor.isSuspicious());
+		Assert.isTrue(actor.getIsBanned());
+
+		final UserAccount userAccount = actor.getUserAccount();
+		UserAccount result;
+		Assert.notNull(userAccount);
+
+		userAccount.setIsEnabled(true);
+		userAccount.setIsAccountNonLocked(true);
+		if (userAccount.getTouched() == true)
+			userAccount.setTouched(false);
+
+		result = this.save(userAccount);
+
+		actor.setUserAccount(result);
+		actor.setIsBanned(false);
+		this.actorService.save(actor);
+
 	}
 
 }

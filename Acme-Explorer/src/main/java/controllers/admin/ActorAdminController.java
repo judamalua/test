@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.ManagerService;
+import services.UserAccountService;
 
 import com.mchange.v1.cachedstore.CachedStore.Manager;
 
@@ -30,9 +31,11 @@ public class ActorAdminController extends AbstractController {
 	// Services -------------------------------------------------------
 
 	@Autowired
-	ActorService	actorService;
+	ActorService		actorService;
 	@Autowired
-	ManagerService	managerService;
+	ManagerService		managerService;
+	@Autowired
+	UserAccountService	userAccountService;
 
 
 	// Listing ---------------------------------------------------------------		
@@ -86,8 +89,9 @@ public class ActorAdminController extends AbstractController {
 	@RequestMapping(value = "/ban", method = RequestMethod.GET)
 	public ModelAndView ban(final int actorId) {
 		final Actor actor = this.actorService.findOne(actorId);
-		actor.setIsBanned(true);
-		this.actorService.save(actor);
+		this.userAccountService.ban(actor);
+		//actor.setIsBanned(true);
+		//this.actorService.save(actor);
 		final ModelAndView result = this.listSuspicious();
 		return result;
 	}
@@ -95,8 +99,9 @@ public class ActorAdminController extends AbstractController {
 	@RequestMapping(value = "/unban", method = RequestMethod.GET)
 	public ModelAndView unban(final int actorId) {
 		final Actor actor = this.actorService.findOne(actorId);
-		actor.setIsBanned(false);
-		this.actorService.save(actor);
+		this.userAccountService.unban(actor);
+		//actor.setIsBanned(false);
+		//this.actorService.save(actor);
 		final ModelAndView result = this.listSuspicious();
 		return result;
 	}

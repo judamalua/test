@@ -8,7 +8,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <display:table name = "actors" id = "row" 
-	requestURI = "${requestUri}" pagesize = "5" class = "displaytag">
+	requestURI = "${requestUri}" pagesize = "${pagesize}" class = "displaytag">
 
 	<spring:message code = "actor.name" var = "name"/>
 	<display:column property = "name" title = "${name}" sortable = "true"/>
