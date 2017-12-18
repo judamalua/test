@@ -51,7 +51,7 @@ public class SearchServiceTest extends AbstractTest {
 		r.setKeyWord("Contigo pipo");
 		r.setPriceRangeEnd(2000.0);
 		r.setPriceRangeStart(20.0);
-		final Search saved = this.searchService.save(r);
+		final Search saved = this.searchService.save(r, false);
 		Assert.isTrue(this.searchService.findAll().contains(saved));
 		super.unauthenticate();
 	}
@@ -79,7 +79,7 @@ public class SearchServiceTest extends AbstractTest {
 		r.setKeyWord("Contigo pipo");
 		r.setPriceRangeEnd(2000.0);
 		r.setPriceRangeStart(20.0);
-		final Search saved = this.searchService.save(r);
+		final Search saved = this.searchService.save(r, false);
 		Assert.isTrue(this.searchService.findAll().contains(saved));
 		this.searchService.delete(saved);
 		Assert.isTrue(!this.searchService.findAll().contains(saved));
