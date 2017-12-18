@@ -181,6 +181,7 @@ public class MessageService {
 			messageFolder = this.messageFolderService.findMessageFolder("out box", a);
 			messageFolderNotification = this.messageFolderService.findMessageFolder("notification box", a);
 			messageCopy.setMessageFolder(messageFolder);
+			messageCopy.setReceiver(a);
 			this.actorService.sendMessage(messageCopy, actor, a, messageFolderNotification);
 		}
 

@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -98,9 +99,14 @@
 
 	
 	<security:authorize access="hasRole('MANAGER')">
-	<jsp:useBean id="currDate" class="java.util.Date" />
+<%-- 	<jsp:useBean id="currDate" class="java.util.Date" /> --%>
+	<% 
+		
+		Date date = new Date(System.currentTimeMillis()+60000);
+		request.setAttribute("currDate", date);
+	%>
 	<jstl:if test="${requestUri==\"trip/manager/list.do\"}"></jstl:if>
-	<fmt:formatDate value="${currDate}" var="currentDate" pattern="yyyy-MM-dd hh:mm:ss"/>
+	<fmt:formatDate value="${currDate}" var="currentDate" pattern="yyyy-MM-dd HH:mm"/>
 		<display:column>
 		<jstl:if test="${trip.publicationDate > currentDate and (trip.cancelReason==null || trip.cancelReason==\"\")}">
 			<a href="stage/manager/create.do?tripId=${trip.id}">

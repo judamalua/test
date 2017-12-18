@@ -86,7 +86,7 @@ public class StoryExplorerController extends AbstractController {
 			try {
 				trip = this.tripService.findOne(tripId);
 				this.storyService.save(story, trip);
-				result = new ModelAndView("redirect:/trip/explorer/list.do");
+				result = new ModelAndView("redirect:/trip/list.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(story, tripId, "story.commit.error");

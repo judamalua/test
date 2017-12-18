@@ -112,11 +112,14 @@ public class MessageFolderService {
 
 		UserAccount userAccount;
 		Actor actor;
-		Collection<Message> messages;
-		MessageFolder messageFolderFather;
-		final Collection<MessageFolder> messageFolderChildren;
+		final Collection<Message> messages;
+		Collection<MessageFolder> messageFolderChildren;
 
+		MessageFolder messageFolderFather;
+		//		final Collection<MessageFolder> messageFolderChildren;
 		messages = messageFolder.getMessages();
+		messageFolderChildren = messageFolder.getMessageFolderChildren();
+
 		if (this.actorService.findActorByMessageFolder(messageFolder.getId()) != null) {
 			userAccount = LoginService.getPrincipal();
 			Assert.notNull(userAccount);
@@ -136,15 +139,15 @@ public class MessageFolderService {
 			this.messageFolderRepository.save(messageFolderFather);
 		}
 
-		messageFolderChildren = messageFolder.getMessageFolderChildren();
-
-		for (final MessageFolder messageFolderChild : messageFolderChildren)
-			this.messageFolderRepository.delete(messageFolderChild);
-
 		for (final Message m : messages)
 			this.messageService.delete(m);
 
-		this.messageFolderRepository.delete(messageFolder);
+		messageFolderChildren = messageFolder.getMessageFolderChildren();
+		this.deleteChildrenMessageFolders(messageFolder);
+		//		for (final MessageFolder messageFolderChild : messageFolderChildren)
+		//			this.messageFolderRepository.delete(messageFolderChild);
+
+		//this.messageFolderRepository.delete(messageFolder);
 
 	}
 	private void checkMessageFolder(final MessageFolder messageFolder) {
@@ -234,5 +237,37 @@ public class MessageFolderService {
 
 		return result;
 
+	}
+
+	private MessageFolder deleteChildrenMessageFolders(final MessageFolder messageFolder) {
+		final Collection<MessageFolder> messageFolders;
+		MessageFolder result;
+		Collection<Message> messages;
+		Actor actor;
+
+		result = messageFolder;
+		messageFolders = new HashSet<MessageFolder>(messageFolder.getMessageFolderChildren());
+		messages = messageFolder.getMessages();
+		actor = this.actorService.findActorByPrincipal();
+
+		if (messageFolders.isEmpty()) {
+
+			for (final Message m : messages)
+				this.messageService.delete(m);
+
+			actor.getMessageFolders().remove(messageFolder);
+			this.actorService.save(actor);
+
+			this.messageFolderRepository.delete(messageFolder);
+
+		} else {
+			for (final MessageFolder mf : messageFolders)
+				this.deleteChildrenMessageFolders(mf);
+
+			messageFolders.clear();
+			messageFolder.setMessageFolderChildren(messageFolders);
+			this.deleteChildrenMessageFolders(messageFolder);
+		}
+		return result;
 	}
 }

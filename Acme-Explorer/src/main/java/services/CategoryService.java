@@ -111,21 +111,16 @@ public class CategoryService {
 	public void delete(final Category category) {
 		this.actorService.checkUserLogin();
 
-		Category result;
 		assert category != null;
 		assert category.getId() != 0;
 		final Category fatherCategory = category.getFatherCategory();
-		final Category rootCategory = this.getRootCategory();
-		//final Collection<Category> categories = category.getCategories();
-		final Collection<Category> fatherCategoryCategories = category.getFatherCategory().getCategories();
-		final Collection<Trip> trips = this.tripService.findTripsByCategoryId(category.getId());
 
 		Assert.isTrue(this.categoryRepository.exists(category.getId()));
 
 		fatherCategory.getCategories().remove(category);
 		this.save(fatherCategory);
 		// Eliminamos recursivamente todas las categorías hijas de las categorías hija de la categoría a eliminar
-		result = this.deleteChildrenCategories(category, category);
+		this.deleteChildrenCategories(category, category);
 
 		//		 Al eliminar una categoría, referenciamos los viajes a su categoría padre.
 		//		for (final Trip t : trips) {
@@ -165,7 +160,10 @@ public class CategoryService {
 
 		rootCategory = this.categoryRepository.findRootCategory();
 		Assert.notNull(rootCategory);
-
+		if (!category.equals(rootCategory) && !category.getFatherCategory().getCategories().isEmpty())
+			for (final Category brotherCategory : category.getFatherCategory().getCategories())
+				if (!brotherCategory.equals(category))
+					Assert.isTrue(!brotherCategory.getName().equals(category.getName()));
 		mem.put(category.getName(), category);
 
 		if (category.equals(rootCategory) || category.getFatherCategory().equals(rootCategory))
@@ -256,7 +254,7 @@ public class CategoryService {
 	 * @param category
 	 *            to delete its children categories
 	 * 
-	 * @author Juanmi & Manu &&& AleMagician
+	 * @author Juanmi & Manu &&& AleMagician jajajaj
 	 */
 	private Category deleteChildrenCategories(final Category category, final Category initialCategory) {
 		final Collection<Category> categories;

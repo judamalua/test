@@ -42,6 +42,7 @@ window.onload = function(){
 		<form:hidden path="status" />
 		<jstl:if test="${application.id==0}">
 			<form:hidden path="creditCard" />
+			<form:hidden path="date"/>
 		</jstl:if>
 	</security:authorize>
 
@@ -62,13 +63,13 @@ window.onload = function(){
 	<security:authorize access="hasRole('EXPLORER')">
 
 		<jstl:if test="${application.id==0}">
-			<form:label path="date">
-				<spring:message code="application.date" />
-			</form:label>
-			<form:input disabled="${disabled}" path="date"
-				placeholder="dd/MM/yyyy hh:mm" />
-			<form:errors cssClass="error" path="date" />
-			<br />
+<%-- 			<form:label path="date"> --%>
+<%-- 				<spring:message code="application.date" /> --%>
+<%-- 			</form:label> --%>
+<%-- 			<form:input disabled="true" path="date" --%>
+<%-- 				placeholder="dd/MM/yyyy hh:mm" value=""/> --%>
+<%-- 			<form:errors cssClass="error" path="date" /> --%>
+<!-- 			<br /> -->
 
 			<form:label path="commentaries">
 				<spring:message code="application.commentaries" />
