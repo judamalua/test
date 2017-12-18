@@ -16,7 +16,7 @@
 	action="trip/manager/manageSurvivalClasses.do" method="POST">
 	<input type="hidden" name="tripId" value="${trip}">
 	
-	<select multiple name="selectedSurvivalClasses">
+	<select  name="selectedSurvivalClasses" multiple>
 	<jstl:forEach items="${survivalClasses}" var="survivalClass" varStatus="index">
 	<jstl:if test="${indexedSurvivalClasses[index.count-1]}">
 	<option selected value="${survivalClass.id}">
