@@ -88,27 +88,39 @@ public class ActorAdminController extends AbstractController {
 
 	@RequestMapping(value = "/ban", method = RequestMethod.GET)
 	public ModelAndView ban(final int actorId) {
-		final Actor actor = this.actorService.findOne(actorId);
+		ModelAndView result;
 
-		Assert.notNull(actor);
-		Assert.isTrue(!actor.getUserAccount().getBanned());
+		try {
+			final Actor actor = this.actorService.findOne(actorId);
 
-		this.userAccountService.ban(actor);
+			Assert.notNull(actor);
+			Assert.isTrue(!actor.getUserAccount().getBanned());
 
-		final ModelAndView result = this.listSuspicious();
+			this.userAccountService.ban(actor);
+
+			result = this.listSuspicious();
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
 
 	@RequestMapping(value = "/unban", method = RequestMethod.GET)
 	public ModelAndView unban(final int actorId) {
-		final Actor actor = this.actorService.findOne(actorId);
+		ModelAndView result;
 
-		Assert.notNull(actor);
-		Assert.isTrue(actor.getUserAccount().getBanned());
+		try {
+			final Actor actor = this.actorService.findOne(actorId);
 
-		this.userAccountService.unban(actor);
+			Assert.notNull(actor);
+			Assert.isTrue(actor.getUserAccount().getBanned());
 
-		final ModelAndView result = this.listSuspicious();
+			this.userAccountService.unban(actor);
+
+			result = this.listSuspicious();
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
 
