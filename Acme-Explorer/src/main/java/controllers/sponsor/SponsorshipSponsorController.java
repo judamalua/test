@@ -89,10 +89,13 @@ public class SponsorshipSponsorController extends AbstractController {
 		ModelAndView result;
 		Sponsorship sponsorship;
 
-		sponsorship = this.sponsorshipService.findOne(sponsorshipId);
-		Assert.notNull(sponsorship);
-
-		result = this.createEditModelAndView(sponsorship);
+		try {
+			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			Assert.notNull(sponsorship);
+			result = this.createEditModelAndView(sponsorship);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}
@@ -138,7 +141,8 @@ public class SponsorshipSponsorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/addCreditCard", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveAddCreditCard(@Valid @URL @NotBlank final String bannerUrl, @Valid @URL @NotBlank final String additionalInfoLink, final int tripId, @Valid final CreditCard creditCard, final BindingResult binding) {
+	public ModelAndView saveAddCreditCard(@RequestParam @Valid @URL @NotBlank final String bannerUrl, @RequestParam @Valid @URL @NotBlank final String additionalInfoLink, final int tripId, @RequestParam @Valid final CreditCard creditCard,
+		@RequestParam final BindingResult binding) {
 
 		ModelAndView result;
 

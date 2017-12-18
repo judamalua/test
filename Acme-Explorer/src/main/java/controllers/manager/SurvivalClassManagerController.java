@@ -17,6 +17,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,9 +60,14 @@ public class SurvivalClassManagerController extends AbstractController {
 		ModelAndView result;
 		SurvivalClass survivalClass;
 
-		survivalClass = this.survivalClassService.findOne(survivalClassId);
+		try {
+			survivalClass = this.survivalClassService.findOne(survivalClassId);
 
-		result = this.createEditModelAndView(survivalClass);
+			Assert.notNull(survivalClass);
+			result = this.createEditModelAndView(survivalClass);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}
