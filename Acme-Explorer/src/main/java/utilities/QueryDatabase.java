@@ -29,7 +29,6 @@ public class QueryDatabase {
 		ConsoleReader reader;
 		String line;
 		boolean quit;
-
 		EclipseConsole.fix();
 		LogManager.getLogger("org.hibernate").setLevel(Level.OFF);
 		databaseUtil = null;

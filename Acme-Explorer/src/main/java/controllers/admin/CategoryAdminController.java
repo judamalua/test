@@ -66,14 +66,14 @@ public class CategoryAdminController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(category, "category.params.error");
+			result = this.createEditModelAndView(category, "params.error");
 		else
 			try {
 				this.categoryService.save(category);
 				result = new ModelAndView("redirect:/category/list.do");
 
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(category, "category.commit.error");
+				result = this.createEditModelAndView(category, "commit.error");
 			}
 
 		return result;
@@ -90,7 +90,7 @@ public class CategoryAdminController extends AbstractController {
 			result = new ModelAndView("redirect:/category/list.do");
 
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(category, "category.commit.error");
+			result = this.createEditModelAndView(category, "commit.error");
 		}
 
 		return result;

@@ -15,10 +15,10 @@ import domain.Trip;
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Integer> {
 
-	@Query("select t from Trip t where t.ticker like ?1 or t.title like ?1 or t.description like ?1 and t.publicationDate < CURRENT_DATE")
+	@Query("select t from Trip t where t.ticker like ?1 or t.title like ?1 or t.description like ?1 and t.publicationDate < NOW()")
 	Collection<Trip> findTrips(String keyword);
 
-	@Query("select t from Trip t where t.category.id = ?1 and t.publicationDate < CURRENT_DATE")
+	@Query("select t from Trip t where t.category.id = ?1 and t.publicationDate < NOW()")
 	Collection<Trip> findTripsByCategoryId(int id);
 
 	@Query("select t from Trip t where t.category.id = ?1")
@@ -48,10 +48,10 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select t.legalText.title,(select count(t) from LegalText lt where t.legalText=lt) from Trip t group by t.legalText")
 	Collection<String> getNumberOfReferencesLegalTexts();
 	//requirement 34
-	@Query("select t from Trip t where t.title like  ?1 or t.ticker like ?1 or t.description like ?1  and t.startDate between  ?2 " + "and ?3 and t.price between  ?4 and ?5 and t.publicationDate < CURRENT_DATE ")
+	@Query("select t from Trip t where t.title like ?1 or t.ticker like ?1 or t.description like ?1  and t.startDate between  ?2 " + "and ?3 and t.price between  ?4 and ?5 and t.publicationDate < NOW() ")
 	Page<Trip> findTripsBySearchParameters(String q, Date date1, Date date2, Double pricelow, Double priceHigh, Pageable pageable);
 
-	@Query("select t from Trip t where  t.startDate between  ?1 " + "and ?2 and t.price between  ?3 and ?4 and t.publicationDate < CURRENT_DATE ")
+	@Query("select t from Trip t where  t.startDate between  ?1 " + "and ?2 and t.price between  ?3 and ?4 and t.publicationDate <= NOW() ")
 	Page<Trip> findTripsBySearchParametersWithoutQ(Date date1, Date date2, Double pricelow, Double priceHigh, Pageable pageable);
 
 	//	@Query("select t from Trip t where (select count(a) from Trip t join t.applications a where a.explorer.id = ?1)>0  and t.publicationDate < CURRENT_DATE")
@@ -73,7 +73,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	Collection<Trip> getAcceptedTripsFromExplorerId(int explorerId);
 
 	//Requirement 44
-	@Query("select t from Explorer e join e.applications a join a.trip t join t.survivalClasses s where e.id = ?1 and a.status = 'ACCEPTED' and s.id = ?2 and t.endDate > CURRENT_DATE")
+	@Query("select t from Explorer e join e.applications a join a.trip t join t.survivalClasses s where e.id = ?1 and a.status = 'ACCEPTED' and s.id = ?2 and t.endDate > NOW()")
 	Trip findTripSurvivalApplication(int idExplorer, int idSurvivalClass);
 
 	//	//new changes 
@@ -86,10 +86,10 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select t from Trip t where t.price between ?1 and ?2")
 	Collection<Trip> findTripsByPriceRange(double d1, double d2);
 
-	@Query("select t from Trip t where t.publicationDate < CURRENT_DATE")
+	@Query("select t from Trip t where t.publicationDate <= NOW()")
 	Collection<Trip> findTripsByPublicationDate();
 
-	@Query("select t from Trip t where t.title like ?1 and t.price between ?2 and ?3 and t.publicationDate < CURRENT_DATE ")
+	@Query("select t from Trip t where t.title like ?1 and t.price between ?2 and ?3 and t.publicationDate <= NOW() ")
 	Collection<Trip> findTripsByTitleAndPricePublication(String q, double d1, double d2);
 
 	@Query("select t from Trip t join t.survivalClasses s where s.id = ?1")
@@ -97,16 +97,16 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 
 	// Paginated Queries
 
-	@Query("select t from Trip t where t.ticker like ?1 or t.title like ?1 or t.description like ?1 and t.publicationDate < CURRENT_DATE")
+	@Query("select t from Trip t where t.ticker like ?1 or t.title like ?1 or t.description like ?1 and t.publicationDate <= NOW()")
 	Page<Trip> findTrips(String keyword, Pageable pageable);
 
-	@Query("select t from Trip t where t.category.id = ?1 and t.publicationDate < CURRENT_DATE")
+	@Query("select t from Trip t where t.category.id = ?1 and t.publicationDate <= NOW()")
 	Page<Trip> findTripsByCategoryId(int id, Pageable pageable);
 
 	//	@Query("select t from Trip t where (select count(a) from Trip t join t.applications a where a.explorer.id = ?1)>0  and t.publicationDate < CURRENT_DATE")
 	//	Collection<Trip> findTripsApplicationExplorer(int explorerID);
 
-	@Query("select t from Trip t where t.publicationDate < CURRENT_DATE and t.stages.size > 0")
+	@Query("select t from Trip t where t.publicationDate <= NOW() and t.stages.size > 0 and (t.cancelReason like '' or t.cancelReason=null)")
 	Page<Trip> findPublicatedTrips(Pageable pageable);
 
 	@Query("select t from Trip t where t.startDate between '?1' and '?2'")
@@ -115,10 +115,10 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select t from Trip t where t.price between ?1 and ?2")
 	Page<Trip> findTripsByPriceRange(double d1, double d2, Pageable pageable);
 
-	@Query("select t from Trip t where t.publicationDate < CURRENT_DATE")
+	@Query("select t from Trip t where t.publicationDate <= NOW()")
 	Page<Trip> findTripsByPublicationDate(Pageable pageable);
 
-	@Query("select t from Trip t where t.title like ?1 and t.price between ?2 and ?3 and t.publicationDate < CURRENT_DATE ")
+	@Query("select t from Trip t where t.title like ?1 and t.price between ?2 and ?3 and t.publicationDate <= CURRENT_TIMESTAMP ")
 	Page<Trip> findTripsByTitleAndPricePublication(String q, double d1, double d2, Pageable pageable);
 
 	@Query("select t from Trip t join t.tags ta where ta.id = ?1")

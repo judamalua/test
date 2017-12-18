@@ -499,7 +499,7 @@
 
 <security:authorize access="hasRole('MANAGER')">
 	<jstl:if
-		test="${trip.publicationDate>currentDate and hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}">
+		test="${trip.publicationDate<currentDate and trip.startDate > currentDate and hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}">
 		<a href="trip/manager/cancel.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="detailedTrip.cancel" />

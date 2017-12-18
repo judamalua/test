@@ -138,7 +138,8 @@ public class TripManagerController extends AbstractController {
 		Trip trip;
 		try {
 			trip = this.tripService.findOne(tripId);
-			Assert.isTrue(trip.getPublicationDate().after(new Date()));
+			Assert.isTrue(trip.getCancelReason() == null || trip.getCancelReason().equals(""));
+			Assert.isTrue(trip.getPublicationDate().before(new Date()) && trip.getStartDate().after(new Date()));
 			Assert.notNull(trip);
 			result = new ModelAndView("trip/cancel-trip");
 			result.addObject("trip", tripId);
@@ -147,7 +148,6 @@ public class TripManagerController extends AbstractController {
 		}
 		return result;
 	}
-
 	// Saving Canceling ----------------------------------------------------------------
 	@RequestMapping(value = "/cancel", method = RequestMethod.POST, params = {
 		"save", "reason", "tripId"
@@ -157,8 +157,6 @@ public class TripManagerController extends AbstractController {
 		Trip trip;
 		try {
 			trip = this.tripService.findOne(tripId);
-			Assert.isTrue(trip.getPublicationDate().after(new Date()));
-			Assert.notNull(trip);
 			trip.setCancelReason(reason);
 			this.tripService.save(trip);
 			result = new ModelAndView("redirect:list.do");
