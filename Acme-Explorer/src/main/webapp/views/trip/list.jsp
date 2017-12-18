@@ -23,7 +23,7 @@
 		placeholder="<spring:message code="search.keyword.placeholder"/>">
 
 	<security:authorize access="isAuthenticated()">
-	
+	<security:authorize access="hasRole('EXPLORER')">
 
 
 		<label> <spring:message code="trip.startPrice" />
@@ -41,7 +41,8 @@
 		<label> <spring:message code="trip.endDate" />
 		</label>
 		<input type="text" name="endDate" placeholder="dd/MM/yyyy">
-
+		
+	</security:authorize>
 	</security:authorize>
 
 	<input type="submit" name="search" id="search"
