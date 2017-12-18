@@ -74,10 +74,15 @@ public class PersonalRecordCurriculumController extends AbstractController {
 		ModelAndView result;
 		PersonalRecord personalRecord;
 
-		personalRecord = this.personalRecordService.findOne(personalRecordId);
-		Assert.notNull(personalRecord);
+		try {
+			personalRecord = this.personalRecordService.findOne(personalRecordId);
+			Assert.notNull(personalRecord);
 
-		result = this.createEditModelAndView(personalRecord);
+			result = this.createEditModelAndView(personalRecord);
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}

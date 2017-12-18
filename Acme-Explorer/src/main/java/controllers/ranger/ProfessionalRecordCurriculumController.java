@@ -76,10 +76,14 @@ public class ProfessionalRecordCurriculumController extends AbstractController {
 		ModelAndView result;
 		ProfessionalRecord professionalRecord;
 
-		professionalRecord = this.professionalRecordService.findOne(professionalRecordId);
-		Assert.notNull(professionalRecord);
+		try {
+			professionalRecord = this.professionalRecordService.findOne(professionalRecordId);
+			Assert.notNull(professionalRecord);
+			result = this.createEditModelAndView(professionalRecord);
 
-		result = this.createEditModelAndView(professionalRecord);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}
