@@ -76,10 +76,14 @@ public class MiscellaneousRecordCurriculumController extends AbstractController 
 		ModelAndView result;
 		MiscellaneousRecord miscellaneousRecord;
 
-		miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
-		Assert.notNull(miscellaneousRecord);
+		try {
+			miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
+			Assert.notNull(miscellaneousRecord);
+			result = this.createEditModelAndView(miscellaneousRecord);
 
-		result = this.createEditModelAndView(miscellaneousRecord);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}

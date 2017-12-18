@@ -76,10 +76,13 @@ public class EndorserRecordCurriculumController extends AbstractController {
 		ModelAndView result;
 		EndorserRecord endorserRecord;
 
-		endorserRecord = this.endorserRecordService.findOne(endorserRecordId);
-		Assert.notNull(endorserRecord);
-
-		result = this.createEditModelAndView(endorserRecord);
+		try {
+			endorserRecord = this.endorserRecordService.findOne(endorserRecordId);
+			Assert.notNull(endorserRecord);
+			result = this.createEditModelAndView(endorserRecord);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}

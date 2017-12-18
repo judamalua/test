@@ -77,10 +77,13 @@ public class EducationRecordCurriculumController extends AbstractController {
 		ModelAndView result;
 		EducationRecord educationRecord;
 
-		educationRecord = this.educationRecordService.findOne(educationRecordId);
-		Assert.notNull(educationRecord);
-
-		result = this.createEditModelAndView(educationRecord);
+		try {
+			educationRecord = this.educationRecordService.findOne(educationRecordId);
+			Assert.notNull(educationRecord);
+			result = this.createEditModelAndView(educationRecord);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}
