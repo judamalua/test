@@ -23,6 +23,8 @@ public class EducationRecordService {
 	private EducationRecordRepository	educationRecordRepository;
 	@Autowired
 	private CurriculumService			curriculumService;
+	@Autowired
+	private ActorService				actorService;
 
 
 	// Supporting services --------------------------------------------------
@@ -30,6 +32,7 @@ public class EducationRecordService {
 	// Simple CRUD methods --------------------------------------------------
 
 	public EducationRecord create() {
+		this.actorService.checkUserLogin();
 		EducationRecord result;
 
 		result = new EducationRecord();
@@ -61,10 +64,19 @@ public class EducationRecordService {
 
 	public EducationRecord save(final EducationRecord educationRecord) {
 
+		this.actorService.checkUserLogin();
 		assert educationRecord != null;
 
-		EducationRecord result;
+		final EducationRecord result;
 		final Curriculum c = this.curriculumService.findCurriculumByRangerID();
+
+		// Comprobación palabras de spam
+		this.actorService.checkSpamWords(educationRecord.getDiplomaTitle());
+		this.actorService.checkSpamWords(educationRecord.getInstitution());
+		if (!educationRecord.getAttachment().equals(null))
+			this.actorService.checkSpamWords(educationRecord.getAttachment());
+		if (!educationRecord.getCommentaries().equals(null))
+			this.actorService.checkSpamWords(educationRecord.getCommentaries());
 
 		result = this.educationRecordRepository.save(educationRecord);
 		if (c.getEducationRecords().contains(educationRecord))
@@ -79,6 +91,7 @@ public class EducationRecordService {
 
 	public void delete(final EducationRecord educationRecord) {
 
+		this.actorService.checkUserLogin();
 		assert educationRecord != null;
 		assert educationRecord.getId() != 0;
 

@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -91,6 +93,9 @@ public class ActorService {
 		Assert.notNull(loggedActor);
 		//Assert.isTrue(loggedActor.equals(actor)); TODO
 		Assert.isTrue(actor.getIsBanned() == false || this.actorRepository.findOne(actor.getId()).getIsBanned());
+
+		// Comprobación de las palabras de spam
+		// TODO
 
 		//Este bloque if realiza el requisito 35.2
 		if (actor.getVersion() != 0)
@@ -489,12 +494,21 @@ public class ActorService {
 	 * @param strings
 	 *            to check if any of its contained strings contains a spam word
 	 * 
-	 * @author Dani & Juanmi
+	 * @author Dani & Juanmi & Ale
 	 */
-	public void checkSpamWords(final Collection<String> strings) {
-		if (this.configurationService.findConfiguration() != null)
-			for (final String s : strings)
-				this.checkSpamWords(s);
+	public void checkSpamWords(final Collection<String> stringsToCheck) {
+
+		if (this.configurationService.findConfiguration() != null) {
+			final Actor actor = this.actorRepository.findActorByUserAccountId(LoginService.getPrincipal().getId());
+			final Collection<String> spamWords = this.configurationService.findConfiguration().getSpamWords();
+			bucleStrings: for (final String s : stringsToCheck)
+				for (final String spamWord : spamWords)
+					if (s.toLowerCase().contains(spamWord.toLowerCase())) {
+						actor.setSuspicious(true);
+						this.save(actor);
+						break bucleStrings;
+					}
+		}
 	}
 
 	/**
@@ -503,16 +517,9 @@ public class ActorService {
 	 * @param string
 	 *            to check if contains a spam word
 	 * 
-	 * @author Dani & Juanmi
+	 * @author Dani & Juanmi & Ale
 	 */
-	public void checkSpamWords(final String string) {
-		final Actor actor = this.actorRepository.findActorByUserAccountId(LoginService.getPrincipal().getId());
-		final Collection<String> spamWords = this.configurationService.findConfiguration().getSpamWords();
-
-		for (final String spamWord : spamWords)
-			if (string.toLowerCase().contains(spamWord.toLowerCase()))
-				actor.setSuspicious(true);
-		this.save(actor);
+	public void checkSpamWords(final String stringSpam) {
+		this.checkSpamWords(new HashSet<String>(Arrays.asList(stringSpam)));
 	}
-
 }

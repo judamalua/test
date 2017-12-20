@@ -68,6 +68,14 @@ public class ProfessionalRecordService {
 
 		assert professionalRecord != null;
 
+		// Comprobación palabras de spam
+		this.actorService.checkSpamWords(professionalRecord.getCompanyName());
+		this.actorService.checkSpamWords(professionalRecord.getRole());
+		if (!professionalRecord.getAttachment().equals(null))
+			this.actorService.checkSpamWords(professionalRecord.getAttachment());
+		if (!professionalRecord.getCommentaries().equals(null))
+			this.actorService.checkSpamWords(professionalRecord.getCommentaries());
+
 		ProfessionalRecord result;
 		final Curriculum c = this.curriculumService.findCurriculumByRangerID();
 

@@ -25,12 +25,16 @@ public class MiscellaneousRecordService {
 	@Autowired
 	private CurriculumService				curriculumService;
 
+	@Autowired
+	private ActorService					actorService;
+
 
 	// Supporting services --------------------------------------------------
 
 	// Simple CRUD methods --------------------------------------------------
 
 	public MiscellaneousRecord create() {
+		this.actorService.checkUserLogin();
 		MiscellaneousRecord result;
 
 		result = new MiscellaneousRecord();
@@ -61,8 +65,17 @@ public class MiscellaneousRecordService {
 	}
 
 	public MiscellaneousRecord save(final MiscellaneousRecord miscellaneousRecord) {
+		this.actorService.checkUserLogin();
 
 		assert miscellaneousRecord != null;
+
+		// Comprobación palabras de spam
+		this.actorService.checkSpamWords(miscellaneousRecord.getTitle());
+		if (!miscellaneousRecord.getAttachment().equals(null))
+			this.actorService.checkSpamWords(miscellaneousRecord.getAttachment());
+
+		if (!miscellaneousRecord.getCommentaries().equals(null))
+			this.actorService.checkSpamWords(miscellaneousRecord.getCommentaries());
 
 		MiscellaneousRecord result;
 		final Curriculum c = this.curriculumService.findCurriculumByRangerID();
@@ -79,6 +92,7 @@ public class MiscellaneousRecordService {
 	}
 
 	public void delete(final MiscellaneousRecord miscellaneousRecord) {
+		this.actorService.checkUserLogin();
 
 		assert miscellaneousRecord != null;
 		assert miscellaneousRecord.getId() != 0;

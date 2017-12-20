@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ConfigurationRepository;
+import domain.Administrator;
 import domain.Configuration;
 
 @Service
@@ -61,6 +62,13 @@ public class ConfigurationService {
 	public Configuration save(final Configuration configuration) {
 		this.actorService.checkUserLogin();
 		assert configuration != null;
+
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof Administrator) {
+			this.actorService.checkSpamWords(configuration.getBannerUrl());
+			this.actorService.checkSpamWords(configuration.getWelcomeMessageEng());
+			this.actorService.checkSpamWords(configuration.getWelcomeMessageEsp());
+		}
 
 		Configuration result;
 

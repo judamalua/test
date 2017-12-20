@@ -105,6 +105,10 @@ public class RejectionService {
 		//TODO: RejectionManager is correct
 		//Assert.isTrue();
 
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof Manager)
+			this.actorService.checkSpamWords(rejection.getReason());
+
 		Rejection result;
 		Manager manager;
 

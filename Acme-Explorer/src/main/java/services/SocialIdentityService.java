@@ -83,6 +83,13 @@ public class SocialIdentityService {
 		final Actor actor = this.actorService.findActorByUserAccountId(userAccount.getId());
 		Assert.notNull(actor);
 
+		// Comprobación palabras de spam
+		this.actorService.checkSpamWords(socialIdentity.getNick());
+		this.actorService.checkSpamWords(socialIdentity.getName());
+		this.actorService.checkSpamWords(socialIdentity.getProfileLink());
+		if (!socialIdentity.getNick().equals(null))
+			this.actorService.checkSpamWords(socialIdentity.getNick());
+
 		SocialIdentity result;
 
 		result = this.socialIdentityRepository.save(socialIdentity);

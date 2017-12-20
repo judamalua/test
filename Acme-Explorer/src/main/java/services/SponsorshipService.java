@@ -72,6 +72,14 @@ public class SponsorshipService extends AbstractController {
 		final Sponsor sponsor = sponsorship.getSponsor();
 		final Trip trip = sponsorship.getTrip();
 
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof Sponsor) {
+			this.actorService.checkSpamWords(sponsorship.getBannerUrl());
+			this.actorService.checkSpamWords(sponsorship.getAdditionalInfoLink());
+			this.actorService.checkSpamWords(sponsorship.getCreditCard().getBrandName());
+			this.actorService.checkSpamWords(sponsorship.getCreditCard().getHolderName());
+		}
+
 		result = this.sponsorshipRepository.save(sponsorship);
 
 		if (sponsorship.getId() != 0) {

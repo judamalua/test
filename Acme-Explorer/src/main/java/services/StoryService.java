@@ -80,6 +80,13 @@ public class StoryService {
 		final Actor actor = this.actorService.findActorByUserAccountId(userAccount.getId());
 		Assert.notNull(actor);
 
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof Explorer) {
+			this.actorService.checkSpamWords(story.getTitle());
+			this.actorService.checkSpamWords(story.getPieceOfText());
+			this.actorService.checkSpamWords(story.getAttachments());
+		}
+
 		assert story != null;
 		Story result;
 		Explorer writer;

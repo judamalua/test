@@ -79,6 +79,12 @@ public class PersonalRecordService {
 
 		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();
 
+		// Comprobación palabras de spam
+		this.actorService.checkSpamWords(personalRecord.getNameOfCandidate());
+		this.actorService.checkSpamWords(personalRecord.getPhoto());
+		this.actorService.checkSpamWords(personalRecord.getEmail());
+		this.actorService.checkSpamWords(personalRecord.getLinkedInProfileURL());
+
 		// Si el número de teléfono no tiene prefijo, se añade el de configuración por defecto.
 		if (!personalRecord.getPhoneNumber().trim().startsWith("+")) {
 			String trimmedPhoneNumber;

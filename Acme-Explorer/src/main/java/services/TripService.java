@@ -154,6 +154,16 @@ public class TripService {
 			Assert.isTrue(trip.getEndDate().after(trip.getStartDate()));
 		}
 
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof Manager) {
+
+			this.actorService.checkSpamWords(trip.getTitle());
+			this.actorService.checkSpamWords(trip.getDescription());
+			this.actorService.checkSpamWords(trip.getRequirements());
+			if (!trip.getCancelReason().equals(null))
+				this.actorService.checkSpamWords(trip.getCancelReason());
+		}
+
 		Collection<Stage> stages, savedStages;
 		Stage savedStage;
 		double price = 0., vat;
