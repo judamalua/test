@@ -24,7 +24,7 @@
 <spring:message code="format.date" var="formatDate"/>
 <spring:message code="format.price" var="formatPrice"/>
 <display:table name="curriculum" id="row"
-	requestURI="curriculum/ranger/list.do" pagesize="10" class="displaytag">
+	requestURI="curriculum/ranger/list.do" pagesize="${pagesize}" class="displaytag">
 
 	<spring:message code="curriculum.ticker" var="ticker" />
 	<display:column property="ticker" title="${ticker}" sortable="false" />
