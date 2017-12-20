@@ -2311,8 +2311,8 @@
 
 	<bean id="sponsorship1" class="domain.Sponsorship">
 
-		<property name="bannerUrl" value="http://www.banner1.com" />
-		<property name="additionalInfoLink" value="http://www.infoLink1.com" />
+		<property name="bannerUrl" value="https://i.pinimg.com/564x/ed/85/18/ed851879a994732ad2fc1b8c5dd9cf95.jpg" />
+		<property name="additionalInfoLink" value="http://www.lasmejoresrebecas.com" />
 		<property name="creditCard" ref="creditCard3" />
 		<property name="sponsor" ref="sponsor1" />
 		<property name="trip" ref="trip1" />
@@ -2321,8 +2321,8 @@
 
 	<bean id="sponsorship2" class="domain.Sponsorship">
 
-		<property name="bannerUrl" value="http://www.banner2.com" />
-		<property name="additionalInfoLink" value="http://www.infoLink2.com" />
+		<property name="bannerUrl" value="https://i.pinimg.com/564x/94/36/66/9436660aa2c366e67bd1eec364a55291.jpg" />
+		<property name="additionalInfoLink" value="http://www.tortillasdepatata.com" />
 		<property name="creditCard" ref="creditCard4" />
 		<property name="sponsor" ref="sponsor1" />
 		<property name="trip" ref="trip1" />
@@ -2331,8 +2331,8 @@
 
 	<bean id="sponsorship3" class="domain.Sponsorship">
 
-		<property name="bannerUrl" value="http://www.banner3.com" />
-		<property name="additionalInfoLink" value="http://www.infoLink3.com" />
+		<property name="bannerUrl" value="https://i.pinimg.com/564x/23/87/85/23878510d44ca675f8171c96d22b3c7b.jpg" />
+		<property name="additionalInfoLink" value="http://www.tengolacabezarojaynoseporque.com" />
 		<property name="creditCard" ref="creditCard5" />
 		<property name="sponsor" ref="sponsor2" />
 		<property name="trip" ref="trip2" />
@@ -2341,8 +2341,8 @@
 
 	<bean id="sponsorship4" class="domain.Sponsorship">
 
-		<property name="bannerUrl" value="http://www.banner4.com" />
-		<property name="additionalInfoLink" value="http://www.infoLink4.com" />
+		<property name="bannerUrl" value="http://pantograph-punch.com/system/rich/rich_files/rich_files/000/000/972/m/the-10-most-awful-examples-of-clickbait-ever1.jpg" />
+		<property name="additionalInfoLink" value="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
 		<property name="creditCard" ref="creditCard6" />
 		<property name="sponsor" ref="sponsor2" />
 		<property name="trip" ref="trip2" />
