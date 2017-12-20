@@ -135,6 +135,8 @@
 								code="master.page.legalText" /></a></li>
 					<li><a href="tag/admin/list.do"><spring:message
 								code="master.page.tag" /></a></li>
+					<li><a href="actor/admin/edit.do"><spring:message
+								code="master.page.actorEdit" /></a></li>
 				</ul></li>
 		</security:authorize>
 
