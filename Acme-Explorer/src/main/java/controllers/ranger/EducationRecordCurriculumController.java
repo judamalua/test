@@ -22,6 +22,7 @@ import controllers.AbstractController;
 import domain.Curriculum;
 import domain.EducationRecord;
 import domain.MiscellaneousRecord;
+import domain.Ranger;
 
 @Controller
 @RequestMapping("/educationRecord/ranger")
@@ -76,10 +77,14 @@ public class EducationRecordCurriculumController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int educationRecordId) {
 		ModelAndView result;
 		EducationRecord educationRecord;
+		Ranger ranger;
 
 		try {
 			educationRecord = this.educationRecordService.findOne(educationRecordId);
+			ranger = (Ranger) this.actorService.findActorByPrincipal();
 			Assert.notNull(educationRecord);
+			Assert.isTrue(ranger.getCurriculum().getEducationRecords().contains(educationRecord));
+
 			result = this.createEditModelAndView(educationRecord);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");

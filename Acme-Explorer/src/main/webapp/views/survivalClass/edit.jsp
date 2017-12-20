@@ -25,7 +25,7 @@
 	<form:label path = "description">
 		<spring:message code = "survivalclass.description" />:
 	</form:label>
-	<form:input path = "description" />
+	<form:textarea path = "description" />
 	<form:errors cssClass = "error" path = "description" />
 	<br />
 	<form:label path = "organisationMoment">
@@ -57,7 +57,7 @@
 			onclick="return confirm('<spring:message code='survivalclass.confirm.delete' />') " />
 	</jstl:if>
 
-	<a href = "trip/manager/list.do">
+	<a href = "survivalClass/manager/list-managed.do">
 	<input type = "button" name = "cancel" value = "<spring:message code = "survivalclass.cancel" />" >
 	</a>
 

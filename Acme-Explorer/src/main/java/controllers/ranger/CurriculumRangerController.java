@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -143,14 +144,17 @@ public class CurriculumRangerController extends AbstractController {
 	@RequestMapping(value = "/ranger/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Curriculum c, final BindingResult binding) {
 		ModelAndView result;
+		Ranger ranger;
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(c, "curriculum.params.error");
 		else
 			try {
-				this.curriculumService.save(c);
+				ranger = (Ranger) this.actorService.findActorByPrincipal();
 				result = new ModelAndView("redirect:list.do");
+				Assert.isTrue(c.getRanger().equals(ranger));
 
+				this.curriculumService.save(c);
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(c, "curriculum.commit.error");
 			}

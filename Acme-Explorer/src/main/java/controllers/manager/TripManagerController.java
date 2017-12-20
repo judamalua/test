@@ -172,12 +172,12 @@ public class TripManagerController extends AbstractController {
 	public ModelAndView create(@RequestParam("titleStage") final String titleStage, @RequestParam("descriptionStage") final String descriptionStage, @RequestParam("priceStage") final double priceStage, @Valid final Trip trip, final BindingResult binding) {
 		ModelAndView result;
 		Stage stage;
+		stage = this.stageService.create();
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(trip, "trip.params.error");
 		else
 			try {
-				stage = this.stageService.create();
 				stage.setTitle(titleStage);
 				stage.setPrice(priceStage);
 				stage.setDescription(descriptionStage);
@@ -185,6 +185,7 @@ public class TripManagerController extends AbstractController {
 				this.tripService.save(trip);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
+				trip.getStages().remove(stage);
 				result = this.createEditModelAndView(trip, "trip.commit.error");
 			}
 		return result;

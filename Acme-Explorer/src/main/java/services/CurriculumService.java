@@ -110,6 +110,11 @@ public class CurriculumService {
 
 		Assert.isTrue(curriculum != null);
 		Curriculum result;
+		PersonalRecord personalRecord, savedPersonalRecord;
+
+		personalRecord = curriculum.getPersonalRecord();
+		savedPersonalRecord = this.personalRecordService.save(personalRecord);
+		curriculum.setPersonalRecord(savedPersonalRecord);
 
 		result = this.curriculumRepository.save(curriculum);
 		ranger.setCurriculum(result);

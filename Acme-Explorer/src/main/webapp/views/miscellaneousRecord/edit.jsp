@@ -57,7 +57,7 @@
 			type="submit"
 			name="delete"
 			value="<spring:message code="miscellaneousRecord.delete" />"
-			/>
+			onclick="return confirm('<spring:message code='miscellaneousRecord.confirm.delete' />')"/>
 	</jstl:if>
 
 	<a href = "curriculum/ranger/list.do">

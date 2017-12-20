@@ -75,7 +75,7 @@
 			type="submit"
 			name="delete"
 			value="<spring:message code="endorserRecord.delete" />"
-			/>
+			onclick="return confirm('<spring:message code='endorserRecord.confirm.delete' />')" />
 	</jstl:if>
 
 	<a href = "curriculum/ranger/list.do">

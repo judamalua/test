@@ -340,7 +340,7 @@
 <security:authorize access="hasRole('RANGER')">
 <jstl:if test="${curriculum!=null&&curriculumRanger}">
 	<a href="curriculum/ranger/delete.do?curriculumId=${curriculum.id}">
-		<button>
+		<button onclick = "return validate('<spring:message code = "curriculum.confirm.phone"/>')">
 			<spring:message code="curriculum.delete" />
 		</button>
 	</a>

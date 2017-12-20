@@ -65,7 +65,8 @@
 	<input 
 		type="submit"
 		name="save"
-		value="<spring:message code="professionalRecord.save" />" />
+		value="<spring:message code="professionalRecord.save" />" 
+		/>
 		
 
 	<a href = "curriculum/ranger/list.do">

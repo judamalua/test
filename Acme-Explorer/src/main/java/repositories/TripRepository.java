@@ -97,7 +97,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 
 	// Paginated Queries
 
-	@Query("select t from Trip t where t.ticker like ?1 or t.title like ?1 or t.description like ?1 and t.publicationDate <= NOW()")
+	@Query("select t from Trip t where (t.ticker like ?1 or t.title like ?1 or t.description like ?1) and t.publicationDate <= NOW() and (t.cancelReason like '' or t.cancelReason=null)")
 	Page<Trip> findTrips(String keyword, Pageable pageable);
 
 	@Query("select t from Trip t where t.category.id = ?1 and t.publicationDate <= NOW()")
@@ -118,7 +118,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select t from Trip t where t.publicationDate <= NOW()")
 	Page<Trip> findTripsByPublicationDate(Pageable pageable);
 
-	@Query("select t from Trip t where t.title like ?1 and t.price between ?2 and ?3 and t.publicationDate <= CURRENT_TIMESTAMP ")
+	@Query("select t from Trip t where t.title like ?1 and t.price between ?2 and ?3 and t.publicationDate <= NOW() ")
 	Page<Trip> findTripsByTitleAndPricePublication(String q, double d1, double d2, Pageable pageable);
 
 	@Query("select t from Trip t join t.tags ta where ta.id = ?1")
