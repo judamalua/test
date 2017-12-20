@@ -452,6 +452,7 @@ public class ActorService {
 		configuration = this.configurationService.findConfiguration();
 		for (final String spam : configuration.getSpamWords()) {
 			result = message.getBody().toLowerCase().contains(spam.toLowerCase());
+			result = message.getSubject().toLowerCase().contains(spam.toLowerCase());
 			if (result == true)
 				break;
 

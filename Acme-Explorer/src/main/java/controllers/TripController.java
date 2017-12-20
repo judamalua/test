@@ -124,10 +124,11 @@ public class TripController extends AbstractController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView search(@RequestParam(value = "keyword", defaultValue = "") final String keyword, @RequestParam(value = "startPrice", defaultValue = "0.0") final double startPrice,
 		@RequestParam(value = "endPrice", defaultValue = "10000.0") final double endprice, @RequestParam(value = "", defaultValue = "2000/01/01 00:00") final Date startDate,
-		@RequestParam(value = "endDate", defaultValue = "2999/01/01 00:00") final Date endDate, @RequestParam(value = "isAnonymous", defaultValue = "0") final int isAnonymous) {
+		@RequestParam(value = "endDate", defaultValue = "2999/01/01 00:00") final Date endDate, @RequestParam(value = "isAnonymous", defaultValue = "1") final int isAnonymous) {
 		ModelAndView result;
 		Collection<Trip> trips;
 		Page<Trip> tripsPage;
+
 		Pageable pageable;
 		final Configuration configuration;
 
