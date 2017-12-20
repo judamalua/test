@@ -20,6 +20,7 @@
 	<form:hidden path="survivalClasses" />
 	<form:hidden path="cancelReason" />
 	<form:hidden path="auditRecords" />
+<%-- 	<form:hidden path="tags" /> --%>
 	<form:hidden path="notes" />
 	<form:hidden path="applications" />
 	<form:hidden path="managers" />
@@ -59,7 +60,7 @@
 		placeholder="dd/MM/yyyy hh:mm" />
 	<!--     	<span class="add-on"><i class="icon-th"></i></span> -->
 	<!-- 	</div> -->
-	<form:errors cssClass="error" path="startDate" />
+	<form:errors cssClass="error" pathñ="startDate" />
 	<br />
 
 	<form:label path="endDate">
@@ -118,8 +119,12 @@
 		<spring:message code="trip.tags" />
 	</form:label>
 	<form:select multiple="true" path="tags">
+			<form:option value="0">
+				-----------------
+			</form:option>
 		<jstl:forEach items="${tagsTrip}" var="tagTrip" >
 			<!-- Variable del controlador -->
+			
 			<form:option value="${tagTrip.id}">
 				<jstl:out value="${tagTrip.name}" />
 			</form:option>

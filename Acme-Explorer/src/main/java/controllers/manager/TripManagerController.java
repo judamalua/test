@@ -182,6 +182,7 @@ public class TripManagerController extends AbstractController {
 				stage.setPrice(priceStage);
 				stage.setDescription(descriptionStage);
 				trip.getStages().add(stage);
+				trip.getTags().remove(null);
 				this.tripService.save(trip);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
@@ -200,6 +201,7 @@ public class TripManagerController extends AbstractController {
 			result = this.createEditModelAndView(trip, "trip.params.error");
 		else
 			try {
+				trip.getTags().remove(null);
 				this.tripService.save(trip);
 
 				result = new ModelAndView("redirect:list.do");
@@ -262,9 +264,9 @@ public class TripManagerController extends AbstractController {
 			survivalClasses = new HashSet<SurvivalClass>();
 			indexedSurvivalClasses = new ArrayList<Boolean>();
 
-			for (final SurvivalClass sv : trip.getSurvivalClasses())
-				if (sv.getOrganisationMoment().after(new Date()))
-					survivalClasses.add(sv);
+			//			for (final SurvivalClass sv : trip.getSurvivalClasses())
+			//				if (sv.getOrganisationMoment().after(new Date()))
+			//					survivalClasses.add(sv);
 
 			for (final SurvivalClass sv : manager.getSurvivalClasses())
 				if (sv.getOrganisationMoment().after(new Date()))

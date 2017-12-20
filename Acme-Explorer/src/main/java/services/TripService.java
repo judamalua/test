@@ -160,7 +160,7 @@ public class TripService {
 			this.actorService.checkSpamWords(trip.getTitle());
 			this.actorService.checkSpamWords(trip.getDescription());
 			this.actorService.checkSpamWords(trip.getRequirements());
-			if (!trip.getCancelReason().equals(null))
+			if (trip.getCancelReason() != null)
 				this.actorService.checkSpamWords(trip.getCancelReason());
 		}
 
@@ -475,7 +475,10 @@ public class TripService {
 					t1 = this.tripRepository.findTripsBySearchParameters("%" + q + "%", date1, date2, pricelow, pricehigh, pageable);
 
 				this.cacheService.saveInCache(s, t1);
-			}
+			} else if (q == null || q.equals(""))
+				t1 = this.findPublicatedTrips(pageable);
+			else
+				t1 = this.tripRepository.findTrips("%" + q + "%", pageable);
 
 		} else if (q == null || q.equals(""))
 			t1 = this.findPublicatedTrips(pageable);

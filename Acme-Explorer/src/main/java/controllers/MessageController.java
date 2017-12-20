@@ -54,7 +54,7 @@ public class MessageController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Message message, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("modelMessage") @Valid final Message message, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -73,7 +73,7 @@ public class MessageController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = {
 		"save", "broadcast"
 	})
-	public ModelAndView saveBroadcast(@Valid final Message message, @RequestParam("broadcast") final boolean broadcast, final BindingResult binding) {
+	public ModelAndView saveBroadcast(@RequestParam("broadcast") final boolean broadcast, @ModelAttribute("modelMessage") @Valid final Message message, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -169,7 +169,7 @@ public class MessageController extends AbstractController {
 		actors = this.actorService.findAll();
 
 		result = new ModelAndView("message/edit");
-		result.addObject("row", message);
+		result.addObject("modelMessage", message);
 		result.addObject("actors", actors);
 		result.addObject("message", messageCode);
 

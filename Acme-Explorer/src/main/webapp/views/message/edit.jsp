@@ -9,7 +9,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <form:form action="message/edit.do"
-	modelAttribute="row">
+	modelAttribute="modelMessage">
 	
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
@@ -69,7 +69,7 @@
 		<label>
 			<spring:message code="message.broadcast" />
 		</label>
-		<input type="checkbox" name="broadcast" />
+		<input type="checkbox" id="broadcast" name="broadcast" />
 		
 		<br/>
 		<br/>

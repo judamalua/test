@@ -223,24 +223,24 @@
 		</display:column>
 
 
-		<security:authorize access="hasRole('MANAGER')">
-			<jstl:if test="${hasManager}">
-				<display:column>
-				<jstl:if test="${row3.organisationMoment>currentDate}">
-					<a href="survivalClass/manager/edit.do?survivalClassId=${row3.id}">
-						<spring:message code="detailed.trip.edit" />
-					</a>
-				</jstl:if>
-					<jstl:if
-						test="${trip.publicationDate>=currentDate and hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}}">
-						<a
-							href="trip/manager/removeSurvivalClass.do?survivalClassId=${row3.id}&tripId=${trip.id}">
-							<spring:message code="detailed.trip.remove" />
-						</a>
-					</jstl:if>
-				</display:column>
-			</jstl:if>
-		</security:authorize>
+<%-- 		<security:authorize access="hasRole('MANAGER')"> --%>
+<%-- 			<jstl:if test="${hasManager}"> --%>
+<%-- 				<display:column> --%>
+<%-- 				<jstl:if test="${row3.organisationMoment>currentDate}"> --%>
+<%-- 					<a href="survivalClass/manager/edit.do?survivalClassId=${row3.id}"> --%>
+<%-- 						<spring:message code="detailed.trip.edit" /> --%>
+<!-- 					</a> -->
+<%-- 				</jstl:if> --%>
+<%-- 					<jstl:if --%>
+<%-- 						test="${trip.publicationDate>=currentDate and hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}}"> --%>
+<!-- 						<a -->
+<%-- 							href="trip/manager/removeSurvivalClass.do?survivalClassId=${row3.id}&tripId=${trip.id}"> --%>
+<%-- 							<spring:message code="detailed.trip.remove" /> --%>
+<!-- 						</a> -->
+<%-- 					</jstl:if> --%>
+<%-- 				</display:column> --%>
+<%-- 			</jstl:if> --%>
+<%-- 		</security:authorize> --%>
 
 		<security:authorize access="hasRole('EXPLORER')">
 			<jstl:if test="${hasExplorer}">
