@@ -23,7 +23,7 @@
 <spring:message code="format.date" var="formatDate" />
 <jstl:if test="${not empty auditRecords}">
 	<display:table name="auditRecords" id="row"
-		requestURI="auditRecord/auditor/list.do" pagesize="10"
+		requestURI="auditRecord/auditor/list.do" pagesize="${pagesize}"
 		class="displaytag">
 
 		<spring:message code="auditRecord.title" var="titleHeader" />

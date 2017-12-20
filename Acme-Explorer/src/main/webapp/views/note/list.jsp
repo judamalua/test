@@ -24,7 +24,7 @@
 <spring:message code="format.date" var="formatDate"/>
 <spring:message code="format.price" var="formatPrice"/>
 <display:table name = "notes" id = "row" 
-	requestURI = "note/${role}/list.do" pagesize = "5" class = "displaytag">
+	requestURI = "note/${role}/list.do" pagesize = "${pagesize}" class = "displaytag">
 
 	<spring:message code = "note.moment" var = "momentHeader"/>
 	<display:column property = "moment" title = "${momentHeader}" sortable = "true" format="${formatDate}"/>

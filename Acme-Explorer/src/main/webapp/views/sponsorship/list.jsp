@@ -9,7 +9,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <display:table name = "sponsorships" id = "row" 
-	requestURI = "${requestUri}" pagesize = "5" class = "displaytag">
+	requestURI = "${requestUri}" pagesize = "${pagesize}" class = "displaytag">
 
 	<spring:message code = "sponsorship.bannerUrl" var = "bannerUrl"/>
 	<display:column property = "bannerUrl" title = "${bannerUrlHeader}" sortable = "true"/>

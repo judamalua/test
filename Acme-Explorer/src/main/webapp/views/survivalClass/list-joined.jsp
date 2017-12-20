@@ -9,7 +9,7 @@
 <spring:message code="format.date" var="formatDate"/>
 <spring:message code="format.price" var="formatPrice"/>
 <display:table name = "survivalClasses" id = "row" 
-	requestURI = "survivalClass/explorer/list-joined.do" pagesize = "5" class = "displaytag">
+	requestURI = "survivalClass/explorer/list-joined.do" pagesize = "${pagesize}" class = "displaytag">
 	
 	<spring:message code = "survivalclass.title" var = "title"/>
 	<display:column property = "title" title = "${title}" sortable = "true"/>
