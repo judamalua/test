@@ -98,6 +98,8 @@ public class ActorController extends AbstractController {
 
 		result = this.createEditModelAndView(actor);
 
+		result.addObject("actionURL", "actor/register-explorer.do");
+
 		return result;
 	}
 
@@ -131,6 +133,8 @@ public class ActorController extends AbstractController {
 		actor = this.rangerService.create();
 
 		result = this.createEditModelAndView(actor);
+
+		result.addObject("actionURL", "actor/register-explorer.do");
 
 		return result;
 	}
