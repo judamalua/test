@@ -5,13 +5,10 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +21,6 @@ import services.SponsorshipService;
 import services.TripService;
 import controllers.AbstractController;
 import domain.Actor;
-import domain.CreditCard;
 import domain.Sponsor;
 import domain.Sponsorship;
 import domain.Trip;
@@ -100,20 +96,20 @@ public class SponsorshipSponsorController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/addCreditCard", method = RequestMethod.GET)
-	public ModelAndView addCreditCard(@RequestParam final String bannerUrl, @RequestParam final String additionalInfoLink, @RequestParam final int tripId) {
-		ModelAndView result;
-
-		final CreditCard creditCard = new CreditCard();
-
-		result = new ModelAndView("sponsorship/addCreditCard");
-		result.addObject("tripId", tripId);
-		result.addObject("bannerUrl", bannerUrl);
-		result.addObject("additionalInfoLink", additionalInfoLink);
-		result.addObject("creditcard", creditCard);
-
-		return result;
-	}
+	//	@RequestMapping(value = "/addCreditCard", method = RequestMethod.GET)
+	//	public ModelAndView addCreditCard(@RequestParam final String bannerUrl, @RequestParam final String additionalInfoLink, @RequestParam final int tripId) {
+	//		ModelAndView result;
+	//
+	//		final CreditCard creditcard = new CreditCard();
+	//
+	//		result = new ModelAndView("sponsorship/addCreditCard");
+	//		result.addObject("tripId", tripId);
+	//		result.addObject("bannerUrl", bannerUrl);
+	//		result.addObject("additionalInfoLink", additionalInfoLink);
+	//		result.addObject("creditcard", creditcard);
+	//
+	//		return result;
+	//	}
 	// Saving --------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
@@ -121,12 +117,13 @@ public class SponsorshipSponsorController extends AbstractController {
 
 		ModelAndView result;
 
-		if (sponsorship.getCreditCard() == null) {
-			if (this.chechErrorsBinding(binding))
-				result = this.createEditModelAndView(sponsorship, "auditRecord.commit.error");
-			else
-				result = new ModelAndView("redirect:addCreditCard.do?bannerUrl=" + sponsorship.getBannerUrl() + "&additionalInfoLink=" + sponsorship.getAdditionalInfoLink() + "&tripId=" + sponsorship.getTrip().getId());
-		} else if (binding.hasErrors())
+		//		if (sponsorship.getCreditCard() == null) {
+		//			if (this.chechErrorsBinding(binding))
+		//				result = this.createEditModelAndView(sponsorship, "auditRecord.commit.error");
+		//			else
+		//				result = new ModelAndView("redirect:addCreditCard.do?bannerUrl=" + sponsorship.getBannerUrl() + "&additionalInfoLink=" + sponsorship.getAdditionalInfoLink() + "&tripId=" + sponsorship.getTrip().getId());
+		//		} else 
+		if (binding.hasErrors())
 			result = this.createEditModelAndView(sponsorship);
 		else
 			try {
@@ -140,38 +137,38 @@ public class SponsorshipSponsorController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/addCreditCard", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveAddCreditCard(@RequestParam @Valid @URL @NotBlank final String bannerUrl, @RequestParam @Valid @URL @NotBlank final String additionalInfoLink, final int tripId, @RequestParam @Valid final CreditCard creditCard,
-		@RequestParam final BindingResult binding) {
-
-		ModelAndView result;
-
-		final Sponsorship sponsorship = this.sponsorshipService.create();
-		sponsorship.setAdditionalInfoLink(additionalInfoLink);
-		sponsorship.setBannerUrl(bannerUrl);
-		final Sponsor sponsor = (Sponsor) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
-		sponsorship.setSponsor(sponsor);
-		final Trip trip = this.tripService.findOne(tripId);
-		sponsorship.setTrip(trip);
-		sponsorship.setCreditCard(creditCard);
-
-		if (binding.hasErrors()) {
-			result = new ModelAndView("sponsorship/addCreditCard");
-			result.addObject("tripId", tripId);
-			result.addObject("bannerUrl", bannerUrl);
-			result.addObject("additionalInfoLink", additionalInfoLink);
-			result.addObject("creditcard", creditCard);
-		} else
-			try {
-				this.sponsorshipService.save(sponsorship);
-				result = new ModelAndView("redirect:list.do");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(sponsorship, "auditRecord.commit.error");
-
-			}
-
-		return result;
-	}
+	//	@RequestMapping(value = "/addCreditCard", method = RequestMethod.POST, params = "save")
+	//	public ModelAndView saveAddCreditCard(@RequestParam @Valid @URL @NotBlank final String bannerUrl, @RequestParam @Valid @URL @NotBlank final String additionalInfoLink, final int tripId, @RequestParam @Valid final CreditCard creditcard,
+	//		@RequestParam final BindingResult binding) {
+	//
+	//		ModelAndView result;
+	//
+	//		final Sponsorship sponsorship = this.sponsorshipService.create();
+	//		sponsorship.setAdditionalInfoLink(additionalInfoLink);
+	//		sponsorship.setBannerUrl(bannerUrl);
+	//		final Sponsor sponsor = (Sponsor) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
+	//		sponsorship.setSponsor(sponsor);
+	//		final Trip trip = this.tripService.findOne(tripId);
+	//		sponsorship.setTrip(trip);
+	//		sponsorship.setCreditCard(creditcard);
+	//
+	//		if (binding.hasErrors()) {
+	//			result = new ModelAndView("sponsorship/addCreditCard");
+	//			result.addObject("tripId", tripId);
+	//			result.addObject("bannerUrl", bannerUrl);
+	//			result.addObject("additionalInfoLink", additionalInfoLink);
+	//			result.addObject("creditcard", creditcard);
+	//		} else
+	//			try {
+	//				this.sponsorshipService.save(sponsorship);
+	//				result = new ModelAndView("redirect:list.do");
+	//			} catch (final Throwable oops) {
+	//				result = this.createEditModelAndView(sponsorship, "auditRecord.commit.error");
+	//
+	//			}
+	//
+	//		return result;
+	//	}
 
 	// Deleting --------------------------------------------
 
@@ -208,13 +205,13 @@ public class SponsorshipSponsorController extends AbstractController {
 
 		return result;
 	}
-	private boolean chechErrorsBinding(final BindingResult binding) {
-		boolean res = false;
-		for (final ObjectError e : binding.getAllErrors())
-			for (int i = 0; i < e.getCodes().length; i++)
-				if (e.getCodes()[i].toString().toLowerCase().contains("bannerurl") || e.getCodes()[i].toString().toLowerCase().contains("additionalinfolink"))
-					res = true;
-
-		return res;
-	}
+	//	private boolean chechErrorsBinding(final BindingResult binding) {
+	//		boolean res = false;
+	//		for (final ObjectError e : binding.getAllErrors())
+	//			for (int i = 0; i < e.getCodes().length; i++)
+	//				if (e.getCodes()[i].toString().toLowerCase().contains("bannerurl") || e.getCodes()[i].toString().toLowerCase().contains("additionalinfolink"))
+	//					res = true;
+	//
+	//		return res;
+	//	}
 }
