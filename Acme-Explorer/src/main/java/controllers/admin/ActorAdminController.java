@@ -294,7 +294,9 @@ public class ActorAdminController extends AbstractController {
 		actor = this.rangerService.create();
 
 		result = this.createEditModelAndViewRegister(actor);
+		result.addObject("actionURL", "actor/admin/register-ranger.do");
 		return result;
+
 	}
 
 	//Saving ranger ---------------------------------------------------------------------
@@ -328,6 +330,7 @@ public class ActorAdminController extends AbstractController {
 		actor = this.explorerService.create();
 
 		result = this.createEditModelAndViewRegister(actor);
+		result.addObject("actionURL", "actor/admin/register-explorer.do");
 		return result;
 	}
 
