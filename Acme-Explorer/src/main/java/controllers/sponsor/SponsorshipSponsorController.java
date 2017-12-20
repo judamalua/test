@@ -89,6 +89,7 @@ public class SponsorshipSponsorController extends AbstractController {
 			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
 			Assert.notNull(sponsorship);
 			result = this.createEditModelAndView(sponsorship);
+			Assert.isTrue(this.actorService.findActorByPrincipal().getId() == sponsorship.getSponsor().getId());
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
 		}
