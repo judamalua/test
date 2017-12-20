@@ -75,6 +75,7 @@ public class SurvivalClassExplorerController extends AbstractController {
 
 	@RequestMapping(value = "/leave", method = RequestMethod.GET)
 	public ModelAndView leave(@RequestParam("survivalClassId") final int survivalClassId) {
+
 		ModelAndView result;
 
 		final Explorer explorer;
