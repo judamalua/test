@@ -68,7 +68,7 @@ public class SurvivalClassExplorerController extends AbstractController {
 		explorer.getSurvivalClasses().add(this.survivalClassService.findOne(survivalClassId));
 		this.explorerService.save(explorer);
 
-		result = new ModelAndView("redirect:/survivalClass/list-joined");
+		result = new ModelAndView("redirect:/survivalClass/explorer/list-joined.do");
 
 		return result;
 	}
@@ -83,7 +83,7 @@ public class SurvivalClassExplorerController extends AbstractController {
 		explorer.getSurvivalClasses().remove(this.survivalClassService.findOne(survivalClassId));
 		this.explorerService.save(explorer);
 
-		result = new ModelAndView("redirect:/survivalClass/list-joined");
+		result = new ModelAndView("redirect:/survivalClass/explorer/list-joined.do");
 
 		return result;
 	}
