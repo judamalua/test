@@ -129,14 +129,8 @@
 								code="master.page.configurationList" /></a></li>
 					<li><a href="dashboard/admin/list.do"><spring:message
 								code="master.page.dashboardList" /></a></li>
-					<li><a href="actor/admin/register-manager.do"><spring:message
-								code="master.page.register-manager" /></a></li>
-					<li><a href="actor/admin/register-auditor.do"><spring:message
-								code="master.page.register-auditor" /></a></li>
-					<li><a href="actor/admin/register-sponsor.do"><spring:message
-								code="master.page.register-sponsor" /></a></li>
-					<li><a href="actor/admin/register-admin.do"><spring:message
-								code="master.page.register-admin" /></a></li>
+					<li><a href="actor/admin/register.do"><spring:message
+								code="master.page.register" /></a></li>
 					<li><a href="legalText/admin/list.do"><spring:message
 								code="master.page.legalText" /></a></li>
 					<li><a href="tag/admin/list.do"><spring:message

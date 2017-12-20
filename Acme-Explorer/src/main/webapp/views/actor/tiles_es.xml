@@ -48,5 +48,9 @@
 		<put-attribute name="title" value="Lista de cuentas sospechosas" />
 		<put-attribute name="body" value="/views/actor/list-suspicious.jsp" />
 	</definition>
+	<definition name="actor/register" extends="master.page">	
+		<put-attribute name="title" value="Registrar un nuevo actor" />
+		<put-attribute name="body" value="/views/actor/register.jsp" />
+	</definition>
 	
 </tiles-definitions>

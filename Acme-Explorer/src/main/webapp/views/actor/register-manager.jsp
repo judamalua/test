@@ -21,6 +21,8 @@
 	<form:hidden path="trips" />
 	<form:hidden path="repliedNotes" />
 	<form:hidden path="rejections" />
+	<form:hidden path="survivalClasses" />
+	
 
 	
 	<form:label path="name">
@@ -72,14 +74,12 @@
 	<form:errors cssClass="error" path="userAccount.password"/>
 	<br/>
 	
-	<input 
-		type="submit"
+	<input type="submit"
 		name="save"
 		value="<spring:message code="actor.save.register" />"
 		onclick = "return validate('<spring:message code = "actor.confirm.phone"/>')">
 	
-	<input 
-		type="button"
+	<input type="button"
 		name="cancel"
 		value="<spring:message code="actor.cancel" />"
 		onclick ="javascript: relativeRedir('welcome/index.do');">
