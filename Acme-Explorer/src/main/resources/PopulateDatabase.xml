@@ -2535,7 +2535,7 @@
 		<property name="welcomeMessageEng" value="Tanzanika is an adventure company that makes your explorer's dreams true" />
 		<property name="welcomeMessageEsp" value="Tanzanika es la empresa de aventuras que hará tus sueños de explorador realidad" />
 		<property name="defaultPhoneCountryCode" value="+34" />
-		<property name="maxResults" value="10"/>
+		<property name="maxResults" value="5"/>
 
 	</bean>
 
