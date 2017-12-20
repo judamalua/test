@@ -2,6 +2,7 @@
 package controllers.sponsor;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -74,6 +75,12 @@ public class SponsorshipSponsorController extends AbstractController {
 		final Trip trip = this.tripService.findOne(tripId);
 		sponsorship.setTrip(trip);
 		result = this.createEditModelAndView(sponsorship);
+
+		try {
+			Assert.isTrue(trip.getPublicationDate().before(new Date()));
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}
