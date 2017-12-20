@@ -23,6 +23,9 @@
 
 <spring:message code="format.date" var="formatDate"/>
 <spring:message code="format.price" var="formatPrice"/>
+
+
+<jstl:if test = "${curriculum != null}">
 <display:table name="curriculum" id="row"
 	requestURI="curriculum/ranger/list.do" pagesize="${pagesize}" class="displaytag">
 
@@ -349,5 +352,5 @@
 </jstl:if>
 </security:authorize>
 
-
+</jstl:if>
 
