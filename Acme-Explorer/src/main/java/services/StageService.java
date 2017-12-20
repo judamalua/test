@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.StageRepository;
+import domain.Manager;
 import domain.Stage;
 import domain.Trip;
 
@@ -24,6 +25,9 @@ public class StageService {
 	// Supporting services --------------------------------------------------
 	@Autowired
 	private TripService		tripService;
+
+	@Autowired
+	private ActorService	actorService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -62,6 +66,13 @@ public class StageService {
 
 		assert stage != null;
 		Stage result;
+
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof Manager) {
+			this.actorService.checkSpamWords(stage.getTitle());
+			this.actorService.checkSpamWords(stage.getDescription());
+		}
+
 		//		Trip trip;
 		//		Collection<Stage> stages;
 		//

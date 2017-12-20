@@ -28,12 +28,16 @@ public class EndorserRecordService {
 	@Autowired
 	private ConfigurationService		configurationService;
 
+	@Autowired
+	private ActorService				actorService;
+
 
 	// Supporting services --------------------------------------------------
 
 	// Simple CRUD methods --------------------------------------------------
 
 	public EndorserRecord create() {
+		this.actorService.checkUserLogin();
 		EndorserRecord result;
 
 		result = new EndorserRecord();
@@ -64,11 +68,19 @@ public class EndorserRecordService {
 	}
 
 	public EndorserRecord save(final EndorserRecord endorserRecord) {
+		this.actorService.checkUserLogin();
 
 		assert endorserRecord != null;
 
 		EndorserRecord result;
 		String phoneNumberPrefix;
+
+		// Comprobación palabras de spam
+		this.actorService.checkSpamWords(endorserRecord.getFullName());
+		this.actorService.checkSpamWords(endorserRecord.getEmail());
+		this.actorService.checkSpamWords(endorserRecord.getLinkedInProfileURL());
+		if (!endorserRecord.getCommentaries().equals(null))
+			this.actorService.checkSpamWords(endorserRecord.getCommentaries());
 
 		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();
 
@@ -99,6 +111,7 @@ public class EndorserRecordService {
 	}
 
 	public void delete(final EndorserRecord endorserRecord) {
+		this.actorService.checkUserLogin();
 
 		assert endorserRecord != null;
 		assert endorserRecord.getId() != 0;

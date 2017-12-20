@@ -1,8 +1,6 @@
 
 package services;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -16,6 +14,7 @@ import repositories.LegalTextRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Administrator;
 import domain.LegalText;
 
 @Service
@@ -44,13 +43,13 @@ public class LegalTextService {
 		LegalText result;
 		final Collection<String> applicableLaws = new HashSet<String>();
 
-		final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		Date c = null;
-		try {
-			c = sdf.parse("25-05-2015");
-		} catch (final ParseException e) {
-			e.printStackTrace();
-		}
+		//		final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		//		Date c = null;
+		//		try {
+		//			c = sdf.parse("25-05-2015");
+		//		} catch (final ParseException e) {
+		//			e.printStackTrace();
+		//		}
 
 		result = new LegalText();
 		result.setApplicableLaws(applicableLaws);
@@ -101,9 +100,11 @@ public class LegalTextService {
 		assert legalText != null;
 
 		// Filtro para las palabras de spam
-		this.actorService.checkSpamWords(legalText.getTitle());
-		this.actorService.checkSpamWords(legalText.getBody());
-		this.actorService.checkSpamWords(legalText.getApplicableLaws());
+		if (this.actorService.findActorByPrincipal() instanceof Administrator) {
+			this.actorService.checkSpamWords(legalText.getTitle());
+			this.actorService.checkSpamWords(legalText.getBody());
+			this.actorService.checkSpamWords(legalText.getApplicableLaws());
+		}
 
 		// Requirement 14.2: A legal text cannot be edited if it is saved in final mode.
 		if (legalText.getId() != 0)

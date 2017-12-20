@@ -12,6 +12,7 @@ import repositories.TagRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Administrator;
 import domain.Tag;
 import domain.Trip;
 
@@ -71,6 +72,10 @@ public class TagService {
 		this.checkUserLogin();
 
 		assert tag != null;
+
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof Administrator)
+			this.actorService.checkSpamWords(tag.getName());
 
 		Tag result, storedTag;
 		Collection<Trip> trips;

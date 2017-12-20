@@ -96,6 +96,13 @@ public class SurvivalClassService {
 				.equals("ACCEPTED"));
 		}
 
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof Manager) {
+			this.actorService.checkSpamWords(survivalClass.getLocation().getName());
+			this.actorService.checkSpamWords(survivalClass.getTitle());
+			this.actorService.checkSpamWords(survivalClass.getDescription());
+		}
+
 		SurvivalClass result;
 		final Collection<Trip> trips;
 		final Manager manager;

@@ -99,6 +99,12 @@ public class MessageService {
 		Actor actor;
 		Message result;
 
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal().equals(message.getSender())) {
+			this.actorService.checkSpamWords(message.getSubject());
+			this.actorService.checkSpamWords(message.getBody());
+		}
+
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		actor = this.actorService.findActorByUserAccountId(userAccount.getId());

@@ -73,6 +73,11 @@ public class ContactService {
 		Contact result;
 		String phoneNumberPrefix;
 
+		// Comprobación palabras de spam
+		this.actorService.checkSpamWords(contact.getName());
+		if (!contact.getEmail().equals(null))
+			this.actorService.checkSpamWords(contact.getEmail());
+
 		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();
 
 		final Explorer e = (Explorer) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());

@@ -83,6 +83,9 @@ public class MessageFolderService {
 		Assert.notNull(messageFolder);
 		this.checkMessageFolder(messageFolder);
 
+		// Comprobación palabras de spam
+		this.actorService.checkSpamWords(messageFolder.getName());
+
 		Actor actor;
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);

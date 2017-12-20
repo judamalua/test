@@ -91,6 +91,13 @@ public class AuditRecordService {
 		trip = audit.getTrip();
 		auditor = audit.getAuditor();
 
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof Auditor) {
+			this.actorService.checkSpamWords(audit.getTitle());
+			this.actorService.checkSpamWords(audit.getDescription());
+			this.actorService.checkSpamWords(audit.getAttachments());
+		}
+
 		audit.setMomentWhenCarriedOut(new Date(System.currentTimeMillis() - 1000));
 		result = this.auditRecordRepository.save(audit);
 

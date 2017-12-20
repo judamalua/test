@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.CategoryRepository;
+import domain.Administrator;
 import domain.Category;
 import domain.Trip;
 
@@ -84,6 +85,11 @@ public class CategoryService {
 		rootCategory = this.categoryRepository.findRootCategory();
 
 		assert category != null;
+
+		// Comprobación palabaras de spam
+		if (this.actorService.findActorByPrincipal() instanceof Administrator)
+			this.actorService.checkSpamWords(category.getName());
+
 		if (!category.equals(rootCategory) && category.getFatherCategory().equals(null))
 			// Si no tiene categoría padre, ponemos la categoría por defecto CATEGORY como
 			// categoría padre.

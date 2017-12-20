@@ -207,6 +207,16 @@ public class ApplicationService {
 		Assert.notNull(actor);
 		Assert.isTrue(actor instanceof Explorer || actor instanceof Manager);
 
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof Explorer) {
+
+			if (!application.getCommentaries().equals(null))
+				this.actorService.checkSpamWords(application.getCommentaries());
+			this.actorService.checkSpamWords(application.getCreditCard().getBrandName());
+			this.actorService.checkSpamWords(application.getCreditCard().getHolderName());
+
+		}
+
 		application.setDate(new Date(System.currentTimeMillis() - 1));
 
 		result = this.applicationRepository.save(application);

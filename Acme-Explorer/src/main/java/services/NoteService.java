@@ -97,6 +97,14 @@ public class NoteService {
 		final Note storedNote;
 		//Requirement 33: A note can´t be update once it has been created;
 		final int id = note.getId();
+
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof Auditor) {
+			this.actorService.checkSpamWords(note.getRemark());
+			if (!note.getReply().equals(null))
+				this.actorService.checkSpamWords(note.getRemark());
+		}
+
 		if (id != 0) {
 			storedNote = this.noteRepository.findOne(id);
 			Assert.isTrue(storedNote.getRemark().equals(note.getRemark()));
