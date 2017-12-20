@@ -26,7 +26,7 @@
 	name="messages"
 	id="message"
 	requestURI="message/list.do"
-	pagesize="10"
+	pagesize="${pagesize}"
 	class="displayTag">
 	
 	<spring:message code="message.priority" var="priority"/>

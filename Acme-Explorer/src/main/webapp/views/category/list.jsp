@@ -19,7 +19,7 @@
 	name="categories"
 	id="category"
 	requestURI="category/list.do"
-	pagesize="10"
+	pagesize="${pagesize}"
 	class="displayTag">
 	
 	<spring:message code="category.name" var="name"/>

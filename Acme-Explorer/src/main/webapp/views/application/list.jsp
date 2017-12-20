@@ -34,7 +34,7 @@
 <fmt:formatDate var="monthDate" value="${month}" pattern="yyyy-MM-dd HH:mm" />
 
 <display:table name="applications" id="row" requestURI="${requestUri}"
-	pagesize="10" class="displayTag">
+	pagesize="${pagesize}" class="displayTag">
 
 	<jstl:if test="${row.status==\"PENDING\"}">
 		<jstl:set var="classTd" value="pending" />

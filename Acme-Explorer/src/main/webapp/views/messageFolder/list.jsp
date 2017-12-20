@@ -31,7 +31,7 @@
 
 <jstl:if test="${not empty messageFolders}">
 	<display:table name="messageFolders" id="messageFolder"
-		requestURI="messageFolder/list.do" pagesize="10" class="displayTag">
+		requestURI="messageFolder/list.do" pagesize="${pagesize}" class="displayTag">
 
 		<spring:message code="messageFolder.name" var="name" />
 		<display:column title="${name}" property="name" sortable="true" />

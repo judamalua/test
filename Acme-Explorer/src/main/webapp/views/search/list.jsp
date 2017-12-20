@@ -24,7 +24,7 @@
 <spring:message code="format.date" var="formatDate"/>
 
 <display:table name = "searchs" id = "search" 
-	requestURI = "search/admin/list.do" pagesize = "10" class = "displaytag">
+	requestURI = "search/admin/list.do" pagesize = "${pagesize}" class = "displaytag">
 
 	<spring:message code = "search.keyWord" var = "keyWordHeader"/>
 	<display:column property = "keyWord" title = "${keyWordHeader}" sortable = "true"/>
