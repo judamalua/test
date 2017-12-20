@@ -2,6 +2,7 @@
 package controllers.explorer;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -46,14 +47,19 @@ public class StoryExplorerController extends AbstractController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam("storyId") final int storyId, @RequestParam("tripId") final int tripId) {
-		final ModelAndView result;
+		ModelAndView result;
 		Story story;
+		Trip trip;
 
-		story = this.storyService.findOne(storyId);
-		Assert.notNull(story);
-
-		result = this.createEditModelAndView(story, tripId);
-
+		try {
+			story = this.storyService.findOne(storyId);
+			Assert.notNull(story);
+			trip = this.tripService.findOne(tripId);
+			Assert.isTrue(trip.getEndDate().before(new Date()));
+			result = this.createEditModelAndView(story, tripId);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
 

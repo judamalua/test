@@ -21,6 +21,7 @@ import services.RangerService;
 import controllers.AbstractController;
 import domain.Curriculum;
 import domain.MiscellaneousRecord;
+import domain.Ranger;
 
 @Controller
 @RequestMapping("/miscellaneousRecord/ranger")
@@ -75,10 +76,13 @@ public class MiscellaneousRecordCurriculumController extends AbstractController 
 	public ModelAndView edit(@RequestParam final int miscellaneousRecordId) {
 		ModelAndView result;
 		MiscellaneousRecord miscellaneousRecord;
+		Ranger ranger;
 
 		try {
 			miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
+			ranger = (Ranger) this.actorService.findActorByPrincipal();
 			Assert.notNull(miscellaneousRecord);
+			Assert.isTrue(ranger.getCurriculum().getMiscellaneousRecords().contains(miscellaneousRecord));
 			result = this.createEditModelAndView(miscellaneousRecord);
 
 		} catch (final Throwable oops) {

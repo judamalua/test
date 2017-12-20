@@ -71,8 +71,6 @@
 		name="save"
 		value="<spring:message code="curriculum.save" />" 
 		onclick = "return validate('<spring:message code = "curriculum.confirm.phone"/>')"/>
-		
-
 
 
 	<a href = "curriculum/ranger/list.do">

@@ -11,6 +11,7 @@
 package controllers.manager;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 
 import javax.validation.Valid;
@@ -59,11 +60,15 @@ public class SurvivalClassManagerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int survivalClassId) {
 		ModelAndView result;
 		SurvivalClass survivalClass;
+		Manager actor;
 
 		try {
+			actor = (Manager) this.actorService.findActorByPrincipal();
 			survivalClass = this.survivalClassService.findOne(survivalClassId);
-
 			Assert.notNull(survivalClass);
+			Assert.isTrue(actor.getSurvivalClasses().contains(survivalClass));
+			Assert.isTrue(survivalClass.getOrganisationMoment().after(new Date()));
+
 			result = this.createEditModelAndView(survivalClass);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
@@ -81,6 +86,7 @@ public class SurvivalClassManagerController extends AbstractController {
 			result = this.createEditModelAndView(survivalClass, "survivalClass.params.error");
 		else
 			try {
+				Assert.isTrue(survivalClass.getOrganisationMoment().after(new Date()));
 				this.survivalClassService.save(survivalClass);
 				result = new ModelAndView("redirect:list-managed.do");
 

@@ -21,6 +21,7 @@ import services.RangerService;
 import controllers.AbstractController;
 import domain.Curriculum;
 import domain.ProfessionalRecord;
+import domain.Ranger;
 
 @Controller
 @RequestMapping("/professionalRecord/ranger")
@@ -75,12 +76,14 @@ public class ProfessionalRecordCurriculumController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int professionalRecordId) {
 		ModelAndView result;
 		ProfessionalRecord professionalRecord;
+		Ranger ranger;
 
 		try {
 			professionalRecord = this.professionalRecordService.findOne(professionalRecordId);
+			ranger = (Ranger) this.actorService.findActorByPrincipal();
 			Assert.notNull(professionalRecord);
+			Assert.isTrue(ranger.getCurriculum().getProfessionalRecords().contains(professionalRecord));
 			result = this.createEditModelAndView(professionalRecord);
-
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
 		}

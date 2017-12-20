@@ -32,9 +32,9 @@
 	<br/>
 	
 	<form:label path="attachments">
-		<spring:message code="story.attachments"/>
+		<spring:message code="story.attachments"/> <spring:message code="auditRecord.comma.message"/>
 	</form:label>
-	<form:textarea path="attachments"/>
+	<form:textarea path="attachments" placeholder="https://www.google.com, http://www.facebook.com"/>
 	<form:errors cssClass="error" path="attachments"/>
 	<br/>
 	
@@ -55,6 +55,6 @@
 		type="button"
 		name="cancel"
 		value="<spring:message code="story.cancel" />"
-		onclick="javascript: relativeRedir('/trip/explorer/list.do');" />
+		onclick="javascript: relativeRedir('/trip/detailed-trip.do?tripId=${trip}&anonymous=false');" />
 
 </form:form>

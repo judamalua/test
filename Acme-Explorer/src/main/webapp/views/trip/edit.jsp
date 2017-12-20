@@ -187,8 +187,10 @@
 		<label for="descriptionStage"> 
 		<spring:message code="stage.description" />
 		</label>
-		<textarea name="descriptionStage">
-	</textarea>
+		<textarea name="descriptionStage"
+		required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}"></textarea>
 	</jstl:if>
 	<br />
 	<input type="submit" name="save"

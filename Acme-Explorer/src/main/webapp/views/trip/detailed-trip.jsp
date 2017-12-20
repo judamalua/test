@@ -343,38 +343,6 @@
 
 </jstl:if>
 
-<security:authorize access="hasRole('AUDITOR')">
-
-	<jstl:if test="${not empty trip.notes}">
-		<h2>
-			<spring:message code="detailed.trip.notes" />
-		</h2>
-
-		<display:table name="${trip.notes}" id="row4"
-			requestURI="notes/list.do?tripId=${trip.id}" pagesize="10"
-			class="displaytag">
-
-			<spring:message code="detailedTrip.notes.moment" var="noteHeader" />
-			<display:column property="moment" title="${noteHeader}"
-				sortable="true" format="${formatDate}" />
-
-			<spring:message code="detailedTrip.notes.remark" var="remarkHeader" />
-			<display:column property="remark" title="${remarkHeader}" />
-
-			<jstl:if test="${row.reply!=null}">
-				<spring:message code="detailedTrip.notes.reply" var="replyHeader" />
-				<display:column property="reply" title="${replyHeader}" />
-
-				<spring:message code="detailedTrip.notes.momentReply"
-					var="momentReplyHeader" />
-				<display:column property="momentOfReply"
-					title="${momentReplyHeader}" format="${formatDate}" />
-			</jstl:if>
-
-		</display:table>
-	</jstl:if>
-</security:authorize>
-
 <security:authorize access="hasRole('MANAGER')">
 
 	<jstl:if test="${not empty trip.notes}">

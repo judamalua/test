@@ -21,6 +21,7 @@ import services.RangerService;
 import controllers.AbstractController;
 import domain.Curriculum;
 import domain.EndorserRecord;
+import domain.Ranger;
 
 @Controller
 @RequestMapping("/endorserRecord/ranger")
@@ -75,10 +76,14 @@ public class EndorserRecordCurriculumController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int endorserRecordId) {
 		ModelAndView result;
 		EndorserRecord endorserRecord;
+		Ranger ranger;
 
 		try {
 			endorserRecord = this.endorserRecordService.findOne(endorserRecordId);
+			ranger = (Ranger) this.actorService.findActorByPrincipal();
 			Assert.notNull(endorserRecord);
+			Assert.isTrue(ranger.getCurriculum().getEndorserRecords().contains(endorserRecord));
+
 			result = this.createEditModelAndView(endorserRecord);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");

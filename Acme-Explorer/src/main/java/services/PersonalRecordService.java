@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.PersonalRecordRepository;
-import domain.Curriculum;
 import domain.PersonalRecord;
 
 @Service
@@ -74,7 +73,7 @@ public class PersonalRecordService {
 		assert personalRecord != null;
 
 		PersonalRecord result;
-		Curriculum c;
+		//final Curriculum c;
 		String phoneNumberPrefix;
 
 		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();
@@ -98,10 +97,10 @@ public class PersonalRecordService {
 
 		}
 
-		c = this.curriculumService.findCurriculumByRangerID();
+		//c = this.curriculumService.findCurriculumByRangerID();
 		result = this.personalRecordRepository.save(personalRecord);
 
-		c.setPersonalRecord(result);
+		//c.setPersonalRecord(result);
 
 		return result;
 
