@@ -130,7 +130,8 @@
 <security:authorize access="hasRole('EXPLORER')">
 
 	<jstl:if test="${!hasExplorer}">
-		<jstl:if test="${trip.publicationDate<currentDate and trip.startDate > currentDate}">
+		<jstl:if
+			test="${trip.publicationDate<currentDate and trip.startDate > currentDate}">
 			<a href="application/explorer/create.do?tripId=${trip.id}">
 				<button>
 					<spring:message code="trip.apply" />
@@ -155,7 +156,7 @@
 		<spring:message code="detailed.trip.stages" />
 	</h2>
 	<display:table name="${trip.stages}" id="row1"
-		requestURI="stage/list.do?tripId=${trip.id}" pagesize="10"
+		requestURI="trip/detailed-trip.do?tripId=${trip.id}" pagesize="${pagesize}"
 		class="displaytag">
 
 		<spring:message code="detailedTrip.stage.title" var="titleHeader" />
