@@ -240,16 +240,6 @@ public class Trip extends DomainEntity {
 		this.stages = stages;
 	}
 
-	//	public void addStage(final Stage stage) {
-	//		this.stages.add(stage);
-	//		stage.setTrip(this);
-	//	}
-	//
-	//	public void removeStage(final Stage stage) {
-	//		this.stages.remove(stage);
-	//		stage.setTrip(null);
-	//	}
-
 	@NotNull
 	@OneToMany
 	public Collection<Story> getStories() {
@@ -259,16 +249,6 @@ public class Trip extends DomainEntity {
 	public void setStories(final Collection<Story> stories) {
 		this.stories = stories;
 	}
-
-	//	public void addStory(final Story story) {
-	//		this.stories.add(story);
-	//		story.setTrip(this);
-	//	}
-	//
-	//	public void removeStory(final Story story) {
-	//		this.stories.remove(story);
-	//		story.setTrip(null);
-	//	}
 
 	@NotNull
 	@ManyToMany
@@ -280,20 +260,6 @@ public class Trip extends DomainEntity {
 		this.survivalClasses = survivalClasses;
 	}
 
-	//	//TODO: Puede haber un bucle, descomentar cuando se esté seguro.
-	//	public void addSurvivalClass(final SurvivalClass survivalClass) {
-	//		this.survivalClasses.add(survivalClass);
-	//		if (!(survivalClass.getTrips().contains(this)))
-	//			survivalClass.addTrip(this);
-	//	}
-	//
-	//	//TODO: Puede haber un bucle, descomentar cuando se esté seguro.
-	//	public void removeSurvivalClass(final SurvivalClass survivalClass) {
-	//		this.survivalClasses.remove(survivalClass);
-	//		if (survivalClass.getTrips().contains(this))
-	//			survivalClass.removeTrip(this);
-	//	}
-
 	//	@NotNull
 	//	@ManyToMany
 	//	public Collection<Tag> getTags() {
@@ -304,25 +270,15 @@ public class Trip extends DomainEntity {
 	//		this.tags = tags;
 	//	}
 
-	//	//TODO: Puede haber un bucle, descomentar cuando se esté seguro.
-	//	public void addTag(final Tag tag) {
-	//		this.tags.add(tag);
-	//		if (!(tag.getTrips().contains(this)))
-	//			tag.addTrip(this);
-	//	}
-	//
-	//	//TODO: Puede haber un bucle, descomentar cuando se esté seguro.
-	//	public void removeTag(final Tag tag) {
-	//		this.tags.remove(tag);
-	//		if (tag.getTrips().contains(this))
-	//			tag.removeTrip(this);
-	//	}
-
 	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
 	public Ranger getRanger() {
 		return this.ranger;
+	}
+
+	public void setRanger(final Ranger ranger) {
+		this.ranger = ranger;
 	}
 
 	@NotNull
@@ -333,10 +289,6 @@ public class Trip extends DomainEntity {
 
 	public void setTagValues(final Collection<TagValue> tagValues) {
 		this.tagValues = tagValues;
-	}
-
-	public void setRanger(final Ranger ranger) {
-		this.ranger = ranger;
 	}
 
 }

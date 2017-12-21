@@ -92,7 +92,7 @@ public class TripService {
 		result.setStages(stages);
 		result.setSurvivalClasses(survivalClasses);
 		result.setStories(stories);
-		result.setTicker(this.generateTicker());
+		result.setTicker(ticker);
 		result.setPrice(0.);
 
 		return result;
