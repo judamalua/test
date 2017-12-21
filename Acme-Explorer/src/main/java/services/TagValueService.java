@@ -12,6 +12,7 @@ import repositories.TagValueRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Manager;
 import domain.TagValue;
 import domain.Trip;
 
@@ -73,13 +74,14 @@ public class TagValueService {
 		assert tagValue != null;
 		Assert.notNull(trip);
 
-		// Comprobación palabras de spam
-		this.actorService.checkSpamWords(tagValue.getValue());
-
 		TagValue result;
-		//		Trip trip;
-		//
-		//		trip = this.tripService.findTripByTagValue(tagValue.getId());
+		Actor actor;
+
+		actor = this.actorService.findActorByPrincipal();
+
+		// Comprobación palabras de spam
+		if (actor instanceof Manager)
+			this.actorService.checkSpamWords(tagValue.getValue());
 
 		result = this.tagValueRepository.save(tagValue);
 
