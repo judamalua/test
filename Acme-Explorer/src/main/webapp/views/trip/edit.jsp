@@ -20,12 +20,13 @@
 	<form:hidden path="survivalClasses" />
 	<form:hidden path="cancelReason" />
 	<form:hidden path="auditRecords" />
-<%-- 	<form:hidden path="tags" /> --%>
+	<form:hidden path="tagValues" />
 	<form:hidden path="notes" />
 	<form:hidden path="applications" />
 	<form:hidden path="managers" />
 	<form:hidden path="price" value="0." />
 	<form:hidden path="ticker" value="${trip.ticker}" />
+
 
 	<form:label path="title">
 		<spring:message code="trip.title" />
@@ -126,7 +127,7 @@
 <!-- 				----------------- -->
 <%-- 			</form:option> --%>
 <%-- 		<jstl:forEach items="${tagsTrip}" var="tagTrip" > --%>
-<!-- 			<!-- Variable del controlador --> -->
+			<!-- Variable del controlador --> 
 			
 <%-- 			<form:option value="${tagTrip.id}"> --%>
 <%-- 				<jstl:out value="${tagTrip.name}" /> --%>
@@ -134,7 +135,7 @@
 <%-- 		</jstl:forEach> --%>
 <%-- 	</form:select> --%>
 <%-- 	<form:errors cssClass="error" path="tags" /> --%>
-<!-- 	<br /> -->
+<!-- <br /> -->
 
 
 
@@ -154,7 +155,7 @@
 	<%-- 		</jstl:forEach> --%>
 	<%-- 	</form:select>	 --%>
 	<%-- 	<form:errors cssClass = "error" path = "survivalClasses" /> --%>
-	<!-- 	<br /> -->
+	 	<!-- <br /> -->
 
 	<form:label path="category">
 		<spring:message code="trip.category" />
