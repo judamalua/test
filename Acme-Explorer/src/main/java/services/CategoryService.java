@@ -40,7 +40,7 @@ public class CategoryService {
 		this.actorService.checkUserLogin();
 
 		Category result;
-		final Collection<Trip> trips = new HashSet<Trip>();
+		//		final Collection<Trip> trips = new HashSet<Trip>();
 		final Collection<Category> categories = new HashSet<Category>();
 
 		result = new Category();

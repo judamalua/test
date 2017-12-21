@@ -25,8 +25,8 @@ public class PersonalRecordService {
 	@Autowired
 	private ActorService				actorService;
 
-	@Autowired
-	private CurriculumService			curriculumService;
+	//	@Autowired
+	//	private CurriculumService			curriculumService;
 
 	@Autowired
 	private ConfigurationService		configurationService;
