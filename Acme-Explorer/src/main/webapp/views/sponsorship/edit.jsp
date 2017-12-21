@@ -18,17 +18,23 @@
 	<form:hidden path = "creditCard" />
 	</jstl:if>
 	
+	<spring:message var="inputError" code="sponsorship.input.error"/>
+	
 	<form:label path = "bannerUrl">
 		<spring:message code = "sponsorship.bannerUrl" />:
 	</form:label>
-	<form:input path = "bannerUrl" placeholder = "https://www.example.com" />
+	<form:input path = "bannerUrl" placeholder = "https://www.example.com" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
 	<form:errors cssClass = "error" path = "bannerUrl" />
 	<br />
 	
 	<form:label path = "additionalInfoLink">
 		<spring:message code = "sponsorship.additionalInfoLink" />:
 	</form:label>
-	<form:input path = "additionalInfoLink" placeholder = "https://www.example.com" />
+	<form:input path = "additionalInfoLink" placeholder = "https://www.example.com" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
 	<form:errors cssClass = "error" path = "additionalInfoLink" />
 	<br />
 	
@@ -36,42 +42,54 @@
 	<form:label path = "creditCard.holderName">
 			<spring:message code = "sponsorship.creditcard.holdername" />:
 		</form:label>
-			<form:input path = "creditCard.holderName" />
+			<form:input path = "creditCard.holderName" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
 		<form:errors cssClass = "error" path = "creditCard.holderName" />
 		<br />
 		
 		<form:label path = "creditCard.brandName">
 			<spring:message code = "sponsorship.creditcard.brandname" />:
 		</form:label>
-			<form:input path = "creditCard.brandName" />
+			<form:input path = "creditCard.brandName" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
         <form:errors cssClass = "error" path = "creditCard.brandName" />
 		<br />
 		
 		<form:label path = "creditCard.number">
 			<spring:message code = "sponsorship.creditcard.number" />:
 		</form:label>
-			<form:input path = "creditCard.number" />
+			<form:input path = "creditCard.number" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
 		<form:errors cssClass = "error" path = "creditCard.number" placeholder = "XXXXXXXXXXXXXXXXX"/>
 		<br />
 		
 		<form:label path = "creditCard.expirationMonth">
 			<spring:message code = "sponsorship.creditcard.expirationMonth" />:
 		</form:label>
-			<form:input path = "creditCard.expirationMonth" />
+			<form:input path = "creditCard.expirationMonth" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
         <form:errors cssClass = "error" path = "creditCard.expirationMonth" placeholder = "XX"/>
 		<br />
 		
 		<form:label path = "creditCard.expirationYear">
 			<spring:message code = "sponsorship.creditcard.expirationYear" />:
 		</form:label>
-			<form:input path = "creditCard.expirationYear" />
+			<form:input path = "creditCard.expirationYear" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
         <form:errors cssClass = "error" path = "creditCard.expirationYear" placeholder = "XX"/>
 		<br />
 		
 		<form:label path = "creditCard.cvv">
 			<spring:message code = "sponsorship.creditcard.CVV" />:
 		</form:label>
-			<form:input path = "creditCard.cvv" />
+			<form:input path = "creditCard.cvv" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
 		<form:errors cssClass = "error" path = "creditCard.cvv" placeholder = "XXX"/>
 		<br />
 	</jstl:if>
