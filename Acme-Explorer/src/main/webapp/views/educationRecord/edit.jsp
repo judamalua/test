@@ -55,7 +55,7 @@
 	<form:label path = "attachment">
 		<spring:message code = "educationRecord.attachment" />:
 	</form:label>
-	<form:input path = "attachment"  />
+	<form:input path = "attachment" placeholder = "http://www.test.com/" />
 	<form:errors cssClass = "error" path = "attachment" />
 	<br />
 	
