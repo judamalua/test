@@ -95,11 +95,12 @@ public class TripManagerController extends AbstractController {
 	// Editing ---------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int tripId) {
+	public ModelAndView edit(@RequestParam(value = "tripId", defaultValue = "-1") final int tripId) {
 		ModelAndView result;
 		Trip trip;
 		Manager manager;
 		try {
+			Assert.isTrue(tripId != -1);
 			trip = this.tripService.findOne(tripId);
 			Assert.isTrue(trip.getPublicationDate().after(new Date()));
 			manager = (Manager) this.actorService.findActorByPrincipal();
