@@ -88,6 +88,9 @@
 		<spring:message code="trip.ranger" />
 	</form:label>
 	<form:select path="ranger">
+		<form:option value="0">
+				----------
+			</form:option>
 		<jstl:forEach var="ranger" items="${rangers}">
 			<!-- Variable del controlador -->
 			<form:option value="${ranger.id}">
