@@ -124,4 +124,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select t from Trip t join t.tagValues tv where tv.tag.id = ?1")
 	Collection<Trip> findTripsByTagId(int tagId);
 
+	@Query("select t from Trip t join t.tagValues tv where tv.id = ?1")
+	Trip findTripByTagValue(int tagValueId);
+
 }

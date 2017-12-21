@@ -16,14 +16,14 @@
       
 <tiles-definitions>
 
-	<definition name="tag/list" extends="master.page">	
-		<put-attribute name="title" value="Lista de etiquetas" />
-		<put-attribute name="body" value="/views/tag/list.jsp" />
+	<definition name="tagValue/list" extends="master.page">	
+		<put-attribute name="title" value="Lista de etiquetas y sus valores" />
+		<put-attribute name="body" value="/views/tagValue/list.jsp" />
 	</definition>
 	
-	<definition name="tag/edit" extends="master.page">	
-		<put-attribute name="title" value="Editar una etiqueta" />
-		<put-attribute name="body" value="/views/tag/edit.jsp" />
+	<definition name="tagValue/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar los valores de las etiquetas" />
+		<put-attribute name="body" value="/views/tagValue/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>

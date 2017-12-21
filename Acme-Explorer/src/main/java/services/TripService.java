@@ -536,4 +536,15 @@ public class TripService {
 		return result;
 	}
 
+	public Trip findTripByTagValue(final int tagValueId) {
+		Assert.isTrue(tagValueId != 0);
+
+		Trip result;
+
+		result = this.tripRepository.findTripByTagValue(tagValueId);
+
+		return result;
+
+	}
+
 }

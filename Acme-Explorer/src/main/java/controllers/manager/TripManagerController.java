@@ -88,6 +88,7 @@ public class TripManagerController extends AbstractController {
 
 		trips = this.managerService.findTripsByManager(manager.getId());
 		result.addObject("trips", trips);
+		result.addObject("requestUri", "trip/manager/list.do");
 
 		return result;
 	}

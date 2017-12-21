@@ -14,6 +14,8 @@ import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
 import domain.Tag;
+import domain.TagValue;
+import domain.Trip;
 
 @Service
 @Transactional
@@ -30,6 +32,8 @@ public class TagService {
 	private ActorService	actorService;
 	@Autowired
 	private TripService		tripService;
+	@Autowired
+	private TagValueService	tagValueService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -77,9 +81,10 @@ public class TagService {
 			this.actorService.checkSpamWords(tag.getName());
 
 		Tag result;
-		//		final Collection<TagValue> tagValues;
+		Trip trip;
+		final Collection<TagValue> tagValues;
 
-		//		tagValues = tag.getTagValues();
+		tagValues = this.tagValueService.findTagValuesByTagId(tag.getId());
 
 		// Requirement 14.3: A tag name can only be modified if it is not referenced by any trip.
 		//		if (tag.getId() != 0 && !storedTag.getName().equals(tag.getName()))
@@ -87,12 +92,11 @@ public class TagService {
 
 		result = this.tagRepository.save(tag);
 
-		//		for (final TagValue tv : tagValues) {
-		//						if (!tag.getTagValues().contains(tv))
-		//							t.getTags().remove(tag);
-		//			tag.getTagValues().add(result);
-		//			this.tripService.save(t);
-		//		}
+		for (final TagValue tv : tagValues) {
+			tv.setTag(result);
+			trip = this.tripService.findTripByTagValue(tv.getId());
+			this.tagValueService.save(tv, trip);
+		}
 
 		return result;
 
@@ -108,11 +112,6 @@ public class TagService {
 		//		trips = this.tripService.findTripsByTagId(tag.getId());
 
 		Assert.isTrue(this.tagRepository.exists(tag.getId()));
-		//		if (trips.size() != 0)
-		//			for (final Trip t : trips) {
-		//				t.getTags().remove(tag);
-		//				this.tripService.save(t);
-		//			}
 
 		this.tagRepository.delete(tag);
 
