@@ -45,25 +45,27 @@ public class TagAdminController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		final Collection<Tag> tags;
-		final Collection<Integer> tagsOnTrips = new HashSet<Integer>();
+		final Collection<String> tagOnTrips;
+		final Collection<Integer> tagValuesOnTrips = new HashSet<Integer>();
 		Collection<Trip> trips;
 
 		trips = this.tripService.findAll();
+		tagOnTrips = new HashSet<String>();
 
 		for (final Trip t : trips)
-			if (!t.getTags().isEmpty())
-				for (final Tag tag : t.getTags())
-					tagsOnTrips.add(tag.getId());
+			if (!t.getTagValues().isEmpty())
+				for (final Tag tag : this.tagService.findTagsByTrip(t.getId()))
+					tagValuesOnTrips.add(tag.getId());
 
 		result = new ModelAndView("tag/list");
 
 		tags = this.tagService.findAll();
+
 		result.addObject("tags", tags);
-		result.addObject("tagsOnTrips", tagsOnTrips);
+		result.addObject("tagsOnTrips", tagOnTrips);
 
 		return result;
 	}
-
 	// Editing ---------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)

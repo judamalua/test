@@ -88,7 +88,7 @@ public class TagServiceTest extends AbstractTest {
 
 		Assert.isTrue(!this.tagService.findAll().contains(tag));
 		for (final Trip trip : trips)
-			Assert.isTrue(!trip.getTags().contains(tag));
+			Assert.isTrue(!trip.getTagValues().contains(tag));
 
 		super.unauthenticate();
 	}

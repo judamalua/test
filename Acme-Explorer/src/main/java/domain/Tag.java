@@ -1,9 +1,13 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -32,18 +36,19 @@ public class Tag extends DomainEntity {
 		this.name = name;
 	}
 
+
 	// Relationships ----------------------------------------------------------
-	//	private Collection<Trip>	trips;
-	//
-	//
-	//	@NotNull
-	//	@ManyToMany
-	//	public Collection<Trip> getTrips() {
-	//		return this.trips;
-	//	}
-	//
-	//	public void setTrips(final Collection<Trip> trips) {
-	//		this.trips = trips;
-	//	}
+	private Collection<TagValue>	tagValues;
+
+
+	@Valid
+	@OneToMany
+	public Collection<TagValue> getTagValues() {
+		return this.tagValues;
+	}
+
+	public void setTagValue(final Collection<TagValue> tagValues) {
+		this.tagValues = tagValues;
+	}
 
 }

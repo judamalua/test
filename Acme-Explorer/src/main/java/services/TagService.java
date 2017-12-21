@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
 import domain.Tag;
-import domain.Trip;
+import domain.TagValue;
 
 @Service
 @Transactional
@@ -39,8 +40,12 @@ public class TagService {
 		this.checkUserLogin();
 
 		Tag result;
+		Collection<TagValue> tagValues;
+
+		tagValues = new HashSet<TagValue>();
 
 		result = new Tag();
+		result.setTagValue(tagValues);
 
 		//		final Collection<Trip> trips = new HashSet<Trip>();
 		//		result.setTrips(trips);
@@ -77,24 +82,23 @@ public class TagService {
 		if (this.actorService.findActorByPrincipal() instanceof Administrator)
 			this.actorService.checkSpamWords(tag.getName());
 
-		Tag result, storedTag;
-		Collection<Trip> trips;
+		Tag result;
+		//		final Collection<TagValue> tagValues;
 
-		trips = this.tripService.findTripsByTagId(tag.getId());
+		//		tagValues = tag.getTagValues();
 
-		storedTag = this.tagRepository.findOne(tag.getId());
 		// Requirement 14.3: A tag name can only be modified if it is not referenced by any trip.
-		if (tag.getId() != 0 && !storedTag.getName().equals(tag.getName()))
-			Assert.isTrue(trips.size() == 0);
+		//		if (tag.getId() != 0 && !storedTag.getName().equals(tag.getName()))
+		//			Assert.isTrue(trips.size() == 0);
 
 		result = this.tagRepository.save(tag);
 
-		for (final Trip t : trips) {
-			if (!t.getTags().contains(tag))
-				t.getTags().remove(tag);
-			t.getTags().add(result);
-			this.tripService.save(t);
-		}
+		//		for (final TagValue tv : tagValues) {
+		//						if (!tag.getTagValues().contains(tv))
+		//							t.getTags().remove(tag);
+		//			tag.getTagValues().add(result);
+		//			this.tripService.save(t);
+		//		}
 
 		return result;
 
@@ -105,16 +109,16 @@ public class TagService {
 		assert tag != null;
 		assert tag.getId() != 0;
 
-		Collection<Trip> trips;
+		//		Collection<Trip> trips;
 
-		trips = this.tripService.findTripsByTagId(tag.getId());
+		//		trips = this.tripService.findTripsByTagId(tag.getId());
 
 		Assert.isTrue(this.tagRepository.exists(tag.getId()));
-		if (trips.size() != 0)
-			for (final Trip t : trips) {
-				t.getTags().remove(tag);
-				this.tripService.save(t);
-			}
+		//		if (trips.size() != 0)
+		//			for (final Trip t : trips) {
+		//				t.getTags().remove(tag);
+		//				this.tripService.save(t);
+		//			}
 
 		this.tagRepository.delete(tag);
 
