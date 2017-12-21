@@ -19,7 +19,7 @@
 
 <div>
 <a href = "welcome/index.do">
-	<img src="${banner}" alt="Acme Co., Inc." />
+	<img class="banner" src="${banner}" alt="Acme Co., Inc." />
 </a>
 </div>
 

@@ -12,7 +12,10 @@
 	color: red;
 	font-weight: bolder;
 }
-
+.banner{
+	max-width: 50%
+	
+}
 .pending {
 	background-color: #f7f7f7;
 }
