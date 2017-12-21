@@ -116,12 +116,12 @@ public class MessageFolderService {
 		UserAccount userAccount;
 		Actor actor;
 		final Collection<Message> messages;
-		Collection<MessageFolder> messageFolderChildren;
+		//		Collection<MessageFolder> messageFolderChildren;
 
 		MessageFolder messageFolderFather;
 		//		final Collection<MessageFolder> messageFolderChildren;
 		messages = messageFolder.getMessages();
-		messageFolderChildren = messageFolder.getMessageFolderChildren();
+		//		messageFolderChildren = messageFolder.getMessageFolderChildren();
 
 		if (this.actorService.findActorByMessageFolder(messageFolder.getId()) != null) {
 			userAccount = LoginService.getPrincipal();
@@ -145,7 +145,7 @@ public class MessageFolderService {
 		for (final Message m : messages)
 			this.messageService.delete(m);
 
-		messageFolderChildren = messageFolder.getMessageFolderChildren();
+		//		messageFolderChildren = messageFolder.getMessageFolderChildren();
 		this.deleteChildrenMessageFolders(messageFolder);
 		//		for (final MessageFolder messageFolderChild : messageFolderChildren)
 		//			this.messageFolderRepository.delete(messageFolderChild);
