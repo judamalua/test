@@ -34,14 +34,14 @@
 	<form:label path = "workingPeriodStart">
 		<spring:message code = "professionalRecord.workingPeriodStart" />:
 	</form:label>
-	<form:input path = "workingPeriodStart" placeholder = "dd/MM/yyyy hh:mm" />
+	<form:input path = "workingPeriodStart" placeholder = "dd/MM/yyyy HH:mm" />
 	<form:errors cssClass = "error" path = "workingPeriodStart" />
 	<br />
 	
 	<form:label path = "workingPeriodEnd">
 		<spring:message code = "professionalRecord.workingPeriodEnd" />:
 	</form:label>
-	<form:input path = "workingPeriodEnd" placeholder = "dd/MM/yyyy hh:mm" />
+	<form:input path = "workingPeriodEnd" placeholder = "dd/MM/yyyy HH:mm" />
 	<form:errors cssClass = "error" path = "workingPeriodEnd" />
 	<br />
 	
