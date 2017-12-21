@@ -193,8 +193,8 @@ public class ApplicationService {
 		tripApplication = application.getTrip();
 		currentDate = new Date();
 
-		Assert.isTrue(tripApplication.getPublicationDate().before(currentDate) && tripApplication.getStartDate().after(currentDate));
-
+		if (!(this.actorService.findActorByPrincipal() instanceof Manager))
+			Assert.isTrue(tripApplication.getPublicationDate().before(currentDate) && tripApplication.getStartDate().after(currentDate));
 		if (application.getStatus().equals("REJECTED"))
 			Assert.notNull(application.getRejection());
 		//		if (application.getStatus().equals("DUE"))
