@@ -198,7 +198,7 @@
 		<spring:message code="detailed.trip.survivalClasses" />
 	</h2>
 	<display:table name="${survivalClasses}" id="row3"
-		requestURI="survivalClass/list.do?tripId=${trip.id}" pagesize="10"
+		requestURI="trip/detailed-trip.do?tripId=${trip.id}" pagesize="${pagesize}"
 		class="displaytag">
 
 		<spring:message code="detailedTrip.survivalClass.title"
@@ -294,7 +294,7 @@
 		<spring:message code="detailed.trip.auditRecords" />
 	</h2>
 	<display:table name="${trip.auditRecords}" id="row4"
-		requestURI="auditRecord/list.do?tripId=${trip.id}" pagesize="10"
+		requestURI="trip/detailed-trip.do?tripId=${trip.id}" pagesize="${pagesize}"
 		class="displaytag">
 
 		<spring:message code="detailedTrip.auditRecord.moment"
@@ -351,7 +351,7 @@
 		</h2>
 
 		<display:table name="${trip.notes}" id="row4"
-			requestURI="notes/list.do?tripId=${trip.id}" pagesize="10"
+			requestURI="trip/detailed-trip.do?tripId=${trip.id}" pagesize="${pagesize}"
 			class="displaytag">
 
 			<spring:message code="detailedTrip.notes.moment" var="noteHeader" />
@@ -423,7 +423,7 @@
 		<spring:message code="detailed.trip.stories" />
 	</h2>
 	<display:table name="${trip.stories}" id="row2"
-		requestURI="story/list.do?tripId=${trip.id}" pagesize="10"
+		requestURI="trip/detailed-trip.do?tripId=${trip.id}" pagesize="${pagesize}"
 		class="displaytag">
 
 		<spring:message code="detailedTrip.story.title" var="titleHeader" />
