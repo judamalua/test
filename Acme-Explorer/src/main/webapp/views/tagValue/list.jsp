@@ -13,8 +13,8 @@
 	<spring:message code="tagValue.value" />
 	<display:column property="tagValue.value"/>
 	
-	<spring:message code="tagValue.value" />
-	<display:column property="tagValue.value"/>
+	<spring:message code="tagValue.tag" />
+	<display:column property="tagValue.tag.name"/>
 		
 </display:table>
 

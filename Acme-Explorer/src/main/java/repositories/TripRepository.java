@@ -121,7 +121,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select t from Trip t where t.title like ?1 and t.price between ?2 and ?3 and t.publicationDate <= NOW() ")
 	Page<Trip> findTripsByTitleAndPricePublication(String q, double d1, double d2, Pageable pageable);
 
-	@Query("select t from Trip t join t.tags ta where ta.id = ?1")
+	@Query("select t from Trip t join t.tagValues tv where tv.tag.id = ?1")
 	Collection<Trip> findTripsByTagId(int tagId);
 
 }
