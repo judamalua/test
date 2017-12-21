@@ -66,7 +66,7 @@
 </ul>
 
 <display:table name="trips" id="trip" requestURI="${requestUri}"
-	class="displaytag">
+	class="displaytag" pagesize = "${pagesize}">
 
 	<spring:message code="trip.title" var="title" />
 	<display:column property="title" title="${title}" sortable="true" />

@@ -62,7 +62,7 @@
 	<form:label path = "commentaries">
 		<spring:message code = "educationRecord.commentaries" />:
 	</form:label>
-	<form:input path = "commentaries"  />
+	<form:textarea path = "commentaries"  />
 	<form:errors cssClass = "error" path = "commentaries" />
 	<br />
 	
