@@ -116,13 +116,11 @@
 	<security:authorize access="hasRole('RANGER')">
 	<jstl:set value="true" var="isRanger"/>
 	</security:authorize>
-	<security:authorize access="isAuthenticated()">
 		<a href="curriculum/show.do?rangerId=${trip.ranger.id}&&isRanger=${isRanger}">
 			<button>
 				<spring:message code="trip.ranger.curriculum" />
 			</button>
 		</a>
-	</security:authorize>
 </p>
 
 <security:authorize access="hasRole('EXPLORER')">
