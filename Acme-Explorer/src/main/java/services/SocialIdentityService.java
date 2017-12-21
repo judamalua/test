@@ -87,8 +87,8 @@ public class SocialIdentityService {
 		this.actorService.checkSpamWords(socialIdentity.getNick());
 		this.actorService.checkSpamWords(socialIdentity.getName());
 		this.actorService.checkSpamWords(socialIdentity.getProfileLink());
-		if (!socialIdentity.getNick().equals(null))
-			this.actorService.checkSpamWords(socialIdentity.getNick());
+		if (!socialIdentity.getPhotoUrl().equals(null))
+			this.actorService.checkSpamWords(socialIdentity.getPhotoUrl());
 
 		SocialIdentity result;
 
