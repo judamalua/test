@@ -60,7 +60,7 @@
 		placeholder="dd/MM/yyyy hh:mm" />
 	<!--     	<span class="add-on"><i class="icon-th"></i></span> -->
 	<!-- 	</div> -->
-	<form:errors cssClass="error" pathñ="startDate" />
+	<form:errors cssClass="error" path="startDate" />
 	<br />
 
 	<form:label path="endDate">
