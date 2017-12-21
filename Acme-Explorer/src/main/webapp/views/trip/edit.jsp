@@ -191,7 +191,7 @@
 		</label>
 		<input type="number" name="priceStage" required="required" step="any"
 		oninvalid="setCustomValidity('${inputError}')"
-    	onchange="try{setCustomValidity('')}catch(e){}"/>
+    	onchange="try{setCustomValidity('')}catch(e){}"/> &euro;
 
 		<label for="descriptionStage"> 
 		<spring:message code="stage.description" />
