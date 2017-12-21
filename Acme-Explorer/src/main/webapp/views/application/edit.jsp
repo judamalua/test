@@ -31,6 +31,8 @@ window.onload = function(){
 	<jstl:set value="manager" var="role" />
 </security:authorize>
 
+<spring:message var="inputError" code="application.input.error"/>
+
 <form:form action="application/${role}/edit.do"
 	modelAttribute="application">
 
@@ -87,7 +89,9 @@ window.onload = function(){
 			<form:label path="creditCard.holderName">
 				<spring:message code="application.holderName" />
 			</form:label>
-			<form:input path="creditCard.holderName" class="creditCard"/>
+			<form:input path="creditCard.holderName" class="creditCard" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
 			<form:errors cssClass="error" path="creditCard.holderName" />
 			<br />
 
@@ -95,7 +99,9 @@ window.onload = function(){
 			<form:label path="creditCard.brandName">
 				<spring:message code="application.brandName" />
 			</form:label>
-			<form:input path="creditCard.brandName" class="creditCard" />
+			<form:input path="creditCard.brandName" class="creditCard" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
 			<form:errors cssClass="error" path="creditCard.brandName" />
 			<br />
 
@@ -103,14 +109,18 @@ window.onload = function(){
 				<spring:message code="application.number" />
 			</form:label>
 			<form:input path="creditCard.number" placeholder="xxxxxxxxxxxxxxxx"
-				class="creditCard" />
+				class="creditCard" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
 			<form:errors cssClass="error" path="creditCard.number" />
 			<br />
 
 			<form:label path="creditCard.expirationMonth">
 				<spring:message code="application.expirationMonth" />
 			</form:label>
-			<form:input path="creditCard.expirationMonth" class="creditCard" placeholder="mm"/>
+			<form:input path="creditCard.expirationMonth" class="creditCard" placeholder="mm" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
 			<form:errors cssClass="error" path="creditCard.expirationMonth" />
 			<br />
 
@@ -118,14 +128,18 @@ window.onload = function(){
 				<spring:message code="application.expirationYear" />
 			</form:label>
 			<form:input path="creditCard.expirationYear" placeholder="yy"
-				class="creditCard" />
+				class="creditCard" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
 			<form:errors cssClass="error" path="creditCard.expirationYear" />
 			<br />
 
 			<form:label path="creditCard.cvv">
 				<spring:message code="application.cvv" />
 			</form:label>
-			<form:input path="creditCard.cvv" placeholder="xxx" class="creditCard" />
+			<form:input path="creditCard.cvv" placeholder="xxx" class="creditCard" required="required"
+		oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}" />
 			<form:errors cssClass="error" path="creditCard.cvv" />
 			<br />
 		</jstl:if>
