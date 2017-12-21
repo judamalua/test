@@ -17,8 +17,9 @@
 	<display:column property="name" title="${name}" sortable="true"/>
 	
 	<spring:message code="socialIdentity.profileLink" var="profileLink"/>
-	<display:column property="profileLink" title="${profileLink}" sortable="false"/>
-
+	<display:column>
+	<a href="${socialIdentity.profileLink}">${socialIdentity.profileLink}</a>
+	</display:column>
 	<spring:message code="socialIdentity.photoUrl" var="photoUrl"/>
 	<display:column>
 	<img src="${row.photoURL}"/>

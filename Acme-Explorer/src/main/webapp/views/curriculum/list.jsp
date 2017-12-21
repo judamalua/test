@@ -53,7 +53,8 @@
 		<p>${curriculum.personalRecord.phoneNumber}</p>
 
 		<h4><spring:message code="curriculum.personalRecord.linkedInProfileURL" /></h4>
-		<p>${curriculum.personalRecord.linkedInProfileURL}</p>
+		<a href="${curriculum.personalRecord.linkedInProfileURL}">${curriculum.personalRecord.linkedInProfileURL}</a>
+		<br/>
 
 		<jstl:if test="${curriculumRanger}">
 		<security:authorize access="hasRole('RANGER')">
@@ -81,7 +82,7 @@
 
 			<display:table name="professionalRecords" id="professionalRecord"
 				requestURI="professionalRecord/list.do?curriculumId=${curriculum.id}"
-				pagesize="10" class="displaytag">
+				pagesize="${pagesize}" class="displaytag">
 
 				<spring:message code="professionalRecord.companyName"
 					var="companyNameHeader" />
@@ -107,8 +108,9 @@
 
 				<spring:message code="curriculum.professionalRecord.attachment"
 					var="attachmentHeader" />
-				<display:column property="attachment" title="${attachmentHeader}"
-					sortable="false" />
+				<display:column>
+				<a href="${professionalRecord.attachment}">${professionalRecord.attachment}</a>
+				</display:column>
 
 				<spring:message code="curriculum.professionalRecord.commentaries"
 					var="commentariesHeader" />
@@ -152,7 +154,7 @@
 
 			<display:table name="miscellaneousRecords" id="miscellaneousRecord"
 				requestURI="miscellaneousRecord/list.do?curriculumId=${curriculum.id}"
-				pagesize="10" class="displaytag">
+				pagesize="${pagesize}" class="displaytag">
 
 			<spring:message code="curriculum.miscellaneousRecord.title"
 					var="title1Header" />
@@ -161,8 +163,9 @@
 
 				<spring:message code="curriculum.miscellaneousRecord.attachment"
 					var="attachment1Header" />
-				<display:column property="attachment" title="${attachment1Header}"
-					sortable="false" />
+				<display:column>
+				<a href="${miscellaneousRecord.attachment}">${miscellaneousRecord.attachment}</a>
+				</display:column>
 
 				<spring:message code="curriculum.miscellaneousRecord.commentaries"
 					var="commentaries1Header" />
@@ -205,7 +208,7 @@
 
 			<display:table name="educationRecords" id="educationRecord"
 				requestURI="educationRecord/list.do?curriculumId=${curriculum.id}"
-				pagesize="10" class="displaytag">
+				pagesize="${pagesize}" class="displaytag">
 
 				<spring:message code="curriculum.educationRecord.diplomaTitle"
 					var="diplomaTitleHeader" />
@@ -230,8 +233,9 @@
 
 				<spring:message code="curriculum.educationRecord.attachment"
 					var="attachment2Header" />
-				<display:column property="attachment" title="${attachment2Header}"
-					sortable="false" />
+				<display:column>
+				<a href="${educationRecord.attachment}">${educationRecord.attachment}</a>
+				</display:column>
 
 				<spring:message code="curriculum.educationRecord.commentaries"
 					var="commentaries2Header" />
@@ -275,7 +279,7 @@
 	
 			<display:table name="endorserRecords" id="endorserRecord"
 				requestURI="endorserRecord/list.do?curriculumId=${curriculum.id}"
-				pagesize="10" class="displaytag">
+				pagesize="${pagesize}" class="displaytag">
 
 				<spring:message code="curriculum.endorserRecord.fullName"
 					var="fullNameHeader" />

@@ -12,11 +12,13 @@
 	requestURI = "${requestUri}" pagesize = "${pagesize}" class = "displaytag">
 
 	<spring:message code = "sponsorship.bannerUrl" var = "bannerUrl"/>
-	<display:column property = "bannerUrl" title = "${bannerUrlHeader}" sortable = "true"/>
-
+	<display:column>
+	<a href="${row.bannerUrl}">${row.bannerUrl}</a>
+	</display:column>
 	<spring:message code = "sponsorship.additionalInfoLink" var = "additionalInfoLink"/>
-	<display:column property = "additionalInfoLink" title = "${additionalInfoLink}" sortable = "false"/>
-	
+	<display:column>
+	<a href="${row.additionalInfoLink}">${row.additionalInfoLink}</a>
+	</display:column>	
 	<spring:message code = "sponsorship.trip.title" var = "trip"/>
 	<display:column property = "trip.title" title = "${trip}" sortable = "false"/>
 	
