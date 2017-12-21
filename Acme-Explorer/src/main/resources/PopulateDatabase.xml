@@ -1903,7 +1903,7 @@
 			</list>
 		</property>
 	</bean>
-		<bean id="messageFolder106" class="domain.MessageFolder">
+	<bean id="messageFolder106" class="domain.MessageFolder">
 		<property name="name" value="in box" />
 		<property name="isDefault" value="TRUE" />
 		<!-- <property name="messageFolderFather" /> -->
@@ -1979,123 +1979,141 @@
 		<property name="nick" value="JhonML" />
 		<property name="name" value="Jhon" />
 		<property name="profileLink" value="http://www.profileLink1.com" />
-		<property name="photoUrl" value="http://www.profileLink1.com/photo1.jpg" />
+		<property name="photoUrl"
+			value="https://fotofigaredo.files.wordpress.com/2015/01/foto-carnet.jpg" />
 	</bean>
 
 	<bean id="socialIdentity2" class="domain.SocialIdentity">
 		<property name="nick" value="MikePN" />
 		<property name="name" value="Mike" />
 		<property name="profileLink" value="http://www.profileLink2.com" />
-		<property name="photoUrl" value="http://www.profileLink2.com/photo2.jpg" />
+		<property name="photoUrl"
+			value="https://elcomunista.files.wordpress.com/2015/03/526.jpg" />
 	</bean>
 	<bean id="socialIdentity3" class="domain.SocialIdentity">
 		<property name="nick" value="JessicaAL" />
 		<property name="name" value="Jessica" />
 		<property name="profileLink" value="http://www.profileLink3.com" />
-		<property name="photoUrl" value="http://www.profileLink3.com/photo3.jpg" />
+		<property name="photoUrl"
+			value="https://http2.mlstatic.com/fotos-5x5-cm-visa-estados-unidos-eeuu-y-otros-6-fotos-carnet-D_NQ_NP_23142-MLA20241872874_022015-F.jpg" />
 	</bean>
 	<bean id="socialIdentity4" class="domain.SocialIdentity">
 		<property name="nick" value="MarieMJ" />
 		<property name="name" value="Marie" />
 		<property name="profileLink" value="http://www.profileLink4.com" />
-		<property name="photoUrl" value="http://www.profileLink4.com/photo4.jpg" />
+		<property name="photoUrl"
+			value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMmUgSIuF4d6qHjY6IzOmF51C32rsF3p2LrY6OLNuedVYhrDF9" />
 	</bean>
 	<bean id="socialIdentity5" class="domain.SocialIdentity">
 		<property name="nick" value="ManueMilk" />
 		<property name="name" value="Manuel" />
 		<property name="profileLink" value="http://www.profileLink5.com" />
-		<property name="photoUrl" value="http://www.profileLink5.com/photo.jpg" />
+		<property name="photoUrl"
+			value="http://img.rtve.es/css/rtve.2015.television/rtve.programas/aqui-la-tierra/i/imgaux_small.png" />
 	</bean>
 
 	<bean id="socialIdentity6" class="domain.SocialIdentity">
 		<property name="nick" value="Alecito" />
 		<property name="name" value="Alejandro" />
 		<property name="profileLink" value="http://www.profileLink6.com" />
-		<property name="photoUrl" value="http://www.profileLink6.com/photo.jpg" />
+		<property name="photoUrl"
+			value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDNnDjSJ9sXBW4b-tPRFokxlHMK1JEPrnJonwE5bzBNmuG_jUb" />
 	</bean>
 
 	<bean id="socialIdentity7" class="domain.SocialIdentity">
 		<property name="nick" value="Bertoma" />
 		<property name="name" value="Berto" />
 		<property name="profileLink" value="http://www.profileLink7.com" />
-		<property name="photoUrl" value="http://www.profileLink7.com/photo.jpg" />
+		<property name="photoUrl"
+			value="https://fjgsmultimedia.files.wordpress.com/2015/05/foto-carnet.jpg" />
 	</bean>
 
 	<bean id="socialIdentity8" class="domain.SocialIdentity">
 		<property name="nick" value="Bertoma" />
 		<property name="name" value="Berto" />
 		<property name="profileLink" value="http://www.profileLink8.com" />
-		<property name="photoUrl" value="http://www.profileLink8.com/photo.jpg" />
+		<property name="photoUrl"
+			value="https://fjgsmultimedia.files.wordpress.com/2015/05/foto-carnet.jpg" />
 	</bean>
 
 	<bean id="socialIdentity9" class="domain.SocialIdentity">
 		<property name="nick" value="Bertoma" />
 		<property name="name" value="Berto" />
 		<property name="profileLink" value="http://www.profileLink9.com" />
-		<property name="photoUrl" value="http://www.profileLink9.com/photo.jpg" />
+		<property name="photoUrl"
+			value="https://fjgsmultimedia.files.wordpress.com/2015/05/foto-carnet.jpg" />
 	</bean>
 
 	<bean id="socialIdentity10" class="domain.SocialIdentity">
 		<property name="nick" value="Javierm21" />
 		<property name="name" value="Javier" />
 		<property name="profileLink" value="http://www.profileLink10.com" />
-		<property name="photoUrl" value="http://www.profileLink10.com/photo.jpg" />
+		<property name="photoUrl"
+			value="http://epg.unas.edu.pe/sites/default/files/carnet.jpg" />
 	</bean>
 
 	<bean id="socialIdentity11" class="domain.SocialIdentity">
 		<property name="nick" value="Jesusssq" />
 		<property name="name" value="Jesus" />
 		<property name="profileLink" value="http://www.profileLink11.com" />
-		<property name="photoUrl" value="http://www.profileLink11.com/photo.jpg" />
+		<property name="photoUrl"
+			value="https://ep01.epimg.net/elpais/imagenes/2006/01/11/actualidad/1136965732_850215_0000000000_sumario_normal.jpg" />
 	</bean>
 
 	<bean id="socialIdentity12" class="domain.SocialIdentity">
 		<property name="nick" value="nobody21" />
 		<property name="name" value="Alberto" />
 		<property name="profileLink" value="http://www.profileLink12.com" />
-		<property name="photoUrl" value="http://www.profileLink12.com/photo.jpg" />
+		<property name="photoUrl"
+			value="http://xn--diseadoresindustriales-nec.es/archivo/carnet.png" />
 	</bean>
 
 	<bean id="socialIdentity13" class="domain.SocialIdentity">
 		<property name="nick" value="alberto21" />
 		<property name="name" value="Alberto" />
 		<property name="profileLink" value="http://www.profileLink13.com" />
-		<property name="photoUrl" value="http://www.profileLink13.com/photo.jpg" />
+		<property name="photoUrl"
+			value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXYSIfu844eB3wgPV_3sQNYWEu0CZwQuzNeY_Eb6Z4AXckRH2HiQ" />
 	</bean>
 
 	<bean id="socialIdentity14" class="domain.SocialIdentity">
 		<property name="nick" value="brkae" />
 		<property name="name" value="Cristian" />
 		<property name="profileLink" value="http://www.profileLink14.com" />
-		<property name="photoUrl" value="http://www.profileLink14.com/photo.jpg" />
+		<property name="photoUrl"
+			value="http://xn--diseadoresindustriales-nec.es/archivo/carnet.png" />
 	</bean>
 
 	<bean id="socialIdentity15" class="domain.SocialIdentity">
 		<property name="nick" value="joh221" />
 		<property name="name" value="Johny" />
 		<property name="profileLink" value="http://www.profileLink15.com" />
-		<property name="photoUrl" value="http://www.profileLink15.com/photo.jpg" />
+		<property name="photoUrl"
+			value="http://xn--diseadoresindustriales-nec.es/archivo/carnet.png" />
 	</bean>
 
 	<bean id="socialIdentity16" class="domain.SocialIdentity">
 		<property name="nick" value="Susannnna" />
 		<property name="name" value="Susana" />
 		<property name="profileLink" value="http://www.profileLink16.com" />
-		<property name="photoUrl" value="http://www.profileLink16.com/photo.jpg" />
+		<property name="photoUrl"
+			value="http://xn--diseadoresindustriales-nec.es/archivo/carnet.png" />
 	</bean>
 
 	<bean id="socialIdentity17" class="domain.SocialIdentity">
 		<property name="nick" value="Susnae" />
 		<property name="name" value="Susana" />
 		<property name="profileLink" value="http://www.profileLink17.com" />
-		<property name="photoUrl" value="http://www.profileLink17.com/photo.jpg" />
+		<property name="photoUrl"
+			value="http://xn--diseadoresindustriales-nec.es/archivo/carnet.png" />
 	</bean>
 
 	<bean id="socialIdentity18" class="domain.SocialIdentity">
 		<property name="nick" value="whois2" />
 		<property name="name" value="Juan Miguel" />
 		<property name="profileLink" value="http://www.profileLink18.com" />
-		<property name="photoUrl" value="http://www.profileLink18.com/photo.jpg" />
+		<property name="photoUrl"
+			value="http://xn--diseadoresindustriales-nec.es/archivo/carnet.png" />
 	</bean>
 
 	<!-- Administrator -->
@@ -2104,7 +2122,7 @@
 		<property name="surname" value="Mike Polly Norman" />
 		<property name="email" value="mikePN@gmail.com" />
 		<property name="address" value="New york street 12" />
-		<property name="suspicious" value="false"/>
+		<property name="suspicious" value="false" />
 		<property name="socialIdentities">
 			<list>
 				<ref bean="socialIdentity1" />
@@ -2129,7 +2147,7 @@
 		<property name="surname" value="Manny June" />
 		<property name="email" value="marieMJ@gmail.com" />
 		<property name="address" value="New Jersey 24" />
-		<property name="suspicious" value="false"/>
+		<property name="suspicious" value="false" />
 		<property name="socialIdentities">
 			<list>
 				<ref bean="socialIdentity2" />
@@ -2153,7 +2171,7 @@
 		<property name="surname" value="SYSTEM" />
 		<property name="email" value="system@gmail.com" />
 		<property name="address" value="SYSTEM" />
-		<property name="suspicious" value="false"/>
+		<property name="suspicious" value="false" />
 		<property name="socialIdentities">
 			<list>
 			</list>
@@ -2179,7 +2197,7 @@
 		<property name="status" value="REJECTED" />
 		<property name="commentaries" value="" />
 		<property name="creditCard" ref="creditCard1" />
-		 <property name="rejection" ref="rejection1" /> 
+		<property name="rejection" ref="rejection1" />
 		<property name="trip" ref="trip2" />
 	</bean>
 
@@ -2188,7 +2206,7 @@
 		<property name="status" value="REJECTED" />
 		<property name="commentaries" value="" />
 		<property name="creditCard" ref="creditCard2" />
-		<property name="rejection" ref="rejection2" /> 
+		<property name="rejection" ref="rejection2" />
 		<property name="trip" ref="trip3" />
 	</bean>
 
@@ -2225,7 +2243,7 @@
 		<property name="commentaries" value="" />
 		<property name="status" value="DUE" />
 		<property name="creditCard" ref="creditCard1" />
-	<!-- 	<property name="rejection" ref="rejection2" /> -->
+		<!-- <property name="rejection" ref="rejection2" /> -->
 		<property name="trip" ref="trip4" />
 	</bean>
 
@@ -2247,7 +2265,7 @@
 		<property name="email" value="sponsor1@mail.com" />
 		<property name="address" value="Address 1" />
 		<property name="phoneNumber" value="Phone Number 1" />
-		<property name="suspicious" value="false"/>
+		<property name="suspicious" value="false" />
 		<property name="socialIdentities">
 			<list>
 				<ref bean="socialIdentity8" />
@@ -2280,7 +2298,7 @@
 		<property name="email" value="sponsor2@mail.com" />
 		<property name="address" value="Address 2" />
 		<property name="phoneNumber" value="Phone Number 2" />
-		<property name="suspicious" value="true"/>
+		<property name="suspicious" value="true" />
 		<property name="socialIdentities">
 			<list>
 				<ref bean="socialIdentity9" />
@@ -2311,7 +2329,8 @@
 
 	<bean id="sponsorship1" class="domain.Sponsorship">
 
-		<property name="bannerUrl" value="https://i.pinimg.com/564x/ed/85/18/ed851879a994732ad2fc1b8c5dd9cf95.jpg" />
+		<property name="bannerUrl"
+			value="https://i.pinimg.com/564x/ed/85/18/ed851879a994732ad2fc1b8c5dd9cf95.jpg" />
 		<property name="additionalInfoLink" value="http://www.lasmejoresrebecas.com" />
 		<property name="creditCard" ref="creditCard3" />
 		<property name="sponsor" ref="sponsor1" />
@@ -2321,7 +2340,8 @@
 
 	<bean id="sponsorship2" class="domain.Sponsorship">
 
-		<property name="bannerUrl" value="https://i.pinimg.com/564x/94/36/66/9436660aa2c366e67bd1eec364a55291.jpg" />
+		<property name="bannerUrl"
+			value="https://i.pinimg.com/564x/94/36/66/9436660aa2c366e67bd1eec364a55291.jpg" />
 		<property name="additionalInfoLink" value="http://www.tortillasdepatata.com" />
 		<property name="creditCard" ref="creditCard4" />
 		<property name="sponsor" ref="sponsor1" />
@@ -2331,7 +2351,8 @@
 
 	<bean id="sponsorship3" class="domain.Sponsorship">
 
-		<property name="bannerUrl" value="https://i.pinimg.com/564x/23/87/85/23878510d44ca675f8171c96d22b3c7b.jpg" />
+		<property name="bannerUrl"
+			value="https://i.pinimg.com/564x/23/87/85/23878510d44ca675f8171c96d22b3c7b.jpg" />
 		<property name="additionalInfoLink" value="http://www.tengolacabezarojaynoseporque.com" />
 		<property name="creditCard" ref="creditCard5" />
 		<property name="sponsor" ref="sponsor2" />
@@ -2341,7 +2362,8 @@
 
 	<bean id="sponsorship4" class="domain.Sponsorship">
 
-		<property name="bannerUrl" value="http://pantograph-punch.com/system/rich/rich_files/rich_files/000/000/972/m/the-10-most-awful-examples-of-clickbait-ever1.jpg" />
+		<property name="bannerUrl"
+			value="http://pantograph-punch.com/system/rich/rich_files/rich_files/000/000/972/m/the-10-most-awful-examples-of-clickbait-ever1.jpg" />
 		<property name="additionalInfoLink" value="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
 		<property name="creditCard" ref="creditCard6" />
 		<property name="sponsor" ref="sponsor2" />
@@ -2406,7 +2428,7 @@
 		<!-- <property name="trip" ref="trip4" /> -->
 
 	</bean>
-	
+
 	<bean id="stage7" class="domain.Stage">
 
 		<property name="title" value="Main Stage" />
@@ -2452,12 +2474,12 @@
 		<property name="description" value="Description 1" />
 		<property name="organisationMoment" value="2019/02/01 23:59" />
 		<property name="location" ref="location1" />
-		<property name="explorers" >
+		<property name="explorers">
 			<list>
-			<ref bean = "explorer1"/>
+				<ref bean="explorer1" />
 			</list>
 		</property>
-		
+
 
 	</bean>
 
@@ -2468,11 +2490,11 @@
 		<property name="description" value="Description 2" />
 		<property name="organisationMoment" value="2019/03/01 23:59" />
 		<property name="location" ref="location2" />
-		<property name="explorers" >
+		<property name="explorers">
 			<list>
 			</list>
 		</property>
-		
+
 
 	</bean>
 
@@ -2482,37 +2504,23 @@
 	<bean id="tag1" class="domain.Tag">
 
 		<property name="name" value="Country" />
-		<!-- <property name="trips">
-			<list>
-				<ref bean="trip1" />
-				<ref bean="trip2" />
-				<ref bean="trip4" />
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> <ref bean="trip1" /> <ref bean="trip2" 
+			/> <ref bean="trip4" /> </list> </property> -->
 
 	</bean>
 
 	<bean id="tag2" class="domain.Tag">
 
 		<property name="name" value="Expertise" />
-		<!-- <property name="trips">
-			<list>
-				<ref bean="trip1" />
-				<ref bean="trip2" />
-				<ref bean="trip3" />
-				<ref bean="trip4" />
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> <ref bean="trip1" /> <ref bean="trip2" 
+			/> <ref bean="trip3" /> <ref bean="trip4" /> </list> </property> -->
 
 	</bean>
-	
+
 	<bean id="tag3" class="domain.Tag">
 
 		<property name="name" value="Dangerousness" />
-		<!-- <property name="trips">
-			<list>
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> </list> </property> -->
 
 	</bean>
 
@@ -2531,11 +2539,14 @@
 				<value>jes extender</value>
 			</list>
 		</property>
-		<property name="bannerUrl" value="http://creek-tours.com/wp-content/uploads/Kenya-Tanzania-Family-Safari-banner.jpg" />
-		<property name="welcomeMessageEng" value="Tanzanika is an adventure company that makes your explorer's dreams true" />
-		<property name="welcomeMessageEsp" value="Tanzanika es la empresa de aventuras que hará tus sueños de explorador realidad" />
+		<property name="bannerUrl"
+			value="http://creek-tours.com/wp-content/uploads/Kenya-Tanzania-Family-Safari-banner.jpg" />
+		<property name="welcomeMessageEng"
+			value="Tanzanika is an adventure company that makes your explorer's dreams true" />
+		<property name="welcomeMessageEsp"
+			value="Tanzanika es la empresa de aventuras que hará tus sueños de explorador realidad" />
 		<property name="defaultPhoneCountryCode" value="+34" />
-		<property name="maxResults" value="5"/>
+		<property name="maxResults" value="5" />
 
 	</bean>
 
@@ -2637,7 +2648,7 @@
 		<property name="phoneNumber" value="Phone Number 1" />
 		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount8" />
-		<property name="suspicious" value="false"/>
+		<property name="suspicious" value="false" />
 		<property name="socialIdentities">
 			<list>
 				<ref bean="socialIdentity10" />
@@ -2674,7 +2685,7 @@
 		<property name="email" value="auditor2@mail.com" />
 		<property name="address" value="Address 2" />
 		<property name="phoneNumber" value="Phone Number 2" />
-		<property name="suspicious" value="false"/>
+		<property name="suspicious" value="false" />
 		<property name="socialIdentities">
 			<list>
 				<ref bean="socialIdentity11" />
@@ -2713,7 +2724,7 @@
 		<property name="email" value="auditor3@mail.com" />
 		<property name="address" value="Address 3" />
 		<property name="phoneNumber" value="629104732" />
-		<property name="suspicious" value="true"/>
+		<property name="suspicious" value="true" />
 		<property name="socialIdentities">
 			<list>
 			</list>
@@ -2748,7 +2759,7 @@
 		<property name="email" value="auditor4@mail.com" />
 		<property name="address" value="Address 4" />
 		<property name="phoneNumber" value="601927459" />
-		<property name="suspicious" value="false"/>
+		<property name="suspicious" value="false" />
 		<property name="socialIdentities">
 			<list>
 			</list>
@@ -2782,7 +2793,7 @@
 		<property name="email" value="auditor5@mail.com" />
 		<property name="address" value="Address 5" />
 		<property name="phoneNumber" value="646217632" />
-		<property name="suspicious" value="false"/>
+		<property name="suspicious" value="false" />
 		<property name="socialIdentities">
 			<list>
 			</list>
@@ -2816,18 +2827,14 @@
 	<bean id="category1" class="domain.Category">
 
 		<property name="name" value="Safari" />
-		<property name="fatherCategory" ref = "category4" />
+		<property name="fatherCategory" ref="category4" />
 		<property name="categories">
 			<list>
 				<ref bean="category2" />
 			</list>
 		</property>
-		<!-- <property name="trips">
-			<list>
-				<ref bean="trip1" />
-				<ref bean="trip2" />
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> <ref bean="trip1" /> <ref bean="trip2" 
+			/> </list> </property> -->
 
 	</bean>
 
@@ -2841,12 +2848,8 @@
 				<ref bean="category7" />
 			</list>
 		</property>
-		<!-- <property name="trips">
-			<list>
-				<ref bean="trip1" />
-				<ref bean="trip2" />
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> <ref bean="trip1" /> <ref bean="trip2" 
+			/> </list> </property> -->
 
 	</bean>
 
@@ -2858,15 +2861,10 @@
 			<list>
 			</list>
 		</property>
-		<!-- <property name="trips">
-			<list>
-				<ref bean="trip3" />
-
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> <ref bean="trip3" /> </list> </property> -->
 
 	</bean>
-	
+
 	<bean id="category4" class="domain.Category">
 
 		<property name="name" value="CATEGORY" />
@@ -2880,119 +2878,94 @@
 				<ref bean="category6" />
 			</list>
 		</property>
-		<!-- <property name="trips">
-			<list>
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> </list> </property> -->
 
 	</bean>
-	
+
 	<bean id="category5" class="domain.Category">
 
 		<property name="name" value="Water" />
-		<property name="fatherCategory" ref = "category4"/>
+		<property name="fatherCategory" ref="category4" />
 		<property name="categories">
 			<list>
 				<ref bean="category8" />
 				<ref bean="category9" />
 			</list>
 		</property>
-	<!-- 	<property name="trips">
-			<list>
-			</list>
-		</property>
- -->
+		<!-- <property name="trips"> <list> </list> </property> -->
 	</bean>
-	
+
 	<bean id="category6" class="domain.Category">
 
 		<property name="name" value="Climbing" />
-		<property name="fatherCategory" ref = "category4"/>
+		<property name="fatherCategory" ref="category4" />
 		<property name="categories">
 			<list>
 				<ref bean="category10" />
 				<ref bean="category11" />
 			</list>
 		</property>
-		<!-- <property name="trips">
-			<list>
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> </list> </property> -->
 
 	</bean>
-	
+
 	<bean id="category7" class="domain.Category">
 
 		<property name="name" value="Mountain" />
-		<property name="fatherCategory" ref = "category2"/>
+		<property name="fatherCategory" ref="category2" />
 		<property name="categories">
 			<list>
 			</list>
 		</property>
-		<!-- <property name="trips">
-			<list>
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> </list> </property> -->
 
 	</bean>
-	
+
 	<bean id="category8" class="domain.Category">
 
 		<property name="name" value="Lake" />
-		<property name="fatherCategory" ref = "category5"/>
+		<property name="fatherCategory" ref="category5" />
 		<property name="categories">
 			<list>
 			</list>
 		</property>
-		<!-- <property name="trips">
-			<list>
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> </list> </property> -->
 
 	</bean>
-	
+
 	<bean id="category9" class="domain.Category">
 
 		<property name="name" value="River" />
-		<property name="fatherCategory" ref = "category5"/>
+		<property name="fatherCategory" ref="category5" />
 		<property name="categories">
 			<list>
 			</list>
 		</property>
-	<!-- 	<property name="trips">
-			<list>
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> </list> </property> -->
 
 	</bean>
-	
+
 	<bean id="category10" class="domain.Category">
 
 		<property name="name" value="Mountain" />
-		<property name="fatherCategory" ref = "category6"/>
+		<property name="fatherCategory" ref="category6" />
 		<property name="categories">
 			<list>
 			</list>
 		</property>
-		<!-- <property name="trips">
-			<list>
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> </list> </property> -->
 
 	</bean>
-	
+
 	<bean id="category11" class="domain.Category">
 
 		<property name="name" value="River" />
-		<property name="fatherCategory" ref = "category6"/>
+		<property name="fatherCategory" ref="category6" />
 		<property name="categories">
 			<list>
 			</list>
 		</property>
-		<!-- <property name="trips">
-			<list>
-			</list>
-		</property> -->
+		<!-- <property name="trips"> <list> </list> </property> -->
 
 	</bean>
 
@@ -3096,12 +3069,12 @@
 		<property name="address" value="New york street 13" />
 		<property name="userAccount" ref="userAccount12" />
 		<property name="phoneNumber" value="654000000" />
-		<property name="survivalClasses" >
+		<property name="survivalClasses">
 			<list>
-			<ref bean = "survivalClass1"/>
+				<ref bean="survivalClass1" />
 			</list>
 		</property>
-		<property name="suspicious" value="false"/>
+		<property name="suspicious" value="false" />
 		<property name="socialIdentities">
 			<list>
 				<ref bean="socialIdentity17" />
@@ -3151,11 +3124,11 @@
 		<property name="email" value="mandrinapP@gmail.com" />
 		<property name="address" value="Manshington street 13" />
 		<property name="userAccount" ref="userAccount13" />
-		<property name="suspicious" value="false"/>
+		<property name="suspicious" value="false" />
 		<property name="phoneNumber" value="633000000" />
-			<property name="survivalClasses" >
+		<property name="survivalClasses">
 			<list>
-				
+
 			</list>
 		</property>
 		<property name="socialIdentities">
@@ -3635,7 +3608,7 @@
 
 	<bean id="personalRecord1" class="domain.PersonalRecord">
 		<property name="nameOfCandidate" value="Jhon" />
-		<property name="photo" value="http://www.personalRecor1.com" />
+		<property name="photo" value="http://xn--diseadoresindustriales-nec.es/archivo/carnet.png" />
 		<property name="email" value="jhon@gmail.com" />
 		<property name="phoneNumber" value="624578913" />
 		<property name="linkedInProfileURL" value="http://www.linkedInProfile1.com" />
@@ -3643,14 +3616,14 @@
 
 	<bean id="personalRecord2" class="domain.PersonalRecord">
 		<property name="nameOfCandidate" value="Mike" />
-		<property name="photo" value="http://www.personalRecor2.com" />
+		<property name="photo" value="http://xn--diseadoresindustriales-nec.es/archivo/carnet.png" />
 		<property name="email" value="mike@gmail.com" />
 		<property name="phoneNumber" value="624578914" />
 		<property name="linkedInProfileURL" value="http://www.linkedInProfile2.com" />
 	</bean>
 	<bean id="personalRecord3" class="domain.PersonalRecord">
 		<property name="nameOfCandidate" value="Manolo" />
-		<property name="photo" value="http://www.personalRecor3.com" />
+		<property name="photo" value="http://xn--diseadoresindustriales-nec.es/archivo/carnet.png" />
 		<property name="email" value="manolo@gmail.com" />
 		<property name="phoneNumber" value="624778136" />
 		<property name="linkedInProfileURL" value="http://www.linkedInProfile3.com" />
@@ -3658,7 +3631,7 @@
 
 	<bean id="personalRecord4" class="domain.PersonalRecord">
 		<property name="nameOfCandidate" value="Marta Pérez" />
-		<property name="photo" value="http://www.personalRecor4.com" />
+		<property name="photo" value="http://xn--diseadoresindustriales-nec.es/archivo/carnet.png" />
 		<property name="email" value="martitacantidubi@gmail.com" />
 		<property name="phoneNumber" value="620192361" />
 		<property name="linkedInProfileURL" value="http://www.linkedInProfile4.com" />
@@ -3852,7 +3825,7 @@
 	<bean id="rejection1" class="domain.Rejection">
 		<property name="reason" value="Because yes" />
 		<property name="application" ref="application1" />
-	
+
 	</bean>
 
 	<bean id="rejection2" class="domain.Rejection">
@@ -3869,7 +3842,7 @@
 		<property name="dateRangeStart" value="2017/12/12 12:00" />
 		<property name="dateRangeEnd" value="2017/12/25 12:00" />
 		<property name="searchMoment" value="2017/12/10 12:00" />
-		<property name= "millis"      value= "1000000" />
+		<property name="millis" value="1000000" />
 	</bean>
 
 	<!-- Note -->
@@ -4077,7 +4050,7 @@
 
 		<property name="survivalClasses">
 			<list>
-			<!-- 	<ref bean="survivalClass1" /> -->
+				<!-- <ref bean="survivalClass1" /> -->
 			</list>
 		</property>
 
@@ -4255,7 +4228,7 @@
 		</property>
 
 	</bean>
-	
+
 	<bean id="trip5" class="domain.Trip">
 
 		<property name="ticker" value="200126-XPSZ" />
