@@ -19,12 +19,10 @@ import repositories.TripRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
 import domain.Application;
 import domain.AuditRecord;
 import domain.Category;
 import domain.Configuration;
-import domain.Explorer;
 import domain.Manager;
 import domain.Note;
 import domain.Search;
@@ -42,8 +40,8 @@ public class TripService {
 	// Managed repository --------------------------------------------------
 	@Autowired
 	private TripRepository			tripRepository;
-	@Autowired
-	private CacheService			cacheService;
+	//	@Autowired
+	//	private CacheService			cacheService;
 
 	// Supporting services --------------------------------------------------
 
@@ -57,11 +55,12 @@ public class TripService {
 	private StageService			stageService;
 	@Autowired
 	private ManagerService			managerService;
+
+
 	//	@Autowired
 	//	private TagService				tagService;
-	@Autowired
-	private SearchService			searchService;
-
+	//	@Autowired
+	//	private SearchService			searchService;
 
 	// Simple CRUD methods --------------------------------------------------
 
@@ -447,44 +446,53 @@ public class TripService {
 
 
 	//Requirement 34
-	public Page<Trip> findTripsBySearchParameters(final String q, final Double pricelow, final Double pricehigh, final Date date1, final Date date2, final Pageable pageable, final int isAnonymous) {
-		Page<Trip> t1;
-		t1 = this.tripRepository.findTrips(q, pageable);
-		final Search s = new Search();
-		if (q == null || q.equals(""))
-			s.setKeyWord("None");
-		else
-			s.setKeyWord(q);
-		s.setPriceRangeStart(pricelow);
-		s.setPriceRangeEnd(pricehigh);
-		s.setDateRangeEnd(date2);
-		s.setDateRangeStart(date1);
-		s.setmillis(LocalDateTime.now().getMillisOfSecond());
+	//	public Page<Trip> findTripsBySearchParameters(final String q, final Double pricelow, final Double pricehigh, final Date date1, final Date date2, final Pageable pageable, final int isAnonymous) {
+	//		Page<Trip> t1;
+	//		t1 = this.tripRepository.findTrips(q, pageable);
+	//		final Search s = new Search();
+	//		if (q == null || q.equals(""))
+	//			s.setKeyWord("None");
+	//		else
+	//			s.setKeyWord(q);
+	//		s.setPriceRangeStart(pricelow);
+	//		s.setPriceRangeEnd(pricehigh);
+	//		s.setDateRangeEnd(date2);
+	//		s.setDateRangeStart(date1);
+	//		s.setmillis(LocalDateTime.now().getMillisOfSecond());
+	//
+	//		//EXPLORER/////////////////////////////////////////////////////////////////////////
+	//		if (isAnonymous == 0) {
+	//			final Actor a = this.actorService.findActorByPrincipal();
+	//			if (a instanceof Explorer) {
+	//				this.searchService.save(s, false);
+	//				if (this.cacheService.findInCache(s) != null)
+	//					t1 = this.cacheService.findInCache(s);
+	//				else if (q == null || q.equals(""))
+	//					t1 = this.tripRepository.findTripsBySearchParametersWithoutQ(date1, date2, pricelow, pricehigh, pageable);
+	//				else
+	//					t1 = this.tripRepository.findTripsBySearchParameters("%" + q + "%", date1, date2, pricelow, pricehigh, pageable);
+	//
+	//				this.cacheService.saveInCache(s, t1);
+	//			} else if (q == null || q.equals(""))
+	//				t1 = this.findPublicatedTrips(pageable);
+	//			else
+	//				t1 = this.tripRepository.findTrips("%" + q + "%", pageable);
+	//
+	//		} else if (q == null || q.equals(""))
+	//			t1 = this.findPublicatedTrips(pageable);
+	//		else
+	//			t1 = this.tripRepository.findTrips("%" + q + "%", pageable);
+	//
+	//		return t1;
+	//	}
 
-		//EXPLORER/////////////////////////////////////////////////////////////////////////
-		if (isAnonymous == 0) {
-			final Actor a = this.actorService.findActorByPrincipal();
-			if (a instanceof Explorer) {
-				this.searchService.save(s, false);
-				if (this.cacheService.findInCache(s) != null)
-					t1 = this.cacheService.findInCache(s);
-				else if (q == null || q.equals(""))
-					t1 = this.tripRepository.findTripsBySearchParametersWithoutQ(date1, date2, pricelow, pricehigh, pageable);
-				else
-					t1 = this.tripRepository.findTripsBySearchParameters("%" + q + "%", date1, date2, pricelow, pricehigh, pageable);
-
-				this.cacheService.saveInCache(s, t1);
-			} else if (q == null || q.equals(""))
-				t1 = this.findPublicatedTrips(pageable);
-			else
-				t1 = this.tripRepository.findTrips("%" + q + "%", pageable);
-
-		} else if (q == null || q.equals(""))
-			t1 = this.findPublicatedTrips(pageable);
-		else
-			t1 = this.tripRepository.findTrips("%" + q + "%", pageable);
-
-		return t1;
+	public Page<Trip> findTripsBySearchParameters(final Search s, final Pageable pageable) {
+		final Page<Trip> trips = this.tripRepository.findTripsBySearchParameters("%" + s.getKeyWord() + "%", s.getDateRangeStart(), s.getDateRangeEnd(), s.getPriceRangeStart(), s.getPriceRangeEnd(), pageable);
+		return trips;
+	}
+	public Page<Trip> findTripsBySearchParameters(final String keyword, final Pageable pageable) {
+		final Page<Trip> trips = this.tripRepository.findTrips("%" + keyword + "%", pageable);
+		return trips;
 	}
 	//	public Collection<Trip> findTripsApplicationExplorer(final int id) {
 	//		return this.tripRepository.findTripsApplicationExplorer(id);

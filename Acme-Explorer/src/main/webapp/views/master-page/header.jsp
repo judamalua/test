@@ -42,6 +42,8 @@
 					<li><a href="actor/explorer/edit.do"><spring:message
 								code="master.page.actorEdit" /></a></li>
 				</ul></li>
+				<li><a class="fNiv" href="trip/listExplorer.do"><spring:message
+							code="master.page.tripList" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('RANGER')">
@@ -58,6 +60,8 @@
 					<li><a href="actor/ranger/edit.do"><spring:message
 								code="master.page.actorEdit" /></a></li>
 				</ul></li>
+				<li><a class="fNiv" href="trip/list.do"><spring:message
+							code="master.page.tripList" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('SPONSOR')">
@@ -74,6 +78,8 @@
 					<li><a href="actor/sponsor/edit.do"><spring:message
 								code="master.page.actorEdit" /></a></li>
 				</ul></li>
+							<li><a class="fNiv" href="trip/list.do"><spring:message
+							code="master.page.tripList" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('MANAGER')">
@@ -93,7 +99,9 @@
 					<%-- 								code="master.page.categoryList" /></a></li> --%>
 					<li><a href="actor/manager/edit.do"><spring:message
 								code="master.page.actorEdit" /></a></li>
-				</ul></li>
+				</ul></li>			
+				<li><a class="fNiv" href="trip/list.do"><spring:message
+							code="master.page.tripList" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('AUDITOR')">
@@ -112,6 +120,8 @@
 					<li><a href="actor/auditor/edit.do"><spring:message
 								code="master.page.actorEdit" /></a></li>
 				</ul></li>
+							<li><a class="fNiv" href="trip/list.do"><spring:message
+							code="master.page.tripList" /></a></li>
 		</security:authorize>
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message code="master.page.admin" /></a>
@@ -138,6 +148,8 @@
 					<li><a href="actor/admin/edit.do"><spring:message
 								code="master.page.actorEdit" /></a></li>
 				</ul></li>
+							<li><a class="fNiv" href="trip/list.do"><spring:message
+							code="master.page.tripList" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="isAnonymous()">
@@ -170,8 +182,6 @@
 						code="master.page.socialIdentities" /></a></li>
 			<li><a href="category/list.do"><spring:message
 						code="master.page.categoryList" /></a></li>
-			<li><a class="fNiv" href="trip/list.do"><spring:message
-						code="master.page.tripList" /></a></li>
 
 		</security:authorize>
 

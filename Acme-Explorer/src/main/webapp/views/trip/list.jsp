@@ -11,46 +11,64 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form action="trip/search.do" method="post">
 
 	<security:authorize access="isAnonymous()">
 		<input type="hidden" name="isAnonymous" value="1" />
 	</security:authorize>
 
 	<jstl:if test="${requestUri==\"trip/list.do\"}">
+	<form action="trip/search.do" method="post">
+	
 		<label> <spring:message code="trip.search" />
 		</label>
 		<input type="text" name="keyword" id="keyword"
 			placeholder="<spring:message code="search.keyword.placeholder"/>">
-
+	<input type="submit" name="search" id="search"
+			value="<spring:message code = "trip.search"/>" />
+			</form>
+			
 	</jstl:if>
-	<security:authorize access="hasRole('EXPLORER')">
-
-
+	
+		<jstl:if test="${requestUri==\"trip/listExplorer.do\"}">
+			
+		<form:form action="trip/searchExplorer.do" modelAttribute="search">
+		<form:hidden path = "id" />
+			<form:hidden path = "version" />
+			<form:hidden path = "searchMoment" />
+			
+			
+		<label> <spring:message code="trip.search" />
+		</label>
+		<form:input path="keyWord"/>
+			<form:errors cssClass = "error" path = "keyWord" />
+			
 		<label> <spring:message code="trip.startPrice" />
 		</label>
-		<input type="number" name="startPrice" placeholder="200,00">
+		<form:input path="priceRangeStart" placeholder="200.00"/>
+			<form:errors cssClass = "error" path = "priceRangeStart" />
 
 		<label> <spring:message code="trip.endPrice" />
 		</label>
-		<input type="number" name="endPrice" placeholder="700,00">
+		<form:input path="priceRangeEnd" placeholder="700.00"/>
+			<form:errors cssClass = "error" path = "priceRangeEnd" />
 
 		<label> <spring:message code="trip.startDate" />
 		</label>
-		<input type="text" name="startDate" placeholder="dd/MM/yyyy">
+		<form:input path="dateRangeStart" placeholder="dd/MM/yyyy hh:mm"/>
+			<form:errors cssClass = "error" path = "dateRangeStart" />
 
 		<label> <spring:message code="trip.endDate" />
 		</label>
-		<input type="text" name="endDate" placeholder="dd/MM/yyyy">
+		<form:input path="dateRangeEnd" placeholder="dd/MM/yyyy hh:mm"/>
+			<form:errors cssClass = "error" path = "dateRangeEnd" />
 
-	</security:authorize>
 
-	<jstl:if test="${requestUri==\"trip/list.do\"}">
-		<input type="submit" name="search" id="search"
+		<input type="submit" name="save" id="save"
 			value="<spring:message code = "trip.search"/>" />
+			
+				</form:form>
 	</jstl:if>
 
-</form>
 
 
 <jstl:set value="&" var="connector" />
