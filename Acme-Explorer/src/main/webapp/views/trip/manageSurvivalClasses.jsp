@@ -45,3 +45,5 @@
 	
 	
 </form>
+
+<spring:message code = "trip.survivalClass.multiple.info"/>

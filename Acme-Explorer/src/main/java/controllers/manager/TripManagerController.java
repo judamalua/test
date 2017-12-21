@@ -34,7 +34,6 @@ import domain.Manager;
 import domain.Ranger;
 import domain.Stage;
 import domain.SurvivalClass;
-import domain.Tag;
 import domain.Trip;
 
 @Controller
@@ -341,13 +340,14 @@ public class TripManagerController extends AbstractController {
 		ModelAndView result;
 		Collection<Ranger> rangers;
 		final Collection<LegalText> legalTexts;
-		final Collection<Tag> tags;
+		//		final Collection<Tag> tags;
 		final Collection<Category> categories;
 		final Collection<SurvivalClass> notAddedSurvivalClasses;
+		//		final Collection<TagValue> tagValues;
 
 		rangers = this.rangerService.findAll();
 		legalTexts = this.legalTextService.findAllFinalMode();
-		tags = this.tagService.findAll();
+		//		tags = this.tagService.findAll();
 		categories = this.categoryService.findAll();
 		notAddedSurvivalClasses = this.survivalClassService.findAll();
 		notAddedSurvivalClasses.removeAll(trip.getSurvivalClasses());
@@ -355,7 +355,7 @@ public class TripManagerController extends AbstractController {
 		result = new ModelAndView("trip/edit");
 		result.addObject("rangers", rangers);
 		result.addObject("legalTexts", legalTexts);
-		result.addObject("tagsTrip", tags);
+		//		result.addObject("tagsTrip", tags);
 		result.addObject("categories", categories);
 		result.addObject("trip", trip);
 		//		result.addObject("notAddedSurvivalClasses", notAddedSurvivalClasses);
