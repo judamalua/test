@@ -27,7 +27,7 @@
 
 <jstl:if test = "${sponsorship != null}">
 	<a href="${sponsorship.additionalInfoLink}">
-		<img src="${sponsorship.bannerUrl}" alt="trip.sponsorship" />
+		<img class = "sponsorshipBannerUrl" src="${sponsorship.bannerUrl}" alt="trip.sponsorship" />
 	</a>
 </jstl:if>
 
@@ -100,17 +100,17 @@
 	<fmt:formatDate value="${endDate}" pattern="${formatDateOut}" />
 </p>
 
- <jstl:if test="${not empty trip.tags}">
+ <%-- <jstl:if test="${not empty trip.tags}">
 	<p>
 		<spring:message code="trip.tags" />
 		:
 		<jstl:forEach var="tag" items="${trip.tags}" varStatus="index">
 			<jstl:out value="${tag.name}" />
 
-			<%-- <jstl:if test="${trip.tags.length != index}">, </jstl:if> --%>
+			<jstl:if test="${trip.tags.length != index}">, </jstl:if>
 		</jstl:forEach>
 	</p>
-</jstl:if> 
+</jstl:if>  --%>
 
 <p>
 	<spring:message code="trip.ranger" />
@@ -120,7 +120,7 @@
 	<security:authorize access="hasRole('RANGER')">
 	<jstl:set value="true" var="isRanger"/>
 	</security:authorize>
-		<a href="curriculum/show.do?rangerId=${trip.ranger.id}&&isRanger=${isRanger}">
+		<a href="curriculum/show.do?rangerId=${trip.ranger.id}&isRanger=${isRanger}">
 			<button>
 				<spring:message code="trip.ranger.curriculum" />
 			</button>

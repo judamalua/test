@@ -187,6 +187,14 @@ public class ApplicationService {
 
 		Assert.notNull(application);
 
+		Trip tripApplication;
+		Date currentDate;
+
+		tripApplication = application.getTrip();
+		currentDate = new Date();
+
+		Assert.isTrue(tripApplication.getPublicationDate().before(currentDate) && tripApplication.getStartDate().after(currentDate));
+
 		if (application.getStatus().equals("REJECTED"))
 			Assert.notNull(application.getRejection());
 		//		if (application.getStatus().equals("DUE"))
