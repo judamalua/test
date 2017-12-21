@@ -119,7 +119,7 @@
 		<spring:message code="trip.tags" />
 	</form:label>
 	<form:select multiple="true" path="tags">
-			<form:option value="0">
+			<form:option value="0" selected="selected">
 				-----------------
 			</form:option>
 		<jstl:forEach items="${tagsTrip}" var="tagTrip" >
