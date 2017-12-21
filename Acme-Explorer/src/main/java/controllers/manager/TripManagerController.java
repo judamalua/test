@@ -102,11 +102,11 @@ public class TripManagerController extends AbstractController {
 		try {
 			Assert.isTrue(tripId != -1);
 			trip = this.tripService.findOne(tripId);
+			Assert.notNull(trip);
 			Assert.isTrue(trip.getPublicationDate().after(new Date()));
 			manager = (Manager) this.actorService.findActorByPrincipal();
 			Assert.isTrue(trip.getPublicationDate().after(new Date()));
 			Assert.isTrue(this.managerService.findTripsByManager(manager.getId()).contains(trip));
-			Assert.notNull(trip);
 			result = this.createEditModelAndView(trip);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
