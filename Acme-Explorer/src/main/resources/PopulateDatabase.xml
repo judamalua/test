@@ -286,13 +286,25 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount23" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 	<!-- Other domain beans come here -->
 
 	<!-- Message -->
 
 	<bean id="message1" class="domain.Message">
 		<property name="priority" value="LOW" />
-		<property name="subject" value="Buenas dias." />
+		<property name="subject" value="Buenos días." />
 		<property name="body" value="Mensaje sobre una duda de viaje." />
 		<property name="receptionDate" value="05/10/2016 12:00" />
 		<property name="sender" ref="administrator1" />
@@ -1973,6 +1985,77 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="messageFolder111" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="TRUE" />
+		<!-- <property name="messageFolderFather" /> -->
+		<property name="messageFolderChildren">
+			<list>
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="messageFolder112" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="TRUE" />
+		<!-- <property name="messageFolderFather" /> -->
+		<property name="messageFolderChildren">
+			<list>
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="messageFolder113" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="TRUE" />
+		<!-- <property name="messageFolderFather" /> -->
+		<property name="messageFolderChildren">
+			<list>
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="messageFolder114" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="TRUE" />
+		<!-- <property name="messageFolderFather" /> -->
+		<property name="messageFolderChildren">
+			<list>
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="messageFolder115" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="TRUE" />
+		<!-- <property name="messageFolderFather" /> -->
+		<property name="messageFolderChildren">
+			<list>
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
 	<!-- SocialIdentity -->
 
 	<bean id="socialIdentity1" class="domain.SocialIdentity">
@@ -2188,6 +2271,30 @@
 		<property name="phoneNumber" value="600000000" />
 		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount3" />
+	</bean>
+	
+	<bean id="administrator4" class="domain.Administrator">
+		<property name="name" value="admin" />
+		<property name="surname" value="admin" />
+		<property name="email" value="admin@gmail.com" />
+		<property name="address" value="admin" />
+		<property name="suspicious" value="false" />
+		<property name="socialIdentities">
+			<list>
+			</list>
+		</property>
+		<property name="messageFolders">
+			<list>
+				<ref bean="messageFolder111" />
+				<ref bean="messageFolder112" />
+				<ref bean="messageFolder113" />
+				<ref bean="messageFolder114" />
+				<ref bean="messageFolder115" />
+			</list>
+		</property>
+		<property name="phoneNumber" value="600000000" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount23" />
 	</bean>
 
 	<!-- Application -->
