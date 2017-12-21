@@ -17,10 +17,12 @@
 		<input type = "hidden" name = "isAnonymous" value= "1"/>
 	</security:authorize>
 	
-	<label> <spring:message code="trip.search" />
-	</label> <input type="text" name="keyword" id="keyword"
-		placeholder="<spring:message code="search.keyword.placeholder"/>">
+	<jstl:if test="${requestUri==\"trip/list.do\"}">
+		<label> <spring:message code="trip.search" />
+		</label> <input type="text" name="keyword" id="keyword"
+			placeholder="<spring:message code="search.keyword.placeholder"/>">
 
+	</jstl:if>
 	<security:authorize access="hasRole('EXPLORER')">
 
 
@@ -42,8 +44,10 @@
 		
 	</security:authorize>
 
+<jstl:if test="${requestUri==\"trip/list.do\"}">
 	<input type="submit" name="search" id="search"
 		value="<spring:message code = "trip.search"/>" />
+</jstl:if>
 
 </form>
 

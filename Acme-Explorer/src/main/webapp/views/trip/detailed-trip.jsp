@@ -25,8 +25,12 @@
 	pattern="yyyy-MM-dd HH:mm" />
 <br />
 
-<a href="${sponsorship.additionalInfoLink}"><img
-	src="${sponsorship.bannerUrl}" alt="trip.sponsorship" /></a>
+<jstl:if test = "${sponsorship != null}">
+	<a href="${sponsorship.additionalInfoLink}">
+		<img src="${sponsorship.bannerUrl}" alt="trip.sponsorship" />
+	</a>
+</jstl:if>
+
 <h1>
 	<spring:message code="trip.title" />
 	:
