@@ -34,21 +34,21 @@
 	<form:label path = "studyingPeriodStart">
 		<spring:message code = "educationRecord.studyingPeriodStart" />:
 	</form:label>
-	<form:input path = "studyingPeriodStart"  />
+	<form:input path = "studyingPeriodStart" placeholder="dd/MM/yyyy HH:mm" />
 	<form:errors cssClass = "error" path = "studyingPeriodStart" />
 	<br />
 	
 	<form:label path = "studyingPeriodEnd">
 		<spring:message code = "educationRecord.studyingPeriodEnd" />:
 	</form:label>
-	<form:input path = "studyingPeriodEnd" placeholder="dd/MM/yyyy hh:mm" />
+	<form:input path = "studyingPeriodEnd" placeholder="dd/MM/yyyy HH:mm" />
 	<form:errors cssClass = "error" path = "studyingPeriodEnd" />
 	<br />
 	
 	<form:label path = "institution">
 		<spring:message code = "educationRecord.institution" />:
 	</form:label>
-	<form:input path = "institution"  placeholder="dd/MM/yyyy hh:mm"/>
+	<form:input path = "institution"  />
 	<form:errors cssClass = "error" path = "institution" />
 	<br />
 	
