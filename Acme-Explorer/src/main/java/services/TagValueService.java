@@ -12,7 +12,6 @@ import repositories.TagValueRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
-import domain.Administrator;
 import domain.TagValue;
 import domain.Trip;
 
@@ -68,28 +67,26 @@ public class TagValueService {
 		return result;
 
 	}
-	public TagValue save(final TagValue tagValue) {
+	public TagValue save(final TagValue tagValue, final Trip trip) {
 		this.checkUserLogin();
 
 		assert tagValue != null;
+		Assert.notNull(trip);
 
 		// Comprobación palabras de spam
-		if (this.actorService.findActorByPrincipal() instanceof Administrator)
-			this.actorService.checkSpamWords(tagValue.getValue());
+		this.actorService.checkSpamWords(tagValue.getValue());
 
 		TagValue result;
-		Collection<Trip> trips;
-
-		trips = this.tripService.findTripsByTagId(tagValue.getId());
+		//		Trip trip;
+		//
+		//		trip = this.tripService.findTripByTagValue(tagValue.getId());
 
 		result = this.tagValueRepository.save(tagValue);
 
-		for (final Trip t : trips) {
-			if (!t.getTagValues().contains(tagValue))
-				t.getTagValues().remove(tagValue);
-			t.getTagValues().add(result);
-			this.tripService.save(t);
-		}
+		if (trip.getTagValues().contains(tagValue))
+			trip.getTagValues().remove(tagValue);
+		trip.getTagValues().add(result);
+		this.tripService.save(trip);
 
 		return result;
 
@@ -100,19 +97,27 @@ public class TagValueService {
 		assert tagValue != null;
 		assert tagValue.getId() != 0;
 
-		Collection<Trip> trips;
+		Trip trip;
 
-		trips = this.tripService.findTripsByTagId(tagValue.getId());
+		trip = this.tripService.findTripByTagValue(tagValue.getId());
 
 		Assert.isTrue(this.tagValueRepository.exists(tagValue.getId()));
-		if (trips.size() != 0)
-			for (final Trip t : trips) {
-				t.getTagValues().remove(tagValue);
-				this.tripService.save(t);
-			}
+		trip.getTagValues().remove(tagValue);
+		this.tripService.save(trip);
 
 		this.tagValueRepository.delete(tagValue);
 
+	}
+
+	public Collection<TagValue> findTagValuesByTagId(final int tagId) {
+
+		Assert.isTrue(this.tagValueRepository.exists(tagId));
+		Collection<TagValue> result;
+
+		result = this.tagValueRepository.findTagValuesByTagId(tagId);
+		Assert.notNull(result);
+
+		return result;
 	}
 
 	// Other business methods --------------------------------------------------

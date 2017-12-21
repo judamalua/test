@@ -8,36 +8,56 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="tag/admin/edit.do" modelAttribute ="tag">
+<form:form action="tagValue/manager/edit.do" modelAttribute ="tagValue">
 	
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
+	<input type="hidden" name="tripId" value="${tripId}"/>
+	<jstl:if test="${tagValue.id!=0}">
+		<form:hidden path="tag"/>
+	</jstl:if>
 	
-	
-	<form:label path="name">
-		<spring:message code="tag.name"/>
+	<jstl:if test="${tagValue.id==0}">
+	<form:label path="tag">
+		<spring:message code="tagValue.tag"/>
 	</form:label>
-	<form:input path="name"/>
-	<form:errors cssClass="error" path="name"/>
+	<form:select path="tag">
+		<form:option value="0">
+			-----------
+		</form:option>
+		<jstl:forEach var="tagRow" items="${tags}">
+			<form:option value="${tagRow.id}">
+				<jstl:out value="${tagRow.name}" />
+			</form:option>
+		</jstl:forEach>
+	</form:select>
+	<form:errors cssClass="error" path="tag"/>
+	<br/>
+	</jstl:if>
+	<form:label path="value">
+		<spring:message code="tagValue.value"/>
+	</form:label>
+	<form:input path="value" />
+	<form:errors cssClass="error" path="value"/>
 	<br/>
 	
 	<input 
 		type="submit"
 		name="save"
-		value="<spring:message code="tag.save" />" />
+		value="<spring:message code="tagValue.save" />" />
 		
-	<jstl:if test="${tag.id!=0}">
+	<jstl:if test="${tagValue.id!=0}">
 		<input 
 			type="submit"
 			name="delete"
-			value="<spring:message code="tag.delete" />"
-			onclick="return confirm('<spring:message code='tag.confirm.delete' />') "/>
+			value="<spring:message code="tagValue.delete" />"
+			onclick="return confirm('<spring:message code='tagValue.confirm.delete' />') "/>
 	</jstl:if>
 	
 	<input 
 		type="button"
 		name="cancel"
-		value="<spring:message code="tag.cancel" />"
-		onclick="javascript: relativeRedir('tag/admin/list.do');" />
+		value="<spring:message code="tagValue.cancel" />"
+		onclick="javascript: relativeRedir('tagValue/manager/list.do?tripId=${tripId}');" />
 
 </form:form>

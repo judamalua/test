@@ -11,15 +11,23 @@
 <display:table name="tagValues" id="tagValue" requestURI="tagValue/manager/list.do" pagesize="${pagesize}" class="displayTag">
 
 	<spring:message code="tagValue.value" />
-	<display:column property="tagValue.value"/>
+	<display:column property="value"/>
 	
 	<spring:message code="tagValue.tag" />
-	<display:column property="tagValue.tag.name"/>
+	<display:column property="tag.name"/>
+	
+	<display:column>
+		<a href = "tagValue/manager/edit.do?tagValueId=${tagValue.id}&tripId=${tripId}">
+			<button>
+				<spring:message code = "tagValue.edit"/>
+			</button>
+		</a>
+	</display:column>
 		
 </display:table>
 
-	<a href = "tag/admin/create.do">
-	<button>
-		<spring:message code = "tag.create"/>
-	</button>
+	<a href = "tagValue/manager/create.do?tripId=${tripId}">
+		<button>
+			<spring:message code = "tagValue.create"/>
+		</button>
 	</a>
