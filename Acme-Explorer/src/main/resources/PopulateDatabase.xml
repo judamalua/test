@@ -3945,7 +3945,7 @@
 
 		<property name="stories">
 			<list>
-				<ref bean="story1" />
+				<!-- <ref bean="story1" /> -->
 			</list>
 		</property>
 
@@ -4027,7 +4027,7 @@
 
 		<property name="stories">
 			<list>
-				<ref bean="story2" />
+				<!-- <ref bean="story2" /> -->
 			</list>
 		</property>
 
@@ -4106,6 +4106,8 @@
 
 		<property name="stories">
 			<list>
+				<ref bean="story1" />
+				<ref bean="story2" />
 			</list>
 		</property>
 
