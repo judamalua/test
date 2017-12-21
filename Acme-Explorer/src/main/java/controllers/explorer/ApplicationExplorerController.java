@@ -93,13 +93,19 @@ public class ApplicationExplorerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView reject(@Valid final Application application, final BindingResult binding) {
 		ModelAndView result;
+		Date currentDate;
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(application, "application.params.error");
 		else
 			try {
-				if (!application.getCreditCard().getHolderName().equals("NONE") || !application.getCreditCard().getBrandName().equals("NONE") || !application.getCreditCard().getNumber().equals("0000000000000000"))
+				currentDate = new Date();
+				if (!application.getCreditCard().getHolderName().equals("NONE") || !application.getCreditCard().getBrandName().equals("NONE") || !application.getCreditCard().getNumber().equals("0000000000000000")) {
+					Assert.isTrue(application.getCreditCard().getExpirationYear() >= currentDate.getYear() % 100);
+					if (application.getCreditCard().getExpirationYear() == currentDate.getYear() % 100)
+						Assert.isTrue(application.getCreditCard().getExpirationMonth() > currentDate.getMonth() % 100);
 					this.applicationService.changeStatus(application, "ACCEPTED");
+				}
 				this.applicationService.save(application);
 				result = new ModelAndView("redirect:list.do");
 

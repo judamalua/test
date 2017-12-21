@@ -124,6 +124,7 @@ public class SponsorshipSponsorController extends AbstractController {
 	public ModelAndView save(@Valid final Sponsorship sponsorship, final BindingResult binding) {
 
 		ModelAndView result;
+		Date currentDate;
 
 		//		if (sponsorship.getCreditCard() == null) {
 		//			if (this.chechErrorsBinding(binding))
@@ -135,6 +136,10 @@ public class SponsorshipSponsorController extends AbstractController {
 			result = this.createEditModelAndView(sponsorship);
 		else
 			try {
+				currentDate = new Date();
+				Assert.isTrue(sponsorship.getCreditCard().getExpirationYear() >= currentDate.getYear() % 100);
+				if (sponsorship.getCreditCard().getExpirationYear() == currentDate.getYear() % 100)
+					Assert.isTrue(sponsorship.getCreditCard().getExpirationMonth() > currentDate.getMonth() % 100);
 				this.sponsorshipService.save(sponsorship);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
