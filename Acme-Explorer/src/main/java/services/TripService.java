@@ -469,7 +469,7 @@ public class TripService {
 				this.searchService.save(s, false);
 				if (this.cacheService.findInCache(s) != null)
 					t1 = this.cacheService.findInCache(s);
-				else if (q.equals("None"))
+				else if (q == null || q.equals(""))
 					t1 = this.tripRepository.findTripsBySearchParametersWithoutQ(date1, date2, pricelow, pricehigh, pageable);
 				else
 					t1 = this.tripRepository.findTripsBySearchParameters("%" + q + "%", date1, date2, pricelow, pricehigh, pageable);
