@@ -82,7 +82,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="trip/manager/list.do"><spring:message
-								code="master.page.tripList" /></a></li>
+								code="master.page.manager.tripList" /></a></li>
 					<li><a href="application/manager/list.do"><spring:message
 								code="master.page.applicationList" /></a></li>
 					<li><a href="auditRecord/manager/list.do"><spring:message

@@ -16,6 +16,17 @@
 	max-width: 50%
 	
 }
+
+.sponsorshipBannerUrl{
+	width: 10%;
+	height: 10%;
+}
+
+.curriculumPhoto{
+	width: 10%;
+	height: 10%;
+}
+
 .pending {
 	background-color: #f7f7f7;
 }
