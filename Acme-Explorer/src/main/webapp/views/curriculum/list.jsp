@@ -81,30 +81,30 @@
 			<jstl:set value="${professionalRecords}" var="professionalRecords"></jstl:set>
 
 			<display:table name="professionalRecords" id="professionalRecord"
-				requestURI="professionalRecord/list.do?curriculumId=${curriculum.id}"
+				requestURI="curriculum/ranger/list.do"
 				pagesize="${pagesize}" class="displaytag">
 
 				<spring:message code="professionalRecord.companyName"
 					var="companyNameHeader" />
 				<display:column property="companyName" title="${companyNameHeader}"
-					sortable="false" />
+					sortable="true" />
 
 				<spring:message
 					code="curriculum.professionalRecord.workingPeriodStart"
 					var="workingPeriodStartHeader" />
 				<display:column property="workingPeriodStart"
-					title="${workingPeriodStartHeader}" sortable="false" format="${formatDate}"/>
+					title="${workingPeriodStartHeader}" sortable="true" format="${formatDate}"/>
 
 				<spring:message
 					code="curriculum.professionalRecord.workingPeriodEnd"
 					var="workingPeriodEndHeader" />
 				<display:column property="workingPeriodEnd"
-					title="${workingPeriodEndHeader}" sortable="false" format="${formatDate}"/>
+					title="${workingPeriodEndHeader}" sortable="true" format="${formatDate}"/>
 
 				<spring:message code="curriculum.professionalRecord.role"
 					var="roleHeader" />
 				<display:column property="role" title="${roleHeader}"
-					sortable="false" />
+					sortable="true" />
 
 				<spring:message code="curriculum.professionalRecord.attachment"
 					var="attachmentHeader" />
@@ -153,13 +153,13 @@
 		
 
 			<display:table name="miscellaneousRecords" id="miscellaneousRecord"
-				requestURI="miscellaneousRecord/list.do?curriculumId=${curriculum.id}"
+				requestURI="curriculum/ranger/list.do"
 				pagesize="${pagesize}" class="displaytag">
 
 			<spring:message code="curriculum.miscellaneousRecord.title"
 					var="title1Header" />
 				<display:column property="title" title="${title1Header}"
-					sortable="false" /> 
+					sortable="true" /> 
 
 				<spring:message code="curriculum.miscellaneousRecord.attachment"
 					var="attachment1Header" />
@@ -207,29 +207,29 @@
 		<h2><spring:message code="curriculum.educationRecords" /></h2>
 
 			<display:table name="educationRecords" id="educationRecord"
-				requestURI="educationRecord/list.do?curriculumId=${curriculum.id}"
+				requestURI="curriculum/ranger/list.do"
 				pagesize="${pagesize}" class="displaytag">
 
 				<spring:message code="curriculum.educationRecord.diplomaTitle"
 					var="diplomaTitleHeader" />
 				<display:column property="diplomaTitle"
-					title="${diplomaTitleHeader}" sortable="false" />
+					title="${diplomaTitleHeader}" sortable="true" />
 
 				<spring:message
 					code="curriculum.educationRecord.studyingPeriodStart"
 					var="studyingPeriodStartHeader" />
 				<display:column property="studyingPeriodStart"
-					title="${studyingPeriodStartHeader}" sortable="false" />
+					title="${studyingPeriodStartHeader}" sortable="true" />
 
 				<spring:message code="curriculum.educationRecord.studyingPeriodEnd"
 					var="studyingPeriodEndHeader" />
 				<display:column property="studyingPeriodEnd"
-					title="${studyingPeriodEndHeader}" sortable="false" />
+					title="${studyingPeriodEndHeader}" sortable="true" />
 
 				<spring:message code="curriculum.educationRecord.institution"
 					var="institutionHeader" />
 				<display:column property="institution"
-					title="${institutionHeader}" sortable="false" />
+					title="${institutionHeader}" sortable="true" />
 
 				<spring:message code="curriculum.educationRecord.attachment"
 					var="attachment2Header" />
@@ -278,18 +278,18 @@
 		
 	
 			<display:table name="endorserRecords" id="endorserRecord"
-				requestURI="endorserRecord/list.do?curriculumId=${curriculum.id}"
+				requestURI="curriculum/ranger/list.do"
 				pagesize="${pagesize}" class="displaytag">
 
 				<spring:message code="curriculum.endorserRecord.fullName"
 					var="fullNameHeader" />
 				<display:column property="fullName" title="${fullNameHeader}"
-					sortable="false" />
+					sortable="true" />
 
 				<spring:message code="curriculum.endorserRecord.email"
 					var="email1Header" />
 				<display:column property="email" title="${email1Header}"
-					sortable="false" />
+					sortable="true" />
 
 				<spring:message code="curriculum.endorserRecord.phoneNumber"
 					var="phoneNumber1Header" />
