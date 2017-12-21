@@ -2,25 +2,13 @@
 package controllers;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Random;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.persistence.metamodel.EntityType;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,24 +16,25 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.Authority;
 import services.ActorService;
 import services.CategoryService;
 import services.ConfigurationService;
 import services.ManagerService;
+import services.SearchService;
 import services.SurvivalClassService;
 import services.TripService;
 import domain.Actor;
 import domain.Category;
 import domain.Configuration;
-import domain.DomainEntity;
 import domain.Explorer;
 import domain.Manager;
+import domain.Search;
 import domain.SurvivalClass;
 import domain.Trip;
 
@@ -66,6 +55,8 @@ public class TripController extends AbstractController {
 	CategoryService			categoryService;
 	@Autowired
 	ManagerService			managerService;
+	@Autowired
+	SearchService			searchService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -77,124 +68,6 @@ public class TripController extends AbstractController {
 	// Paging list -------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET, params = "page")
 	public ModelAndView list(@RequestParam final int page) throws IllegalArgumentException, IllegalAccessException, IOException {
-
-		//SCRIPT ===============================
-
-		final HashMap<Integer, String> idMap = new HashMap<Integer, String>(); //Integer: Id del domain entity, String: Nombre de la clase para referenciarla
-		final HashMap<String, Integer> countDomainEntityNames = new HashMap<String, Integer>(); //String: clase , Integer: id actual para generar nuevo nombre
-		final HashMap<String, List<Object>> objects = new HashMap<String, List<Object>>(); //Lista de todos los objetos en memoria
-		final HashMap<Object, String> datatypes = new HashMap<Object, String>(); //Object: Datatype, String: Su nombre al que se referencia
-
-		final HashMap<String, Integer> countDataTypesName = new HashMap<String, Integer>(); //String clase
-
-		final EntityManager et = Persistence.createEntityManagerFactory("Acme-Explorer").createEntityManager();
-
-		for (final EntityType<?> entity : et.getMetamodel().getEntities()) {
-
-			final String className = entity.getName();
-			//Debe ignorar las clases abstractas
-			if (!className.equalsIgnoreCase("actor") && !className.equalsIgnoreCase("domainentity")) {
-				final Query q = et.createQuery("from " + className + " c");
-
-				for (final Object o : q.getResultList()) {
-					if (!objects.containsKey(o.getClass().getName()))
-						objects.put(o.getClass().getName(), new ArrayList<Object>());
-					objects.get(o.getClass().getName()).add(o);
-					final String classN = o.getClass().getName().replaceFirst("domain.", "").replaceFirst("security.", "");
-					if (!countDomainEntityNames.containsKey(classN))
-						countDomainEntityNames.put(classN, 0);
-					countDomainEntityNames.put(classN, countDomainEntityNames.get(classN) + 1);
-
-					final String name = classN + countDomainEntityNames.get(classN);
-
-					if (o instanceof DomainEntity)
-						idMap.put(((DomainEntity) o).getId(), name);
-
-				}
-			}
-		}
-
-		String xml = "<beans xmlns=\"http://www.springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd\"> \n";
-		for (final String clase : objects.keySet()) {
-			xml = xml + "\n\n <!-- %%%%%%  " + clase + " %%%%%% --> \n";
-			final List<Object> subobjects = objects.get(clase);
-			for (final Object o : subobjects) {
-				final Integer id = ((DomainEntity) o).getId();
-				xml = xml + "<bean id=\"" + idMap.get(id) + "\" class=\"" + o.getClass().getName() + "\"> \n";
-
-				final List<Field> fields = new ArrayList<Field>(Arrays.asList(o.getClass().getDeclaredFields()));
-
-				if (o.getClass().getSuperclass().getName().contains("Actor"))
-					fields.addAll(Arrays.asList(o.getClass().getSuperclass().getDeclaredFields()));
-				for (final Field field : fields)
-					if (!java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
-						field.setAccessible(true); // You might want to set modifier to public first.
-						Object value = field.get(o);
-						if (value != null) {
-							if (value instanceof Date) {
-								final DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-								value = df.format((Date) value);
-							}
-							if (value instanceof String || value instanceof Date || value instanceof Boolean || value instanceof Double || value instanceof Integer || value instanceof Long)
-								xml = xml + "<property name=\"" + field.getName() + "\" value=\"" + value + "\" /> \n";
-							else if (value instanceof Collection<?>) {
-								xml = xml + "<property name=\"" + field.getName() + "\" > \n";
-								xml = xml + "<list> \n";
-
-								final Collection<?> col = (Collection<?>) value;
-								for (final Object obColl : col)
-									if (obColl instanceof String || obColl instanceof Date || obColl instanceof Boolean || obColl instanceof Double || obColl instanceof Integer || obColl instanceof Long)
-										xml = xml + "<value>" + obColl + "</value> \n";
-									else if (obColl instanceof Authority)
-										xml = xml + "<bean class=\"security.Authority\"> \n <property name=\"authority\" value=\"" + obColl + "\" /> \n </bean>";
-									else
-										xml = xml + "<ref bean=\"" + idMap.get(((DomainEntity) obColl).getId()) + "\" /> \n";
-								xml = xml + "</list> \n";
-								xml = xml + "</property> \n";
-							} else if (value instanceof DomainEntity)
-								xml = xml + "<property name=\"" + field.getName() + "\" ref=\"" + idMap.get(((DomainEntity) value).getId()) + "\" /> \n";
-							else {
-								//Datatypes
-								Integer valAct = countDataTypesName.get(value.getClass().getSimpleName());
-								if (valAct == null)
-									valAct = 0;
-								valAct++;
-								countDataTypesName.put(value.getClass().getSimpleName(), valAct);
-								final String dtName = value.getClass().getSimpleName() + valAct;
-								if (!datatypes.containsKey(value))
-									datatypes.put(value, dtName);
-
-								xml = xml + "<property name=\"" + field.getName() + "\" ref=\"" + dtName + "\" /> \n";
-
-							}
-
-						}
-					}
-				xml = xml + "</bean>\n";
-			}
-
-		}
-
-		xml = xml + "\n\n <!-- = = = = = = DATATYPES = = = = = = = --> \n";
-		for (final Entry<Object, String> entry : datatypes.entrySet()) {
-			xml = xml + "<bean id=\"" + entry.getValue() + "\" class=\"" + entry.getKey().getClass().getName() + "\"> \n";
-			for (final Field field : entry.getKey().getClass().getDeclaredFields()) {
-				field.setAccessible(true); // You might want to set modifier to public first.
-				final Object value = field.get(entry.getKey());
-				if (value != null)
-					xml = xml + "<property name=\"" + field.getName() + "\" value=\"" + value + "\" /> \n";
-			}
-			xml = xml + "</bean>\n";
-		}
-		xml = xml + "</beans>";
-
-		final String path = "C:/Users/corchu/Desktop/populate.xml";
-		Files.write(Paths.get(path), xml.getBytes(), StandardOpenOption.CREATE);
-		//Hacer bucle para incorporar los datatypes
-		System.out.println(xml);
-
-		//FIN DEL SCRIPT ========================
-
 		ModelAndView result;
 		Collection<Trip> trips;
 		Page<Trip> tripsPage;
@@ -255,11 +128,33 @@ public class TripController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/listExplorer", method = RequestMethod.GET)
+	public ModelAndView listExplorer() {
+		ModelAndView result;
+		Collection<Trip> trips;
+		Page<Trip> tripsPage;
+		Pageable pageable;
+		final Configuration configuration;
+
+		result = new ModelAndView("trip/list");
+		configuration = this.configurationService.findConfiguration();
+		pageable = new PageRequest(0, configuration.getMaxResults());
+
+		tripsPage = this.tripService.findPublicatedTrips(pageable);
+		trips = tripsPage.getContent();
+		final Search search = this.searchService.getSearchFromExplorer(this.actorService.findActorByPrincipal().getId());
+
+		result.addObject("trips", trips);
+		result.addObject("search", search);
+		result.addObject("pageNum", tripsPage.getTotalPages());
+		result.addObject("requestUri", "trip/listExplorer.do");
+
+		return result;
+	}
+
 	// Searching --------------------------------------------------------------
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView search(@RequestParam(value = "keyword", defaultValue = "") final String keyword, @RequestParam(value = "startPrice", defaultValue = "0.0") final double startPrice,
-		@RequestParam(value = "endPrice", defaultValue = "10000.0") final double endprice, @RequestParam(value = "", defaultValue = "2000/01/01 00:00") final Date startDate,
-		@RequestParam(value = "endDate", defaultValue = "2999/01/01 00:00") final Date endDate, @RequestParam(value = "isAnonymous", defaultValue = "0") final int isAnonymous) {
+	public ModelAndView search(@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		ModelAndView result;
 		Collection<Trip> trips;
 		Page<Trip> tripsPage;
@@ -271,12 +166,66 @@ public class TripController extends AbstractController {
 		configuration = this.configurationService.findConfiguration();
 		pageable = new PageRequest(0, configuration.getMaxResults());
 
-		tripsPage = this.tripService.findTripsBySearchParameters(keyword, startPrice, endprice, startDate, endDate, pageable, isAnonymous);
+		tripsPage = this.tripService.findTripsBySearchParameters(keyword, pageable);
 		trips = tripsPage.getContent();
 
 		result.addObject("trips", trips);
 		result.addObject("pageNum", tripsPage.getTotalPages());
 		result.addObject("requestUri", "trip/list.do");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/searchExplorer", method = RequestMethod.POST)
+	public ModelAndView searchExplorer(@Valid final Search search, final BindingResult binding) {
+		ModelAndView result;
+		Collection<Trip> trips;
+		Page<Trip> tripsPage;
+
+		Pageable pageable;
+		Configuration configuration;
+
+		if (binding.hasErrors()) {
+			result = new ModelAndView("trip/list");
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(0, configuration.getMaxResults());
+
+			tripsPage = this.tripService.findPublicatedTrips(pageable);
+			trips = tripsPage.getContent();
+
+			result.addObject("trips", trips);
+			result.addObject("search", search);
+			result.addObject("pageNum", tripsPage.getTotalPages());
+			result.addObject("requestUri", "trip/listExplorer.do");
+		}
+
+		else
+			try {
+				this.searchService.save(search, false);
+				result = new ModelAndView("trip/list");
+				configuration = this.configurationService.findConfiguration();
+				pageable = new PageRequest(0, configuration.getMaxResults());
+
+				tripsPage = this.tripService.findTripsBySearchParameters(search, pageable);
+				trips = tripsPage.getContent();
+
+				result.addObject("trips", trips);
+				result.addObject("search", search);
+				result.addObject("pageNum", tripsPage.getTotalPages());
+				result.addObject("requestUri", "trip/listExplorer.do");
+			} catch (final Throwable oops) {
+				result = new ModelAndView("trip/list");
+				configuration = this.configurationService.findConfiguration();
+				pageable = new PageRequest(0, configuration.getMaxResults());
+
+				tripsPage = this.tripService.findPublicatedTrips(pageable);
+				trips = tripsPage.getContent();
+
+				result.addObject("trips", trips);
+				result.addObject("search", search);
+				result.addObject("pageNum", tripsPage.getTotalPages());
+				result.addObject("requestUri", "trip/listExplorer.do");
+			}
 
 		return result;
 	}
@@ -339,4 +288,5 @@ public class TripController extends AbstractController {
 		return result;
 
 	}
+
 }

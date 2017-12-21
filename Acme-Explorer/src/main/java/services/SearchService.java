@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -22,15 +23,17 @@ public class SearchService {
 	// Managed repository --------------------------------------------------
 
 	@Autowired
-	private SearchRepository	searchRepository;
+	private SearchRepository		searchRepository;
 
 	// Supporting services -------------------------------------------------
+	//	@Autowired
+	//	private CacheService			cacheService;
 	@Autowired
-	private CacheService		cacheService;
+	private ExplorerService			explorerservice;
 	@Autowired
-	private ExplorerService		explorerservice;
+	private ActorService			actorservice;
 	@Autowired
-	private ActorService		actorservice;
+	private ConfigurationService	configurationService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -69,30 +72,34 @@ public class SearchService {
 	}
 
 	public Search save(final Search se, final Boolean isOnCache) {
-		this.cacheService.checkCache();
+		//		this.cacheService.checkCache();
+		//
+		//		assert se != null;
+		//
+		//		final Search result;
+		//
+		//		//solo se hace si la busqueda se encuentra en la caché///////////////////////////////////
+		//		if (isOnCache) {
+		//			final Collection<Search> searchesInTheSystem = this.findAll();
+		//
+		//			for (final Search s1 : searchesInTheSystem)
+		//				if (s1.getKeyWord().equals(se.getKeyWord()))
+		//					if (s1.getPriceRangeStart().equals(se.getPriceRangeStart()))
+		//						if (s1.getPriceRangeEnd().equals(se.getPriceRangeEnd()))
+		//							if (s1.getDateRangeStart().getTime() == (se.getDateRangeStart().getTime()))
+		//								if (s1.getDateRangeEnd().getTime() == (se.getDateRangeEnd().getTime()))
+		//									this.delete(s1);
+		//		}
+		//		/////////////////////////////////////////////////////////////////////////////////////////
+		//		se.setSearchMoment(new Date(System.currentTimeMillis() - 2000));
+		//		se.setmillis(LocalDateTime.now().getMillisOfSecond());
+		se.setSearchMoment(new Date());
 
-		assert se != null;
-
-		final Search result;
-
-		//solo se hace si la busqueda se encuentra en la caché///////////////////////////////////
-		if (isOnCache) {
-			final Collection<Search> searchesInTheSystem = this.findAll();
-
-			for (final Search s1 : searchesInTheSystem)
-				if (s1.getKeyWord().equals(se.getKeyWord()))
-					if (s1.getPriceRangeStart().equals(se.getPriceRangeStart()))
-						if (s1.getPriceRangeEnd().equals(se.getPriceRangeEnd()))
-							if (s1.getDateRangeStart().getTime() == (se.getDateRangeStart().getTime()))
-								if (s1.getDateRangeEnd().getTime() == (se.getDateRangeEnd().getTime()))
-									this.delete(s1);
-		}
-		/////////////////////////////////////////////////////////////////////////////////////////
-		se.setSearchMoment(new Date(System.currentTimeMillis() - 2000));
-		se.setmillis(LocalDateTime.now().getMillisOfSecond());
-		result = this.searchRepository.save(se);
+		final Search result = this.searchRepository.save(se);
 
 		final Explorer e = (Explorer) this.actorservice.findActorByPrincipal();
+		if (e.getSearches().contains(se))
+			e.getSearches().remove(se);
 		e.getSearches().add(result);
 		this.explorerservice.save(e);
 
@@ -126,5 +133,27 @@ public class SearchService {
 				this.delete(s);
 
 		}
+	}
+
+	public Search getSearchFromExplorer(final int explorerId) {
+		final Explorer explorer = this.explorerservice.findOne(explorerId);
+		Search search = null;
+		final Collection<Search> discardedSearches = new ArrayList<Search>();
+		final Date d = new Date();
+		for (final Search s : explorer.getSearches())
+			if (d.getTime() - s.getSearchMoment().getTime() >= (this.configurationService.findConfiguration().getSearchTimeout() * 3600000))
+				discardedSearches.add(s);
+			else if (search == null)
+				search = s;
+			else if (s.getSearchMoment().after(search.getSearchMoment()))
+				search = s;
+			else
+				discardedSearches.add(s);
+
+		for (final Search s : discardedSearches)
+			this.delete(s);
+		if (search == null)
+			search = this.create();
+		return search;
 	}
 }
