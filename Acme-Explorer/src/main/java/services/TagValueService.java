@@ -113,11 +113,9 @@ public class TagValueService {
 
 	public Collection<TagValue> findTagValuesByTagId(final int tagId) {
 
-		Assert.isTrue(this.tagValueRepository.exists(tagId));
 		Collection<TagValue> result;
 
 		result = this.tagValueRepository.findTagValuesByTagId(tagId);
-		Assert.notNull(result);
 
 		return result;
 	}

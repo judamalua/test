@@ -166,7 +166,7 @@ window.onload = function(){
 
 	<input type="button" name="cancel"
 		value="<spring:message code="application.cancel" />"
-		onclick="javascript: relativeRedir('application/manager/list.do')">
+		onclick="javascript: relativeRedir('application/${role}/list.do')">
 
 
 </form:form>

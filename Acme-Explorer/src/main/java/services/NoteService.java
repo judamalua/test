@@ -101,7 +101,7 @@ public class NoteService {
 		// Comprobación palabras de spam
 		if (this.actorService.findActorByPrincipal() instanceof Auditor) {
 			this.actorService.checkSpamWords(note.getRemark());
-			if (!note.getReply().equals(null))
+			if (note.getReply() != null)
 				this.actorService.checkSpamWords(note.getRemark());
 		}
 

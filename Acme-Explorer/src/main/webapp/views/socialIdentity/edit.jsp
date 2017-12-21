@@ -31,14 +31,14 @@
 	<form:label path="profileLink">
 		<spring:message code="socialIdentity.profileLink"/>
 	</form:label>
-	<form:input path="profileLink"/>
+	<form:input path="profileLink" placeholder="https://www.facebook.com"/>
 	<form:errors cssClass="error" path="profileLink"/>
 	<br/>
 	
 	<form:label path="photoUrl">
 		<spring:message code="socialIdentity.photoUrl"/>
 	</form:label>
-	<form:input path="photoUrl"/>
+	<form:input path="photoUrl" placeholder="https://www.tumblr.com"/>
 	<form:errors cssClass="error" path="photoUrl"/>
 	<br/>
 	

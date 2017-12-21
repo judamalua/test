@@ -28,10 +28,13 @@
 	<form:textarea path = "description" />
 	<form:errors cssClass = "error" path = "description" />
 	<br />
+	
 	<form:label path = "organisationMoment">
 	<spring:message code = "survivalclass.organisationMoment" />:
 	</form:label>
 	<form:input path="organisationMoment" id="organisationMoment" placeholder="dd/MM/yyyy hh:mm" />
+	<form:errors cssClass = "error" path = "organisationMoment" />
+	<br />
 	
 	<form:label path = "location.name">
 		<spring:message code = "survivalclass.location.name" />:
