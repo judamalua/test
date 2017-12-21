@@ -92,12 +92,12 @@ public class TagService {
 
 		result = this.tagRepository.save(tag);
 
-		for (final TagValue tv : tagValues) {
-			tv.setTag(result);
-			trip = this.tripService.findTripByTagValue(tv.getId());
-			this.tagValueService.save(tv, trip);
-		}
-
+		if (tagValues != null)
+			for (final TagValue tv : tagValues) {
+				tv.setTag(result);
+				trip = this.tripService.findTripByTagValue(tv.getId());
+				this.tagValueService.save(tv, trip);
+			}
 		return result;
 
 	}

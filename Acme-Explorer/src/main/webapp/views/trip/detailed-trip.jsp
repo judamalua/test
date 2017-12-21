@@ -25,9 +25,10 @@
 	pattern="yyyy-MM-dd HH:mm" />
 <br />
 
-<jstl:if test = "${sponsorship != null}">
-	<a href="${sponsorship.additionalInfoLink}">
-		<img class = "sponsorshipBannerUrl" src="${sponsorship.bannerUrl}" alt="trip.sponsorship" />
+<jstl:if test="${sponsorship != null}">
+	<a href="${sponsorship.additionalInfoLink}"> <img
+		class="sponsorshipBannerUrl" src="${sponsorship.bannerUrl}"
+		alt="trip.sponsorship" />
 	</a>
 </jstl:if>
 
@@ -100,7 +101,7 @@
 	<fmt:formatDate value="${endDate}" pattern="${formatDateOut}" />
 </p>
 
- <%-- <jstl:if test="${not empty trip.tags}">
+<%-- <jstl:if test="${not empty trip.tags}">
 	<p>
 		<spring:message code="trip.tags" />
 		:
@@ -112,19 +113,34 @@
 	</p>
 </jstl:if>  --%>
 
+<jstl:if test="${not empty trip.tagValues}">
+	<display:table name="trip.tagValues">
+
+		<spring:message code="trip.tagValue.value" var="tagValueTitle" />
+		<display:column property="value" title="${tagValueTitle}"
+			sortable="true" />
+
+		<spring:message code="trip.tagValue.tag" var="tagTitle" />
+		<display:column property="tag.name" title="${tagTitle}"
+			sortable="true" />
+
+	</display:table>
+</jstl:if>
+
 <p>
 	<spring:message code="trip.ranger" />
 	:
 	<jstl:out value="${trip.ranger.name}" />
 	<jstl:out value="${trip.ranger.surname}" />
 	<security:authorize access="hasRole('RANGER')">
-	<jstl:set value="true" var="isRanger"/>
+		<jstl:set value="true" var="isRanger" />
 	</security:authorize>
-		<a href="curriculum/show.do?rangerId=${trip.ranger.id}&isRanger=${isRanger}">
-			<button>
-				<spring:message code="trip.ranger.curriculum" />
-			</button>
-		</a>
+	<a
+		href="curriculum/show.do?rangerId=${trip.ranger.id}&isRanger=${isRanger}">
+		<button>
+			<spring:message code="trip.ranger.curriculum" />
+		</button>
+	</a>
 </p>
 
 <security:authorize access="hasRole('EXPLORER')">
@@ -142,7 +158,8 @@
 </security:authorize>
 
 <security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${!hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}">
+	<jstl:if
+		test="${!hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}">
 		<a href="trip/manager/join.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="trip.manage" />
@@ -156,8 +173,8 @@
 		<spring:message code="detailed.trip.stages" />
 	</h2>
 	<display:table name="${trip.stages}" id="row1"
-		requestURI="trip/detailed-trip.do?tripId=${trip.id}" pagesize="${pagesize}"
-		class="displaytag">
+		requestURI="trip/detailed-trip.do?tripId=${trip.id}"
+		pagesize="${pagesize}" class="displaytag">
 
 		<spring:message code="detailedTrip.stage.title" var="titleHeader" />
 		<display:column property="title" title="${titleHeader}"
@@ -198,8 +215,8 @@
 		<spring:message code="detailed.trip.survivalClasses" />
 	</h2>
 	<display:table name="${survivalClasses}" id="row3"
-		requestURI="trip/detailed-trip.do?tripId=${trip.id}" pagesize="${pagesize}"
-		class="displaytag">
+		requestURI="trip/detailed-trip.do?tripId=${trip.id}"
+		pagesize="${pagesize}" class="displaytag">
 
 		<spring:message code="detailedTrip.survivalClass.title"
 			var="titleHeader" />
@@ -226,24 +243,24 @@
 		</display:column>
 
 
-<%-- 		<security:authorize access="hasRole('MANAGER')"> --%>
-<%-- 			<jstl:if test="${hasManager}"> --%>
-<%-- 				<display:column> --%>
-<%-- 				<jstl:if test="${row3.organisationMoment>currentDate}"> --%>
-<%-- 					<a href="survivalClass/manager/edit.do?survivalClassId=${row3.id}"> --%>
-<%-- 						<spring:message code="detailed.trip.edit" /> --%>
-<!-- 					</a> -->
-<%-- 				</jstl:if> --%>
-<%-- 					<jstl:if --%>
-<%-- 						test="${trip.publicationDate>=currentDate and hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}}"> --%>
-<!-- 						<a -->
-<%-- 							href="trip/manager/removeSurvivalClass.do?survivalClassId=${row3.id}&tripId=${trip.id}"> --%>
-<%-- 							<spring:message code="detailed.trip.remove" /> --%>
-<!-- 						</a> -->
-<%-- 					</jstl:if> --%>
-<%-- 				</display:column> --%>
-<%-- 			</jstl:if> --%>
-<%-- 		</security:authorize> --%>
+		<%-- 		<security:authorize access="hasRole('MANAGER')"> --%>
+		<%-- 			<jstl:if test="${hasManager}"> --%>
+		<%-- 				<display:column> --%>
+		<%-- 				<jstl:if test="${row3.organisationMoment>currentDate}"> --%>
+		<%-- 					<a href="survivalClass/manager/edit.do?survivalClassId=${row3.id}"> --%>
+		<%-- 						<spring:message code="detailed.trip.edit" /> --%>
+		<!-- 					</a> -->
+		<%-- 				</jstl:if> --%>
+		<%-- 					<jstl:if --%>
+		<%-- 						test="${trip.publicationDate>=currentDate and hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}}"> --%>
+		<!-- 						<a -->
+		<%-- 							href="trip/manager/removeSurvivalClass.do?survivalClassId=${row3.id}&tripId=${trip.id}"> --%>
+		<%-- 							<spring:message code="detailed.trip.remove" /> --%>
+		<!-- 						</a> -->
+		<%-- 					</jstl:if> --%>
+		<%-- 				</display:column> --%>
+		<%-- 			</jstl:if> --%>
+		<%-- 		</security:authorize> --%>
 
 		<security:authorize access="hasRole('EXPLORER')">
 			<jstl:if test="${hasExplorer}">
@@ -279,7 +296,8 @@
 	</display:table>
 </jstl:if>
 <security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${trip.publicationDate>currentDate and hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}">
+	<jstl:if
+		test="${trip.publicationDate>currentDate and hasManager and (trip.cancelReason==null or trip.cancelReason==\"\")}">
 
 		<a href="trip/manager/manageSurvivalClasses.do?tripId=${trip.id}">
 			<button>
@@ -294,8 +312,8 @@
 		<spring:message code="detailed.trip.auditRecords" />
 	</h2>
 	<display:table name="${trip.auditRecords}" id="row4"
-		requestURI="trip/detailed-trip.do?tripId=${trip.id}" pagesize="${pagesize}"
-		class="displaytag">
+		requestURI="trip/detailed-trip.do?tripId=${trip.id}"
+		pagesize="${pagesize}" class="displaytag">
 
 		<spring:message code="detailedTrip.auditRecord.moment"
 			var="momentHeader" />
@@ -316,7 +334,8 @@
 		<display:column>
 			<ul>
 				<jstl:forEach var="attachment" items="${row4.attachments}">
-					<li><a href="${attachment}"><jstl:out value="${attachment}" /></a></li>
+					<li><a href="${attachment}"><jstl:out
+								value="${attachment}" /></a></li>
 				</jstl:forEach>
 			</ul>
 		</display:column>
@@ -351,8 +370,8 @@
 		</h2>
 
 		<display:table name="${trip.notes}" id="row4"
-			requestURI="trip/detailed-trip.do?tripId=${trip.id}" pagesize="${pagesize}"
-			class="displaytag">
+			requestURI="trip/detailed-trip.do?tripId=${trip.id}"
+			pagesize="${pagesize}" class="displaytag">
 
 			<spring:message code="detailedTrip.notes.moment" var="noteHeader" />
 			<display:column property="moment" title="${noteHeader}"
@@ -370,7 +389,7 @@
 				<display:column property="momentOfReply"
 					title="${momentReplyHeader}" format="${formatDate}" />
 			</jstl:if>
-		
+
 			<security:authorize access="hasRole('MANAGER')">
 				<jstl:if test="${hasManager}">
 					<display:column>
@@ -388,7 +407,8 @@
 
 
 <security:authorize access="hasRole('AUDITOR')">
-	<jstl:if test="${trip.publicationDate<currentDate and (trip.cancelReason==null or trip.cancelReason==\"\")}">
+	<jstl:if
+		test="${trip.publicationDate<currentDate and (trip.cancelReason==null or trip.cancelReason==\"\")}">
 		<a href="note/auditor/create.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="detailedTrip.notes.create" />
@@ -398,7 +418,8 @@
 </security:authorize>
 
 <security:authorize access="hasRole('AUDITOR')">
-	<jstl:if test="${trip.publicationDate<currentDate and (trip.cancelReason==null or trip.cancelReason==\"\")}">
+	<jstl:if
+		test="${trip.publicationDate<currentDate and (trip.cancelReason==null or trip.cancelReason==\"\")}">
 		<a href="auditRecord/auditor/create.do?tripId=${trip.id}">
 			<button>
 				<spring:message code="auditRecord.create" />
@@ -409,12 +430,13 @@
 </security:authorize>
 
 <security:authorize access="hasRole('SPONSOR')">
-	<jstl:if test="${trip.publicationDate<currentDate and (trip.cancelReason==null or trip.cancelReason==\"\")}">
-	<a href="sponsorship/sponsor/create.do?tripId=${trip.id}">
-		<button>
-			<spring:message code="sponsorship.create" />
-		</button>
-	</a>
+	<jstl:if
+		test="${trip.publicationDate<currentDate and (trip.cancelReason==null or trip.cancelReason==\"\")}">
+		<a href="sponsorship/sponsor/create.do?tripId=${trip.id}">
+			<button>
+				<spring:message code="sponsorship.create" />
+			</button>
+		</a>
 	</jstl:if>
 
 </security:authorize>
@@ -423,8 +445,8 @@
 		<spring:message code="detailed.trip.stories" />
 	</h2>
 	<display:table name="${trip.stories}" id="row2"
-		requestURI="trip/detailed-trip.do?tripId=${trip.id}" pagesize="${pagesize}"
-		class="displaytag">
+		requestURI="trip/detailed-trip.do?tripId=${trip.id}"
+		pagesize="${pagesize}" class="displaytag">
 
 		<spring:message code="detailedTrip.story.title" var="titleHeader" />
 		<display:column property="title" title="${titleHeader}"
@@ -439,7 +461,8 @@
 		<display:column>
 			<ul>
 				<jstl:forEach var="attachment" items="${row2.attachments}">
-					<li><a href="${attachment}"><jstl:out value="${attachment}" /></a></li>
+					<li><a href="${attachment}"><jstl:out
+								value="${attachment}" /></a></li>
 				</jstl:forEach>
 			</ul>
 		</display:column>
