@@ -182,7 +182,9 @@ public class TripManagerController extends AbstractController {
 				stage.setPrice(priceStage);
 				stage.setDescription(descriptionStage);
 				trip.getStages().add(stage);
-				trip.getTags().remove(null);
+				//trip.getTags().remove(null);
+				if (trip.getTags().equals(null))
+					trip.setTags(new HashSet<Tag>());
 				this.tripService.save(trip);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
