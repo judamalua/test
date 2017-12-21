@@ -91,37 +91,43 @@ public class CurriculumRangerController extends AbstractController {
 		Boolean curriculumRanger = false;
 		final Curriculum curriculum;
 
-		result = new ModelAndView("curriculum/list");
+		try {
 
-		final Ranger ranger = this.rangerService.findOne(rangerId);
-		if (ranger.getCurriculum() != null)
-			curriculum = this.curriculumService.findOne(ranger.getCurriculum().getId());
-		else
-			curriculum = null;
-		Ranger r1;
-		if (isRanger) {
-			r1 = (Ranger) this.actorService.findActorByPrincipal();
-			if (r1.equals(ranger))
-				curriculumRanger = true;
+			result = new ModelAndView("curriculum/list");
+
+			final Ranger ranger = this.rangerService.findOne(rangerId);
+			if (ranger.getCurriculum() != null)
+				curriculum = this.curriculumService.findOne(ranger.getCurriculum().getId());
+			else
+				curriculum = null;
+			Ranger r1;
+			if (isRanger) {
+				r1 = (Ranger) this.actorService.findActorByPrincipal();
+				if (r1.equals(ranger))
+					curriculumRanger = true;
+			}
+			result.addObject("curriculumRanger", curriculumRanger);
+			if (curriculum != (null)) {
+				professional = curriculum.getProfessionalRecords();
+				endorser = curriculum.getEndorserRecords();
+				personal = curriculum.getPersonalRecord();
+				education = curriculum.getEducationRecords();
+				miscellaneous = curriculum.getMiscellaneousRecords();
+
+				result.addObject("curriculum", curriculum);
+				result.addObject("professionalRecords", professional);
+				result.addObject("endorserRecords", endorser);
+				result.addObject("educationRecords", education);
+				result.addObject("personalRecord", personal);
+				result.addObject("miscellaneousRecords", miscellaneous);
+
+			}
+
+			result.addObject("requestUri", "curriculum/ranger/list.do");
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
 		}
-		result.addObject("curriculumRanger", curriculumRanger);
-		if (curriculum != (null)) {
-			professional = curriculum.getProfessionalRecords();
-			endorser = curriculum.getEndorserRecords();
-			personal = curriculum.getPersonalRecord();
-			education = curriculum.getEducationRecords();
-			miscellaneous = curriculum.getMiscellaneousRecords();
-
-			result.addObject("curriculum", curriculum);
-			result.addObject("professionalRecords", professional);
-			result.addObject("endorserRecords", endorser);
-			result.addObject("educationRecords", education);
-			result.addObject("personalRecord", personal);
-			result.addObject("miscellaneousRecords", miscellaneous);
-
-		}
-
-		result.addObject("requestUri", "curriculum/ranger/list.do");
 
 		return result;
 	}
