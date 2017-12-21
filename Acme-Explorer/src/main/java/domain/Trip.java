@@ -138,7 +138,7 @@ public class Trip extends DomainEntity {
 	private Collection<Stage>			stages;
 	private Collection<Story>			stories;
 	private Collection<SurvivalClass>	survivalClasses;
-	private Collection<Tag>				tags;
+	//	private Collection<Tag>				tags;
 	private Ranger						ranger;
 	private LegalText					legalText;
 	private Category					category;
@@ -146,6 +146,7 @@ public class Trip extends DomainEntity {
 	private Collection<Note>			notes;
 	private Collection<Manager>			managers;
 	private Collection<Application>		applications;
+	private Collection<TagValue>		tagValues;
 
 
 	@NotNull
@@ -293,15 +294,15 @@ public class Trip extends DomainEntity {
 	//			survivalClass.removeTrip(this);
 	//	}
 
-	@NotNull
-	@ManyToMany
-	public Collection<Tag> getTags() {
-		return this.tags;
-	}
-
-	public void setTags(final Collection<Tag> tags) {
-		this.tags = tags;
-	}
+	//	@NotNull
+	//	@ManyToMany
+	//	public Collection<Tag> getTags() {
+	//		return this.tags;
+	//	}
+	//
+	//	public void setTags(final Collection<Tag> tags) {
+	//		this.tags = tags;
+	//	}
 
 	//	//TODO: Puede haber un bucle, descomentar cuando se esté seguro.
 	//	public void addTag(final Tag tag) {
@@ -322,6 +323,16 @@ public class Trip extends DomainEntity {
 	@ManyToOne(optional = false)
 	public Ranger getRanger() {
 		return this.ranger;
+	}
+
+	@NotNull
+	@OneToMany
+	public Collection<TagValue> getTagValues() {
+		return this.tagValues;
+	}
+
+	public void setTagValues(final Collection<TagValue> tagValues) {
+		this.tagValues = tagValues;
 	}
 
 	public void setRanger(final Ranger ranger) {

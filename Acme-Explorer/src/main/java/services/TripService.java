@@ -32,7 +32,7 @@ import domain.Sponsorship;
 import domain.Stage;
 import domain.Story;
 import domain.SurvivalClass;
-import domain.Tag;
+import domain.TagValue;
 import domain.Trip;
 
 @Service
@@ -68,7 +68,7 @@ public class TripService {
 	public Trip create() {
 		Trip result;
 		String ticker;
-		final Collection<Tag> tags = new HashSet<Tag>();
+		final Collection<TagValue> tagValues = new HashSet<TagValue>();
 		final Collection<Application> applications = new HashSet<Application>();
 		final Collection<AuditRecord> auditRecords = new HashSet<AuditRecord>();
 		final Collection<Manager> managers = new HashSet<Manager>();
@@ -82,7 +82,7 @@ public class TripService {
 
 		result = new Trip();
 		// When we create the object, we initialize its tags to an empty list.
-		result.setTags(tags);
+		result.setTagValues(tagValues);
 		result.setTicker(ticker);
 		result.setApplications(applications);
 		result.setAuditRecords(auditRecords);
@@ -197,8 +197,8 @@ public class TripService {
 		vat = price * configuration.getVat();
 		trip.setPrice(price + vat);
 
-		if (trip.getTags().contains(null))
-			trip.getTags().remove(null);
+		if (trip.getTagValues().contains(null))
+			trip.getTagValues().remove(null);
 
 		result = this.tripRepository.save(trip);
 

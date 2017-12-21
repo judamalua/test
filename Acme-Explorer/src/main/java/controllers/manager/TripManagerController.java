@@ -183,8 +183,8 @@ public class TripManagerController extends AbstractController {
 				stage.setDescription(descriptionStage);
 				trip.getStages().add(stage);
 				//trip.getTags().remove(null);
-				if (trip.getTags().equals(null))
-					trip.setTags(new HashSet<Tag>());
+				//				if (trip.getTags().equals(null))
+				//					trip.setTags(new HashSet<Tag>());
 				this.tripService.save(trip);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
@@ -203,7 +203,7 @@ public class TripManagerController extends AbstractController {
 			result = this.createEditModelAndView(trip, "trip.params.error");
 		else
 			try {
-				trip.getTags().remove(null);
+				//				trip.getTags().remove(null);
 				this.tripService.save(trip);
 
 				result = new ModelAndView("redirect:list.do");
