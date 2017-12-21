@@ -3926,12 +3926,11 @@
 		</property>
 		<property name="ranger" ref="ranger1" />
 
-		<property name="tags">
+		<property name="tagValues">
 			<list>
-				<ref bean="tag1" />
-				<ref bean="tag2" />
 			</list>
 		</property>
+		
 
 		<property name="legalText" ref="legalText1" />
 
@@ -4010,10 +4009,8 @@
 		</property>
 		<property name="ranger" ref="ranger2" />
 
-		<property name="tags">
+		<property name="tagValues">
 			<list>
-				<ref bean="tag1" />
-				<ref bean="tag2" />
 			</list>
 		</property>
 
@@ -4089,9 +4086,8 @@
 		<property name="publicationDate" value="2015/02/15 23:59" />
 		<property name="ranger" ref="ranger2" />
 
-		<property name="tags">
+		<property name="tagValues">
 			<list>
-				<ref bean="tag2" />
 			</list>
 		</property>
 
@@ -4169,10 +4165,8 @@
 		</property>
 		<property name="ranger" ref="ranger4" />
 
-		<property name="tags">
+		<property name="tagValues">
 			<list>
-				<ref bean="tag1" />
-				<ref bean="tag2" />
 			</list>
 		</property>
 
@@ -4244,7 +4238,7 @@
 		</property>
 		<property name="ranger" ref="ranger4" />
 
-		<property name="tags">
+		<property name="tagValues">
 			<list>
 			</list>
 		</property>
