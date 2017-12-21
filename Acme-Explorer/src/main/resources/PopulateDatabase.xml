@@ -4830,6 +4830,7 @@
 		<property name="expirationYear" value="99" />
 		<property name="cvv" value="999" />
 	</bean>
+	
 	<bean id="CreditCard1" class="domain.CreditCard">
 		<property name="holderName" value="Pike" />
 		<property name="brandName" value="MarterCard" />
@@ -4838,6 +4839,7 @@
 		<property name="expirationYear" value="23" />
 		<property name="cvv" value="194" />
 	</bean>
+	
 	<bean id="CreditCard19" class="domain.CreditCard">
 		<property name="holderName" value="NONE" />
 		<property name="brandName" value="NONE" />
