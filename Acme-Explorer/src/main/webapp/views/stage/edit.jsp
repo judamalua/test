@@ -55,7 +55,7 @@
 <!--     </div> -->
 <%--   </form> --%>
 <!-- </div> -->
-	<form:errors cssClass="error" path="price"/>
+	<form:errors cssClass="error" path="price"/> &euro;
 	<br/>
 	
 	
