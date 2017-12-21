@@ -2,7 +2,6 @@
 package services;
 
 import java.util.Collection;
-import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
 import domain.Tag;
-import domain.TagValue;
 
 @Service
 @Transactional
@@ -40,12 +38,8 @@ public class TagService {
 		this.checkUserLogin();
 
 		Tag result;
-		Collection<TagValue> tagValues;
-
-		tagValues = new HashSet<TagValue>();
 
 		result = new Tag();
-		result.setTagValue(tagValues);
 
 		//		final Collection<Trip> trips = new HashSet<Trip>();
 		//		result.setTrips(trips);

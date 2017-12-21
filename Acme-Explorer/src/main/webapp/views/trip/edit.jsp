@@ -118,23 +118,23 @@
 	<form:errors cssClass="error" path="legalText" />
 	<br />
 
-	<form:label path="tags">
-		<spring:message code="trip.tags" />
-	</form:label>
-	<form:select multiple="true" path="tags">
-			<form:option value="0" selected="selected">
-				-----------------
-			</form:option>
-		<jstl:forEach items="${tagsTrip}" var="tagTrip" >
-			<!-- Variable del controlador -->
+<%-- 	<form:label path="tags"> --%>
+<%-- 		<spring:message code="trip.tags" /> --%>
+<%-- 	</form:label> --%>
+<%-- 	<form:select multiple="true" path="tags"> --%>
+<%-- 			<form:option value="0" selected="selected"> --%>
+<!-- 				----------------- -->
+<%-- 			</form:option> --%>
+<%-- 		<jstl:forEach items="${tagsTrip}" var="tagTrip" > --%>
+<!-- 			<!-- Variable del controlador --> -->
 			
-			<form:option value="${tagTrip.id}">
-				<jstl:out value="${tagTrip.name}" />
-			</form:option>
-		</jstl:forEach>
-	</form:select>
-	<form:errors cssClass="error" path="tags" />
-	<br />
+<%-- 			<form:option value="${tagTrip.id}"> --%>
+<%-- 				<jstl:out value="${tagTrip.name}" /> --%>
+<%-- 			</form:option> --%>
+<%-- 		</jstl:forEach> --%>
+<%-- 	</form:select> --%>
+<%-- 	<form:errors cssClass="error" path="tags" /> --%>
+<!-- 	<br /> -->
 
 
 
