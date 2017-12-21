@@ -310,13 +310,10 @@
 			sortable="false" />
 		<spring:message code="detailedTrip.auditRecord.attachments"
 			var="attachmentsHeader" />
-		<display:column property="attachments" title="${attachmentsHeader}"
-			sortable="false">
+		<display:column>
 			<ul>
 				<jstl:forEach var="attachment" items="${row4.attachments}">
-
-					<li>${attachment}</li>
-
+					<li><a href="${attachment}"><jstl:out value="${attachment}" /></a></li>
 				</jstl:forEach>
 			</ul>
 		</display:column>
@@ -436,13 +433,10 @@
 
 		<spring:message code="detailedTrip.story.attachments"
 			var="attachmentsHeader" />
-		<display:column property="attachments" title="${attachmentsHeader}"
-			sortable="false">
+		<display:column>
 			<ul>
 				<jstl:forEach var="attachment" items="${row2.attachments}">
-
-					<li>${attachment}</li>
-
+					<li><a href="${attachment}"><jstl:out value="${attachment}" /></a></li>
 				</jstl:forEach>
 			</ul>
 		</display:column>

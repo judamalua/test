@@ -39,11 +39,10 @@
 			title="${momentHeader}" sortable="true" format="${formatDate}" />
 
 		<spring:message code="auditRecord.attachments" var="attachmentsHeader" />
-		<display:column property="attachments" title="${attachmentsHeader}"
-			sortable="false">
+		<display:column>
 			<ul>
 				<jstl:forEach var="attachment" items="${row.attachments}">
-					<li><jstl:out value="${attachment}" /></li>
+					<li><a href="${attachment}"><jstl:out value="${attachment}" /></a></li>
 				</jstl:forEach>
 			</ul>
 		</display:column>

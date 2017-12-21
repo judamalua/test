@@ -20,7 +20,9 @@
 	<display:column property="profileLink" title="${profileLink}" sortable="false"/>
 
 	<spring:message code="socialIdentity.photoUrl" var="photoUrl"/>
-	<display:column property="photoUrl" title="${photoUrl}" sortable="false"/>
+	<display:column>
+	<img src="${row.photoURL}"/>
+	</display:column>
 	
 	<display:column>
 		<a href="socialIdentity/edit.do?socialIdentityId=${socialIdentity.id}">
