@@ -44,7 +44,7 @@
 		<p>${curriculum.personalRecord.nameOfCandidate}</p>
 
 		<h4><spring:message code="curriculum.personalRecord.photo"/></h4>
-		<p><img src="${curriculum.personalRecord.photo}"/></p>
+		<img src="${curriculum.personalRecord.photo}"/>
 
 		<h4><spring:message code="curriculum.personalRecord.email" /></h4>
 		<p>${curriculum.personalRecord.email}</p>
