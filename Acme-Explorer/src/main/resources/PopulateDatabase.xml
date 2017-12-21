@@ -3295,14 +3295,40 @@
 
 	<bean id="legalText2" class="domain.LegalText">
 		<property name="title" value="Security measurements" />
-		<property name="body" value="In development." />
-		<property name="registrationDate" value="21/10/2016 00:00" />
+		<property name="body" value="See our webpage in order to get additional info" />
+		<property name="registrationDate" value="2017/05/14 00:00" />
 		<property name="applicableLaws">
 			<list>
 				<value>Law 1.22</value>
 			</list>
 		</property>
 		<property name="finalMode" value="FALSE" />
+	</bean>
+	
+	<bean id="legalText3" class="domain.LegalText">
+		<property name="title" value="Condiciones de uso" />
+		<property name="body" value="Verificar en el contrato" />
+		<property name="registrationDate" value="14/09/2014 19:27" />
+		<property name="applicableLaws">
+			<list>
+				<value>Law 32/2001</value>
+			</list>
+		</property>
+		<property name="finalMode" value="FALSE" />
+	</bean>
+	
+	<bean id="legalText4" class="domain.LegalText">
+		<property name="title" value="Children acceptance information" />
+		<property name="body" value="No children younger than 12 will be accepted" />
+		<property name="registrationDate" value="21/10/2016 00:00" />
+		<property name="applicableLaws">
+			<list>
+				<value>Law 1.12</value>
+				<value>January 2015 Law</value>
+				<value>Law 17/1996</value>
+			</list>
+		</property>
+		<property name="finalMode" value="TRUE" />
 	</bean>
 
 	<!-- Locations -->
