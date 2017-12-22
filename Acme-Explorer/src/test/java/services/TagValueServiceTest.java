@@ -53,7 +53,7 @@ public class TagValueServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindOne() {
-		final TagValue tagvalue = (TagValue) this.tagValueService.findAll().toArray()[1];
+		final TagValue tagvalue = (TagValue) this.tagValueService.findAll().toArray()[0];
 		final int tagvalueId = tagvalue.getId();
 
 		final TagValue tagvalue1 = this.tagValueService.findOne(tagvalueId);

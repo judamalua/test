@@ -23,7 +23,7 @@ public class RejectionServiceTest extends AbstractTest {
 	@Autowired
 	public RejectionService		rejectionService;
 	@Autowired
-	public ApplicationService	aplicationService;
+	public ApplicationService	applicationService;
 	@Autowired
 	public ManagerService		managerService;
 
@@ -44,9 +44,11 @@ public class RejectionServiceTest extends AbstractTest {
 
 		//this.rejectionService.delete((Rejection) this.rejectionService.findAll().toArray()[0]);
 		final Rejection r = this.rejectionService.create();
+		final Application application = (Application) this.applicationService.findAll().toArray()[4];
 		r.setReason("El misil termonuclear no es intercontinental");
-		r.setApplication((Application) this.aplicationService.findAll().toArray()[2]);
-		//r.setManager((Manager) this.managerService.findAll().toArray()[0]);
+		this.applicationService.changeStatus(application, "REJECTED");
+		r.setApplication(application);
+
 		final Rejection saved = this.rejectionService.save(r);
 
 		Assert.isTrue(this.rejectionService.findAll().contains(saved));

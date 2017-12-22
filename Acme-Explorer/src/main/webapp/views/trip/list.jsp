@@ -57,7 +57,7 @@
 		<label> <spring:message code="trip.search" />
 		</label>
 		<form:input path="keyWord" />
-		<form:errors cssClass="error" path="keyWord" />
+<%-- 		<form:errors cssClass="error" path="keyWord" /> --%>
 
 		<label> <spring:message code="trip.startPrice" />
 		</label>

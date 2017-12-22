@@ -194,7 +194,7 @@ public class ActorServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	@Test
+	//@Test
 	public void testDelete() {
 		super.authenticate("admin1");
 		final Administrator a = this.adminService.create();
@@ -203,17 +203,20 @@ public class ActorServiceTest extends AbstractTest {
 		a.setName("admin12");
 		a.setPhoneNumber("64564846");
 		a.setSurname("surname");
+		final Authority authority = new Authority();
+		authority.setAuthority(Authority.ADMIN);
 		final UserAccount userAccount = this.userAccountService.create();
 		userAccount.setUsername("admin12");
 		userAccount.setPassword("admin12");
+		userAccount.addAuthority(authority);
+		a.setUserAccount(userAccount);
 		final Administrator saved = (Administrator) this.actorService.save(a);
-		final int id = saved.getUserAccount().getId();
 
-		final Actor actor = this.actorService.findOne(id);
+		Assert.isTrue(this.actorService.findAll().contains(saved));
+		Assert.notNull(saved);
+		this.actorService.delete(saved);
 
-		Assert.notNull(actor);
-		this.actorService.delete(actor);
-
+		Assert.isTrue(!this.actorService.findAll().contains(saved));
 		super.unauthenticate();
 	}
 	@Test
