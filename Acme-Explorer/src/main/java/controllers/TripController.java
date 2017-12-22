@@ -1,7 +1,6 @@
 
 package controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -66,8 +65,31 @@ public class TripController extends AbstractController {
 	}
 
 	// Paging list -------------------------------------------------------------
-	@RequestMapping(value = "/list", method = RequestMethod.GET, params = "page")
-	public ModelAndView list(@RequestParam final int page) throws IllegalArgumentException, IllegalAccessException, IOException {
+	//	@RequestMapping(value = "/list", method = RequestMethod.GET, params = "page")
+	//	public ModelAndView list(@RequestParam final int page) throws IllegalArgumentException, IllegalAccessException, IOException {
+	//		ModelAndView result;
+	//		Collection<Trip> trips;
+	//		Page<Trip> tripsPage;
+	//		Pageable pageable;
+	//		final Configuration configuration;
+	//
+	//		result = new ModelAndView("trip/list");
+	//		configuration = this.configurationService.findConfiguration();
+	//		pageable = new PageRequest(page, configuration.getMaxResults());
+	//
+	//		tripsPage = this.tripService.findPublicatedTrips(pageable);
+	//		trips = tripsPage.getContent();
+	//
+	//		result.addObject("trips", trips);
+	//		result.addObject("pageNum", tripsPage.getTotalPages());
+	//		result.addObject("requestUri", "trip/list.do");
+	//
+	//		return result;
+	//	}
+
+	// listing -------------------------------------------------------------------
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list(@RequestParam(value = "page", required = false, defaultValue = "0") final int page) {
 		ModelAndView result;
 		Collection<Trip> trips;
 		Page<Trip> tripsPage;
@@ -83,36 +105,13 @@ public class TripController extends AbstractController {
 
 		result.addObject("trips", trips);
 		result.addObject("pageNum", tripsPage.getTotalPages());
-		result.addObject("requestUri", "trip/list.do");
-
-		return result;
-	}
-
-	// listing -------------------------------------------------------------------
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
-		ModelAndView result;
-		Collection<Trip> trips;
-		Page<Trip> tripsPage;
-		Pageable pageable;
-		final Configuration configuration;
-
-		result = new ModelAndView("trip/list");
-		configuration = this.configurationService.findConfiguration();
-		pageable = new PageRequest(0, configuration.getMaxResults());
-
-		tripsPage = this.tripService.findPublicatedTrips(pageable);
-		trips = tripsPage.getContent();
-
-		result.addObject("trips", trips);
-		result.addObject("pageNum", tripsPage.getTotalPages());
-		result.addObject("requestUri", "trip/list.do");
+		result.addObject("requestUri", "trip/search.do");
 
 		return result;
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET, params = "categoryId")
-	public ModelAndView listCategory(@RequestParam final int categoryId) {
+	public ModelAndView listCategory(@RequestParam final int categoryId, @RequestParam(value = "page", required = false, defaultValue = "0") final int page) {
 		ModelAndView result;
 		Collection<Trip> trips;
 		Category category;
@@ -129,7 +128,7 @@ public class TripController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/listExplorer", method = RequestMethod.GET)
-	public ModelAndView listExplorer() {
+	public ModelAndView listExplorer(@RequestParam(value = "page", required = false, defaultValue = "0") final int page) {
 		ModelAndView result;
 		Collection<Trip> trips;
 		Page<Trip> tripsPage;
@@ -138,7 +137,7 @@ public class TripController extends AbstractController {
 
 		result = new ModelAndView("trip/list");
 		configuration = this.configurationService.findConfiguration();
-		pageable = new PageRequest(0, configuration.getMaxResults());
+		pageable = new PageRequest(page, configuration.getMaxResults());
 
 		tripsPage = this.tripService.findPublicatedTrips(pageable);
 		trips = tripsPage.getContent();
@@ -147,14 +146,14 @@ public class TripController extends AbstractController {
 		result.addObject("trips", trips);
 		result.addObject("search", search);
 		result.addObject("pageNum", tripsPage.getTotalPages());
-		result.addObject("requestUri", "trip/listExplorer.do");
+		result.addObject("requestUri", "trip/searchExplorer.do");
 
 		return result;
 	}
 
 	// Searching --------------------------------------------------------------
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView search(@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView search(@RequestParam(value = "keyword", defaultValue = "") final String keyword, @RequestParam(value = "page", required = false, defaultValue = "0") final int page) {
 		ModelAndView result;
 		Collection<Trip> trips;
 		Page<Trip> tripsPage;
@@ -164,20 +163,21 @@ public class TripController extends AbstractController {
 
 		result = new ModelAndView("trip/list");
 		configuration = this.configurationService.findConfiguration();
-		pageable = new PageRequest(0, configuration.getMaxResults());
+		pageable = new PageRequest(page, configuration.getMaxResults());
 
 		tripsPage = this.tripService.findTripsBySearchParameters(keyword, pageable);
 		trips = tripsPage.getContent();
 
 		result.addObject("trips", trips);
+		result.addObject("keyword", keyword);
 		result.addObject("pageNum", tripsPage.getTotalPages());
-		result.addObject("requestUri", "trip/list.do");
+		result.addObject("requestUri", "trip/search.do");
 
 		return result;
 	}
 
 	@RequestMapping(value = "/search-ajax", method = RequestMethod.POST)
-	public ModelAndView searchAjax(@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
+	public ModelAndView searchAjax(@RequestParam(value = "keyword", defaultValue = "") final String keyword, @RequestParam(value = "page", required = false, defaultValue = "0") final int page) {
 		ModelAndView result;
 		Collection<Trip> trips;
 		Page<Trip> tripsPage;
@@ -187,20 +187,21 @@ public class TripController extends AbstractController {
 
 		result = new ModelAndView("trip/list-ajax");
 		configuration = this.configurationService.findConfiguration();
-		pageable = new PageRequest(0, configuration.getMaxResults());
+		pageable = new PageRequest(page, configuration.getMaxResults());
 
 		tripsPage = this.tripService.findTripsBySearchParameters(keyword, pageable);
 		trips = tripsPage.getContent();
 
 		result.addObject("trips", trips);
+		result.addObject("keyword", keyword);
 		result.addObject("pageNum", tripsPage.getTotalPages());
-		result.addObject("requestUri", "trip/list.do");
+		result.addObject("requestUri", "trip/search.do");
 
 		return result;
 	}
 
-	@RequestMapping(value = "/searchExplorer", method = RequestMethod.POST)
-	public ModelAndView searchExplorer(@Valid final Search search, final BindingResult binding) {
+	@RequestMapping(value = "/searchExplorer", method = RequestMethod.GET)
+	public ModelAndView searchExplorer(@Valid final Search search, final BindingResult binding, @RequestParam(value = "page", required = false, defaultValue = "0") final int page) {
 		ModelAndView result;
 		Collection<Trip> trips;
 		Page<Trip> tripsPage;
@@ -211,7 +212,7 @@ public class TripController extends AbstractController {
 		if (binding.hasErrors()) {
 			result = new ModelAndView("trip/list");
 			configuration = this.configurationService.findConfiguration();
-			pageable = new PageRequest(0, configuration.getMaxResults());
+			pageable = new PageRequest(page, configuration.getMaxResults());
 
 			tripsPage = this.tripService.findPublicatedTrips(pageable);
 			trips = tripsPage.getContent();
@@ -219,7 +220,7 @@ public class TripController extends AbstractController {
 			result.addObject("trips", trips);
 			result.addObject("search", search);
 			result.addObject("pageNum", tripsPage.getTotalPages());
-			result.addObject("requestUri", "trip/listExplorer.do");
+			result.addObject("requestUri", "trip/searchExplorer.do");
 		}
 
 		else
@@ -235,7 +236,7 @@ public class TripController extends AbstractController {
 				result.addObject("trips", trips);
 				result.addObject("search", search);
 				result.addObject("pageNum", tripsPage.getTotalPages());
-				result.addObject("requestUri", "trip/listExplorer.do");
+				result.addObject("requestUri", "trip/searchExplorer.do");
 			} catch (final Throwable oops) {
 				result = new ModelAndView("trip/list");
 				configuration = this.configurationService.findConfiguration();
@@ -247,7 +248,7 @@ public class TripController extends AbstractController {
 				result.addObject("trips", trips);
 				result.addObject("search", search);
 				result.addObject("pageNum", tripsPage.getTotalPages());
-				result.addObject("requestUri", "trip/listExplorer.do");
+				result.addObject("requestUri", "trip/searchExplorer.do");
 			}
 
 		return result;
