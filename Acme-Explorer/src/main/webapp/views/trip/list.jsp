@@ -90,11 +90,12 @@
 <div id="tableTrips">
 	<jstl:set value="&" var="connector" />
 	<jstl:if test="${requestUri==\"trip/search.do\"}">
-
 		<jstl:set value="?keyword=${keyword}&" var="connector" />
 	</jstl:if>
+	<jstl:if test="${requestUri==\"trip/manager/list.do\"}">
+		<jstl:set value="?" var="connector" />
+	</jstl:if>
 	<jstl:if test="${requestUri==\"trip/searchExplorer.do\"}">
-
 		<jstl:set
 			value="?keyword=${search.keyWord}&startDate=${startDate}&endDate=${endDate}&startPrice=${startPrice}&endPrice=${endPrice}&"
 			var="connector" />

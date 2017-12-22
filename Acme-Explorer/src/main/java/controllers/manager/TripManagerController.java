@@ -10,6 +10,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -20,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.CategoryService;
+import services.ConfigurationService;
 import services.LegalTextService;
 import services.ManagerService;
 import services.RangerService;
@@ -28,7 +32,9 @@ import services.SurvivalClassService;
 import services.TagService;
 import services.TripService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Category;
+import domain.Configuration;
 import domain.LegalText;
 import domain.Manager;
 import domain.Ranger;
@@ -65,8 +71,12 @@ public class TripManagerController extends AbstractController {
 
 	@Autowired
 	SurvivalClassService	survivalClassService;
+
 	@Autowired
 	StageService			stageService;
+
+	@Autowired
+	ConfigurationService	configurationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -77,17 +87,42 @@ public class TripManagerController extends AbstractController {
 
 	// Listing ------------------------------------------------------------------
 
+	//	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	//	public ModelAndView list() {
+	//		ModelAndView result;
+	//		Collection<Trip> trips;
+	//		final Manager manager;
+	//
+	//		result = new ModelAndView("trip/list");
+	//		manager = (Manager) this.actorService.findActorByPrincipal();
+	//
+	//		trips = this.managerService.findTripsByManager(manager.getId());
+	//		result.addObject("trips", trips);
+	//		result.addObject("requestUri", "trip/manager/list.do");
+	//
+	//		return result;
+	//	}
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView listCategory(@RequestParam(value = "page", required = false, defaultValue = "0") final int page) {
 		ModelAndView result;
 		Collection<Trip> trips;
-		final Manager manager;
+		final Page<Trip> tripsPage;
+		Pageable pageable;
+		Configuration configuration;
+		Actor actor;
 
 		result = new ModelAndView("trip/list");
-		manager = (Manager) this.actorService.findActorByPrincipal();
 
-		trips = this.managerService.findTripsByManager(manager.getId());
+		actor = this.actorService.findActorByPrincipal();
+		configuration = this.configurationService.findConfiguration();
+		pageable = new PageRequest(page, configuration.getMaxResults());
+
+		tripsPage = this.managerService.findTripsByManager(actor.getId(), pageable);
+		trips = tripsPage.getContent();
+
 		result.addObject("trips", trips);
+		result.addObject("pageNum", tripsPage.getTotalPages());
 		result.addObject("requestUri", "trip/manager/list.do");
 
 		return result;
