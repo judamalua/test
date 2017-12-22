@@ -26,8 +26,9 @@
 		
 </display:table>
 
-	<a href = "tagValue/manager/create.do?tripId=${tripId}">
-		<button>
-			<spring:message code = "tagValue.create"/>
-		</button>
-	</a>
+<%-- 	<a href = "tagValue/manager/create.do?tripId=${tripId}"> --%>
+<%-- 		<jstl:if test="${trip.startDate > currentDate and (trip.cancelReason==null || trip.cancelReason==\"\")}"> --%>
+<!-- 		<button> -->
+<%-- 			<spring:message code = "tagValue.create"/> --%>
+<!-- 		</button> -->
+<!-- 	</a> -->

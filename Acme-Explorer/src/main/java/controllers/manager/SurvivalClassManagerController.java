@@ -104,15 +104,17 @@ public class SurvivalClassManagerController extends AbstractController {
 		ModelAndView result;
 		Collection<SurvivalClass> survivalClasses;
 		final Manager manager;
+		try {
+			result = new ModelAndView("survivalClass/list-managed");
+			manager = (Manager) this.actorService.findActorByPrincipal();
 
-		result = new ModelAndView("survivalClass/list-managed");
-		manager = (Manager) this.actorService.findActorByPrincipal();
-
-		survivalClasses = new HashSet<SurvivalClass>(manager.getSurvivalClasses());
-		//		for (final Trip t : manager.getTrips())
-		//			survivalClasses.addAll(t.getSurvivalClasses());
-		result.addObject("survivalClasses", survivalClasses);
-
+			survivalClasses = new HashSet<SurvivalClass>(manager.getSurvivalClasses());
+			//		for (final Trip t : manager.getTrips())
+			//			survivalClasses.addAll(t.getSurvivalClasses());
+			result.addObject("survivalClasses", survivalClasses);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
 

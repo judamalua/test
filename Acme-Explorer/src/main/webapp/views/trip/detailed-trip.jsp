@@ -114,7 +114,7 @@
 </jstl:if>  --%>
 
 <jstl:if test="${not empty trip.tagValues}">
-	<display:table name="trip.tagValues">
+	<display:table name="trip.tagValues" id="tagValue">
 
 		<spring:message code="trip.tagValue.value" var="tagValueTitle" />
 		<display:column property="value" title="${tagValueTitle}"
@@ -123,6 +123,14 @@
 		<spring:message code="trip.tagValue.tag" var="tagTitle" />
 		<display:column property="tag.name" title="${tagTitle}"
 			sortable="true" />
+			
+		<display:column>
+			<a href="tagValue/manager/edit.do?tagValueId=${tagValue.id}&tripId=${trip.id}">
+				<button>
+					<spring:message code="tagValue.edit" />
+				</button>
+			</a>
+		</display:column>
 
 	</display:table>
 </jstl:if>
@@ -237,7 +245,7 @@
 		<spring:message code="detailedTrip.survivalClass.location"
 			var="locationHeader" />
 		<display:column title="${locationHeader}" sortable="false">
-			<p>${row.location.name}</p>
+			<p><b>${row3.location.name}</b></p>
 			<iframe class="mapa"
 				src="https://www.google.com/maps/embed/v1/search?q=${row3.location.gpsCoordinates}&key=AIzaSyBe0wmulZvK1IM3-3jIUgbxt2Ax_QOVW6c"></iframe>
 		</display:column>

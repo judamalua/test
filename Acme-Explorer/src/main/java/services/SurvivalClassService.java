@@ -108,7 +108,6 @@ public class SurvivalClassService {
 		final Manager manager;
 		final Collection<Explorer> explorers;
 		Explorer explorer;
-		boolean containsManager;
 
 		trips = this.tripService.findTripsBySurvivalClass(survivalClass);
 		//		if (survivalClass.getId() != 0)
@@ -116,16 +115,10 @@ public class SurvivalClassService {
 		//		else
 		manager = (Manager) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
 
-		if (!LoginService.getPrincipal().getAuthorities().contains(authority)) {
-			//Si la esta editando el mismo manager que la creo, se pone a true, si no el manager tendra que tener un trip asociado con esa svClass
-			containsManager = survivalClass.getId() == 0;
-			for (final Trip trip : trips)
-				if (trip.getManagers().contains(manager)) {
-					containsManager = true;
-					break;
-				}
-			Assert.isTrue(containsManager);
-		}
+		if (!LoginService.getPrincipal().getAuthorities().contains(authority))
+			if (survivalClass.getId() != 0)
+				Assert.isTrue(manager.getSurvivalClasses().contains(survivalClass));
+
 		explorers = survivalClass.getExplorers();
 
 		if (LoginService.getPrincipal().getAuthorities().contains(authority)) {

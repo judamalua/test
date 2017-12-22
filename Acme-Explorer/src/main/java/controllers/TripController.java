@@ -114,19 +114,27 @@ public class TripController extends AbstractController {
 	public ModelAndView listCategory(@RequestParam final int categoryId, @RequestParam(value = "page", required = false, defaultValue = "0") final int page) {
 		ModelAndView result;
 		Collection<Trip> trips;
+		final Page<Trip> tripsPage;
 		Category category;
+		Pageable pageable;
+		Configuration configuration;
 
 		result = new ModelAndView("trip/list");
 		category = this.categoryService.findOne(categoryId);
 		Assert.notNull(category);
 
-		trips = this.tripService.findTrips(category);
+		configuration = this.configurationService.findConfiguration();
+		pageable = new PageRequest(page, configuration.getMaxResults());
+
+		tripsPage = this.tripService.findTrips(category, pageable);
+		trips = tripsPage.getContent();
 
 		result.addObject("trips", trips);
+		result.addObject("pageNum", tripsPage.getTotalPages());
+		result.addObject("requestUri", "trip/list.do?categoryId=" + categoryId);
 
 		return result;
 	}
-
 	@RequestMapping(value = "/listExplorer", method = RequestMethod.GET)
 	public ModelAndView listExplorer(@RequestParam(value = "page", required = false, defaultValue = "0") final int page) {
 		ModelAndView result;

@@ -113,28 +113,32 @@ public class MessageFolderService {
 		Assert.isTrue(messageFolder.getId() != 0);
 		Assert.isTrue(this.messageFolderRepository.exists(messageFolder.getId()));
 
-		UserAccount userAccount;
+		final UserAccount userAccount;
 		Actor actor;
 		final Collection<Message> messages;
 		//		Collection<MessageFolder> messageFolderChildren;
 
 		MessageFolder messageFolderFather;
-		//		final Collection<MessageFolder> messageFolderChildren;
+
+		actor = this.actorService.findActorByPrincipal();
+
 		messages = messageFolder.getMessages();
+		Assert.isTrue(!messageFolder.getIsDefault());
+		Assert.isTrue(actor.getMessageFolders().contains(messageFolder));
 		//		messageFolderChildren = messageFolder.getMessageFolderChildren();
 
-		if (this.actorService.findActorByMessageFolder(messageFolder.getId()) != null) {
-			userAccount = LoginService.getPrincipal();
-			Assert.notNull(userAccount);
-			actor = this.actorService.findActorByUserAccountId(userAccount.getId());
-			Assert.notNull(actor);
-
-			Assert.isTrue(!messageFolder.getIsDefault());
-			Assert.isTrue(actor.getMessageFolders().contains(messageFolder));
-
-			actor.getMessageFolders().remove(messageFolder);
-			this.actorService.save(actor);
-		}
+		//		if (this.actorService.findActorByMessageFolder(messageFolder.getId()) != null) {
+		//			userAccount = LoginService.getPrincipal();
+		//			Assert.notNull(userAccount);
+		//			actor = this.actorService.findActorByUserAccountId(userAccount.getId());
+		//			Assert.notNull(actor);
+		//
+		//			Assert.isTrue(!messageFolder.getIsDefault());
+		//			Assert.isTrue(actor.getMessageFolders().contains(messageFolder));
+		//
+		//			actor.getMessageFolders().remove(messageFolder);
+		//			this.actorService.save(actor);
+		//		}
 
 		messageFolderFather = messageFolder.getMessageFolderFather();
 		if (messageFolderFather != null) {
@@ -142,8 +146,8 @@ public class MessageFolderService {
 			this.messageFolderRepository.save(messageFolderFather);
 		}
 
-		for (final Message m : messages)
-			this.messageService.delete(m);
+		//		for (final Message m : messages)
+		//			this.messageService.delete(m);
 
 		//		messageFolderChildren = messageFolder.getMessageFolderChildren();
 		this.deleteChildrenMessageFolders(messageFolder);

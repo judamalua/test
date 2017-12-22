@@ -498,14 +498,14 @@ public class TripService {
 	//		return this.tripRepository.findTripsApplicationExplorer(id);
 	//	}
 
-	public Collection<Trip> findTrips(final Category category, final Pageable pageable) {
+	public Page<Trip> findTrips(final Category category, final Pageable pageable) {
 
-		Collection<Trip> result;
+		Page<Trip> result;
 
 		if (category != null && category.getId() != 0)
-			result = this.tripRepository.findTripsByCategoryId(category.getId(), pageable).getContent();
+			result = this.tripRepository.findTripsByCategoryId(category.getId(), pageable);
 		else
-			result = this.findAll();
+			result = this.findAll(pageable);
 
 		return result;
 	}

@@ -109,7 +109,7 @@ public class TagValueManagerController extends AbstractController {
 					Assert.isTrue(!tripTags.contains(tagValue.getTag()));
 				}
 				this.tagValueService.save(tagValue, trip);
-				result = new ModelAndView("redirect:/tagValue/manager/list.do?tripId=" + tripId);
+				result = new ModelAndView("redirect:/trip/manager/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(tagValue, tripId, "tagValue.commit.error");
 
@@ -117,16 +117,17 @@ public class TagValueManagerController extends AbstractController {
 
 		return result;
 	}
-
 	// Deleting ------------------------------------------------------------------------
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final TagValue tagValue, @RequestParam("tripId") final int tripId, final BindingResult binding) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = {
+		"delete", "tripId"
+	})
+	public ModelAndView delete(@RequestParam("tripId") final int tripId, @ModelAttribute("tagValue") @Valid final TagValue tagValue, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
 			this.tagValueService.delete(tagValue);
-			result = new ModelAndView("redirect:/tagValue/manager/list.do?tripId=" + tripId);
+			result = new ModelAndView("redirect:/trip/detailed-trip.do?tripId=" + tripId + "&anonymous=false");
 
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(tagValue, tripId, "tagValue.commit.error");
@@ -134,7 +135,6 @@ public class TagValueManagerController extends AbstractController {
 
 		return result;
 	}
-
 	// Creating -----------------------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
