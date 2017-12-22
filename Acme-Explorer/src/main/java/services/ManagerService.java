@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -260,6 +262,15 @@ public class ManagerService {
 		Collection<Trip> result;
 
 		result = this.managerRepository.findTripsByManager(managerId);
+
+		return result;
+	}
+
+	public Page<Trip> findTripsByManager(final int managerId, final Pageable pageable) {
+
+		Page<Trip> result;
+
+		result = this.managerRepository.findTripsByManager(managerId, pageable);
 
 		return result;
 	}

@@ -3,6 +3,8 @@ package repositories;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -39,4 +41,7 @@ public interface ManagerRepository extends JpaRepository<Manager, Integer> {
 
 	@Query("select t from Manager m join m.trips t where m.id=?1 ")
 	Collection<Trip> findTripsByManager(int managerId);
+
+	@Query("select t from Manager m join m.trips t where m.id=?1 ")
+	Page<Trip> findTripsByManager(int managerId, Pageable pageable);
 }
