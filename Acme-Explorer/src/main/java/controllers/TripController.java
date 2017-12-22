@@ -176,6 +176,29 @@ public class TripController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/search-ajax", method = RequestMethod.POST)
+	public ModelAndView searchAjax(@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
+		ModelAndView result;
+		Collection<Trip> trips;
+		Page<Trip> tripsPage;
+
+		Pageable pageable;
+		final Configuration configuration;
+
+		result = new ModelAndView("trip/list-ajax");
+		configuration = this.configurationService.findConfiguration();
+		pageable = new PageRequest(0, configuration.getMaxResults());
+
+		tripsPage = this.tripService.findTripsBySearchParameters(keyword, pageable);
+		trips = tripsPage.getContent();
+
+		result.addObject("trips", trips);
+		result.addObject("pageNum", tripsPage.getTotalPages());
+		result.addObject("requestUri", "trip/list.do");
+
+		return result;
+	}
+
 	@RequestMapping(value = "/searchExplorer", method = RequestMethod.POST)
 	public ModelAndView searchExplorer(@Valid final Search search, final BindingResult binding) {
 		ModelAndView result;

@@ -110,7 +110,8 @@
 		<security:intercept-url pattern="/trip/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/trip/listExplorer.do" access="hasRole('EXPLORER')" /> 
 		<security:intercept-url pattern="/trip/detailed-trip.do" access="permitAll" /> 
-		<security:intercept-url pattern="/trip/search.do" access="permitAll" /> 
+		<security:intercept-url pattern="/trip/search.do" access="permitAll" />
+		<security:intercept-url pattern="/trip/search-ajax.do" access="permitAll" />
 		<security:intercept-url pattern="/trip/searchExplorer.do" access="hasRole('EXPLORER')" /> 
 		<security:intercept-url pattern="/trip/manager/**" access="hasRole('MANAGER')" />
 		

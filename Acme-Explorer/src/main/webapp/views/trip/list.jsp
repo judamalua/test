@@ -11,18 +11,40 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
-	<security:authorize access="isAnonymous()">
-		<input type="hidden" name="isAnonymous" value="1" />
-	</security:authorize>
-
 	<jstl:if test="${requestUri==\"trip/list.do\"}">
+	<script type="text/javascript">
+
+
+
+function searchAjax() {
+	console.log("Test");
+   delay(function(){
+
+ var searchText = $('#keyword').val();  
+   var searchURL = "trip/search-ajax.do?keyword=" + searchText;
+
+    $.post(searchURL, null, function(result){
+        $("#tableTrips").html(result);
+    });
+   }, 800 );
+};
+
+var delay = (function(){
+   var timer = 0;
+   return function(callback, ms){
+     clearTimeout (timer);
+     timer = setTimeout(callback, ms);
+   };
+ })();
+
+
+  </script>
 	<form action="trip/search.do" method="post">
 	
 		<label> <spring:message code="trip.search" />
 		</label>
-		<input type="text" name="keyword" id="keyword"
-			placeholder="<spring:message code="search.keyword.placeholder"/>">
+		<input type="text" name="keyword" id="keyword"  onkeyup="searchAjax()"
+  placeholder="<spring:message code="search.keyword.placeholder"/>">
 	<input type="submit" name="search" id="search"
 			value="<spring:message code = "trip.search"/>" />
 			</form>
@@ -70,7 +92,7 @@
 	</jstl:if>
 
 
-
+<div id="tableTrips">
 <jstl:set value="&" var="connector" />
 <jstl:if test="${requestUri==\"trip/list.do\"}">
 	<jstl:set value="?" var="connector" />
@@ -154,6 +176,8 @@
 	</security:authorize>
 
 </display:table>
+
+</div>
 
 <security:authorize access="hasRole('MANAGER')">
 	<a href="trip/manager/create.do">
