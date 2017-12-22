@@ -69,12 +69,17 @@
 	<form:input path="defaultPhoneCountryCode"/>
 	<form:errors cssClass="error" path="defaultPhoneCountryCode"/>
 	
+	<spring:message code="configuration.notEmpty" var="inputError"/>
 	<form:label path="maxResults">
 		<spring:message code="configuration.maxResults"/>
 	</form:label>
-	<form:input path="maxResults"/>
+	<form:input path="maxResults" required="required"
+	oninvalid="setCustomValidity('${inputError}')"
+    	onchange="try{setCustomValidity('')}catch(e){}"/>
 	<form:errors cssClass="error" path="maxResults"/>
-
+	<br/>
+	<br/>
+	
 	<input type="submit" name="save"
 		value="<spring:message code="configuration.save" />">
 

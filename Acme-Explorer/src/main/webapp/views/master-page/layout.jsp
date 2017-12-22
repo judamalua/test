@@ -100,7 +100,7 @@
 	<div>
 		<tiles:insertAttribute name="header" />
 	</div>
-	<div>
+	<div class="body">
 		<h1>
 			<tiles:insertAttribute name="title" />
 		</h1>
