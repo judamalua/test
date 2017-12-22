@@ -14,6 +14,18 @@
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 
 
+<jstl:set value="&" var="connector" />
+<jstl:if test="${requestUri==\"trip/list.do\"}">
+	<jstl:set value="?" var="connector" />
+</jstl:if>
+<ul>
+	<jstl:forEach begin="1" end="${pageNum}" var="index">
+		<li><a href="${requestUri}${connector}page=${index-1}"> <jstl:out
+					value="${index}" />
+		</a></li>
+	</jstl:forEach>
+</ul>
+
 <display:table pagesize="${pagesize}" requestURI="" name="trips" id="trip" class="displaytag">
 
 	<spring:message code="trip.title" var="title" />
