@@ -284,15 +284,16 @@ public class CategoryService {
 			this.categoryRepository.delete(category);
 
 		} else {
-			for (final Category c : categories)
+			final HashSet<Category> cats = new HashSet<Category>(categories);
+			for (final Category c : cats)
 				this.deleteChildrenCategories(c, initialCategory);
 
 			categories.clear();
-			category.setCategories(categories);
+			category.setCategories(new HashSet<Category>());
 			result = this.save(category);
 			this.deleteChildrenCategories(category, initialCategory);
 
-			this.categoryRepository.delete(category);
+			//			this.categoryRepository.delete(category);
 
 		}
 		return result;
