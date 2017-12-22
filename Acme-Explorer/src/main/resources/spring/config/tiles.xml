@@ -41,7 +41,7 @@
 		<value>/views/curriculum/tiles.xml</value>
 		<value>/views/stage/tiles.xml</value>
 		<value>/views/story/tiles.xml</value>
-		<value>/views/search/tiles.xml</value>
+<!-- 		<value>/views/search/tiles.xml</value> -->
 		<value>/views/contact/tiles.xml</value>		
 		<value>/views/configuration/tiles.xml</value>		
 		<value>/views/dashboard/tiles.xml</value>	

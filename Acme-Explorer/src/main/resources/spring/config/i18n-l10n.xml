@@ -41,7 +41,7 @@
 		<value>/views/curriculum/messages</value>
 		<value>/views/stage/messages</value>
 		<value>/views/story/messages</value>
-		<value>/views/search/messages</value>
+<!-- 		<value>/views/search/messages</value> -->
 		<value>/views/contact/messages</value>
 		<value>/views/configuration/messages</value>
 		<value>/views/dashboard/messages</value>
