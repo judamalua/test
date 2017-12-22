@@ -69,14 +69,14 @@ public class SponsorshipSponsorController extends AbstractController {
 		ModelAndView result;
 		Sponsorship sponsorship;
 
-		sponsorship = this.sponsorshipService.create();
-		final Sponsor sponsor = (Sponsor) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
-		sponsorship.setSponsor(sponsor);
-		final Trip trip = this.tripService.findOne(tripId);
-		sponsorship.setTrip(trip);
-		result = this.createEditModelAndView(sponsorship);
-
 		try {
+			sponsorship = this.sponsorshipService.create();
+			final Sponsor sponsor = (Sponsor) this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
+			sponsorship.setSponsor(sponsor);
+			final Trip trip = this.tripService.findOne(tripId);
+			sponsorship.setTrip(trip);
+			result = this.createEditModelAndView(sponsorship);
+
 			Assert.isTrue(trip.getPublicationDate().before(new Date()));
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
