@@ -39,9 +39,13 @@ public class CategoryAdminController extends AbstractController {
 		ModelAndView result;
 		Category category;
 
-		category = this.categoryService.findOne(categoryId);
-		Assert.notNull(category);
-		result = this.createEditModelAndView(category);
+		try {
+			category = this.categoryService.findOne(categoryId);
+			Assert.notNull(category);
+			result = this.createEditModelAndView(category);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}
