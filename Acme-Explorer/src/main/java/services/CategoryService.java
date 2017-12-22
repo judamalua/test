@@ -123,8 +123,8 @@ public class CategoryService {
 
 		Assert.isTrue(this.categoryRepository.exists(category.getId()));
 
-		fatherCategory.getCategories().remove(category);
-		this.save(fatherCategory);
+		//		fatherCategory.getCategories().remove(category);
+		//		this.save(fatherCategory);
 		// Eliminamos recursivamente todas las categorías hijas de las categorías hija de la categoría a eliminar
 		this.deleteChildrenCategories(category, category);
 
