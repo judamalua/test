@@ -71,9 +71,9 @@ public class ProfessionalRecordService {
 		// Comprobación palabras de spam
 		this.actorService.checkSpamWords(professionalRecord.getCompanyName());
 		this.actorService.checkSpamWords(professionalRecord.getRole());
-		if (!professionalRecord.getAttachment().equals(null))
+		if (professionalRecord.getAttachment() != null)
 			this.actorService.checkSpamWords(professionalRecord.getAttachment());
-		if (!professionalRecord.getCommentaries().equals(null))
+		if (professionalRecord.getCommentaries() != null)
 			this.actorService.checkSpamWords(professionalRecord.getCommentaries());
 
 		ProfessionalRecord result;

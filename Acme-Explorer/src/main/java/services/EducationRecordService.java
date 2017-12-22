@@ -73,9 +73,9 @@ public class EducationRecordService {
 		// Comprobación palabras de spam
 		this.actorService.checkSpamWords(educationRecord.getDiplomaTitle());
 		this.actorService.checkSpamWords(educationRecord.getInstitution());
-		if (!educationRecord.getAttachment().equals(null))
+		if (educationRecord.getAttachment() != null)
 			this.actorService.checkSpamWords(educationRecord.getAttachment());
-		if (!educationRecord.getCommentaries().equals(null))
+		if (educationRecord.getCommentaries() != null)
 			this.actorService.checkSpamWords(educationRecord.getCommentaries());
 
 		result = this.educationRecordRepository.save(educationRecord);

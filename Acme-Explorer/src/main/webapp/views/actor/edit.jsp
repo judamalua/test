@@ -61,17 +61,19 @@
 	<form:errors cssClass="error" path="surname"/>
 	<br/>
 	
+	<spring:message code="actor.email.placeholder" var="emailPlaceholder"/>
 	<form:label path="email">
 		<spring:message code="actor.email"/>
 	</form:label>
-	<form:input path="email" placeholder = "example@domail.com"/>
+	<form:input path="email" placeholder = "${emailPlaceholder}"/>
 	<form:errors cssClass="error" path="email"/>
 	<br/>
 	
+	<spring:message code="actor.address.placeholder" var="addressPlaceholder"/>
 	<form:label path="address">
 		<spring:message code="actor.address"/>
 	</form:label>
-	<form:input path="address" placeholder = "False Street 123"/>
+	<form:input path="address" placeholder = "${addressPlaceholder}"/>
 	<form:errors cssClass="error" path="address"/>
 	<br/>
 	

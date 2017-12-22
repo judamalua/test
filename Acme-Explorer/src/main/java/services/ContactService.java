@@ -75,7 +75,7 @@ public class ContactService {
 
 		// Comprobación palabras de spam
 		this.actorService.checkSpamWords(contact.getName());
-		if (!contact.getEmail().equals(null))
+		if (contact.getEmail() != null)
 			this.actorService.checkSpamWords(contact.getEmail());
 
 		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();

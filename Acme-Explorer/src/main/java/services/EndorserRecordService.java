@@ -79,7 +79,7 @@ public class EndorserRecordService {
 		this.actorService.checkSpamWords(endorserRecord.getFullName());
 		this.actorService.checkSpamWords(endorserRecord.getEmail());
 		this.actorService.checkSpamWords(endorserRecord.getLinkedInProfileURL());
-		if (!endorserRecord.getCommentaries().equals(null))
+		if (endorserRecord.getCommentaries() != null)
 			this.actorService.checkSpamWords(endorserRecord.getCommentaries());
 
 		phoneNumberPrefix = this.configurationService.findConfiguration().getDefaultPhoneCountryCode();

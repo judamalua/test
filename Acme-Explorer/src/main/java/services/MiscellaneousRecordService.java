@@ -71,10 +71,10 @@ public class MiscellaneousRecordService {
 
 		// Comprobación palabras de spam
 		this.actorService.checkSpamWords(miscellaneousRecord.getTitle());
-		if (!miscellaneousRecord.getAttachment().equals(null))
+		if (miscellaneousRecord.getAttachment() != null)
 			this.actorService.checkSpamWords(miscellaneousRecord.getAttachment());
 
-		if (!miscellaneousRecord.getCommentaries().equals(null))
+		if (miscellaneousRecord.getCommentaries() != null)
 			this.actorService.checkSpamWords(miscellaneousRecord.getCommentaries());
 
 		MiscellaneousRecord result;
