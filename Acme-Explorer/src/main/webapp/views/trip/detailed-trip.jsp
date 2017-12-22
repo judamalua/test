@@ -140,6 +140,7 @@
 	:
 	<jstl:out value="${trip.ranger.name}" />
 	<jstl:out value="${trip.ranger.surname}" />
+	<jstl:set value="false" var="isRanger" />
 	<security:authorize access="hasRole('RANGER')">
 		<jstl:set value="true" var="isRanger" />
 	</security:authorize>
