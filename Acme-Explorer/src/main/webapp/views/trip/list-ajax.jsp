@@ -15,8 +15,9 @@
 
 
 <jstl:set value="&" var="connector" />
-<jstl:if test="${requestUri==\"trip/list.do\"}">
-	<jstl:set value="?" var="connector" />
+<jstl:if test="${requestUri==\"trip/search.do\"}">
+	
+	<jstl:set value="?keyword=${keyword}&" var="connector" />
 </jstl:if>
 <ul>
 	<jstl:forEach begin="1" end="${pageNum}" var="index">

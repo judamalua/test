@@ -11,7 +11,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-	<jstl:if test="${requestUri==\"trip/list.do\"}">
+	<jstl:if test="${requestUri==\"trip/search.do\"}">
 	<script type="text/javascript">
 
 
@@ -39,7 +39,7 @@ var delay = (function(){
 
 
   </script>
-	<form action="trip/search.do" method="post">
+	<form action="trip/search.do" method="GET">
 	
 		<label> <spring:message code="trip.search" />
 		</label>
@@ -51,9 +51,9 @@ var delay = (function(){
 			
 	</jstl:if>
 	
-		<jstl:if test="${requestUri==\"trip/listExplorer.do\"}">
+		<jstl:if test="${requestUri==\"trip/searchExplorer.do\"}">
 			
-		<form:form action="trip/searchExplorer.do" modelAttribute="search">
+		<form:form action="trip/searchExplorer.do" modelAttribute="search" method="GET">
 		<form:hidden path = "id" />
 			<form:hidden path = "version" />
 			<form:hidden path = "searchMoment" />
@@ -94,8 +94,13 @@ var delay = (function(){
 
 <div id="tableTrips">
 <jstl:set value="&" var="connector" />
-<jstl:if test="${requestUri==\"trip/list.do\"}">
-	<jstl:set value="?" var="connector" />
+<jstl:if test="${requestUri==\"trip/search.do\"}">
+	
+	<jstl:set value="?keyword=${keyword}&" var="connector" />
+</jstl:if>
+<jstl:if test="${requestUri==\"trip/searchExplorer.do\"}">
+	
+	<jstl:set value="?keyword=${search.keyWord}&startDate=${startDate}&endDate=${endDate}&startPrice=${startPrice}&endPrice=${endPrice}&" var="connector" />
 </jstl:if>
 <ul>
 	<jstl:forEach begin="1" end="${pageNum}" var="index">
