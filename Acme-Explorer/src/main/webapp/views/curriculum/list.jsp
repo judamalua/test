@@ -27,7 +27,7 @@
 
 <jstl:if test = "${curriculum != null}">
 <display:table name="curriculum" id="row"
-	requestURI="curriculum/ranger/list.do" pagesize="${pagesize}" class="displaytag">
+	requestURI="${requestUri}" pagesize="${pagesize}" class="displaytag">
 
 	<spring:message code="curriculum.ticker" var="ticker" />
 	<display:column property="ticker" title="${ticker}" sortable="false" />
@@ -81,7 +81,7 @@
 			<jstl:set value="${professionalRecords}" var="professionalRecords"></jstl:set>
 
 			<display:table name="professionalRecords" id="professionalRecord"
-				requestURI="curriculum/ranger/list.do"
+				requestURI="${requestUri}"
 				pagesize="${pagesize}" class="displaytag">
 
 				<spring:message code="professionalRecord.companyName"
@@ -153,7 +153,7 @@
 		
 
 			<display:table name="miscellaneousRecords" id="miscellaneousRecord"
-				requestURI="curriculum/ranger/list.do"
+				requestURI="${requestUri}"
 				pagesize="${pagesize}" class="displaytag">
 
 			<spring:message code="curriculum.miscellaneousRecord.title"
@@ -207,7 +207,7 @@
 		<h2><spring:message code="curriculum.educationRecords" /></h2>
 
 			<display:table name="educationRecords" id="educationRecord"
-				requestURI="curriculum/ranger/list.do"
+				requestURI="${requestUri}"
 				pagesize="${pagesize}" class="displaytag">
 
 				<spring:message code="curriculum.educationRecord.diplomaTitle"
@@ -278,7 +278,7 @@
 		
 	
 			<display:table name="endorserRecords" id="endorserRecord"
-				requestURI="curriculum/ranger/list.do"
+				requestURI="${requestUri}"
 				pagesize="${pagesize}" class="displaytag">
 
 				<spring:message code="curriculum.endorserRecord.fullName"

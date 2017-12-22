@@ -123,7 +123,7 @@ public class CurriculumRangerController extends AbstractController {
 
 			}
 
-			result.addObject("requestUri", "curriculum/ranger/list.do");
+			result.addObject("requestUri", "curriculum/show.do");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
