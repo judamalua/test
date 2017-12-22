@@ -487,8 +487,28 @@ public class TripService {
 	//	}
 
 	public Page<Trip> findTripsBySearchParameters(final Search s, final Pageable pageable) {
-		final Page<Trip> trips = this.tripRepository.findTripsBySearchParameters("%" + s.getKeyWord() + "%", s.getDateRangeStart(), s.getDateRangeEnd(), s.getPriceRangeStart(), s.getPriceRangeEnd(), pageable);
+		final Page<Trip> trips;
+		String startDate = this.convertDate(s.getDateRangeStart());
+		String endDate = this.convertDate(s.getDateRangeEnd());
+		Double startPrice = s.getPriceRangeStart();
+		Double endPrice = s.getPriceRangeEnd();
+		if (startDate == null)
+			startDate = "1900/01/01 00:00";
+		if (endDate == null)
+			endDate = "2999/01/01 00:00";
+		if (startPrice == null)
+			startPrice = 0.0;
+		if (endPrice == null)
+			endPrice = Double.MAX_VALUE;
+		if (s.getKeyWord() == null || s.getKeyWord().equals(""))
+			trips = this.tripRepository.findTripsBySearchParametersWithoutQ(startDate, endDate, startPrice, endPrice, pageable);
+		else
+			trips = this.tripRepository.findTripsBySearchParameters("%" + s.getKeyWord() + "%", startDate, endDate, startPrice, endPrice, pageable);
 		return trips;
+	}
+	private String convertDate(final Date dateRangeStart) {
+		final String res = dateRangeStart.getYear() + "/" + dateRangeStart.getMonth() + "/" + dateRangeStart.getDay() + " " + dateRangeStart.getHours() + ":" + dateRangeStart.getMinutes();
+		return res;
 	}
 	public Page<Trip> findTripsBySearchParameters(final String keyword, final Pageable pageable) {
 		final Page<Trip> trips = this.tripRepository.findTrips("%" + keyword + "%", pageable);
