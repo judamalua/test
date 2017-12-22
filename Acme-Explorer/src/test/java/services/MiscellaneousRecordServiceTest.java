@@ -30,20 +30,24 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreate() {
+		super.authenticate("ranger1");
 		final MiscellaneousRecord r = this.miscellaneousRecordService.create();
 		Assert.isNull(r.getTitle());
 		Assert.isNull(r.getAttachment());
 		Assert.isNull(r.getCommentaries());
+		super.unauthenticate();
 	}
 
 	@Test
 	public void testSave() {
+		super.authenticate("ranger1");
 		final MiscellaneousRecord r = this.miscellaneousRecordService.create();
 		r.setTitle("Titulo diploma");
 		r.setAttachment("http://www.link.com");
 		r.setCommentaries("Comentario");
 		final MiscellaneousRecord saved = this.miscellaneousRecordService.save(r);
 		Assert.isTrue(this.miscellaneousRecordService.findAll().contains(saved));
+		super.unauthenticate();
 	}
 
 	@Test

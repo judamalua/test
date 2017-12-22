@@ -74,7 +74,7 @@ public class StoryServiceTest extends AbstractTest {
 		final Explorer writer = (Explorer) this.explorerService.findAll().toArray()[0];
 		final Trip trip = (Trip) this.tripService.findAll().toArray()[2];
 		final Collection<String> attachments = new HashSet<String>();
-		attachments.add("Attachment 1");
+		attachments.add("http://www.aaa.com");
 
 		story.setTitle("Título 1");
 		story.setPieceOfText("Texto 1");

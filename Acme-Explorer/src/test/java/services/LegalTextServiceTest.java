@@ -77,7 +77,7 @@ public class LegalTextServiceTest extends AbstractTest {
 	public void testDelete() {
 		//		super.authenticate("admin1");
 		super.authenticate("admin1");
-		final LegalText legalText = (LegalText) this.legalTextService.findAll().toArray()[1];
+		final LegalText legalText = (LegalText) this.legalTextService.findAll().toArray()[2];
 
 		this.legalTextService.delete(legalText);
 		super.unauthenticate();

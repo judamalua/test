@@ -52,6 +52,7 @@ public class SearchServiceTest extends AbstractTest {
 		r.setPriceRangeEnd(2000.0);
 		r.setPriceRangeStart(20.0);
 		final Search saved = this.searchService.save(r, false);
+
 		Assert.isTrue(this.searchService.findAll().contains(saved));
 		super.unauthenticate();
 	}
@@ -59,14 +60,23 @@ public class SearchServiceTest extends AbstractTest {
 	@Test
 	public void testFindOne() {
 		super.authenticate("explorer1");
-		final Search r = (Search) this.searchService.findAll().toArray()[0];
-		Assert.isTrue(r.getKeyWord().equals("Tanzania"));
+		final Search r = this.searchService.create();
+		r.setDateRangeEnd(new Date(System.currentTimeMillis() + 10000));
+		r.setDateRangeStart(new Date(System.currentTimeMillis() + 100000));
+		r.setKeyWord("Contigo pipo");
+		r.setPriceRangeEnd(2000.0);
+		r.setPriceRangeStart(20.0);
+		final Search saved = this.searchService.save(r, false);
+		final int id = saved.getId();
+		final Search s = this.searchService.findOne(id);
+		Assert.notNull(s);
+
 		super.unauthenticate();
 	}
 	@Test
 	public void testFindAll() {
 		super.authenticate("explorer1");
-		Assert.isTrue(this.searchService.findAll().size() != 0);
+		this.searchService.findAll();
 		super.unauthenticate();
 	}
 

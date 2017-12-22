@@ -16,7 +16,6 @@ import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Actor;
 import domain.Application;
-import domain.CreditCard;
 import domain.Explorer;
 import domain.Trip;
 
@@ -47,7 +46,6 @@ public class ApplicationServiceTest extends AbstractTest {
 
 		final Application application = this.applicationService.create();
 		Assert.isNull(application.getCommentaries());
-		Assert.isNull(application.getCreditCard());
 		Assert.notNull(application.getDate());
 		Assert.isNull(application.getRejection());
 		Assert.isNull(application.getTrip());
@@ -81,19 +79,10 @@ public class ApplicationServiceTest extends AbstractTest {
 		final Explorer explorer = (Explorer) this.explorerService.findAll().toArray()[0];
 		Assert.notNull(explorer);
 
-		final Trip trip = (Trip) this.tripService.findAll().toArray()[0];
-
-		final CreditCard c = new CreditCard();
-		c.setBrandName("pepe");
-		c.setCvv(123);
-		c.setExpirationMonth(10);
-		c.setExpirationYear(19);
-		c.setHolderName("pepa");
-		c.setNumber("4659813284634138");
+		final Trip trip = (Trip) this.tripService.findAll().toArray()[3];
 
 		final Application application = this.applicationService.create();
 		application.setTrip(trip);
-		application.setCreditCard(null);
 
 		final Application savedApplication = this.applicationService.save(application);
 		Assert.isTrue(this.applicationService.findAll().contains(savedApplication));
