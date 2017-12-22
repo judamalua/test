@@ -26,14 +26,18 @@
 	<display:column property="organisationMoment"
 		title="${organisationMoment}" sortable="true" format="${formatDate}" />
 
-	<spring:message code="survivalclass.location.name" var="locationName" />
-	<display:column property="location.name" title="${locationName}"
-		sortable="true" />
+<%-- 	<spring:message code="survivalclass.location.name" var="locationName" /> --%>
+<%-- 	<display:column property="location.name" title="${locationName}" --%>
+<%-- 		sortable="true" /> --%>
 
 	<spring:message code="survivalclass.location.gpsCoordinates"
 		var="gpsCoordinates" />
-	<display:column property="location.gpsCoordinates"
-		title="${gpsCoordinates}" sortable="true" />
+	<display:column title = "${gpsCoordinates}" >
+		<p><b>${row.location.name}</b></p>
+		
+		<iframe class="mapa"
+				src="https://www.google.com/maps/embed/v1/search?q=${row.location.gpsCoordinates}&key=AIzaSyBe0wmulZvK1IM3-3jIUgbxt2Ax_QOVW6c"></iframe>
+	</display:column>
 
 	<%-- 	<spring:message code="survivalclass.trips" var="trips"/>
 	<display:column title="${trips}" sortable="true" >

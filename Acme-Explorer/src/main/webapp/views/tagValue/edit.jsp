@@ -58,6 +58,6 @@
 		type="button"
 		name="cancel"
 		value="<spring:message code="tagValue.cancel" />"
-		onclick="javascript: relativeRedir('tagValue/manager/list.do?tripId=${tripId}');" />
+		onclick="javascript: relativeRedir('trip/manager/list.do');" />
 
 </form:form>

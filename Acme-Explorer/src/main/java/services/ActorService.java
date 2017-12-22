@@ -386,7 +386,7 @@ public class ActorService {
 
 	}
 
-	public Message moveMessage(final Message message, final MessageFolder folder) {
+	public Message moveMessage(final Message message, MessageFolder folder) {
 
 		Assert.notNull(folder);
 		Assert.isTrue(folder.getId() != 0);
@@ -411,10 +411,10 @@ public class ActorService {
 
 		this.messageFolderService.save(messageFolderOr);
 
-		message.setMessageFolder(folder);
 		folder.getMessages().add(message);
-		this.messageFolderService.save(folder);
+		folder = this.messageFolderService.save(folder);
 
+		message.setMessageFolder(folder);
 		result = this.messageService.save(message);
 
 		return result;

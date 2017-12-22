@@ -167,9 +167,9 @@
 				<display:column>
 					<jstl:if
 						test="${trip.startDate > currentDate and (trip.cancelReason==null || trip.cancelReason==\"\")}">
-						<a href="tagValue/manager/list.do?tripId=${trip.id}">
+						<a href = "tagValue/manager/create.do?tripId=${trip.id}">
 							<button>
-								<spring:message code="trip.tagValue.list" />
+								<spring:message code = "tagValue.create"/>
 							</button>
 						</a>
 					</jstl:if>
