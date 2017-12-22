@@ -45,24 +45,23 @@ public class TagAdminController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		final Collection<Tag> tags;
-		final Collection<String> tagOnTrips;
-		final Collection<Integer> tagValuesOnTrips = new HashSet<Integer>();
+		final Collection<Tag> tagsOnTrips;
 		Collection<Trip> trips;
 
 		trips = this.tripService.findAll();
-		tagOnTrips = new HashSet<String>();
+		tagsOnTrips = new HashSet<Tag>();
 
 		for (final Trip t : trips)
 			if (!t.getTagValues().isEmpty())
 				for (final Tag tag : this.tagService.findTagsByTrip(t.getId()))
-					tagValuesOnTrips.add(tag.getId());
+					tagsOnTrips.add(tag);
 
 		result = new ModelAndView("tag/list");
 
 		tags = this.tagService.findAll();
 
 		result.addObject("tags", tags);
-		result.addObject("tagsOnTrips", tagOnTrips);
+		result.addObject("tagsOnTrips", tagsOnTrips);
 
 		return result;
 	}
@@ -100,17 +99,32 @@ public class TagAdminController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam("tagId") final int tagId) {
+		ModelAndView result;
+		Tag tag;
+
+		tag = this.tagService.findOne(tagId);
+		this.tagService.delete(tag);
+		result = new ModelAndView("redirect:list.do");
+
+		return result;
+	}
+
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Tag tag, final BindingResult binding) {
 		ModelAndView result;
+		final Collection<Trip> trips;
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(tag, "tag.params.error");
 		else
 			try {
 				this.tagService.save(tag);
+				trips = this.tripService.findTripsByTagId(tag.getId());
+				Assert.isTrue(trips.isEmpty());
 				result = new ModelAndView("redirect:list.do");
 
 			} catch (final Throwable oops) {

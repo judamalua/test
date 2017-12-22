@@ -98,13 +98,13 @@ public class TagValueService {
 
 		assert tagValue != null;
 		assert tagValue.getId() != 0;
+		Assert.isTrue(this.tagValueRepository.exists(tagValue.getId()));
 
 		Trip trip;
 
 		trip = this.tripService.findTripByTagValue(tagValue.getId());
-
-		Assert.isTrue(this.tagValueRepository.exists(tagValue.getId()));
 		trip.getTagValues().remove(tagValue);
+
 		this.tripService.save(trip);
 
 		this.tagValueRepository.delete(tagValue);

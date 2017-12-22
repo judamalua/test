@@ -12,8 +12,8 @@
 
 <jstl:set var="containedInTrips" value="0" />
 
-<jstl:forEach var="tagId" items="${tagsOnTrips}">
-  <jstl:if test="${tagId == tag.id}">
+<jstl:forEach var="tagTrip" items="${tagsOnTrips}">
+  <jstl:if test="${tagTrip.id == tag.id}">
     <jstl:set var="containedInTrips" value="1" />
   </jstl:if>
 </jstl:forEach>
@@ -22,11 +22,17 @@
 	<display:column property="name" title="${name}" sortable="true"/>
 	
 	<display:column>
-	<jstl:if test="${containedInTrips == 0}">
-		<a href="tag/admin/edit.do?tagId=${tag.id}">
-			<spring:message code="tag.edit"/>
-		</a>
-	</jstl:if>
+	
+		<jstl:if test="${containedInTrips == 0}">
+			<a href="tag/admin/edit.do?tagId=${tag.id}">
+				<spring:message code="tag.edit"/>
+			</a>
+		</jstl:if>
+		<jstl:if test="${containedInTrips > 0}">
+			<a href="tag/admin/delete.do?tagId=${tag.id}">
+				<spring:message code="tag.delete"/>
+			</a>
+		</jstl:if>
 	</display:column>
 	
 	

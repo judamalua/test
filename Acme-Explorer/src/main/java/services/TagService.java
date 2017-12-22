@@ -107,11 +107,18 @@ public class TagService {
 		assert tag != null;
 		assert tag.getId() != 0;
 
+		Collection<TagValue> tagValues;
+
 		//		Collection<Trip> trips;
 
 		//		trips = this.tripService.findTripsByTagId(tag.getId());
 
 		Assert.isTrue(this.tagRepository.exists(tag.getId()));
+
+		tagValues = this.tagValueService.findTagValuesByTagId(tag.getId());
+
+		for (final TagValue tagValue : tagValues)
+			this.tagValueService.delete(tagValue);
 
 		this.tagRepository.delete(tag);
 

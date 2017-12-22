@@ -34,8 +34,6 @@
 					<li class="arrow"></li>
 					<li><a href="application/explorer/list.do"><spring:message
 								code="master.page.applicationList" /></a></li>
-					<%-- 					<li><a href="trip/list.do"><spring:message --%>
-					<%-- 								code="master.page.tripList" /></a></li> --%>
 					<li><a href="contact/explorer/list.do"><spring:message code="master.page.contacts" /></a></li>
 					<li><a href="survivalClass/explorer/list-joined.do"><spring:message
 								code="master.page.survivalClassList" /></a></li>
@@ -53,8 +51,6 @@
 					<li class="arrow"></li>
 					<li><a href="trip/list.do"><spring:message
 								code="master.page.tripList" /></a></li>
-					<%-- 					<li><a href="category/list.do"><spring:message --%>
-					<%-- 								code="master.page.categoryList" /></a></li> --%>
 					<li><a href="curriculum/ranger/list.do"><spring:message
 								code="master.page.curriculumList" /></a></li>
 					<li><a href="actor/ranger/edit.do"><spring:message
@@ -71,8 +67,6 @@
 					<li class="arrow"></li>
 					<li><a href="trip/list.do"><spring:message
 								code="master.page.tripList" /></a></li>
-					<%-- 					<li><a href="category/list.do"><spring:message --%>
-					<%-- 								code="master.page.categoryList" /></a></li> --%>
 					<li><a href="sponsorship/sponsor/list.do"><spring:message
 								code="master.page.sponsorshipList" /></a></li>
 					<li><a href="actor/sponsor/edit.do"><spring:message
@@ -95,8 +89,6 @@
 								code="master.page.auditRecordList" /></a></li>
 					<li><a href="survivalClass/manager/list-managed.do"><spring:message
 								code="master.page.survivalClassListManaged" /></a></li>
-					<%-- 					<li><a href="category/list.do"><spring:message --%>
-					<%-- 								code="master.page.categoryList" /></a></li> --%>
 					<li><a href="actor/manager/edit.do"><spring:message
 								code="master.page.actorEdit" /></a></li>
 				</ul></li>			
@@ -129,10 +121,6 @@
 					<li class="arrow"></li>
 					<li><a href="actor/admin/list-suspicious.do"><spring:message
 								code="master.page.list.suspicious" /></a></li>
-					<li><a href="trip/list.do"><spring:message
-								code="master.page.tripList" /></a></li>
-					<li><a href="category/list.do"><spring:message
-								code="master.page.categoryList" /></a></li>
 					<li><a href="configuration/admin/list.do"><spring:message
 								code="master.page.configurationList" /></a></li>
 					<li><a href="dashboard/admin/list.do"><spring:message
@@ -164,6 +152,13 @@
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
+
+			<li><a href="messageFolder/list.do"><spring:message
+						code="master.page.actorMessageFolder" /></a></li>
+			<li><a class="fNiv" href="socialIdentity/list.do"><spring:message
+						code="master.page.socialIdentities" /></a></li>
+			<li><a href="category/list.do"><spring:message
+						code="master.page.categoryList" /></a></li>
 			<li><a class="fNiv"> <spring:message
 						code="master.page.profile" /> (<security:authentication
 						property="principal.username" />)
@@ -173,14 +168,6 @@
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>
-
-			<li><a href="messageFolder/list.do"><spring:message
-						code="master.page.actorMessageFolder" /></a></li>
-			<li><a class="fNiv" href="socialIdentity/list.do"><spring:message
-						code="master.page.socialIdentities" /></a></li>
-			<li><a href="category/list.do"><spring:message
-						code="master.page.categoryList" /></a></li>
-
 		</security:authorize>
 
 	</ul>

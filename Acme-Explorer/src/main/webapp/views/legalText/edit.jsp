@@ -29,10 +29,11 @@
 	<form:errors cssClass="error" path="body"/>
 	<br/>
 	
+	<spring:message code="legalText.applicableLaws.placeholder" var="applicableLawsPlaceholder"/>
 	<form:label path="applicableLaws">
-		<spring:message code="legalText.applicableLaws"/>
+		<spring:message code="legalText.applicableLaws"/> <spring:message code="legalText.applicableLaws.message" />
 	</form:label>
-	<form:textarea path="applicableLaws"/>
+	<form:textarea path="applicableLaws" placeholder="${applicableLawsPlaceholder}"/>
 	<form:errors cssClass="error" path="applicableLaws"/>
 	<br/>
 	
