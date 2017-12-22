@@ -122,12 +122,15 @@ public class ApplicationExplorerController extends AbstractController {
 	public ModelAndView cancel(@RequestParam final int applicationId) {
 		ModelAndView result;
 		Application application;
+		try {
+			application = this.applicationService.findOne(applicationId);
 
-		application = this.applicationService.findOne(applicationId);
-
-		this.applicationService.changeStatus(application, "CANCELLED");
-		this.applicationService.save(application);
-		result = new ModelAndView("redirect:list.do");
+			this.applicationService.changeStatus(application, "CANCELLED");
+			this.applicationService.save(application);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 
 		return result;
 	}
