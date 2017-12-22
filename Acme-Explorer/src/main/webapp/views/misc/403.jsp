@@ -16,6 +16,9 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>Oops! You don't have access to this resource.</p> 
+<img src="https://media.giphy.com/media/5Zesu5VPNGJlm/200.gif"/>
+<p>Oops! It appears that you don't have access to this resource.</p>
+<p>If this is an error, our team of highly trained monkeys are trying to repair this problem right now.</p>
+<p>Thank you for using this service.</p>
 
 <p><a href="<spring:url value='/' />">Return to the welcome page</a><p>
