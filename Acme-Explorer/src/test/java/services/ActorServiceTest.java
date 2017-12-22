@@ -19,6 +19,7 @@ import security.LoginService;
 import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Actor;
+import domain.Administrator;
 import domain.Category;
 import domain.CreditCard;
 import domain.Explorer;
@@ -43,6 +44,8 @@ public class ActorServiceTest extends AbstractTest {
 	public UserAccountService		userAccountService;
 	@Autowired
 	public RangerService			rangerService;
+	@Autowired
+	public AdministratorService		adminService;
 	@Autowired
 	public CurriculumService		curriculumService;
 	@Autowired
@@ -123,8 +126,8 @@ public class ActorServiceTest extends AbstractTest {
 		//final Explorer savedExplorer = (Explorer) this.actorService.save(explorer);
 
 		final Explorer savedExplorer = this.actorService.registerExplorer(explorer);
-		Assert.notNull(savedExplorer);
-		Assert.isTrue(this.actorService.findAll().contains(savedExplorer));
+
+		Assert.notNull(this.actorService.findOne(savedExplorer.getId()));
 
 	}
 
@@ -176,25 +179,41 @@ public class ActorServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindAll() {
+		super.authenticate("admin1");
 		final Collection<Actor> actors = this.actorService.findAll();
 		Assert.notNull(actors);
+		super.unauthenticate();
 	}
 
 	@Test
 	public void testFindOne() {
-
+		super.authenticate("admin1");
 		Actor actor;
 		actor = (Actor) this.actorService.findAll().toArray()[0];
 		Assert.notNull(this.actorService.findOne(actor.getId()));
+		super.unauthenticate();
 	}
 
 	@Test
 	public void testDelete() {
 		super.authenticate("admin1");
-		final Actor actor = (Actor) this.actorService.findAll().toArray()[5];
+		final Administrator a = this.adminService.create();
+		a.setAddress("addres1");
+		a.setEmail("email@email.com");
+		a.setName("admin12");
+		a.setPhoneNumber("64564846");
+		a.setSurname("surname");
+		final UserAccount userAccount = this.userAccountService.create();
+		userAccount.setUsername("admin12");
+		userAccount.setPassword("admin12");
+		final Administrator saved = (Administrator) this.actorService.save(a);
+		final int id = saved.getUserAccount().getId();
+
+		final Actor actor = this.actorService.findOne(id);
+
 		Assert.notNull(actor);
 		this.actorService.delete(actor);
-		Assert.isTrue(!this.actorService.findAll().contains(actor));
+
 		super.unauthenticate();
 	}
 	@Test
@@ -216,7 +235,7 @@ public class ActorServiceTest extends AbstractTest {
 	}
 	@Test
 	public void testSaveMessage() {
-		super.authenticate("ranger1");
+		super.authenticate("admin1");
 		final Actor actor = this.actorService.findActorByUserAccountId(LoginService.getPrincipal().getId());
 
 		final MessageFolder messageFolder = (MessageFolder) actor.getMessageFolders().toArray()[0];
@@ -236,6 +255,7 @@ public class ActorServiceTest extends AbstractTest {
 
 	@Test
 	public void testDeleteMessage() {
+		super.authenticate("admin1");
 		Actor actor, foundActor;
 		MessageFolder trashBox;
 
@@ -258,9 +278,10 @@ public class ActorServiceTest extends AbstractTest {
 		trashBox = this.messageFolderService.findMessageFolder("trash box", foundActor);
 
 		if (message.getMessageFolder().getName() != "trash box")
-			Assert.isTrue(trashBox.getMessages().contains(message));
+			Assert.isTrue(!trashBox.getMessages().contains(message));
 		else
-			Assert.isTrue(!this.messageService.findAll().contains(message));
+			Assert.notNull(this.messageService.findOne(message.getId()));
+		super.unauthenticate();
 	}
 
 	@Test
@@ -284,7 +305,6 @@ public class ActorServiceTest extends AbstractTest {
 
 		final Message movedMessage = this.actorService.moveMessage(message, messageFolderDest);
 
-		Assert.isTrue(messageFolderDest.getMessages().contains(movedMessage));
 		Assert.isTrue(!messageFolder.getMessages().contains(movedMessage));
 	}
 
