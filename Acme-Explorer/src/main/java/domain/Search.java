@@ -10,7 +10,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -33,7 +32,6 @@ public class Search extends DomainEntity {
 	private long	millis;
 
 
-	@NotBlank
 	public String getKeyWord() {
 		return this.keyWord;
 	}
