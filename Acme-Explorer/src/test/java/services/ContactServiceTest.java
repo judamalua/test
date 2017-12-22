@@ -71,6 +71,7 @@ public class ContactServiceTest extends AbstractTest {
 		final Contact c = this.contactService.create();
 
 		c.setName("Manolo Padilla");
+		c.setEmail("manolopadilla@gmail.com");
 
 		final Contact savedc = this.contactService.save(c);
 

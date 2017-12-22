@@ -1,10 +1,7 @@
 
 package services;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +30,8 @@ public class EducationRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreate() {
+		super.authenticate("ranger1");
+
 		final EducationRecord r = this.educationRecordService.create();
 		Assert.isNull(r.getDiplomaTitle());
 		Assert.isNull(r.getStudyingPeriodEnd());
@@ -40,28 +39,20 @@ public class EducationRecordServiceTest extends AbstractTest {
 		Assert.isNull(r.getInstitution());
 		Assert.isNull(r.getAttachment());
 		Assert.isNull(r.getCommentaries());
+		super.unauthenticate();
 	}
 
 	@Test
 	public void testSave() {
-		final EducationRecord r = this.educationRecordService.create();
-		r.setDiplomaTitle("Titulo diploma");
-		final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date fin = null;
-		Date inicio = null;
-		try {
-			fin = sdf.parse("21/12/2015");
-			inicio = sdf.parse("21/12/2012");
-		} catch (final ParseException e) {
-			e.printStackTrace();
-		}
-		r.setStudyingPeriodStart(inicio);
-		r.setStudyingPeriodEnd(fin);
-		r.setInstitution("Institucion");
-		r.setAttachment("http://www.link.com");
-		r.setCommentaries("Comentario");
-		final EducationRecord saved = this.educationRecordService.save(r);
-		Assert.isTrue(this.educationRecordService.findAll().contains(saved));
+		super.authenticate("ranger1");
+
+		final EducationRecord er = (EducationRecord) this.educationRecordService.findAll().toArray()[0];
+		er.setCommentaries("comentarios varios");
+		er.setDiplomaTitle("graduado escolar");
+		final EducationRecord saved = this.educationRecordService.save(er);
+		final int id = saved.getId();
+		Assert.notNull(this.educationRecordService.findOne(id));
+		super.unauthenticate();
 	}
 
 	@Test

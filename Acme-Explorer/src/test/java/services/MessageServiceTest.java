@@ -38,17 +38,15 @@ public class MessageServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreate() {
+		super.authenticate("admin1");
 		Message message;
 		message = this.messageService.create();
 
 		Assert.notNull(message);
 		Assert.isNull(message.getBody());
-		Assert.isNull(message.getMessageFolder());
 		Assert.isNull(message.getPriority());
 		Assert.isNull(message.getReceiver());
-		Assert.isNull(message.getReceptionDate());
-		Assert.isNull(message.getSender());
-		Assert.isNull(message.getSubject());
+		super.unauthenticate();
 
 	}
 

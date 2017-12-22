@@ -84,7 +84,7 @@ public class CategoryServiceTest extends AbstractTest {
 	public void testDelete() {
 		super.authenticate("admin1");
 
-		final Category c = (Category) this.categoryService.findAll().toArray()[1];
+		final Category c = (Category) this.categoryService.findAll().toArray()[2];
 		Assert.notNull(c);
 		Assert.notNull(c.getCategories());
 		final Collection<Trip> t = this.tripService.findTripsByCategoryId(c.getId());

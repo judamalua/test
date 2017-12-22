@@ -88,7 +88,7 @@ public class ContactService {
 		Assert.isTrue(!((contact.getEmail() == "" || contact.getEmail() == null) && (contact.getPhoneNumber() == "" || contact.getPhoneNumber() == null)));
 
 		// Si el número de teléfono no tiene prefijo, se añade el de configuración por defecto.
-		if (!contact.getPhoneNumber().trim().startsWith("+") && !contact.getPhoneNumber().equals("")) {
+		if ((contact.getPhoneNumber() != null) && !contact.getPhoneNumber().equals("") && !contact.getPhoneNumber().trim().startsWith("+")) {
 			String trimmedPhoneNumber;
 			String finalPhoneNumber;
 

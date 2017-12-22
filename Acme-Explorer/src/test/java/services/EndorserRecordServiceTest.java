@@ -30,16 +30,19 @@ public class EndorserRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreate() {
+		super.authenticate("ranger2");
 		final EndorserRecord r = this.endorserRecordService.create();
 		Assert.isNull(r.getFullName());
 		Assert.isNull(r.getPhoneNumber());
 		Assert.isNull(r.getEmail());
 		Assert.isNull(r.getLinkedInProfileURL());
 		Assert.isNull(r.getCommentaries());
+		super.unauthenticate();
 	}
 
 	@Test
 	public void testSave() {
+		super.authenticate("ranger2");
 		final EndorserRecord r = this.endorserRecordService.create();
 		r.setFullName("Jhon Mac");
 		r.setPhoneNumber("6733445588");
@@ -48,17 +51,22 @@ public class EndorserRecordServiceTest extends AbstractTest {
 		r.setCommentaries("Comentario");
 		final EndorserRecord saved = this.endorserRecordService.save(r);
 		Assert.isTrue(this.endorserRecordService.findAll().contains(saved));
+		super.unauthenticate();
 	}
 
 	@Test
 	public void testFindOne() {
+		super.authenticate("ranger2");
 		final EndorserRecord r = (EndorserRecord) this.endorserRecordService.findAll().toArray()[0];
 		Assert.notNull(r);
+		super.unauthenticate();
 	}
 	@Test
 	public void testFindAll() {
+		super.authenticate("ranger2");
 		final Collection<EndorserRecord> records = this.endorserRecordService.findAll();
 		Assert.notNull(records);
+		super.unauthenticate();
 
 	}
 
