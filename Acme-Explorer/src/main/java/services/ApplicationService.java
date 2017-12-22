@@ -218,7 +218,7 @@ public class ApplicationService {
 		// Comprobación palabras de spam
 		if (this.actorService.findActorByPrincipal() instanceof Explorer) {
 
-			if (!application.getCommentaries().equals(null))
+			if (application.getCommentaries() != null)
 				this.actorService.checkSpamWords(application.getCommentaries());
 			this.actorService.checkSpamWords(application.getCreditCard().getBrandName());
 			this.actorService.checkSpamWords(application.getCreditCard().getHolderName());
