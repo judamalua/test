@@ -133,8 +133,6 @@
 								code="master.page.tripList" /></a></li>
 					<li><a href="category/list.do"><spring:message
 								code="master.page.categoryList" /></a></li>
-					<li><a href="search/admin/list.do"><spring:message
-								code="master.page.searchs" /></a></li>
 					<li><a href="configuration/admin/list.do"><spring:message
 								code="master.page.configurationList" /></a></li>
 					<li><a href="dashboard/admin/list.do"><spring:message
