@@ -863,7 +863,23 @@
 		<property name="dateRangeStart" value="2017/12/12 12:00" />
 		<property name="dateRangeEnd" value="2017/12/25 12:00" />
 		<property name="searchMoment" value="2017/12/10 12:00" />
-		<property name="millis" value="1000000" />
+		<property name="trips">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="Search2" class="domain.Search">
+		<property name="keyWord" value="Tanzania" />
+		<property name="priceRangeStart" value="200.0" />
+		<property name="priceRangeEnd" value="500.0" />
+		<property name="dateRangeStart" value="2017/12/12 12:00" />
+		<property name="dateRangeEnd" value="2017/12/25 12:00" />
+		<property name="searchMoment" value="2017/12/10 12:00" />
+		<property name="trips">
+			<list>
+			</list>
+		</property>
 	</bean>
 
 
@@ -903,11 +919,7 @@
 				<ref bean="Contact8" />
 			</list>
 		</property>
-		<property name="searches">
-			<list>
-				<ref bean="Search1" />
-			</list>
-		</property>
+		<property name="search" ref ="Search1"/>
 		<property name="survivalClasses">
 			<list>
 				<ref bean="SurvivalClass1" />
@@ -954,9 +966,7 @@
 				<ref bean="Contact3" />
 			</list>
 		</property>
-		<property name="searches">
-			<list>
-			</list>
+		<property name="search" ref="Search2">
 		</property>
 		<property name="survivalClasses">
 			<list>

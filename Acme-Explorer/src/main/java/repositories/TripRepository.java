@@ -48,7 +48,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select t.legalText.title,(select count(t) from LegalText lt where t.legalText=lt) from Trip t group by t.legalText")
 	Collection<String> getNumberOfReferencesLegalTexts();
 	//requirement 34
-	@Query("select t from Trip t where t.title like ?1 or t.ticker like ?1 or t.description like ?1  and t.startDate between  ?2 " + "and ?3 and t.price between  ?4 and ?5 and t.publicationDate < NOW() ")
+	@Query("select t from Trip t where (t.title like ?1 or t.ticker like ?1 or t.description like ?1)  and (t.startDate between  ?2 and ?3) and (t.price between  ?4 and ?5) and t.publicationDate < NOW() ")
 	Page<Trip> findTripsBySearchParameters(String q, Date date1, Date date2, Double pricelow, Double priceHigh, Pageable pageable);
 
 	@Query("select t from Trip t where  t.startDate between  ?1 " + "and ?2 and t.price between  ?3 and ?4 and t.publicationDate <= NOW() ")

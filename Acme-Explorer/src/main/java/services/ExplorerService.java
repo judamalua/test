@@ -25,19 +25,26 @@ public class ExplorerService {
 
 	@Autowired
 	private ExplorerRepository		explorerRepository;
+
 	@Autowired
 	private MessageFolderService	messageFolderService;
 
 	@Autowired
 	private ActorService			actorService;
 
+	@Autowired
+	private SearchService			searchService;
+
 
 	// Simple CRUD methods --------------------------------------------------
 
 	public Explorer create() {
 		Explorer result;
+		Search search;
 
 		result = new Explorer();
+		search = this.searchService.create();
+
 		final MessageFolder inbox = this.messageFolderService.create();
 		inbox.setIsDefault(true);
 		inbox.setMessageFolderFather(null);
@@ -77,7 +84,7 @@ public class ExplorerService {
 		result.setSuspicious(false);
 		result.setApplications(new ArrayList<Application>());
 		result.setContacts(new ArrayList<Contact>());
-		result.setSearches(new ArrayList<Search>());
+		result.setSearch(search);
 		result.setSurvivalClasses(new ArrayList<SurvivalClass>());
 		result.setStories(new ArrayList<Story>());
 
@@ -124,6 +131,8 @@ public class ExplorerService {
 		this.actorService.checkUserLogin();
 
 		//Borrar aplicaciones antes?
+		this.searchService.delete(explorer.getSearch());
+		explorer.setSearch(null);
 
 		this.explorerRepository.delete(explorer);
 

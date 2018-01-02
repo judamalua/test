@@ -8,6 +8,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -30,7 +31,7 @@ public class Explorer extends Actor {
 	private Collection<Story>			stories;
 	private Collection<Application>		applications;
 	private Collection<Contact>			contacts;
-	private Collection<Search>			searches;
+	private Search						search;
 	private Collection<SurvivalClass>	survivalClasses;
 
 
@@ -65,13 +66,13 @@ public class Explorer extends Actor {
 	}
 
 	@NotNull
-	@OneToMany
-	public Collection<Search> getSearches() {
-		return this.searches;
+	@OneToOne
+	public Search getSearch() {
+		return this.search;
 	}
 
-	public void setSearches(final Collection<Search> searches) {
-		this.searches = searches;
+	public void setSearch(final Search search) {
+		this.search = search;
 	}
 
 	@NotNull
@@ -82,11 +83,6 @@ public class Explorer extends Actor {
 
 	public void setSurvivalClasses(final Collection<SurvivalClass> survivalClasses) {
 		this.survivalClasses = survivalClasses;
-	}
-
-	@Override
-	public String toString() {
-		return "Explorer [stories=" + this.stories + ", applications=" + this.applications + ", contacts=" + this.contacts + ", searches=" + this.searches + ", survivalClasses=" + this.survivalClasses + "]" + super.toString();
 	}
 
 }

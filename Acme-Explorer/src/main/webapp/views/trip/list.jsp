@@ -45,13 +45,14 @@
 
 </jstl:if>
 
-<jstl:if test="${requestUri==\"trip/searchExplorer.do\"}">
+<jstl:if test="${requestUri==\"trip/listExplorer.do\"}">
 
 	<form:form action="trip/searchExplorer.do" modelAttribute="search"
-		method="GET">
+		method="POST">
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		<form:hidden path="searchMoment" />
+		<form:hidden path="trips" />
 
 
 		<label> <spring:message code="trip.search" />
@@ -95,9 +96,9 @@
 	<jstl:if test="${requestUri==\"trip/manager/list.do\"}">
 		<jstl:set value="?" var="connector" />
 	</jstl:if>
-	<jstl:if test="${requestUri==\"trip/searchExplorer.do\"}">
+	<jstl:if test="${requestUri==\"trip/listExplorer.do\"}">
 		<jstl:set
-			value="?keyword=${search.keyWord}&startDate=${startDate}&endDate=${endDate}&startPrice=${startPrice}&endPrice=${endPrice}&"
+			value="?"
 			var="connector" />
 	</jstl:if>
 	<span class="pagebanner"> <jstl:forEach begin="1"

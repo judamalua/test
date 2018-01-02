@@ -141,19 +141,22 @@ public class TripController extends AbstractController {
 		Collection<Trip> trips;
 		Page<Trip> tripsPage;
 		Pageable pageable;
-		final Configuration configuration;
+		Configuration configuration;
+		Explorer explorer;
+		Search search;
 
 		result = new ModelAndView("trip/list");
+		explorer = (Explorer) this.actorService.findActorByPrincipal();
 		configuration = this.configurationService.findConfiguration();
 		pageable = new PageRequest(page, configuration.getMaxResults());
 
-		final Search search = this.searchService.getSearchFromExplorer(this.actorService.findActorByPrincipal().getId());
+		search = explorer.getSearch();
 		tripsPage = this.tripService.findTripsBySearchParameters(search, pageable);
 		trips = tripsPage.getContent();
 		result.addObject("trips", trips);
 		result.addObject("search", search);
 		result.addObject("pageNum", tripsPage.getTotalPages());
-		result.addObject("requestUri", "trip/searchExplorer.do");
+		result.addObject("requestUri", "trip/listExplorer.do");
 
 		return result;
 	}
@@ -207,7 +210,7 @@ public class TripController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/searchExplorer", method = RequestMethod.GET, params = "save")
+	@RequestMapping(value = "/searchExplorer", method = RequestMethod.POST, params = "save")
 	public ModelAndView searchExplorer(@Valid final Search search, final BindingResult binding, @RequestParam(value = "page", required = false, defaultValue = "0") final int page) {
 		ModelAndView result;
 		Collection<Trip> trips;
@@ -227,23 +230,25 @@ public class TripController extends AbstractController {
 			result.addObject("trips", trips);
 			result.addObject("search", search);
 			result.addObject("pageNum", tripsPage.getTotalPages());
-			result.addObject("requestUri", "trip/searchExplorer.do");
-		}
-
-		else
+			result.addObject("requestUri", "trip/listExplorer.do");
+		} else
 			try {
-				final Search s = this.searchService.save(search, false);
+				final Search s;
+
 				result = new ModelAndView("trip/list");
 				configuration = this.configurationService.findConfiguration();
 				pageable = new PageRequest(0, configuration.getMaxResults());
 
-				tripsPage = this.tripService.findTripsBySearchParameters(s, pageable);
+				tripsPage = this.tripService.findTripsBySearchParameters(search, pageable);
 				trips = tripsPage.getContent();
+
+				search.setTrips(trips);
+				s = this.searchService.save(search);
 
 				result.addObject("trips", trips);
 				result.addObject("search", s);
 				result.addObject("pageNum", tripsPage.getTotalPages());
-				result.addObject("requestUri", "trip/searchExplorer.do");
+				result.addObject("requestUri", "trip/listExplorer.do");
 			} catch (final Throwable oops) {
 
 				//TODO: IMPORTANTE
@@ -258,7 +263,7 @@ public class TripController extends AbstractController {
 				result.addObject("trips", trips);
 				result.addObject("search", search);
 				result.addObject("pageNum", tripsPage.getTotalPages());
-				result.addObject("requestUri", "trip/searchExplorer.do");
+				result.addObject("requestUri", "trip/listExplorer.do");
 			}
 
 		return result;

@@ -8,6 +8,8 @@ import java.util.Random;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -488,28 +490,29 @@ public class TripService {
 
 	public Page<Trip> findTripsBySearchParameters(final Search s, final Pageable pageable) {
 		final Page<Trip> trips;
-		String startDate = this.convertDate(s.getDateRangeStart());
-		String endDate = this.convertDate(s.getDateRangeEnd());
+		Date startDate = s.getDateRangeStart();
+		Date endDate = s.getDateRangeEnd();
 		Double startPrice = s.getPriceRangeStart();
 		Double endPrice = s.getPriceRangeEnd();
+		final DateTimeFormatter fmt = new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy").appendPattern(" HH:mm").toFormatter();
 		if (startDate == null)
-			startDate = "1900/01/01 00:00";
+			startDate = LocalDateTime.parse("01/01/1900 00:00", fmt).toDate();
 		if (endDate == null)
-			endDate = "2999/01/01 00:00";
+			endDate = LocalDateTime.parse("01/01/2999 00:00", fmt).toDate();
 		if (startPrice == null)
 			startPrice = 0.0;
 		if (endPrice == null)
 			endPrice = Double.MAX_VALUE;
 		if (s.getKeyWord() == null || s.getKeyWord().equals(""))
-			trips = this.tripRepository.findTripsBySearchParametersWithoutQ(s.getDateRangeStart(), s.getDateRangeEnd(), startPrice, endPrice, pageable);
+			trips = this.tripRepository.findTripsBySearchParametersWithoutQ(startDate, endDate, startPrice, endPrice, pageable);
 		else
-			trips = this.tripRepository.findTripsBySearchParameters("%" + s.getKeyWord() + "%", s.getDateRangeStart(), s.getDateRangeEnd(), startPrice, endPrice, pageable);
+			trips = this.tripRepository.findTripsBySearchParameters("%" + s.getKeyWord() + "%", startDate, endDate, startPrice, endPrice, pageable);
 		return trips;
 	}
 	private String convertDate(final Date dateRangeStart) {
 		String res = null;
 		if (dateRangeStart != null)
-			res = dateRangeStart.getYear() + "/" + dateRangeStart.getMonth() + "/" + dateRangeStart.getDay() + " " + dateRangeStart.getHours() + ":" + dateRangeStart.getMinutes();
+			res = dateRangeStart.getYear() + "-" + dateRangeStart.getMonth() + "-" + dateRangeStart.getDay() + " " + dateRangeStart.getHours() + ":" + dateRangeStart.getMinutes();
 		return res;
 	}
 	public Page<Trip> findTripsBySearchParameters(final String keyword, final Pageable pageable) {
