@@ -501,13 +501,15 @@ public class TripService {
 		if (endPrice == null)
 			endPrice = Double.MAX_VALUE;
 		if (s.getKeyWord() == null || s.getKeyWord().equals(""))
-			trips = this.tripRepository.findTripsBySearchParametersWithoutQ(startDate, endDate, startPrice, endPrice, pageable);
+			trips = this.tripRepository.findTripsBySearchParametersWithoutQ(s.getDateRangeStart(), s.getDateRangeEnd(), startPrice, endPrice, pageable);
 		else
-			trips = this.tripRepository.findTripsBySearchParameters("%" + s.getKeyWord() + "%", startDate, endDate, startPrice, endPrice, pageable);
+			trips = this.tripRepository.findTripsBySearchParameters("%" + s.getKeyWord() + "%", s.getDateRangeStart(), s.getDateRangeEnd(), startPrice, endPrice, pageable);
 		return trips;
 	}
 	private String convertDate(final Date dateRangeStart) {
-		final String res = dateRangeStart.getYear() + "/" + dateRangeStart.getMonth() + "/" + dateRangeStart.getDay() + " " + dateRangeStart.getHours() + ":" + dateRangeStart.getMinutes();
+		String res = null;
+		if (dateRangeStart != null)
+			res = dateRangeStart.getYear() + "/" + dateRangeStart.getMonth() + "/" + dateRangeStart.getDay() + " " + dateRangeStart.getHours() + ":" + dateRangeStart.getMinutes();
 		return res;
 	}
 	public Page<Trip> findTripsBySearchParameters(final String keyword, final Pageable pageable) {

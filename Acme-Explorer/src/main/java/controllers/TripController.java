@@ -147,10 +147,9 @@ public class TripController extends AbstractController {
 		configuration = this.configurationService.findConfiguration();
 		pageable = new PageRequest(page, configuration.getMaxResults());
 
-		tripsPage = this.tripService.findPublicatedTrips(pageable);
-		trips = tripsPage.getContent();
 		final Search search = this.searchService.getSearchFromExplorer(this.actorService.findActorByPrincipal().getId());
-
+		tripsPage = this.tripService.findTripsBySearchParameters(search, pageable);
+		trips = tripsPage.getContent();
 		result.addObject("trips", trips);
 		result.addObject("search", search);
 		result.addObject("pageNum", tripsPage.getTotalPages());
@@ -208,7 +207,7 @@ public class TripController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/searchExplorer", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchExplorer", method = RequestMethod.GET, params = "save")
 	public ModelAndView searchExplorer(@Valid final Search search, final BindingResult binding, @RequestParam(value = "page", required = false, defaultValue = "0") final int page) {
 		ModelAndView result;
 		Collection<Trip> trips;
@@ -233,19 +232,22 @@ public class TripController extends AbstractController {
 
 		else
 			try {
-				this.searchService.save(search, false);
+				final Search s = this.searchService.save(search, false);
 				result = new ModelAndView("trip/list");
 				configuration = this.configurationService.findConfiguration();
 				pageable = new PageRequest(0, configuration.getMaxResults());
 
-				tripsPage = this.tripService.findTripsBySearchParameters(search, pageable);
+				tripsPage = this.tripService.findTripsBySearchParameters(s, pageable);
 				trips = tripsPage.getContent();
 
 				result.addObject("trips", trips);
-				result.addObject("search", search);
+				result.addObject("search", s);
 				result.addObject("pageNum", tripsPage.getTotalPages());
 				result.addObject("requestUri", "trip/searchExplorer.do");
 			} catch (final Throwable oops) {
+
+				//TODO: IMPORTANTE
+				oops.printStackTrace();
 				result = new ModelAndView("trip/list");
 				configuration = this.configurationService.findConfiguration();
 				pageable = new PageRequest(0, configuration.getMaxResults());
