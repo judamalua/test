@@ -59,7 +59,7 @@ public class ExplorerServiceTest extends AbstractTest {
 		Assert.isTrue(explorer.getApplications().isEmpty());
 		Assert.isTrue(explorer.getContacts().isEmpty());
 		Assert.isTrue(explorer.getStories().isEmpty());
-		Assert.isTrue(explorer.getSearches().isEmpty());
+		Assert.notNull(explorer.getSearch());
 		Assert.isTrue(explorer.getSurvivalClasses().isEmpty());
 
 		super.unauthenticate();

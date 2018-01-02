@@ -1,11 +1,13 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -29,7 +31,6 @@ public class Search extends DomainEntity {
 	private Date	dateRangeStart;
 	private Date	dateRangeEnd;
 	private Date	searchMoment;
-	private long	millis;
 
 
 	public String getKeyWord() {
@@ -38,14 +39,6 @@ public class Search extends DomainEntity {
 
 	public void setKeyWord(final String keyWord) {
 		this.keyWord = keyWord;
-	}
-
-	public long getmillis() {
-		return this.millis;
-	}
-
-	public void setmillis(final long millis) {
-		this.millis = millis;
 	}
 
 	public Double getPriceRangeStart() {
@@ -93,6 +86,22 @@ public class Search extends DomainEntity {
 
 	public void setSearchMoment(final Date searchMoment) {
 		this.searchMoment = searchMoment;
+	}
+
+
+	// Relationships ----------------------------------------------------------
+
+	private Collection<Trip>	trips;
+
+
+	@NotNull
+	@ManyToMany
+	public Collection<Trip> getTrips() {
+		return this.trips;
+	}
+
+	public void setTrips(final Collection<Trip> trips) {
+		this.trips = trips;
 	}
 
 	@Override

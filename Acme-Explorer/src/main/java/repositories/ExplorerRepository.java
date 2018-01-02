@@ -17,7 +17,7 @@ public interface ExplorerRepository extends JpaRepository<Explorer, Integer> {
 	@Query("select a from Explorer e join e.applications a where e.id = ?1 and a.trip.id= ?2 and a.status = 'ACCEPTED'")
 	Application findApplicationByExplorerTrip(int idExplorer, int idtrip);
 
-	@Query("select e from Explorer e join e.searches s where s.id=?1")
+	@Query("select e from Explorer e where e.search.id=?1")
 	Explorer findExplorerBySearch(int id);
 
 }

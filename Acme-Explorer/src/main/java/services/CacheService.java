@@ -39,7 +39,7 @@ public class CacheService {
 					&& s1.getDateRangeEnd().equals(search.getDateRangeEnd()))
 					sfinal = s1;
 			if (sfinal != null) {
-				this.searchService.save(sfinal, true);
+				this.searchService.save(sfinal);
 				trips = this.caché.get(sfinal);
 			}
 		}
