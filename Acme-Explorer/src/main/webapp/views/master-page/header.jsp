@@ -23,7 +23,7 @@
 </a>
 </div>
 
-<div>
+<nav class="navbar navbar-inverse">
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 
@@ -171,7 +171,7 @@
 		</security:authorize>
 
 	</ul>
-</div>
+</nav>
 
 <div>
 	<a href="?language=en">en</a> | <a href="?language=es">es</a>
