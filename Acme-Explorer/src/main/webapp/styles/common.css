@@ -26,8 +26,16 @@
 	margin-left: 1%;
 }
 
+@font-face {
+	font-family: 'Tw Cen MT';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Tw Cen MT'), url('Tw Cen MT.woff') format('woff');
+}
+
 body{
 	background-color: #ffffdc;
+	font-family:'Tw Cen MT';
 }
 .sponsorshipBannerUrl{
 	width: 10%;
