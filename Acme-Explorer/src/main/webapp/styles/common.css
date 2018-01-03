@@ -25,6 +25,10 @@
 .body{
 	margin-left: 1%;
 }
+
+body{
+	background-color: #ffffdc;
+}
 .sponsorshipBannerUrl{
 	width: 10%;
 	height: 10%;

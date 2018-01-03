@@ -4,11 +4,14 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
 import javax.validation.Valid;
 
+import org.joda.time.DateTime;
+import org.joda.time.Hours;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -151,7 +154,19 @@ public class TripController extends AbstractController {
 		pageable = new PageRequest(page, configuration.getMaxResults());
 
 		search = explorer.getSearch();
-		tripsPage = this.tripService.findTripsBySearchParameters(search, pageable);
+		final int hours = Hours.hoursBetween(new DateTime(search.getSearchMoment()), new DateTime(new Date())).getHours();
+		if (hours <= 1)
+			tripsPage = this.tripService.findTripsBySearchParameters(search, pageable);
+		else {
+			tripsPage = this.tripService.findPublicatedTrips(pageable);
+			search.setKeyWord("");
+			search.setTrips(new HashSet<Trip>());
+			search.setDateRangeStart(null);
+			search.setDateRangeEnd(null);
+			search.setPriceRangeStart(null);
+			search.setPriceRangeEnd(null);
+			this.searchService.save(search);
+		}
 		trips = tripsPage.getContent();
 		result.addObject("trips", trips);
 		result.addObject("search", search);
